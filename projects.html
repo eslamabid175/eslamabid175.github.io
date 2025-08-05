@@ -19,9 +19,24 @@
         <!-- AOS Animation Library -->
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <style>
+            /* Add padding for fixed navbar */
+            body {
+                padding-top: 70px;
+            }
+            
+            .project-item {
+                display: block;
+                transition: all 0.3s ease;
+            }
+            
+            .project-item.hidden {
+                display: none !important;
+            }
+            
             .project-card {
                 transition: all 0.3s ease;
                 overflow: hidden;
+                height: 100%;
             }
             
             .project-card:hover {
@@ -47,11 +62,14 @@
             .filter-btn {
                 cursor: pointer;
                 transition: all 0.3s ease;
+                border-radius: 25px;
+                padding: 0.5rem 1.5rem;
             }
             
             .filter-btn:hover, .filter-btn.active {
-                background-color: #1e30f3;
-                color: white;
+                background-color: #1e30f3 !important;
+                color: white !important;
+                border-color: #1e30f3 !important;
             }
             
             .project-overlay {
@@ -67,6 +85,11 @@
             
             .project-card:hover .project-overlay {
                 opacity: 1;
+            }
+            
+            /* Gradient background for CTA section */
+            .bg-gradient-primary-to-secondary {
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
             }
         </style>
     </head>
@@ -89,8 +112,9 @@
                     </div>
                 </div>
             </nav>
+            
             <!-- Projects Section-->
-            <section class="py-5 mt-5">
+            <section class="py-5">
                 <div class="container px-5 mb-5">
                     <div class="text-center mb-5">
                         <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">My Projects</span></h1>
@@ -105,11 +129,11 @@
                         <button class="btn btn-outline-primary filter-btn" data-filter="ai">AI/ML</button>
                     </div>
                     
-                    <div class="row g-4">
+                    <div class="row g-4" id="projects-container">
                         <!-- Project 1 - Bein Field App -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="published" data-aos="fade-up">
-                            <div class="card project-card h-100 border-0 shadow">
-                                <div class="position-relative">
+                        <div class="col-md-6 col-lg-4 project-item" data-category="published">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
                                     <img src="https://via.placeholder.com/400x250/1e30f3/ffffff?text=Bein+Field+App" class="card-img-top project-image" alt="Bein Field App">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
@@ -136,9 +160,9 @@
                         </div>
                         
                         <!-- Project 2 - Smart Baby Incubator -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="ai enterprise" data-aos="fade-up" data-aos-delay="100">
-                            <div class="card project-card h-100 border-0 shadow">
-                                <div class="position-relative">
+                        <div class="col-md-6 col-lg-4 project-item" data-category="ai enterprise">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
                                     <img src="https://via.placeholder.com/400x250/e21e80/ffffff?text=Smart+Incubator" class="card-img-top project-image" alt="Smart Baby Incubator">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
@@ -164,9 +188,9 @@
                         </div>
                         
                         <!-- Project 3 - Smart Ride Oman -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="published" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card project-card h-100 border-0 shadow">
-                                <div class="position-relative">
+                        <div class="col-md-6 col-lg-4 project-item" data-category="published">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
                                     <img src="https://via.placeholder.com/400x250/198754/ffffff?text=Smart+Ride+Oman" class="card-img-top project-image" alt="Smart Ride Oman">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
@@ -193,9 +217,9 @@
                         </div>
                         
                         <!-- Project 4 - E-commerce Platform -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="enterprise" data-aos="fade-up" data-aos-delay="300">
-                            <div class="card project-card h-100 border-0 shadow">
-                                <div class="position-relative">
+                        <div class="col-md-6 col-lg-4 project-item" data-category="enterprise">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
                                     <img src="https://via.placeholder.com/400x250/fd7e14/ffffff?text=E-commerce+App" class="card-img-top project-image" alt="E-commerce Platform">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
@@ -221,9 +245,9 @@
                         </div>
                         
                         <!-- Project 5 - Food Delivery -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="published" data-aos="fade-up" data-aos-delay="400">
-                            <div class="card project-card h-100 border-0 shadow">
-                                <div class="position-relative">
+                        <div class="col-md-6 col-lg-4 project-item" data-category="published">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
                                     <img src="https://via.placeholder.com/400x250/0dcaf0/ffffff?text=Food+Delivery" class="card-img-top project-image" alt="Food Delivery App">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
@@ -249,9 +273,9 @@
                         </div>
                         
                         <!-- Project 6 - Healthcare Management -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="enterprise" data-aos="fade-up" data-aos-delay="500">
-                            <div class="card project-card h-100 border-0 shadow">
-                                <div class="position-relative">
+                        <div class="col-md-6 col-lg-4 project-item" data-category="enterprise">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
                                     <img src="https://via.placeholder.com/400x250/6f42c1/ffffff?text=Healthcare+App" class="card-img-top project-image" alt="Healthcare Management">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
@@ -293,19 +317,19 @@
                 <div class="container px-5">
                     <h2 class="text-center fw-bolder mb-5">Technologies & Tools Used</h2>
                     <div class="row g-4 text-center">
-                        <div class="col-6 col-md-3" data-aos="zoom-in">
+                        <div class="col-6 col-md-3">
                             <i class="bi bi-phone" style="font-size: 3rem; color: #1e30f3;"></i>
                             <h6 class="mt-2">Flutter/Dart</h6>
                         </div>
-                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="col-6 col-md-3">
                             <i class="bi bi-layers" style="font-size: 3rem; color: #e21e80;"></i>
                             <h6 class="mt-2">Clean Architecture</h6>
                         </div>
-                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="col-6 col-md-3">
                             <i class="bi bi-diagram-3" style="font-size: 3rem; color: #198754;"></i>
                             <h6 class="mt-2">State Management</h6>
                         </div>
-                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="col-6 col-md-3">
                             <i class="bi bi-cloud" style="font-size: 3rem; color: #fd7e14;"></i>
                             <h6 class="mt-2">Firebase & APIs</h6>
                         </div>
@@ -324,6 +348,7 @@
                 </div>
             </section>
         </main>
+        
         <!-- Footer-->
         <footer class="bg-white py-4 mt-auto">
             <div class="container px-5">
@@ -339,6 +364,7 @@
                 </div>
             </div>
         </footer>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- AOS JS -->
@@ -346,22 +372,55 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
         <script>
-            // Initialize AOS
-            AOS.init({
-                duration: 1000,
-                once: true
+            // Initialize AOS after DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                AOS.init({
+                    duration: 1000,
+                    once: true,
+                    offset: 100
+                });
+                
+                // Project filtering
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const projectItems = document.querySelectorAll('.project-item');
+                
+                // Show all projects initially
+                projectItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Remove active class from all buttons
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                        
+                        const filter = this.getAttribute('data-filter');
+                        
+                        projectItems.forEach(item => {
+                            if(filter === 'all') {
+                                item.style.display = 'block';
+                                item.classList.remove('hidden');
+                            } else {
+                                const categories = item.getAttribute('data-category');
+                                if(categories && categories.includes(filter)) {
+                                    item.style.display = 'block';
+                                    item.classList.remove('hidden');
+                                } else {
+                                    item.style.display = 'none';
+                                    item.classList.add('hidden');
+                                }
+                            }
+                        });
+                        
+                        // Re-initialize AOS for visible items
+                        setTimeout(() => {
+                            AOS.refresh();
+                        }, 300);
+                    });
+                });
             });
-            
-            // Project filtering
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const projectItems = document.querySelectorAll('.project-item');
-            
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    btn.classList.add('active');
-                    
-                    const filter = btn.getAttribute('data-filter');
-                    
+        </script>
+    </body>
+</html>
