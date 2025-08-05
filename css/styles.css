@@ -1,23 +1,16 @@
 @charset "UTF-8";
 /*!
-* Start Bootstrap - Personal v1.0.1 (https://startbootstrap.com/template-overviews/personal)
+* Enhanced Portfolio Styles for Eslam Abed
+* Based on Start Bootstrap - Personal v1.0.1
 * Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-personal/blob/master/LICENSE)
+* Licensed under MIT
 */
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 
-/* Keep all the original Bootstrap CSS here - this is the compiled Bootstrap CSS */
-/* You should have this from your original styles.css file */
-
-/* After all the Bootstrap CSS, add the enhanced custom styles below */
+/* Import the original Bootstrap styles (keep your existing imports) */
+/* ... existing bootstrap imports ... */
 
 /* ========================================
-   ENHANCED PORTFOLIO STYLES FOR ESLAM ABED
+   CUSTOM ENHANCEMENTS
 ======================================== */
 
 /* Root Variables for Easy Customization */
