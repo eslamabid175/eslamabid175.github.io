@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Eslam Abed - Flutter Developer Projects Portfolio" />
-        <meta name="author" content="Eslam Abed" />
-        <title>Projects - Eslam Abed | Flutter Developer Portfolio</title>
+        <meta name="description" content="Eslam Aped - Flutter Developer Projects Portfolio" />
+        <meta name="author" content="Eslam Aped" />
+        <title>Projects - Eslam Aped | Flutter Developer Portfolio</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Custom Google font-->
@@ -91,6 +91,13 @@
             .bg-gradient-primary-to-secondary {
                 background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
             }
+
+            .status-badge {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                z-index: 2;
+            }
         </style>
     </head>
     <body class="d-flex flex-column h-100 bg-light">
@@ -106,7 +113,7 @@
                             <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
                             <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link" href="https://github.com/eslamabid175" target="_blank"><i class="bi bi-github"></i></a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://github.com/Eslam-Aped-Ali" target="_blank"><i class="bi bi-github"></i></a></li>
                             <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/eslamaped/" target="_blank"><i class="bi bi-linkedin"></i></a></li>
                         </ul>
                     </div>
@@ -118,183 +125,231 @@
                 <div class="container px-5 mb-5">
                     <div class="text-center mb-5">
                         <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">My Projects</span></h1>
-                        <p class="lead mt-3">A showcase of my Flutter development expertise</p>
+                        <p class="lead mt-3">Production apps and real-world Flutter solutions</p>
                     </div>
                     
                     <!-- Filter Buttons -->
                     <div class="d-flex justify-content-center flex-wrap gap-2 mb-5">
                         <button class="btn btn-outline-primary filter-btn active" data-filter="all">All Projects</button>
-                        <button class="btn btn-outline-primary filter-btn" data-filter="published">Published Apps</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="production">Production Apps</button>
                         <button class="btn btn-outline-primary filter-btn" data-filter="enterprise">Enterprise</button>
-                        <button class="btn btn-outline-primary filter-btn" data-filter="ai">AI/ML</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="learning">Learning Projects</button>
                     </div>
                     
                     <div class="row g-4" id="projects-container">
-                        <!-- Project 1 - Bein Field App -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="published">
+                        <!-- Project 1 - Aman App -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
                             <div class="card project-card border-0 shadow h-100">
                                 <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/1e30f3/ffffff?text=Bein+Field+App" class="card-img-top project-image" alt="Bein Field App">
+                                    <span class="badge bg-success status-badge">Active Development</span>
+                                    <img src="https://via.placeholder.com/400x250/1e30f3/ffffff?text=Aman+App" class="card-img-top project-image" alt="Aman App">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Live Sports Platform</h5>
-                                            <p class="small mb-0">100K+ Active Users</p>
+                                            <h5 class="fw-bold mb-2">Transportation Platform</h5>
+                                            <p class="small mb-0">Oman Market</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title fw-bold">Bein Field App</h5>
-                                    <p class="card-text text-muted">Sports-focused mobile app with real-time match updates, live streaming integration, and social features. Published on both stores.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-secondary me-1">Riverpod</span>
-                                        <span class="badge tech-badge bg-success me-1">Firebase</span>
-                                        <span class="badge tech-badge bg-info me-1">WebSockets</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i> Play Store</a>
-                                        <a href="#" class="btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i> App Store</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Project 2 - Smart Baby Incubator -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="ai enterprise">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/e21e80/ffffff?text=Smart+Incubator" class="card-img-top project-image" alt="Smart Baby Incubator">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Healthcare IoT Solution</h5>
-                                            <p class="small mb-0">10+ Hospitals</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Smart Baby Incubator</h5>
-                                    <p class="card-text text-muted">Mission-critical healthcare app with real-time sensor monitoring, AI predictions, and instant alerts for medical staff.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-danger me-1">IoT</span>
-                                        <span class="badge tech-badge bg-warning me-1">BLE</span>
-                                        <span class="badge tech-badge bg-dark me-1">AI/ML</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Case Study</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Project 3 - Smart Ride Oman -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="published">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/198754/ffffff?text=Smart+Ride+Oman" class="card-img-top project-image" alt="Smart Ride Oman">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Ride-Hailing Platform</h5>
-                                            <p class="small mb-0">50K+ Rides Completed</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Smart Ride Oman</h5>
-                                    <p class="card-text text-muted">Complete taxi solution with real-time tracking, in-app chat, payment integration, and driver management system.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-success me-1">Maps</span>
-                                        <span class="badge tech-badge bg-info me-1">Socket.io</span>
-                                        <span class="badge tech-badge bg-warning me-1">Stripe</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i> Play Store</a>
-                                        <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Project 4 - E-commerce Platform -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="enterprise">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/fd7e14/ffffff?text=E-commerce+App" class="card-img-top project-image" alt="E-commerce Platform">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">B2B/B2C Platform</h5>
-                                            <p class="small mb-0">$1M+ Monthly GMV</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Enterprise E-commerce</h5>
-                                    <p class="card-text text-muted">Scalable e-commerce platform with advanced search, multi-vendor support, and analytics dashboard.</p>
+                                    <h5 class="card-title fw-bold">Aman App (Uber-like)</h5>
+                                    <p class="card-text text-muted">Transportation booking app for Omani market with real-time driver tracking, Google Maps API integration, and local payment gateway (Thwani). Multi-language support with RTL.</p>
                                     <div class="mb-3">
                                         <span class="badge tech-badge bg-primary me-1">Flutter</span>
                                         <span class="badge tech-badge bg-secondary me-1">BLoC</span>
-                                        <span class="badge tech-badge bg-success me-1">GraphQL</span>
-                                        <span class="badge tech-badge bg-info me-1">Clean Arch</span>
+                                        <span class="badge tech-badge bg-success me-1">Google Maps</span>
+                                        <span class="badge tech-badge bg-info me-1">REST APIs</span>
                                     </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Demo</a>
-                                    </div>
+                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Oct 2024 - Present</p>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Project 5 - Food Delivery -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="published">
+                        <!-- Project 2 - BeIn Field -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
                             <div class="card project-card border-0 shadow h-100">
                                 <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/0dcaf0/ffffff?text=Food+Delivery" class="card-img-top project-image" alt="Food Delivery App">
+                                    <img src="https://via.placeholder.com/400x250/198754/ffffff?text=BeIn+Field" class="card-img-top project-image" alt="BeIn Field App">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
-                                            <h5 class="fw-bold mb-2">On-Demand Delivery</h5>
-                                            <p class="small mb-0">4.7★ (50K+ Downloads)</p>
+                                            <h5 class="fw-bold mb-2">Sports Field Booking</h5>
+                                            <p class="small mb-0">Real-time Platform</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title fw-bold">Food Delivery App</h5>
-                                    <p class="card-text text-muted">Real-time order tracking, multi-restaurant support, and custom delivery animations for enhanced UX.</p>
+                                    <h5 class="card-title fw-bold">BeIn Field App</h5>
+                                    <p class="card-text text-muted">Sports field booking and management app with real-time updates, location services, and integrated payment handling for seamless playground booking experience.</p>
                                     <div class="mb-3">
                                         <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-success me-1">Maps</span>
-                                        <span class="badge tech-badge bg-warning me-1">Firebase</span>
-                                        <span class="badge tech-badge bg-info me-1">Animations</span>
+                                        <span class="badge tech-badge bg-success me-1">Firebase</span>
+                                        <span class="badge tech-badge bg-info me-1">Location Services</span>
+                                        <span class="badge tech-badge bg-warning me-1">Payments</span>
                                     </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i> Play Store</a>
+                                    <p class="small text-muted"><i class="bi bi-calendar"></i> May 2024 - Feb 2025</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 - Aramco App -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="production enterprise">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="https://via.placeholder.com/400x250/e21e80/ffffff?text=Aramco+Inventory" class="card-img-top project-image" alt="Aramco Inventory App">
+                                    <div class="project-overlay d-flex align-items-end p-4">
+                                        <div class="text-white">
+                                            <h5 class="fw-bold mb-2">Enterprise Solution</h5>
+                                            <p class="small mb-0">Offline-First</p>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">Aramco Inventory App</h5>
+                                    <p class="card-text text-muted">Standalone offline inventory management app for Aramco with built-in QR code scanner for item tracking and data import/export functionality.</p>
+                                    <div class="mb-3">
+                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
+                                        <span class="badge tech-badge bg-danger me-1">MySQL</span>
+                                        <span class="badge tech-badge bg-warning me-1">QR Scanner</span>
+                                        <span class="badge tech-badge bg-dark me-1">Offline Storage</span>
+                                    </div>
+                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Jun 2024 - Aug 2024</p>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Project 6 - Healthcare Management -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="enterprise">
+                        <!-- Project 4 - Samir Academy -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
                             <div class="card project-card border-0 shadow h-100">
                                 <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/6f42c1/ffffff?text=Healthcare+App" class="card-img-top project-image" alt="Healthcare Management">
+                                    <img src="https://via.placeholder.com/400x250/fd7e14/ffffff?text=Samir+Academy" class="card-img-top project-image" alt="Samir Academy">
                                     <div class="project-overlay d-flex align-items-end p-4">
                                         <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Telemedicine Platform</h5>
-                                            <p class="small mb-0">HIPAA Compliant</p>
+                                            <h5 class="fw-bold mb-2">E-Learning Platform</h5>
+                                            <p class="small mb-0">Healthcare Education</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title fw-bold">Healthcare Management</h5>
-                                    <p class="card-text text-muted">Comprehensive healthcare platform with video consultations, appointment scheduling, and secure patient records.</p>
+                                    <h5 class="card-title fw-bold">Samir Academy</h5>
+                                    <p class="card-text text-muted">E-learning platform for doctors with video courses, user authentication, progress tracking, and RESTful API integration. Responsive design for web, tablet, and mobile.</p>
                                     <div class="mb-3">
                                         <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-danger me-1">GetX</span>
-                                        <span class="badge tech-badge bg-success me-1">Video SDK</span>
-                                        <span class="badge tech-badge bg-dark me-1">Encryption</span>
+                                        <span class="badge tech-badge bg-secondary me-1">Clean Architecture</span>
+                                        <span class="badge tech-badge bg-success me-1">REST APIs</span>
+                                        <span class="badge tech-badge bg-info me-1">Video Streaming</span>
+                                    </div>
+                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Jan 2024 - May 2024</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="https://github.com/Eslam-Aped-Ali/samir_academy" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 5 - Adahi App -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="https://via.placeholder.com/400x250/0dcaf0/ffffff?text=Adahi+App" class="card-img-top project-image" alt="Adahi App">
+                                    <div class="project-overlay d-flex align-items-end p-4">
+                                        <div class="text-white">
+                                            <h5 class="fw-bold mb-2">Health Inspection</h5>
+                                            <p class="small mb-0">Livestock Tracking</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">Adahi App</h5>
+                                    <p class="card-text text-muted">Eid al-Adha sacrifice health checker app for inspecting and tracking livestock health data. Clean UI with offline data handling for field inspections.</p>
+                                    <div class="mb-3">
+                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
+                                        <span class="badge tech-badge bg-success me-1">Offline Storage</span>
+                                        <span class="badge tech-badge bg-warning me-1">Health Tracking</span>
+                                        <span class="badge tech-badge bg-info me-1">Clean UI</span>
+                                    </div>
+                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Mar 2024 - May 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 6 - News App (Learning) -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="learning">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="https://via.placeholder.com/400x250/6f42c1/ffffff?text=News+App" class="card-img-top project-image" alt="News App">
+                                    <div class="project-overlay d-flex align-items-end p-4">
+                                        <div class="text-white">
+                                            <h5 class="fw-bold mb-2">Android Native</h5>
+                                            <p class="small mb-0">Learning Project</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">News App</h5>
+                                    <p class="card-text text-muted">News reader with offline support built using Jetpack Compose. Implements MVI architecture pattern with Ktor for networking and RoomDB for local storage.</p>
+                                    <div class="mb-3">
+                                        <span class="badge tech-badge bg-primary me-1">Jetpack Compose</span>
+                                        <span class="badge tech-badge bg-danger me-1">MVI</span>
+                                        <span class="badge tech-badge bg-success me-1">Ktor</span>
+                                        <span class="badge tech-badge bg-dark me-1">RoomDB</span>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
+                                        <a href="https://github.com/Eslam-Aped-Ali/NewsApp" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 7 - JetTranslator (Learning) -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="learning">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="https://via.placeholder.com/400x250/20c997/ffffff?text=JetTranslator" class="card-img-top project-image" alt="JetTranslator">
+                                    <div class="project-overlay d-flex align-items-end p-4">
+                                        <div class="text-white">
+                                            <h5 class="fw-bold mb-2">AI/ML Integration</h5>
+                                            <p class="small mb-0">ML Kit</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">JetTranslator</h5>
+                                    <p class="card-text text-muted">AI-powered translation app using ML Kit with Jetpack Compose. Demonstrates on-device machine learning capabilities for real-time translation.</p>
+                                    <div class="mb-3">
+                                        <span class="badge tech-badge bg-primary me-1">Jetpack Compose</span>
+                                        <span class="badge tech-badge bg-warning me-1">ML Kit</span>
+                                        <span class="badge tech-badge bg-info me-1">AI/ML</span>
+                                        <span class="badge tech-badge bg-dark me-1">Kotlin</span>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <a href="https://github.com/Eslam-Aped-Ali/JetTranslator" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 8 - CMP Bookpedia (Learning) -->
+                        <div class="col-md-6 col-lg-4 project-item" data-category="learning">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="https://via.placeholder.com/400x250/dc3545/ffffff?text=Bookpedia" class="card-img-top project-image" alt="CMP Bookpedia">
+                                    <div class="project-overlay d-flex align-items-end p-4">
+                                        <div class="text-white">
+                                            <h5 class="fw-bold mb-2">Multiplatform</h5>
+                                            <p class="small mb-0">KMP</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">CMP-Bookpedia</h5>
+                                    <p class="card-text text-muted">Cross-platform book catalog using Compose Multiplatform (KMP). Shared business logic across Android, iOS, and Desktop platforms.</p>
+                                    <div class="mb-3">
+                                        <span class="badge tech-badge bg-primary me-1">Compose Multiplatform</span>
+                                        <span class="badge tech-badge bg-secondary me-1">KMP</span>
+                                        <span class="badge tech-badge bg-success me-1">Kotlin</span>
+                                        <span class="badge tech-badge bg-info me-1">Shared Code</span>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <a href="https://github.com/Eslam-Aped-Ali/CMP-Bookpedia" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +360,7 @@
                     <div class="text-center mt-5">
                         <h3 class="mb-3">Want to see more?</h3>
                         <p class="text-muted mb-4">Check out my GitHub for open-source contributions and experimental projects</p>
-                        <a href="https://github.com/eslamabid175" target="_blank" class="btn btn-primary btn-lg">
+                        <a href="https://github.com/Eslam-Aped-Ali" target="_blank" class="btn btn-primary btn-lg">
                             <i class="bi bi-github me-2"></i>View GitHub Profile
                         </a>
                     </div>
@@ -322,16 +377,16 @@
                             <h6 class="mt-2">Flutter/Dart</h6>
                         </div>
                         <div class="col-6 col-md-3">
+                            <i class="bi bi-android2" style="font-size: 3rem; color: #3DDC84;"></i>
+                            <h6 class="mt-2">Android (Kotlin/Java)</h6>
+                        </div>
+                        <div class="col-6 col-md-3">
                             <i class="bi bi-layers" style="font-size: 3rem; color: #e21e80;"></i>
                             <h6 class="mt-2">Clean Architecture</h6>
                         </div>
                         <div class="col-6 col-md-3">
-                            <i class="bi bi-diagram-3" style="font-size: 3rem; color: #198754;"></i>
-                            <h6 class="mt-2">State Management</h6>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <i class="bi bi-cloud" style="font-size: 3rem; color: #fd7e14;"></i>
-                            <h6 class="mt-2">Firebase & APIs</h6>
+                            <i class="bi bi-server" style="font-size: 3rem; color: #198754;"></i>
+                            <h6 class="mt-2">Django/Python</h6>
                         </div>
                     </div>
                 </div>
@@ -353,9 +408,9 @@
         <footer class="bg-white py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Eslam Abed 2025</div></div>
+                    <div class="col-auto"><div class="small m-0">Copyright &copy; Eslam Aped 2025</div></div>
                     <div class="col-auto">
-                        <a class="small" href="https://github.com/eslamabid175" target="_blank">GitHub</a>
+                        <a class="small" href="https://github.com/Eslam-Aped-Ali" target="_blank">GitHub</a>
                         <span class="mx-1">&middot;</span>
                         <a class="small" href="https://www.linkedin.com/in/eslamaped/" target="_blank">LinkedIn</a>
                         <span class="mx-1">&middot;</span>
