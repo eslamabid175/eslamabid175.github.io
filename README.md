@@ -1,30 +1,187 @@
-# 👋 Hi, I'm Eslam - Flutter Developer 💙
+# 👋 Hi, I'm Eslam Aped - Flutter Developer 💙
 
-I'm a passionate Flutter Developer from Egypt 🇪🇬 with a focus on clean architecture, performance, and pixel-perfect UI.
+I'm an experienced Flutter Developer from Cairo, Egypt 🇪🇬 with a strong foundation in Android (Java, Kotlin, KMP) and backend development using Python and Django. Skilled in building scalable, high-performance cross-platform apps with clean, maintainable architecture. Passionate about crafting seamless user experiences and delivering production-ready mobile solutions.
 
-## 🚀 Tech Stack
-- Dart (OOP, DataStructures, Algorithms,Advanced Topics in Dart (Asynchronous programming, Functional programming(map, where, fold, reduce),Constructors(Named, Factory, Records,..)         extensions, Class Types ,...))
-- Flutter (Clean Code, Widget tree optimization, Keys (ValueKey, UniqueKey, GlobalKey),InheritedWidget, MediaQuery, LayoutBuilder, CustomWidgets, CustomScrollView & Slivers, Animations     (AnimatedBuilder, Tween, Hero), Page transitions, Navigation, Theming, Adaptive & Responsive design, Overlay & Portal, Platform-specific code (MethodChannel), DevTools debugging,         Performance profiling, App lifecycle handling, Flutter Inspector tricks , Flutter Web & Desktop, Pub.dev usage (native_splach_screen, flutter icon launcher, flutter_rename_pkg,...))
-- Networking & Database  (Firebase, REST APIs, GraphQL, Dio, ErrorHandling, SQLite, Hive)
-- State Management (BLoC / Cubit / Riverpod / Provider / GetX)
-- Architecture (Clean Architecture (Presentation / Domain / Data), MVVM / MVC / MVP, Feature-based folder structure, Repository pattern, Dependency Injection (get_it, injectable),          Service Locator pattern, Singleton pattern, Code generation (build_runner, json_serializable), SOLID principles)
-- Development & Deployment (Git, GitHub Actions, Azure Devops, Flutter build (apk / appbundle / ipa / web), App signing (release keystore, Apple certs), CI/CD (GitHub Actions, Codemagic,   Bitrise), Firebase hosting / GitHub Pages, Versioning (build.yaml, pubspec), obfuscation & shrinking, App flavors (dev / prod), Store submission (Play Store, App Store))
-- Miscellaneous Power Tricks (Partial rebuild optimization (const widgets, RepaintBoundary), Preloading assets, Deferred loading, Handling memory leaks, Image caching, Skeleton loaders,    Lazy loading lists, Offline mode logic, Error boundaries, Dynamic themes, Secure app (Jailbreak/root detection), A/B testing (Firebase Remote Config), Feature toggling, Custom fonts &    icons, JSON parsing patterns, App restart programmatically)
+📍 **Cairo, Egypt** | 📧 **eslamabid175@gmail.com** | 📱 **+201023332583**
 
+---
 
-## 📱 My Projects
+## 🚀 Tech Stack & Skills
 
-| Project | Description | Links |
-|--------|-------------|-------|
-| **Smart Ride Oman** | A full taxi solution with real-time maps and chat. | [Repo](link) [PlayStore](link) |
-| **Waslny** | Ride-sharing app with live tracking and authentication. | [Repo](link) |
-| **Notes App** | A simple note-taking app using BLoC. | [Repo](link) |
+### 📱 **Mobile Development**
+- **Flutter** (Clean Code, Widget tree optimization, Keys, InheritedWidget, MediaQuery, LayoutBuilder, CustomWidgets, CustomScrollView & Slivers, Animations, Page transitions, Navigation, Theming, Adaptive & Responsive design, Overlay & Portal, Platform-specific code, DevTools debugging, Performance profiling, App lifecycle handling, Flutter Web & Desktop)
+- **Dart** (OOP, Data Structures, Algorithms, Asynchronous programming, Functional programming, Extensions, Constructors, Records)
+- **Android Native** (Kotlin, Java, Jetpack Compose, KMP - Kotlin Multiplatform)
+- **Python** (Django REST Framework, Gunicorn, Nginx, VPS Deployment)
 
-## 🧠 Currently Learning
-- TDD in Flutter
-- Advanced State Management
+### 🏗️ **Architecture & Patterns**
+- **Clean Architecture** (Presentation / Domain / Data layers)
+- **Design Patterns** (MVVM, MVI, MVC, MVP, DDD)
+- **Best Practices** (Repository pattern, Dependency Injection, Service Locator, Singleton, SOLID principles)
+- **TDD** (Unit Testing, Integration Testing, Widget Testing)
 
-## 📫 Contact
-- 📧 eslamabid175@gmail.com
-- 💼 [LinkedIn](https://www.linkedin.com/in/eslamaped/)
+### 🔄 **State Management**
+- BLoC / Cubit ⭐ (Primary)
+- Riverpod
+- Provider
+- GetX
 
+### 🌐 **Networking & Database**
+- **APIs:** REST APIs, GraphQL, Dio, Retrofit, http
+- **Databases:** Firebase (Auth, Firestore, Messaging, Hosting), MySQL, Hive, RoomDB, SQLite, Shared Preferences, Flutter Secure Storage
+- **Error Handling:** Custom error handlers, Network error management
+
+### 🛠️ **Development & Deployment**
+- **Version Control:** Git, GitHub
+- **CI/CD:** GitHub Actions, Azure DevOps, Codemagic, Bitrise
+- **Build & Release:** APK/AAB/IPA/Web builds, App signing, Store submission (Play Store, App Store)
+- **Deployment:** Firebase Hosting, GitHub Pages, Nginx, VPS deployment
+- **Code Quality:** Code generation (build_runner, json_serializable), Obfuscation & shrinking, App flavors (dev/prod)
+
+### ⚡ **Performance & Optimization**
+- Partial rebuild optimization (const widgets, RepaintBoundary)
+- Preloading assets, Deferred loading, Image caching
+- Memory leak handling, Lazy loading lists
+- Skeleton loaders, Offline mode logic
+- Performance profiling with DevTools
+
+### 🔐 **Security & Advanced Features**
+- Secure storage (Jailbreak/root detection)
+- A/B testing (Firebase Remote Config)
+- Feature toggling, Dynamic themes
+- Multi-language support with RTL/LTR
+- Custom fonts & icons, JSON parsing patterns
+
+---
+
+## 📱 Featured Projects
+
+### 🚗 **Production Apps**
+
+#### **Aman App** *(Oct 2024 - Present)*
+A transportation booking app for the Omani market (similar to Uber).
+- ✅ Real-time driver tracking with Google Maps API
+- ✅ Local payment gateway integration (Thwani)
+- ✅ Multi-language support (Arabic/English) with full RTL layout
+- ✅ Optimized for mobile, tablet, and web platforms
+- **Tech Stack:** Flutter, BLoC, REST APIs, Google Maps, Firebase
+
+#### **BeIn Field App** *(May 2024 - Feb 2025)*
+Sports field booking and management platform.
+- ✅ Real-time booking updates
+- ✅ Location services integration
+- ✅ Payment handling
+- ✅ Seamless playground booking experience
+- **Tech Stack:** Flutter, BLoC, Location Services, Firebase
+
+#### **Samir Academy** *(Jan 2024 - May 2024)*
+E-learning platform for doctors.
+- ✅ Video courses with progress tracking
+- ✅ User authentication & authorization
+- ✅ Responsive design (web, tablet, mobile)
+- ✅ RESTful API integration
+- **Tech Stack:** Flutter, Clean Architecture, REST APIs, Video Streaming
+
+#### **Aramco Inventory App** *(Jun 2024 - Aug 2024)*
+Offline-first inventory management system for Aramco.
+- ✅ Built-in QR code scanner for item tracking
+- ✅ Data import/export functionality
+- ✅ Offline-first architecture
+- **Tech Stack:** Flutter, MySQL, Offline Storage, QR Scanner
+
+#### **Adahi App** *(Mar 2024 - May 2024)*
+Eid al-Adha sacrifice health checker app.
+- ✅ Livestock health inspection and tracking
+- ✅ Offline data handling for field inspections
+- ✅ Clean, user-friendly interface
+- **Tech Stack:** Flutter, Local Database, Offline Support
+
+---
+
+### 🎯 **Open Source & Learning Projects**
+
+| Project | Description | Tech Stack |
+|--------|-------------|------------|
+| **[News App](https://github.com/Eslam-Aped-Ali/NewsApp)** | News reader with offline support | Jetpack Compose, MVI, Ktor, RoomDB |
+| **[JetTranslator](https://github.com/Eslam-Aped-Ali/JetTranslator)** | AI-powered translation app | Jetpack Compose, ML Kit |
+| **[CMP-Bookpedia](https://github.com/Eslam-Aped-Ali/CMP-Bookpedia)** | Cross-platform book catalog | Compose Multiplatform, KMP |
+
+---
+
+## 🎓 Education & Certifications
+
+**Bachelor's Degree in Computer Science** - Cairo University *(Sep 2018 – Jun 2023)*
+
+### 📜 Certifications
+✅ **Flutter Advanced Course** – Clean Architecture with MVVM (Udemy, Apr 2024)  
+✅ **Mastering Multi-Module Architecture** – Clean Architecture in Android (Udemy, Dec 2024)  
+✅ **Mastering Mobile App Development** – YAT, Cairo (Dec 2021)
+
+---
+
+## 💼 Professional Experience
+
+### **Freelance Flutter Developer** *(Oct 2024 - Present)*
+- Building Aman App for Omani market with real-time features
+- Implementing payment gateways and multi-language support
+- Optimizing performance across multiple platforms
+
+### **Flutter Developer - Tech Ocean** *(Mar 2024 - Aug 2024)*
+- Developed Aramco inventory management system
+- Built Adahi health inspection app
+- Implemented offline-first architecture
+
+### **Reserve Officer - Military Research Authority** *(Jul 2023 – Jul 2024)*
+- Networking and IT infrastructure management
+- System maintenance and troubleshooting
+
+---
+
+## 🧠 Currently Learning & Improving
+- 🎯 Advanced TDD in Flutter
+- 🚀 Kotlin Multiplatform (KMP) deep dive
+- 🏗️ Microservices with Django
+- ⚡ Performance optimization techniques
+- 🔐 Advanced security patterns
+
+---
+
+## 📊 GitHub Stats
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Eslam-Aped-Ali&show_icons=true&theme=radical)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Eslam-Aped-Ali&layout=compact&theme=radical)
+
+---
+
+## 📫 Let's Connect!
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eslamaped/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://eslamaped.com)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:eslamabid175@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Eslam-Aped-Ali)
+[![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=LeetCode&logoColor=black)](https://leetcode.com/eso175)
+
+---
+
+## 🌟 What Makes Me Different
+
+- ✅ **Full-Stack Mobile Developer** - Flutter + Android Native + Backend (Django/Python)
+- ✅ **Production Experience** - Real apps with real users in multiple markets
+- ✅ **Clean Architecture Advocate** - Scalable, maintainable, and testable code
+- ✅ **Cross-Platform Expert** - One codebase, multiple platforms (iOS, Android, Web, Desktop)
+- ✅ **End-to-End Solutions** - From design to deployment (including DevOps)
+
+---
+
+### 💡 Fun Facts
+- 🇪🇬 Based in Cairo, Egypt
+- 🌍 Fluent in Arabic (Native) & English
+- 🚀 Love solving complex problems with elegant solutions
+- 📚 Continuous learner - always exploring new technologies
+- 🎯 Open to freelance projects and collaborations
+
+---
+
+⭐️ **Building the future, one app at a time** 🚀
+
+*Last Updated: January 2025*
