@@ -102,9 +102,9 @@ Eid al-Adha sacrifice health checker app.
 
 | Project | Description | Tech Stack |
 |--------|-------------|------------|
-| **[News App](https://github.com/Eslam-Aped-Ali/NewsApp)** | News reader with offline support | Jetpack Compose, MVI, Ktor, RoomDB |
-| **[JetTranslator](https://github.com/Eslam-Aped-Ali/JetTranslator)** | AI-powered translation app | Jetpack Compose, ML Kit |
-| **[CMP-Bookpedia](https://github.com/Eslam-Aped-Ali/CMP-Bookpedia)** | Cross-platform book catalog | Compose Multiplatform, KMP |
+| **[News App](https://github.com/eslamabid175/NewsApp)** | News reader with offline support | Jetpack Compose, MVI, Ktor, RoomDB |
+| **[JetTranslator](https://github.com/eslamabid175/JetTranslator)** | AI-powered translation app | Jetpack Compose, ML Kit |
+| **[CMP-Bookpedia](https://github.com/eslamabid175/CMP-Bookpedia)** | Cross-platform book catalog | Compose Multiplatform, KMP |
 
 ---
 
@@ -148,8 +148,8 @@ Eid al-Adha sacrifice health checker app.
 
 ## 📊 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Eslam-Aped-Ali&show_icons=true&theme=radical)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Eslam-Aped-Ali&layout=compact&theme=radical)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=eslamabid175&show_icons=true&theme=radical)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=eslamabid175&layout=compact&theme=radical)
 
 ---
 
@@ -158,7 +158,7 @@ Eid al-Adha sacrifice health checker app.
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eslamaped/)
 [![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://eslamaped.com)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:eslamabid175@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Eslam-Aped-Ali)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/eslamabid175)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=LeetCode&logoColor=black)](https://leetcode.com/eso175)
 
 ---
