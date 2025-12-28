@@ -3,16 +3,16 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Eslam Aped - Experienced Flutter Developer specializing in clean architecture, cross-platform development, and scalable mobile applications" />
-        <meta name="keywords" content="Flutter Developer, Mobile Developer, Clean Architecture, Cairo, Egypt, Android, Kotlin, Cross-platform Development, BLoC, MVVM" />
+        <meta name="description" content="Eslam Aped - Flutter Developer & Backend Developer with 2+ years experience. Expert in Clean Architecture, cross-platform development, and Django REST APIs" />
+        <meta name="keywords" content="Flutter Developer, Backend Developer, Django, Mobile Developer, Clean Architecture, Cairo, Egypt, Android, Kotlin, Cross-platform Development, BLoC, MVVM, Python" />
         <meta name="author" content="Eslam Aped" />
-        <meta property="og:title" content="Eslam Aped - Flutter Developer" />
-        <meta property="og:description" content="Building scalable, high-performance cross-platform apps with clean, maintainable architecture" />
+        <meta property="og:title" content="Eslam Aped - Flutter Developer & Backend Developer" />
+        <meta property="og:description" content="Building scalable, high-performance cross-platform apps with clean architecture and Django backends" />
         <meta property="og:image" content="assets/profile.png" />
-        <meta property="og:url" content="https://eslamaped.com" />
-        <title>Eslam Aped - Flutter Developer | Mobile App Specialist</title>
+        <meta property="og:url" content="https://eslamabid175.github.io" />
+        <title>Eslam Aped - Flutter Developer & Backend Developer</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,6 +25,13 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <style>
             /* Custom animations and improvements */
+            .hero-section {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                padding-top: 80px;
+            }
+            
             .typing-text {
                 overflow: hidden;
                 border-right: .15em solid #1e30f3;
@@ -47,15 +54,17 @@
             .tech-stack-item {
                 transition: all 0.3s ease;
                 cursor: pointer;
+                border: 2px solid transparent;
             }
             
             .tech-stack-item:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(30, 48, 243, 0.15);
+                border-color: #1e30f3;
             }
             
             .stats-counter {
-                font-size: 3rem;
+                font-size: 2.5rem;
                 font-weight: 700;
                 color: #1e30f3;
             }
@@ -66,15 +75,134 @@
             
             @keyframes floating {
                 0% { transform: translateY(0px); }
-                50% { transform: translateY(-20px); }
+                50% { transform: translateY(-15px); }
                 100% { transform: translateY(0px); }
             }
             
             .gradient-text {
-                background: linear-gradient(45deg, #1e30f3, #e21e80);
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
+            }
+            
+            .bg-gradient-primary-to-secondary {
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            }
+            
+            .profile-img {
+                max-width: 350px;
+                border-radius: 20px;
+                box-shadow: 0 25px 50px rgba(30, 48, 243, 0.2);
+            }
+            
+            .feature-card {
+                background: white;
+                border-radius: 16px;
+                padding: 2rem;
+                transition: all 0.3s ease;
+                border: 1px solid #e9ecef;
+            }
+            
+            .feature-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                border-color: #1e30f3;
+            }
+            
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 16px;
+                font-size: 1.75rem;
+            }
+            
+            .company-badge {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                border-radius: 12px;
+                padding: 1.5rem;
+                transition: all 0.3s ease;
+            }
+            
+            .company-badge:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            
+            .skill-category {
+                background: white;
+                border-radius: 16px;
+                padding: 2rem;
+                margin-bottom: 1.5rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            }
+            
+            .skill-tag {
+                display: inline-block;
+                padding: 0.5rem 1rem;
+                margin: 0.25rem;
+                background: #f8f9fa;
+                border-radius: 25px;
+                font-size: 0.875rem;
+                transition: all 0.3s ease;
+                border: 1px solid transparent;
+            }
+            
+            .skill-tag:hover {
+                background: #1e30f3;
+                color: white;
+                transform: translateY(-2px);
+            }
+            
+            .project-card {
+                border-radius: 16px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .project-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            }
+            
+            .project-image {
+                height: 200px;
+                object-fit: cover;
+            }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: #f8f9fa;
+                color: #212529;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                font-size: 1.25rem;
+            }
+            
+            .social-icon:hover {
+                background: #1e30f3;
+                color: white;
+                transform: translateY(-5px);
+            }
+            
+            @media (max-width: 768px) {
+                .hero-section {
+                    padding-top: 100px;
+                }
+                .stats-counter {
+                    font-size: 2rem;
+                }
+                .profile-img {
+                    max-width: 250px;
+                }
             }
         </style>
     </head>
@@ -83,7 +211,10 @@
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top shadow-sm">
                 <div class="container px-5">
-                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">EA</span></a>
+                    <a class="navbar-brand" href="index.html">
+                        <span class="fw-bolder text-primary">EA</span>
+                        <span class="text-muted small ms-2 d-none d-md-inline">Flutter & Backend Developer</span>
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
@@ -97,106 +228,198 @@
                     </div>
                 </div>
             </nav>
-            <!-- Header-->
-            <header class="py-5 mt-5">
-                <div class="container px-5 pb-5">
+            
+            <!-- Hero Section-->
+            <header class="hero-section bg-light">
+                <div class="container px-5">
                     <div class="row gx-5 align-items-center">
-                        <div class="col-xxl-5" data-aos="fade-right">
-                            <!-- Header text content-->
-                            <div class="text-center text-xxl-start">
-                                <div class="badge bg-gradient-primary-to-secondary text-white mb-4"><div class="text-uppercase">Flutter • Android • Clean Architecture</div></div>
-                                <div class="fs-3 fw-light text-muted">Hi, I'm Eslam Aped 👋</div>
-                                <h1 class="display-3 fw-bolder mb-5"><span class="gradient-text">Flutter Developer</span></h1>
-                                <p class="lead fw-light mb-4">Experienced Flutter Developer with a strong foundation in Android (Java, Kotlin, KMP) and backend development. Skilled in building scalable, high-performance cross-platform apps with clean, maintainable architecture.</p>
-                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-                                    <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="resume.html">View Resume</a>
-                                    <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="projects.html">See Projects</a>
+                        <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-right">
+                            <div class="text-center text-lg-start">
+                                <div class="badge bg-gradient-primary-to-secondary text-white mb-4 px-3 py-2">
+                                    <i class="bi bi-check-circle-fill me-2"></i>Available for Projects
                                 </div>
-                                <!-- Quick Stats -->
-                                <div class="row mt-5">
-                                    <div class="col-4 text-center">
-                                        <div class="stats-counter" data-target="10">0</div>
-                                        <p class="text-muted small">Projects Delivered</p>
-                                    </div>
-                                    <div class="col-4 text-center">
-                                        <div class="stats-counter" data-target="3">0</div>
-                                        <p class="text-muted small">Years Experience</p>
-                                    </div>
-                                    <div class="col-4 text-center">
-                                        <div class="stats-counter" data-target="5">0</div>
-                                        <p class="text-muted small">Happy Clients</p>
-                                    </div>
+                                <p class="lead fw-normal text-muted mb-2">Hi there! I'm</p>
+                                <h1 class="display-4 fw-bolder mb-3">
+                                    <span class="gradient-text">Eslam Aped</span>
+                                </h1>
+                                <h2 class="h3 fw-bold text-dark mb-4">Flutter Developer & Backend Developer</h2>
+                                <p class="lead fw-normal text-muted mb-4">
+                                    Passionate about building <strong>high-performance Flutter applications</strong> and 
+                                    <strong>Django REST APIs</strong>. Expert in Clean Architecture, native Android integration, 
+                                    and deploying scalable solutions to production.
+                                </p>
+                                
+                                <!-- Quick highlights -->
+                                <div class="d-flex flex-wrap gap-2 mb-4 justify-content-center justify-content-lg-start">
+                                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">
+                                        <i class="bi bi-phone me-1"></i> Flutter
+                                    </span>
+                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2">
+                                        <i class="bi bi-server me-1"></i> Django
+                                    </span>
+                                    <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2">
+                                        <i class="bi bi-android2 me-1"></i> Android
+                                    </span>
+                                    <span class="badge bg-info bg-opacity-10 text-info px-3 py-2">
+                                        <i class="bi bi-gear me-1"></i> CI/CD
+                                    </span>
+                                </div>
+                                
+                                <div class="d-flex gap-3 justify-content-center justify-content-lg-start mb-4">
+                                    <a class="btn btn-primary btn-lg px-4 py-3" href="projects.html">
+                                        <i class="bi bi-collection me-2"></i>View Projects
+                                    </a>
+                                    <a class="btn btn-outline-dark btn-lg px-4 py-3" href="contact.html">
+                                        <i class="bi bi-envelope me-2"></i>Contact Me
+                                    </a>
+                                </div>
+                                
+                                <!-- Social Links -->
+                                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                                    <a class="social-icon" href="https://github.com/eslamabid175" target="_blank" title="GitHub">
+                                        <i class="bi bi-github"></i>
+                                    </a>
+                                    <a class="social-icon" href="https://www.linkedin.com/in/eslamaped/" target="_blank" title="LinkedIn">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                    <a class="social-icon" href="mailto:eslamabid175@gmail.com" title="Email">
+                                        <i class="bi bi-envelope"></i>
+                                    </a>
+                                    <a class="social-icon" href="tel:+201023332583" title="Phone">
+                                        <i class="bi bi-telephone"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xxl-7">
-                            <!-- Header profile picture-->
-                            <div class="d-flex justify-content-center mt-5 mt-xxl-0" data-aos="fade-left">
-                                <div class="profile floating">
-                                    <img class="profile-img" src="assets/profile.png" alt="Eslam Aped" />
+                        <div class="col-lg-6 order-lg-2 order-1 mb-5 mb-lg-0">
+                            <div class="d-flex justify-content-center" data-aos="fade-left">
+                                <div class="floating">
+                                    <img class="profile-img img-fluid" src="assets/profile.png" alt="Eslam Aped - Flutter Developer" />
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Section -->
+                    <div class="row g-4 mt-5 pt-4">
+                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="text-center">
+                                <div class="stats-counter" data-target="2">0</div>
+                                <p class="text-muted mb-0 fw-medium">Years Flutter Exp.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="text-center">
+                                <div class="stats-counter" data-target="15">0</div>
+                                <p class="text-muted mb-0 fw-medium">Apps Delivered</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="text-center">
+                                <div class="stats-counter" data-target="3">0</div>
+                                <p class="text-muted mb-0 fw-medium">Companies</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="text-center">
+                                <div class="stats-counter" data-target="10">0</div>
+                                <p class="text-muted mb-0 fw-medium">Published Apps</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
             
-            <!-- About Section-->
-            <section class="bg-light py-5">
+            <!-- What I Do Section-->
+            <section class="py-5">
                 <div class="container px-5">
-                    <div class="row gx-5 justify-content-center">
-                        <div class="col-xxl-8">
-                            <div class="text-center my-5">
-                                <h2 class="display-5 fw-bolder mb-5"><span class="text-gradient d-inline">About Me</span></h2>
-                                <p class="lead fw-light mb-4">Passionate Flutter Developer from Cairo, Egypt 🇪🇬</p>
-                                <p class="text-muted mb-5">I'm a results-driven Flutter Developer with expertise in building scalable, high-performance cross-platform applications. With a strong foundation in Android development (Java, Kotlin, KMP) and backend technologies (Python, Django), I specialize in creating production-ready mobile solutions with clean architecture principles. I'm passionate about crafting seamless user experiences and delivering apps that users love.</p>
-                                
-                                <!-- What I Do -->
-                                <div class="row g-4 mb-5">
-                                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                                        <div class="text-center">
-                                            <div class="feature bg-gradient-primary-to-secondary text-white rounded-3 mb-3 mx-auto" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="bi bi-phone" style="font-size: 2rem;"></i>
-                                            </div>
-                                            <h5>Cross-Platform Apps</h5>
-                                            <p class="text-muted small">Flutter apps for mobile, tablet, and web</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                                        <div class="text-center">
-                                            <div class="feature bg-gradient-primary-to-secondary text-white rounded-3 mb-3 mx-auto" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="bi bi-layers" style="font-size: 2rem;"></i>
-                                            </div>
-                                            <h5>Clean Architecture</h5>
-                                            <p class="text-muted small">MVVM, MVI, DDD, and TDD patterns</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="text-center">
-                                            <div class="feature bg-gradient-primary-to-secondary text-white rounded-3 mb-3 mx-auto" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="bi bi-android2" style="font-size: 2rem;"></i>
-                                            </div>
-                                            <h5>Native Android</h5>
-                                            <p class="text-muted small">Kotlin, Java, Jetpack Compose, KMP</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                                        <div class="text-center">
-                                            <div class="feature bg-gradient-primary-to-secondary text-white rounded-3 mb-3 mx-auto" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="bi bi-server" style="font-size: 2rem;"></i>
-                                            </div>
-                                            <h5>Backend Integration</h5>
-                                            <p class="text-muted small">Django, RESTful APIs, Firebase</p>
-                                        </div>
-                                    </div>
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">What I Do</span></h2>
+                        <p class="lead text-muted">Delivering end-to-end mobile solutions from frontend to backend</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                            <div class="feature-card h-100 text-center">
+                                <div class="feature-icon bg-primary bg-opacity-10 text-primary mx-auto mb-4">
+                                    <i class="bi bi-phone"></i>
                                 </div>
-                                
-                                <div class="d-flex justify-content-center fs-2 gap-4">
-                                    <a class="text-gradient" href="https://github.com/eslamabid175" target="_blank"><i class="bi bi-github"></i></a>
-                                    <a class="text-gradient" href="https://www.linkedin.com/in/eslamaped/" target="_blank"><i class="bi bi-linkedin"></i></a>
-                                    <a class="text-gradient" href="mailto:eslamabid175@gmail.com"><i class="bi bi-envelope"></i></a>
-                                    <a class="text-gradient" href="tel:+201023332583"><i class="bi bi-phone"></i></a>
+                                <h5 class="fw-bold mb-3">Flutter Development</h5>
+                                <p class="text-muted small mb-0">Cross-platform apps for iOS, Android, and Web with beautiful UI and smooth animations</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                            <div class="feature-card h-100 text-center">
+                                <div class="feature-icon bg-success bg-opacity-10 text-success mx-auto mb-4">
+                                    <i class="bi bi-server"></i>
                                 </div>
+                                <h5 class="fw-bold mb-3">Backend Development</h5>
+                                <p class="text-muted small mb-0">Django REST APIs, PostgreSQL databases, and VPS deployment with Nginx & Gunicorn</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                            <div class="feature-card h-100 text-center">
+                                <div class="feature-icon bg-warning bg-opacity-10 text-warning mx-auto mb-4">
+                                    <i class="bi bi-layers"></i>
+                                </div>
+                                <h5 class="fw-bold mb-3">Clean Architecture</h5>
+                                <p class="text-muted small mb-0">MVVM, BLoC, SOLID principles, modular architecture, and testable code</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                            <div class="feature-card h-100 text-center">
+                                <div class="feature-icon bg-info bg-opacity-10 text-info mx-auto mb-4">
+                                    <i class="bi bi-rocket-takeoff"></i>
+                                </div>
+                                <h5 class="fw-bold mb-3">DevOps & Deployment</h5>
+                                <p class="text-muted small mb-0">CI/CD pipelines, Play Store/App Store releases, Docker, and cloud deployment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Companies I've Worked With -->
+            <section class="py-5 bg-light">
+                <div class="container px-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Companies I've Worked With</span></h2>
+                        <p class="lead text-muted">Trusted by leading companies across different industries</p>
+                    </div>
+                    
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                            <a href="https://cogens.com/" target="_blank" class="text-decoration-none">
+                                <div class="company-badge text-center h-100">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                        <i class="bi bi-building text-primary" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold text-dark mb-1">Cogens</h5>
+                                    <p class="text-muted small mb-1">Senior Software Engineer</p>
+                                    <p class="text-muted small mb-0"><i class="bi bi-geo-alt"></i> Canada (Remote)</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                            <a href="http://3i-vision.com/#/home" target="_blank" class="text-decoration-none">
+                                <div class="company-badge text-center h-100">
+                                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                        <i class="bi bi-eye text-success" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold text-dark mb-1">3I Vision</h5>
+                                    <p class="text-muted small mb-1">Senior Flutter Developer</p>
+                                    <p class="text-muted small mb-0"><i class="bi bi-geo-alt"></i> Giza, Egypt (Hybrid)</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="company-badge text-center h-100">
+                                <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-laptop text-warning" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-1">Freelance</h5>
+                                <p class="text-muted small mb-1">Software Engineer</p>
+                                <p class="text-muted small mb-0"><i class="bi bi-geo-alt"></i> Remote</p>
                             </div>
                         </div>
                     </div>
@@ -206,115 +429,130 @@
             <!-- Tech Stack Section -->
             <section class="py-5">
                 <div class="container px-5">
-                    <h2 class="text-center display-5 fw-bolder mb-5"><span class="text-gradient d-inline">Tech Stack & Skills</span></h2>
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Technical Skills</span></h2>
+                        <p class="lead text-muted">Technologies and tools I work with daily</p>
+                    </div>
                     
-                    <!-- Primary Technologies -->
-                    <h5 class="text-center text-muted mb-4">Core Technologies</h5>
-                    <div class="row g-4 mb-5">
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="100">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-phone" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Flutter</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="150">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-code-slash" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Dart</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="200">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-android2" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Kotlin</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="250">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-cup-hot" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Java</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="300">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-python" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Python</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="350">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-database" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">SQL</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- State Management & Architecture -->
-                    <h5 class="text-center text-muted mb-4">State Management & Architecture</h5>
-                    <div class="row g-4 mb-5">
-                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-diagram-3" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">BLoC / Cubit</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="150">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-boxes" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Riverpod</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-layers" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">MVVM / MVI</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="250">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-building" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Clean Architecture</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Backend & Cloud -->
-                    <h5 class="text-center text-muted mb-4">Backend & Cloud Services</h5>
                     <div class="row g-4">
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="100">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-fire" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Firebase</p>
+                        <!-- Mobile Development -->
+                        <div class="col-lg-6" data-aos="fade-up">
+                            <div class="skill-category">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary bg-opacity-10 rounded-3 p-2 me-3">
+                                        <i class="bi bi-phone text-primary" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold mb-0">Mobile Development</h5>
+                                </div>
+                                <div>
+                                    <span class="skill-tag">Flutter (Dart)</span>
+                                    <span class="skill-tag">Native Integration (Kotlin/Swift)</span>
+                                    <span class="skill-tag">KMP</span>
+                                    <span class="skill-tag">CMP</span>
+                                    <span class="skill-tag">Isolates & Concurrency</span>
+                                    <span class="skill-tag">Background Services</span>
+                                    <span class="skill-tag">Memory Optimization</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="150">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-server" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Django</p>
+                        
+                        <!-- Architecture & Design -->
+                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-category">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-success bg-opacity-10 rounded-3 p-2 me-3">
+                                        <i class="bi bi-layers text-success" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold mb-0">Architecture & Design</h5>
+                                </div>
+                                <div>
+                                    <span class="skill-tag">Clean Architecture</span>
+                                    <span class="skill-tag">MVVM</span>
+                                    <span class="skill-tag">SOLID Principles</span>
+                                    <span class="skill-tag">Modular Architecture</span>
+                                    <span class="skill-tag">Design Patterns</span>
+                                    <span class="skill-tag">Repository Pattern</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="200">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-cloud" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">REST APIs</p>
+                        
+                        <!-- Backend & Database -->
+                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-category">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-warning bg-opacity-10 rounded-3 p-2 me-3">
+                                        <i class="bi bi-server text-warning" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold mb-0">Backend & Database</h5>
+                                </div>
+                                <div>
+                                    <span class="skill-tag">Python (Django REST Framework)</span>
+                                    <span class="skill-tag">REST API Design</span>
+                                    <span class="skill-tag">PostgreSQL</span>
+                                    <span class="skill-tag">MySQL</span>
+                                    <span class="skill-tag">Firebase</span>
+                                    <span class="skill-tag">Hive</span>
+                                    <span class="skill-tag">SQLite</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="250">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-database-gear" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">MySQL</p>
+                        
+                        <!-- DevOps & Infrastructure -->
+                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                            <div class="skill-category">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-info bg-opacity-10 rounded-3 p-2 me-3">
+                                        <i class="bi bi-gear text-info" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold mb-0">DevOps & Infrastructure</h5>
+                                </div>
+                                <div>
+                                    <span class="skill-tag">CI/CD (GitHub Actions, Codemagic)</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">Nginx</span>
+                                    <span class="skill-tag">Gunicorn</span>
+                                    <span class="skill-tag">VPS Deployment</span>
+                                    <span class="skill-tag">Play Store/App Store</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="300">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-hdd" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Hive / RoomDB</p>
+                        
+                        <!-- State Management -->
+                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                            <div class="skill-category">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-danger bg-opacity-10 rounded-3 p-2 me-3">
+                                        <i class="bi bi-diagram-3 text-danger" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold mb-0">State Management</h5>
+                                </div>
+                                <div>
+                                    <span class="skill-tag">BLoC/Cubit (Advanced)</span>
+                                    <span class="skill-tag">Riverpod</span>
+                                    <span class="skill-tag">Provider</span>
+                                    <span class="skill-tag">Event Bus</span>
+                                    <span class="skill-tag">GetX</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="350">
-                            <div class="tech-stack-item bg-light rounded-4 p-3 text-center h-100">
-                                <i class="bi bi-git" style="font-size: 2rem; color: #1e30f3;"></i>
-                                <p class="mb-0 mt-2 small fw-bold">Git / CI/CD</p>
+                        
+                        <!-- Methodologies -->
+                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+                            <div class="skill-category">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-secondary bg-opacity-10 rounded-3 p-2 me-3">
+                                        <i class="bi bi-kanban text-secondary" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h5 class="fw-bold mb-0">Methodologies</h5>
+                                </div>
+                                <div>
+                                    <span class="skill-tag">Agile/Scrum</span>
+                                    <span class="skill-tag">JIRA</span>
+                                    <span class="skill-tag">Git Flow</span>
+                                    <span class="skill-tag">Unit Testing</span>
+                                    <span class="skill-tag">Code Reviews</span>
+                                    <span class="skill-tag">Technical Documentation</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -324,72 +562,76 @@
             <!-- Featured Projects Section -->
             <section class="bg-light py-5">
                 <div class="container px-5">
-                    <h2 class="text-center display-5 fw-bolder mb-5"><span class="text-gradient d-inline">Featured Projects</span></h2>
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Featured Projects</span></h2>
+                        <p class="lead text-muted">Production apps deployed to App Store & Play Store</p>
+                    </div>
+                    
                     <div class="row g-4">
-                        <!-- Aman App -->
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                            <div class="card h-100 shadow-sm">
+                        <!-- Cogens Parent App -->
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="assets/screenshots/cogens/parent/1.webp" class="card-img-top project-image" alt="Cogens Parent App">
+                                </div>
                                 <div class="card-body">
-                                    <div class="badge bg-primary mb-2">Active Project</div>
-                                    <h4 class="card-title">Aman App</h4>
-                                    <p class="card-text text-muted">Transportation booking app for the Omani market with real-time driver tracking, Google Maps API integration, and local payment gateway (Thwani). Full RTL support for Arabic/English.</p>
-                                    <div class="small text-muted">
-                                        <span class="badge bg-light text-dark me-1">Flutter</span>
-                                        <span class="badge bg-light text-dark me-1">BLoC</span>
-                                        <span class="badge bg-light text-dark me-1">Google Maps</span>
-                                        <span class="badge bg-light text-dark">REST APIs</span>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title fw-bold mb-0">Cogens Parent</h5>
+                                        <span class="badge bg-success">Live</span>
+                                    </div>
+                                    <p class="card-text text-muted small">Enables parents to track student attendance, receive announcements, make payments, and manage daily school interactions.</p>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="https://apps.apple.com/eg/app/cogens-parent/id1607885469" target="_blank" class="btn btn-sm btn-outline-dark"><i class="bi bi-apple me-1"></i>App Store</a>
+                                        <a href="https://play.google.com/store/apps/details?id=com.trispects.school.parents" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-google-play me-1"></i>Play Store</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- BeIn Field -->
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card h-100 shadow-sm">
+                        
+                        <!-- 3I Vision App -->
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="assets/screenshots/3i-vision/3i-vision app/1.webp" class="card-img-top project-image" alt="3I Vision App">
+                                </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">BeIn Field App</h4>
-                                    <p class="card-text text-muted">Sports field booking and management platform with real-time booking updates, location services, and integrated payment handling for seamless playground booking experience.</p>
-                                    <div class="small text-muted">
-                                        <span class="badge bg-light text-dark me-1">Flutter</span>
-                                        <span class="badge bg-light text-dark me-1">Real-time Updates</span>
-                                        <span class="badge bg-light text-dark me-1">Location Services</span>
-                                        <span class="badge bg-light text-dark">Payments</span>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title fw-bold mb-0">3I Vision</h5>
+                                        <span class="badge bg-success">Live</span>
+                                    </div>
+                                    <p class="card-text text-muted small">AI-powered app leveraging machine learning for People Detection and License Plate Recognition with real-time processing.</p>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="https://apps.apple.com/eg/app/3i-vision/id6670479729" target="_blank" class="btn btn-sm btn-outline-dark"><i class="bi bi-apple me-1"></i>App Store</a>
+                                        <a href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-google-play me-1"></i>Play Store</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Aramco App -->
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                            <div class="card h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h4 class="card-title">Aramco Inventory App</h4>
-                                    <p class="card-text text-muted">Offline-first inventory management system with built-in QR code scanner for item tracking and data import/export functionality. Built for Aramco using Flutter and MySQL.</p>
-                                    <div class="small text-muted">
-                                        <span class="badge bg-light text-dark me-1">Flutter</span>
-                                        <span class="badge bg-light text-dark me-1">MySQL</span>
-                                        <span class="badge bg-light text-dark me-1">Offline-first</span>
-                                        <span class="badge bg-light text-dark">QR Scanner</span>
-                                    </div>
+                        
+                        <!-- Yalla L3b App -->
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="card project-card border-0 shadow h-100">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="assets/screenshots/freelance/yalla-l3b/1.webp" class="card-img-top project-image" alt="Yalla L3b App">
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Samir Academy -->
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-                            <div class="card h-100 shadow-sm">
                                 <div class="card-body">
-                                    <h4 class="card-title">Samir Academy</h4>
-                                    <p class="card-text text-muted">E-learning platform for doctors featuring video courses, user authentication, progress tracking, and RESTful API integration. Responsive design for web, tablet, and mobile.</p>
-                                    <div class="small text-muted">
-                                        <span class="badge bg-light text-dark me-1">Flutter</span>
-                                        <span class="badge bg-light text-dark me-1">Video Streaming</span>
-                                        <span class="badge bg-light text-dark me-1">Authentication</span>
-                                        <span class="badge bg-light text-dark">Multi-platform</span>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title fw-bold mb-0">Yalla L3b</h5>
+                                        <span class="badge bg-success">Live</span>
+                                    </div>
+                                    <p class="card-text text-muted small">Sports booking app designed to simplify court reservations with player ratings, booking analytics, and venue management.</p>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-google-play me-1"></i>Play Store</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="text-center mt-5">
-                        <a class="btn btn-primary btn-lg px-5" href="projects.html">View All Projects</a>
+                        <a class="btn btn-primary btn-lg px-5" href="projects.html">
+                            <i class="bi bi-collection me-2"></i>View All Projects
+                        </a>
                     </div>
                 </div>
             </section>
@@ -401,29 +643,38 @@
                         <div class="col-lg-8 col-xl-6">
                             <div class="text-center">
                                 <h2 class="fw-bolder mb-3">Let's Build Something Amazing Together</h2>
-                                <p class="lead mb-4">Have a project in mind? I'd love to collaborate and bring your ideas to life with cutting-edge mobile solutions.</p>
-                                <a class="btn btn-light btn-lg px-5 py-3 fs-6 fw-bolder" href="contact.html">Get In Touch</a>
+                                <p class="lead mb-4">Looking for a Flutter developer who can handle everything from mobile UI to backend APIs? Let's discuss your project!</p>
+                                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                                    <a class="btn btn-light btn-lg px-4" href="contact.html">
+                                        <i class="bi bi-envelope me-2"></i>Get In Touch
+                                    </a>
+                                    <a class="btn btn-outline-light btn-lg px-4" href="assets/resume/Eslam_Aped_Resume.pdf" download>
+                                        <i class="bi bi-download me-2"></i>Download CV
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
+        
         <!-- Footer-->
         <footer class="bg-white py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Eslam Aped 2025</div></div>
                     <div class="col-auto">
-                        <a class="small" href="https://github.com/eslamabid175" target="_blank">GitHub</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="https://www.linkedin.com/in/eslamaped/" target="_blank">LinkedIn</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="mailto:eslamabid175@gmail.com">Contact</a>
+                        <div class="small m-0">Copyright &copy; Eslam Aped 2025. All rights reserved.</div>
+                    </div>
+                    <div class="col-auto">
+                        <a class="small text-muted text-decoration-none me-3" href="https://github.com/eslamabid175" target="_blank"><i class="bi bi-github me-1"></i>GitHub</a>
+                        <a class="small text-muted text-decoration-none me-3" href="https://www.linkedin.com/in/eslamaped/" target="_blank"><i class="bi bi-linkedin me-1"></i>LinkedIn</a>
+                        <a class="small text-muted text-decoration-none" href="mailto:eslamabid175@gmail.com"><i class="bi bi-envelope me-1"></i>Email</a>
                     </div>
                 </div>
             </div>
         </footer>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- AOS JS -->
@@ -433,29 +684,28 @@
         <script>
             // Initialize AOS
             AOS.init({
-                duration: 1000,
-                once: true
+                duration: 800,
+                once: true,
+                offset: 100
             });
             
             // Counter animation
             const counters = document.querySelectorAll('.stats-counter');
-            const speed = 200;
             
             counters.forEach(counter => {
                 const animate = () => {
-                    const value = +counter.getAttribute('data-target');
-                    const data = +counter.innerText;
-                    const time = value / speed;
+                    const target = +counter.getAttribute('data-target');
+                    const current = +counter.innerText;
+                    const increment = target / 50;
                     
-                    if(data < value) {
-                        counter.innerText = Math.ceil(data + time);
-                        setTimeout(animate, 1);
+                    if(current < target) {
+                        counter.innerText = Math.ceil(current + increment);
+                        setTimeout(animate, 30);
                     } else {
-                        counter.innerText = value;
+                        counter.innerText = target + '+';
                     }
                 }
                 
-                // Start animation when element is in viewport
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if(entry.isIntersecting) {

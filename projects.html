@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Eslam Aped - Flutter Developer Projects Portfolio" />
+        <meta name="description" content="Eslam Aped - Flutter Developer & Backend Developer Projects Portfolio - Production apps on App Store and Play Store" />
         <meta name="author" content="Eslam Aped" />
         <title>Projects - Eslam Aped | Flutter Developer Portfolio</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,9 +19,19 @@
         <!-- AOS Animation Library -->
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <style>
-            /* Add padding for fixed navbar */
             body {
-                padding-top: 70px;
+                padding-top: 80px;
+            }
+            
+            .bg-gradient-primary-to-secondary {
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            }
+            
+            .gradient-text {
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
             
             .project-item {
@@ -37,15 +47,18 @@
                 transition: all 0.3s ease;
                 overflow: hidden;
                 height: 100%;
+                border-radius: 16px;
+                border: 1px solid #e9ecef;
             }
             
             .project-card:hover {
                 transform: translateY(-10px);
-                box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+                box-shadow: 0 25px 50px rgba(0,0,0,0.15) !important;
+                border-color: #1e30f3;
             }
             
             .project-image {
-                height: 250px;
+                height: 220px;
                 object-fit: cover;
                 transition: transform 0.3s ease;
             }
@@ -55,48 +68,103 @@
             }
             
             .tech-badge {
-                font-size: 0.75rem;
-                padding: 0.25rem 0.5rem;
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+                border-radius: 20px;
             }
             
             .filter-btn {
                 cursor: pointer;
                 transition: all 0.3s ease;
                 border-radius: 25px;
-                padding: 0.5rem 1.5rem;
+                padding: 0.6rem 1.5rem;
+                font-weight: 500;
             }
             
             .filter-btn:hover, .filter-btn.active {
                 background-color: #1e30f3 !important;
                 color: white !important;
                 border-color: #1e30f3 !important;
+                transform: translateY(-2px);
             }
             
-            .project-overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            
-            .project-card:hover .project-overlay {
-                opacity: 1;
-            }
-            
-            /* Gradient background for CTA section */
-            .bg-gradient-primary-to-secondary {
-                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
-            }
-
             .status-badge {
                 position: absolute;
                 top: 15px;
                 right: 15px;
                 z-index: 2;
+            }
+            
+            .company-section {
+                margin-bottom: 4rem;
+            }
+            
+            .company-header {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                border-radius: 16px;
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .screenshot-gallery {
+                display: flex;
+                gap: 0.5rem;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+            
+            .screenshot-thumb {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border: 2px solid transparent;
+            }
+            
+            .screenshot-thumb:hover {
+                transform: scale(1.1);
+                border-color: #1e30f3;
+            }
+            
+            .store-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                font-size: 0.875rem;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            
+            .store-btn:hover {
+                transform: translateY(-2px);
+            }
+            
+            .web-panel-card {
+                background: linear-gradient(135deg, #1e30f3 0%, #4a5af8 100%);
+                color: white;
+                border-radius: 16px;
+                padding: 2rem;
+                transition: all 0.3s ease;
+            }
+            
+            .web-panel-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(30, 48, 243, 0.3);
+            }
+            
+            .project-description {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+            
+            @media (max-width: 768px) {
+                .project-image {
+                    height: 180px;
+                }
             }
         </style>
     </head>
@@ -105,13 +173,16 @@
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top shadow-sm">
                 <div class="container px-5">
-                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">EA</span></a>
+                    <a class="navbar-brand" href="index.html">
+                        <span class="fw-bolder text-primary">EA</span>
+                        <span class="text-muted small ms-2 d-none d-md-inline">Flutter & Backend Developer</span>
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
-                            <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="https://github.com/eslamabid175" target="_blank"><i class="bi bi-github"></i></a></li>
                             <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/eslamaped/" target="_blank"><i class="bi bi-linkedin"></i></a></li>
@@ -120,274 +191,368 @@
                 </div>
             </nav>
             
-            <!-- Projects Section-->
-            <section class="py-5">
-                <div class="container px-5 mb-5">
-                    <div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">My Projects</span></h1>
-                        <p class="lead mt-3">Production apps and real-world Flutter solutions</p>
-                    </div>
-                    
-                    <!-- Filter Buttons -->
-                    <div class="d-flex justify-content-center flex-wrap gap-2 mb-5">
-                        <button class="btn btn-outline-primary filter-btn active" data-filter="all">All Projects</button>
-                        <button class="btn btn-outline-primary filter-btn" data-filter="production">Production Apps</button>
-                        <button class="btn btn-outline-primary filter-btn" data-filter="enterprise">Enterprise</button>
-                        <button class="btn btn-outline-primary filter-btn" data-filter="learning">Learning Projects</button>
-                    </div>
-                    
-                    <div class="row g-4" id="projects-container">
-                        <!-- Project 1 - Aman App -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <span class="badge bg-success status-badge">Active Development</span>
-                                    <img src="https://via.placeholder.com/400x250/1e30f3/ffffff?text=Aman+App" class="card-img-top project-image" alt="Aman App">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Transportation Platform</h5>
-                                            <p class="small mb-0">Oman Market</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Aman App (Uber-like)</h5>
-                                    <p class="card-text text-muted">Transportation booking app for Omani market with real-time driver tracking, Google Maps API integration, and local payment gateway (Thwani). Multi-language support with RTL.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-secondary me-1">BLoC</span>
-                                        <span class="badge tech-badge bg-success me-1">Google Maps</span>
-                                        <span class="badge tech-badge bg-info me-1">REST APIs</span>
-                                    </div>
-                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Oct 2024 - Present</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Project 2 - BeIn Field -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/198754/ffffff?text=BeIn+Field" class="card-img-top project-image" alt="BeIn Field App">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Sports Field Booking</h5>
-                                            <p class="small mb-0">Real-time Platform</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">BeIn Field App</h5>
-                                    <p class="card-text text-muted">Sports field booking and management app with real-time updates, location services, and integrated payment handling for seamless playground booking experience.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-success me-1">Firebase</span>
-                                        <span class="badge tech-badge bg-info me-1">Location Services</span>
-                                        <span class="badge tech-badge bg-warning me-1">Payments</span>
-                                    </div>
-                                    <p class="small text-muted"><i class="bi bi-calendar"></i> May 2024 - Feb 2025</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 3 - Aramco App -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="production enterprise">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/e21e80/ffffff?text=Aramco+Inventory" class="card-img-top project-image" alt="Aramco Inventory App">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Enterprise Solution</h5>
-                                            <p class="small mb-0">Offline-First</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Aramco Inventory App</h5>
-                                    <p class="card-text text-muted">Standalone offline inventory management app for Aramco with built-in QR code scanner for item tracking and data import/export functionality.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-danger me-1">MySQL</span>
-                                        <span class="badge tech-badge bg-warning me-1">QR Scanner</span>
-                                        <span class="badge tech-badge bg-dark me-1">Offline Storage</span>
-                                    </div>
-                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Jun 2024 - Aug 2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Project 4 - Samir Academy -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/fd7e14/ffffff?text=Samir+Academy" class="card-img-top project-image" alt="Samir Academy">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">E-Learning Platform</h5>
-                                            <p class="small mb-0">Healthcare Education</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Samir Academy</h5>
-                                    <p class="card-text text-muted">E-learning platform for doctors with video courses, user authentication, progress tracking, and RESTful API integration. Responsive design for web, tablet, and mobile.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-secondary me-1">Clean Architecture</span>
-                                        <span class="badge tech-badge bg-success me-1">REST APIs</span>
-                                        <span class="badge tech-badge bg-info me-1">Video Streaming</span>
-                                    </div>
-                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Jan 2024 - May 2024</p>
-                                    <div class="d-flex gap-2">
-                                        <a href="https://github.com/eslamabid175/samir_academy" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 5 - Adahi App -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="production">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/0dcaf0/ffffff?text=Adahi+App" class="card-img-top project-image" alt="Adahi App">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Health Inspection</h5>
-                                            <p class="small mb-0">Livestock Tracking</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Adahi App</h5>
-                                    <p class="card-text text-muted">Eid al-Adha sacrifice health checker app for inspecting and tracking livestock health data. Clean UI with offline data handling for field inspections.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Flutter</span>
-                                        <span class="badge tech-badge bg-success me-1">Offline Storage</span>
-                                        <span class="badge tech-badge bg-warning me-1">Health Tracking</span>
-                                        <span class="badge tech-badge bg-info me-1">Clean UI</span>
-                                    </div>
-                                    <p class="small text-muted"><i class="bi bi-calendar"></i> Mar 2024 - May 2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Project 6 - News App (Learning) -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="learning">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/6f42c1/ffffff?text=News+App" class="card-img-top project-image" alt="News App">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Android Native</h5>
-                                            <p class="small mb-0">Learning Project</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">News App</h5>
-                                    <p class="card-text text-muted">News reader with offline support built using Jetpack Compose. Implements MVI architecture pattern with Ktor for networking and RoomDB for local storage.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Jetpack Compose</span>
-                                        <span class="badge tech-badge bg-danger me-1">MVI</span>
-                                        <span class="badge tech-badge bg-success me-1">Ktor</span>
-                                        <span class="badge tech-badge bg-dark me-1">RoomDB</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="https://github.com/eslamabid175/NewsApp" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 7 - JetTranslator (Learning) -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="learning">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/20c997/ffffff?text=JetTranslator" class="card-img-top project-image" alt="JetTranslator">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">AI/ML Integration</h5>
-                                            <p class="small mb-0">ML Kit</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">JetTranslator</h5>
-                                    <p class="card-text text-muted">AI-powered translation app using ML Kit with Jetpack Compose. Demonstrates on-device machine learning capabilities for real-time translation.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Jetpack Compose</span>
-                                        <span class="badge tech-badge bg-warning me-1">ML Kit</span>
-                                        <span class="badge tech-badge bg-info me-1">AI/ML</span>
-                                        <span class="badge tech-badge bg-dark me-1">Kotlin</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="https://github.com/eslamabid175/JetTranslator" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 8 - CMP Bookpedia (Learning) -->
-                        <div class="col-md-6 col-lg-4 project-item" data-category="learning">
-                            <div class="card project-card border-0 shadow h-100">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="https://via.placeholder.com/400x250/dc3545/ffffff?text=Bookpedia" class="card-img-top project-image" alt="CMP Bookpedia">
-                                    <div class="project-overlay d-flex align-items-end p-4">
-                                        <div class="text-white">
-                                            <h5 class="fw-bold mb-2">Multiplatform</h5>
-                                            <p class="small mb-0">KMP</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">CMP-Bookpedia</h5>
-                                    <p class="card-text text-muted">Cross-platform book catalog using Compose Multiplatform (KMP). Shared business logic across Android, iOS, and Desktop platforms.</p>
-                                    <div class="mb-3">
-                                        <span class="badge tech-badge bg-primary me-1">Compose Multiplatform</span>
-                                        <span class="badge tech-badge bg-secondary me-1">KMP</span>
-                                        <span class="badge tech-badge bg-success me-1">Kotlin</span>
-                                        <span class="badge tech-badge bg-info me-1">Shared Code</span>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="https://github.com/eslamabid175/CMP-Bookpedia" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-github"></i> Repository</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- More Projects CTA -->
-                    <div class="text-center mt-5">
-                        <h3 class="mb-3">Want to see more?</h3>
-                        <p class="text-muted mb-4">Check out my GitHub for open-source contributions and experimental projects</p>
-                        <a href="https://github.com/eslamabid175" target="_blank" class="btn btn-primary btn-lg">
-                            <i class="bi bi-github me-2"></i>View GitHub Profile
-                        </a>
+            <!-- Hero Section -->
+            <section class="py-5 bg-gradient-primary-to-secondary text-white">
+                <div class="container px-5 py-4">
+                    <div class="text-center">
+                        <h1 class="display-4 fw-bolder mb-3" data-aos="fade-down">My Projects</h1>
+                        <p class="lead mb-0" data-aos="fade-up">Production apps deployed to App Store & Play Store</p>
                     </div>
                 </div>
             </section>
             
-            <!-- Skills Used Section -->
-            <section class="py-5 bg-light">
+            <!-- Filter Buttons -->
+            <section class="py-4 bg-white sticky-top shadow-sm">
                 <div class="container px-5">
-                    <h2 class="text-center fw-bolder mb-5">Technologies & Tools Used</h2>
-                    <div class="row g-4 text-center">
-                        <div class="col-6 col-md-3">
-                            <i class="bi bi-phone" style="font-size: 3rem; color: #1e30f3;"></i>
-                            <h6 class="mt-2">Flutter/Dart</h6>
+                    <div class="d-flex justify-content-center flex-wrap gap-2">
+                        <button class="btn btn-outline-primary filter-btn active" data-filter="all">All Projects</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="cogens">Cogens</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="3ivision">3I Vision</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="freelance">Freelance</button>
+                        <button class="btn btn-outline-primary filter-btn" data-filter="web">Web Panels</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Projects Section-->
+            <section class="py-5">
+                <div class="container px-5">
+                    
+                    <!-- ============ COGENS SECTION ============ -->
+                    <div class="company-section project-item" data-category="cogens">
+                        <div class="company-header" data-aos="fade-up">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                            <i class="bi bi-building text-primary" style="font-size: 1.25rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h2 class="fw-bolder mb-0">Cogens</h2>
+                                            <p class="text-muted mb-0">Senior Software Engineer | Sep 2025 – Present</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted mb-0 mt-3">Architected "Cogens," a complex ERP ecosystem consisting of 4+ interconnected mobile apps using a modular monolith approach. Built real-time bus tracking with Dart Isolates and co-developed the backend using Django REST Framework.</p>
+                                </div>
+                                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                    <a href="https://cogens.com/" target="_blank" class="btn btn-primary">
+                                        <i class="bi bi-globe me-2"></i>Visit Website
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 col-md-3">
-                            <i class="bi bi-android2" style="font-size: 3rem; color: #3DDC84;"></i>
-                            <h6 class="mt-2">Android (Kotlin/Java)</h6>
+                        
+                        <div class="row g-4">
+                            <!-- Cogens Parent App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/cogens/parent/1.webp" class="card-img-top project-image" alt="Cogens Parent App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Cogens Parent</h5>
+                                        <p class="card-text project-description text-muted">Enables parents to track student attendance, receive announcements, make payments, and manage daily school interactions. Connects parents with the school dismissal system.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">BLoC</span>
+                                            <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">Firebase</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://apps.apple.com/eg/app/cogens-parent/id1607885469" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.trispects.school.parents" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cogens Student App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/cogens/student/1.webp" class="card-img-top project-image" alt="Cogens Student App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Cogens Student</h5>
+                                        <p class="card-text project-description text-muted">Allows students to view schedules, grades, attendance, and receive school updates in real time. A complete student portal experience.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">Real-time</span>
+                                            <span class="badge tech-badge bg-info bg-opacity-10 text-info me-1">REST APIs</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://apps.apple.com/eg/app/cogens-student/id6476619759" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.trispects.school.students" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cogens Bus Driver App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/cogens/bus/1.webp" class="card-img-top project-image" alt="Cogens Bus Driver App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Cogens Bus Driver</h5>
+                                        <p class="card-text project-description text-muted">Connects school drivers with the school and parents. Real-time GPS tracking using Dart Isolates and platform channels for persistent socket connections.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-danger bg-opacity-10 text-danger me-1">Isolates</span>
+                                            <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">GPS</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://apps.apple.com/eg/app/cogens-bus-driver/id6479618217" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.trispects.school.bus.driver" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cogens Staff App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/cogens/staff/1.webp" class="card-img-top project-image" alt="Cogens Staff App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Cogens Staff</h5>
+                                        <p class="card-text project-description text-muted">Used by teachers and school staff to record attendance, communicate with parents, and manage academic schedules efficiently.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">BLoC</span>
+                                            <span class="badge tech-badge bg-info bg-opacity-10 text-info me-1">Notifications</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://apps.apple.com/eg/app/cogens-staff/id1607885245" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.trispects.school.management" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 col-md-3">
-                            <i class="bi bi-layers" style="font-size: 3rem; color: #e21e80;"></i>
-                            <h6 class="mt-2">Clean Architecture</h6>
+                        
+                        <!-- Cogens Web Panels -->
+                        <div class="row g-4 mt-4 project-item" data-category="web cogens">
+                            <div class="col-12">
+                                <h4 class="fw-bold mb-4"><i class="bi bi-globe me-2"></i>Web Panels (Django Backend)</h4>
+                            </div>
+                            <div class="col-md-6" data-aos="fade-up">
+                                <div class="web-panel-card">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="fw-bold mb-1"><i class="bi bi-gear me-2"></i>Admin Panel</h5>
+                                            <span class="badge bg-light text-dark">Django</span>
+                                        </div>
+                                    </div>
+                                    <p class="mb-3 opacity-90">Provides full control for school administrators to manage students, staff, payments, attendance records, notifications, and settings. Built with Django REST Framework.</p>
+                                    <a href="https://school.cogens.com/#/login" target="_blank" class="btn btn-light btn-sm">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i>Visit Panel
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                <div class="web-panel-card" style="background: linear-gradient(135deg, #e21e80 0%, #f84a8a 100%);">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="fw-bold mb-1"><i class="bi bi-shop me-2"></i>Vendor Panel (Hot Lunch)</h5>
+                                            <span class="badge bg-light text-dark">Django</span>
+                                        </div>
+                                    </div>
+                                    <p class="mb-3 opacity-90">A dedicated web portal for food vendors to manage student meal orders, payments, and daily delivery reports. Integrated payment handling.</p>
+                                    <a href="https://vendor.cogens.com/#/loginScreen" target="_blank" class="btn btn-light btn-sm">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i>Visit Panel
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 col-md-3">
-                            <i class="bi bi-server" style="font-size: 3rem; color: #198754;"></i>
-                            <h6 class="mt-2">Django/Python</h6>
+                    </div>
+                    
+                    <!-- ============ 3I VISION SECTION ============ -->
+                    <div class="company-section project-item" data-category="3ivision">
+                        <div class="company-header" data-aos="fade-up">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                            <i class="bi bi-eye text-success" style="font-size: 1.25rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h2 class="fw-bolder mb-0">3I Vision</h2>
+                                            <p class="text-muted mb-0">Senior Flutter Developer | Feb 2025 – Present</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted mb-0 mt-3">Engineered AI-powered applications with machine learning for People Detection and License Plate Recognition. Optimized performance with memory management and offline-first architecture.</p>
+                                </div>
+                                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                    <a href="http://3i-vision.com/#/home" target="_blank" class="btn btn-success">
+                                        <i class="bi bi-globe me-2"></i>Visit Website
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+                        
+                        <div class="row g-4">
+                            <!-- 3I Vision App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/3i-vision/3i-vision app/1.webp" class="card-img-top project-image" alt="3I Vision App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">3I Vision Application</h5>
+                                        <p class="card-text project-description text-muted">AI-powered app leveraging machine learning and computer vision for People Detection and Vehicle (License Plate) Recognition. Integrated real-time data processing with Django REST APIs.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-danger bg-opacity-10 text-danger me-1">AI/ML</span>
+                                            <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">Django</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://apps.apple.com/eg/app/3i-vision/id6670479729" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- DataMind App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/3i-vision/datamind app/1.webp" class="card-img-top project-image" alt="DataMind App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">DataMind Agent</h5>
+                                        <p class="card-text project-description text-muted">Intelligent mobile file manager that scans devices to identify, classify, and organize files using smart keyword analysis. Enhanced app performance through optimized Flutter architecture.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-info bg-opacity-10 text-info me-1">File Management</span>
+                                            <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">AI</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://apps.apple.com/eg/app/datamind-agent/id6754242027" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.datamind.agent" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Aramco Inventory & Adahi App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/3i-vision/adahi app/1.webp" class="card-img-top project-image" alt="Adahi App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Aramco Inventory & Adahi</h5>
+                                        <p class="card-text project-description text-muted">Enterprise solution for inventory and sample management. Implemented QR code scanning, bulk data import/export. Adahi features AI-based health and qualification detection.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">QR Scanner</span>
+                                            <span class="badge tech-badge bg-secondary bg-opacity-10 text-secondary me-1">Offline</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://play.google.com/store/apps/details?id=com.adahi.sa" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ============ FREELANCE SECTION ============ -->
+                    <div class="company-section project-item" data-category="freelance">
+                        <div class="company-header" data-aos="fade-up">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                            <i class="bi bi-laptop text-warning" style="font-size: 1.25rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h2 class="fw-bolder mb-0">Freelance Projects</h2>
+                                            <p class="text-muted mb-0">Software Engineer | Jan 2022 – Jan 2025</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted mb-0 mt-3">Managed complete SDLC for regional and international clients. Built serverless backends using Firebase and implemented complex geospatial features with Google Maps.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row g-4">
+                            <!-- Yalla L3b App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-success status-badge">Live</span>
+                                        <img src="assets/screenshots/freelance/yalla-l3b/1.webp" class="card-img-top project-image" alt="Yalla L3b App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Yalla L3b</h5>
+                                        <p class="card-text project-description text-muted">Sports booking app designed to simplify court reservations for players and streamline management for court owners. Features include player ratings, booking analytics, venue ratings, and nearby courts.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">Firebase</span>
+                                            <span class="badge tech-badge bg-info bg-opacity-10 text-info me-1">Maps</span>
+                                        </div>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <a href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Aman App -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card project-card border-0 shadow-sm h-100">
+                                    <div class="position-relative overflow-hidden">
+                                        <span class="badge bg-warning text-dark status-badge">In Development</span>
+                                        <img src="assets/screenshots/freelance/aman app/1.jpeg" class="card-img-top project-image" alt="Aman App">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Aman App</h5>
+                                        <p class="card-text project-description text-muted">Never miss your bus again! Aman allows you to track your bus instantly, know arrival times accurately, and stay informed about delays. Travel between cities like Muscat, Duqm, Sohar, Mecca, Riyadh seamlessly.</p>
+                                        <div class="mb-3">
+                                            <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
+                                            <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">FastAPI</span>
+                                            <span class="badge tech-badge bg-danger bg-opacity-10 text-danger me-1">Real-time GPS</span>
+                                        </div>
+                                        <p class="small text-muted mb-0"><i class="bi bi-geo-alt me-1"></i>Oman Market • Admin/Driver/Passenger</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            
+            <!-- Skills Used Section -->
+            <section class="py-5 bg-white">
+                <div class="container px-5">
+                    <div class="text-center mb-5" data-aos="fade-up">
+                        <h2 class="fw-bolder mb-3"><span class="gradient-text">Technologies Used</span></h2>
+                        <p class="text-muted">The tech stack powering these projects</p>
+                    </div>
+                    
+                    <div class="row g-3 justify-content-center" data-aos="fade-up">
+                        <div class="col-auto"><span class="badge bg-primary px-3 py-2 fs-6">Flutter</span></div>
+                        <div class="col-auto"><span class="badge bg-success px-3 py-2 fs-6">Django REST</span></div>
+                        <div class="col-auto"><span class="badge bg-warning text-dark px-3 py-2 fs-6">Firebase</span></div>
+                        <div class="col-auto"><span class="badge bg-info px-3 py-2 fs-6">BLoC/Cubit</span></div>
+                        <div class="col-auto"><span class="badge bg-danger px-3 py-2 fs-6">Dart Isolates</span></div>
+                        <div class="col-auto"><span class="badge bg-secondary px-3 py-2 fs-6">PostgreSQL</span></div>
+                        <div class="col-auto"><span class="badge bg-dark px-3 py-2 fs-6">Docker</span></div>
+                        <div class="col-auto"><span class="badge bg-primary px-3 py-2 fs-6">CI/CD</span></div>
+                        <div class="col-auto"><span class="badge bg-success px-3 py-2 fs-6">Google Maps</span></div>
+                        <div class="col-auto"><span class="badge bg-info px-3 py-2 fs-6">FastAPI</span></div>
                     </div>
                 </div>
             </section>
@@ -396,9 +561,16 @@
             <section class="py-5 bg-gradient-primary-to-secondary text-white">
                 <div class="container px-5 my-5">
                     <div class="text-center">
-                        <h2 class="display-4 fw-bolder mb-4">Let's Build Your Next App</h2>
-                        <p class="lead mb-4">Have an idea? I can help bring it to life with clean, scalable code.</p>
-                        <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="contact.html">Start a Project</a>
+                        <h2 class="display-5 fw-bolder mb-4">Ready to Build Your Next App?</h2>
+                        <p class="lead mb-4">Let's discuss how I can help bring your idea to life with Flutter and Django.</p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a class="btn btn-light btn-lg px-4" href="contact.html">
+                                <i class="bi bi-envelope me-2"></i>Get In Touch
+                            </a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="resume.html">
+                                <i class="bi bi-file-person me-2"></i>View Resume
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -408,13 +580,13 @@
         <footer class="bg-white py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Eslam Aped 2025</div></div>
                     <div class="col-auto">
-                        <a class="small" href="https://github.com/eslamabid175" target="_blank">GitHub</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="https://www.linkedin.com/in/eslamaped/" target="_blank">LinkedIn</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="mailto:eslamabid175@gmail.com">Contact</a>
+                        <div class="small m-0">Copyright &copy; Eslam Aped 2025. All rights reserved.</div>
+                    </div>
+                    <div class="col-auto">
+                        <a class="small text-muted text-decoration-none me-3" href="https://github.com/eslamabid175" target="_blank"><i class="bi bi-github me-1"></i>GitHub</a>
+                        <a class="small text-muted text-decoration-none me-3" href="https://www.linkedin.com/in/eslamaped/" target="_blank"><i class="bi bi-linkedin me-1"></i>LinkedIn</a>
+                        <a class="small text-muted text-decoration-none" href="mailto:eslamabid175@gmail.com"><i class="bi bi-envelope me-1"></i>Email</a>
                     </div>
                 </div>
             </div>
@@ -427,10 +599,10 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
         <script>
-            // Initialize AOS after DOM is loaded
+            // Initialize AOS
             document.addEventListener('DOMContentLoaded', function() {
                 AOS.init({
-                    duration: 1000,
+                    duration: 800,
                     once: true,
                     offset: 100
                 });
@@ -438,11 +610,6 @@
                 // Project filtering
                 const filterBtns = document.querySelectorAll('.filter-btn');
                 const projectItems = document.querySelectorAll('.project-item');
-                
-                // Show all projects initially
-                projectItems.forEach(item => {
-                    item.style.display = 'block';
-                });
                 
                 filterBtns.forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -454,25 +621,20 @@
                         const filter = this.getAttribute('data-filter');
                         
                         projectItems.forEach(item => {
-                            if(filter === 'all') {
-                                item.style.display = 'block';
+                            if (filter === 'all') {
                                 item.classList.remove('hidden');
                             } else {
                                 const categories = item.getAttribute('data-category');
-                                if(categories && categories.includes(filter)) {
-                                    item.style.display = 'block';
+                                if (categories && categories.includes(filter)) {
                                     item.classList.remove('hidden');
                                 } else {
-                                    item.style.display = 'none';
                                     item.classList.add('hidden');
                                 }
                             }
                         });
                         
-                        // Re-initialize AOS for visible items
-                        setTimeout(() => {
-                            AOS.refresh();
-                        }, 300);
+                        // Refresh AOS
+                        AOS.refresh();
                     });
                 });
             });
