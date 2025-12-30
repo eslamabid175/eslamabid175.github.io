@@ -161,9 +161,104 @@
                 line-height: 1.6;
             }
             
+            /* Phone Mockup Styles */
+            .phone-mockup-container {
+                display: flex;
+                gap: 20px;
+                overflow-x: auto;
+                padding: 20px 10px;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: thin;
+                scrollbar-color: #1e30f3 #e9ecef;
+            }
+            
+            .phone-mockup-container::-webkit-scrollbar {
+                height: 8px;
+            }
+            
+            .phone-mockup-container::-webkit-scrollbar-track {
+                background: #e9ecef;
+                border-radius: 10px;
+            }
+            
+            .phone-mockup-container::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                border-radius: 10px;
+            }
+            
+            .phone-mockup {
+                flex-shrink: 0;
+                scroll-snap-align: start;
+                width: 180px;
+                height: 380px;
+                background: #1a1a1a;
+                border-radius: 30px;
+                padding: 8px;
+                box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+                transition: all 0.3s ease;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .phone-mockup:hover {
+                transform: scale(1.05) translateY(-10px);
+                box-shadow: 0 35px 60px rgba(0,0,0,0.4);
+            }
+            
+            .phone-mockup img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 22px;
+            }
+            
+            .phone-screen {
+                width: 100%;
+                flex: 1;
+                border-radius: 22px;
+                overflow: hidden;
+                background: #000;
+            }
+            
+            .phone-screen img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 0;
+            }
+            
+            .phone-notch {
+                width: 80px;
+                height: 20px;
+                background: #1a1a1a;
+                border-radius: 0 0 15px 15px;
+                margin: 0 auto -15px;
+                position: relative;
+                z-index: 2;
+            }
+            
+            .screenshot-scroll-hint {
+                text-align: center;
+                color: #6c757d;
+                font-size: 0.85rem;
+                margin-top: 10px;
+            }
+            
+            .app-screenshots-section {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                border-radius: 20px;
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+            
             @media (max-width: 768px) {
                 .project-image {
                     height: 180px;
+                }
+                
+                .phone-mockup {
+                    width: 150px;
+                    height: 320px;
                 }
             }
         </style>
@@ -244,15 +339,52 @@
                         
                         <div class="row g-4">
                             <!-- Cogens Parent App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                                 <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/cogens/parent/1.webp" class="card-img-top project-image" alt="Cogens Parent App">
-                                    </div>
                                     <div class="card-body">
-                                        <h5 class="card-title fw-bold">Cogens Parent</h5>
-                                        <p class="card-text project-description text-muted">Enables parents to track student attendance, receive announcements, make payments, and manage daily school interactions. Connects parents with the school dismissal system.</p>
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <span class="badge bg-success mb-2">Live</span>
+                                                <h5 class="card-title fw-bold mb-1">Cogens Parent</h5>
+                                            </div>
+                                        </div>
+                                        <p class="card-text project-description text-muted mb-3">Enables parents to track student attendance, receive announcements, make payments, and manage daily school interactions.</p>
+                                        
+                                        <!-- Phone Mockup Horizontal Scroll -->
+                                        <div class="phone-mockup-container">
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/parent/1.webp" alt="Cogens Parent Screenshot 1">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/parent/2.webp" alt="Cogens Parent Screenshot 2">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/parent/3.webp" alt="Cogens Parent Screenshot 3">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/parent/4.webp" alt="Cogens Parent Screenshot 4">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/parent/5.webp" alt="Cogens Parent Screenshot 5">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="screenshot-scroll-hint"><i class="bi bi-arrow-left-right me-1"></i>Scroll to view more</p>
+                                        
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">BLoC</span>
@@ -267,15 +399,46 @@
                             </div>
                             
                             <!-- Cogens Student App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                                 <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/cogens/student/1.webp" class="card-img-top project-image" alt="Cogens Student App">
-                                    </div>
                                     <div class="card-body">
-                                        <h5 class="card-title fw-bold">Cogens Student</h5>
-                                        <p class="card-text project-description text-muted">Allows students to view schedules, grades, attendance, and receive school updates in real time. A complete student portal experience.</p>
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <span class="badge bg-success mb-2">Live</span>
+                                                <h5 class="card-title fw-bold mb-1">Cogens Student</h5>
+                                            </div>
+                                        </div>
+                                        <p class="card-text project-description text-muted mb-3">Allows students to view schedules, grades, attendance, and receive school updates in real time.</p>
+                                        
+                                        <!-- Phone Mockup Horizontal Scroll -->
+                                        <div class="phone-mockup-container">
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/student/1.webp" alt="Cogens Student Screenshot 1">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/student/2.webp" alt="Cogens Student Screenshot 2">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/student/3.webp" alt="Cogens Student Screenshot 3">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/student/4.webp" alt="Cogens Student Screenshot 4">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="screenshot-scroll-hint"><i class="bi bi-arrow-left-right me-1"></i>Scroll to view more</p>
+                                        
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">Real-time</span>
@@ -290,15 +453,40 @@
                             </div>
                             
                             <!-- Cogens Bus Driver App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
                                 <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/cogens/bus/1.webp" class="card-img-top project-image" alt="Cogens Bus Driver App">
-                                    </div>
                                     <div class="card-body">
-                                        <h5 class="card-title fw-bold">Cogens Bus Driver</h5>
-                                        <p class="card-text project-description text-muted">Connects school drivers with the school and parents. Real-time GPS tracking using Dart Isolates and platform channels for persistent socket connections.</p>
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <span class="badge bg-success mb-2">Live</span>
+                                                <h5 class="card-title fw-bold mb-1">Cogens Bus Driver</h5>
+                                            </div>
+                                        </div>
+                                        <p class="card-text project-description text-muted mb-3">Real-time GPS tracking using Dart Isolates and platform channels for persistent socket connections.</p>
+                                        
+                                        <!-- Phone Mockup Horizontal Scroll -->
+                                        <div class="phone-mockup-container">
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/bus/1.webp" alt="Cogens Bus Screenshot 1">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/bus/2.webp" alt="Cogens Bus Screenshot 2">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/bus/3.webp" alt="Cogens Bus Screenshot 3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="screenshot-scroll-hint"><i class="bi bi-arrow-left-right me-1"></i>Scroll to view more</p>
+                                        
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-danger bg-opacity-10 text-danger me-1">Isolates</span>
@@ -313,15 +501,40 @@
                             </div>
                             
                             <!-- Cogens Staff App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
                                 <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/cogens/staff/1.webp" class="card-img-top project-image" alt="Cogens Staff App">
-                                    </div>
                                     <div class="card-body">
-                                        <h5 class="card-title fw-bold">Cogens Staff</h5>
-                                        <p class="card-text project-description text-muted">Used by teachers and school staff to record attendance, communicate with parents, and manage academic schedules efficiently.</p>
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <span class="badge bg-success mb-2">Live</span>
+                                                <h5 class="card-title fw-bold mb-1">Cogens Staff</h5>
+                                            </div>
+                                        </div>
+                                        <p class="card-text project-description text-muted mb-3">Used by teachers and school staff to record attendance, communicate with parents, and manage schedules.</p>
+                                        
+                                        <!-- Phone Mockup Horizontal Scroll -->
+                                        <div class="phone-mockup-container">
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/staff/1.webp" alt="Cogens Staff Screenshot 1">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/staff/2.webp" alt="Cogens Staff Screenshot 2">
+                                                </div>
+                                            </div>
+                                            <div class="phone-mockup">
+                                                <div class="phone-notch"></div>
+                                                <div class="phone-screen">
+                                                    <img src="assets/screenshots/cogens/staff/3.webp" alt="Cogens Staff Screenshot 3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="screenshot-scroll-hint"><i class="bi bi-arrow-left-right me-1"></i>Scroll to view more</p>
+                                        
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">BLoC</span>
@@ -463,68 +676,153 @@
                         
                         <div class="row g-4">
                             <!-- 3I Vision App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                                <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/3i-vision/3i-vision app/1.webp" class="card-img-top project-image" alt="3I Vision App">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                                <div class="project-card h-100">
+                                    <div class="phone-mockup-container">
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/3i-vision app/1.webp" alt="3I Vision App 1">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/3i-vision app/2.webp" alt="3I Vision App 2">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/3i-vision app/3.webp" alt="3I Vision App 3">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/3i-vision app/4.webp" alt="3I Vision App 4">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/3i-vision app/5.webp" alt="3I Vision App 5">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">3I Vision Application</h5>
-                                        <p class="card-text project-description text-muted">AI-powered app leveraging machine learning and computer vision for People Detection and Vehicle (License Plate) Recognition. Integrated real-time data processing with Django REST APIs.</p>
+                                    <div class="project-info">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="fw-bold mb-0"><i class="bi bi-eye me-2 text-success"></i>3I Vision Application</h5>
+                                            <span class="badge bg-success">Live</span>
+                                        </div>
+                                        <p class="text-muted small mb-3">AI-powered app leveraging machine learning and computer vision for People Detection and Vehicle (License Plate) Recognition. Integrated real-time data processing with Django REST APIs.</p>
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-danger bg-opacity-10 text-danger me-1">AI/ML</span>
                                             <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">Django</span>
                                         </div>
                                         <div class="d-flex gap-2 flex-wrap">
-                                            <a href="https://apps.apple.com/eg/app/3i-vision/id6670479729" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
-                                            <a href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                            <a href="https://apps.apple.com/eg/app/3i-vision/id6670479729" target="_blank" class="btn btn-dark btn-sm">
+                                                <i class="bi bi-apple me-1"></i>App Store
+                                            </a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" class="btn btn-success btn-sm">
+                                                <i class="bi bi-google-play me-1"></i>Play Store
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- DataMind App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/3i-vision/datamind app/1.webp" class="card-img-top project-image" alt="DataMind App">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                                <div class="project-card h-100">
+                                    <div class="phone-mockup-container">
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/datamind app/1.webp" alt="DataMind App 1">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/datamind app/2.webp" alt="DataMind App 2">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/datamind app/3.webp" alt="DataMind App 3">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/datamind app/4.webp" alt="DataMind App 4">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">DataMind Agent</h5>
-                                        <p class="card-text project-description text-muted">Intelligent mobile file manager that scans devices to identify, classify, and organize files using smart keyword analysis. Enhanced app performance through optimized Flutter architecture.</p>
+                                    <div class="project-info">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="fw-bold mb-0"><i class="bi bi-folder me-2 text-info"></i>DataMind Agent</h5>
+                                            <span class="badge bg-success">Live</span>
+                                        </div>
+                                        <p class="text-muted small mb-3">Intelligent mobile file manager that scans devices to identify, classify, and organize files using smart keyword analysis. Enhanced app performance through optimized Flutter architecture.</p>
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-info bg-opacity-10 text-info me-1">File Management</span>
                                             <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">AI</span>
                                         </div>
                                         <div class="d-flex gap-2 flex-wrap">
-                                            <a href="https://apps.apple.com/eg/app/datamind-agent/id6754242027" target="_blank" class="store-btn btn btn-sm btn-outline-dark"><i class="bi bi-apple"></i>App Store</a>
-                                            <a href="https://play.google.com/store/apps/details?id=com.datamind.agent" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                            <a href="https://apps.apple.com/eg/app/datamind-agent/id6754242027" target="_blank" class="btn btn-dark btn-sm">
+                                                <i class="bi bi-apple me-1"></i>App Store
+                                            </a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.datamind.agent" target="_blank" class="btn btn-success btn-sm">
+                                                <i class="bi bi-google-play me-1"></i>Play Store
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Aramco Inventory & Adahi App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                                <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/3i-vision/adahi app/1.webp" class="card-img-top project-image" alt="Adahi App">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                                <div class="project-card h-100">
+                                    <div class="phone-mockup-container">
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/adahi app/1.webp" alt="Adahi App 1">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/adahi app/2.webp" alt="Adahi App 2">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/3i-vision/adahi app/3.webp" alt="Adahi App 3">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Aramco Inventory & Adahi</h5>
-                                        <p class="card-text project-description text-muted">Enterprise solution for inventory and sample management. Implemented QR code scanning, bulk data import/export. Adahi features AI-based health and qualification detection.</p>
+                                    <div class="project-info">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="fw-bold mb-0"><i class="bi bi-box-seam me-2 text-warning"></i>Aramco Inventory & Adahi</h5>
+                                            <span class="badge bg-success">Live</span>
+                                        </div>
+                                        <p class="text-muted small mb-3">Enterprise solution for inventory and sample management. Implemented QR code scanning, bulk data import/export. Adahi features AI-based health and qualification detection.</p>
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">QR Scanner</span>
                                             <span class="badge tech-badge bg-secondary bg-opacity-10 text-secondary me-1">Offline</span>
                                         </div>
                                         <div class="d-flex gap-2 flex-wrap">
-                                            <a href="https://play.google.com/store/apps/details?id=com.adahi.sa" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.adahi.sa" target="_blank" class="btn btn-success btn-sm">
+                                                <i class="bi bi-google-play me-1"></i>Play Store
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -553,37 +851,125 @@
                         
                         <div class="row g-4">
                             <!-- Yalla L3b App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                                <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-success status-badge">Live</span>
-                                        <img src="assets/screenshots/freelance/yalla-l3b/1.webp" class="card-img-top project-image" alt="Yalla L3b App">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                                <div class="project-card h-100">
+                                    <div class="phone-mockup-container">
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/yalla-l3b/1.webp" alt="Yalla L3b 1">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/yalla-l3b/2.webp" alt="Yalla L3b 2">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/yalla-l3b/3.webp" alt="Yalla L3b 3">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/yalla-l3b/4.webp" alt="Yalla L3b 4">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/yalla-l3b/5.webp" alt="Yalla L3b 5">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Yalla L3b</h5>
-                                        <p class="card-text project-description text-muted">Sports booking app designed to simplify court reservations for players and streamline management for court owners. Features include player ratings, booking analytics, venue ratings, and nearby courts.</p>
+                                    <div class="project-info">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="fw-bold mb-0"><i class="bi bi-dribbble me-2 text-warning"></i>Yalla L3b</h5>
+                                            <span class="badge bg-success">Live</span>
+                                        </div>
+                                        <p class="text-muted small mb-3">Sports booking app designed to simplify court reservations for players and streamline management for court owners. Features include player ratings, booking analytics, venue ratings, and nearby courts.</p>
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-warning bg-opacity-10 text-warning me-1">Firebase</span>
                                             <span class="badge tech-badge bg-info bg-opacity-10 text-info me-1">Maps</span>
                                         </div>
                                         <div class="d-flex gap-2 flex-wrap">
-                                            <a href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" class="store-btn btn btn-sm btn-outline-success"><i class="bi bi-google-play"></i>Play Store</a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" class="btn btn-success btn-sm">
+                                                <i class="bi bi-google-play me-1"></i>Play Store
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Aman App -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="card project-card border-0 shadow-sm h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <span class="badge bg-warning text-dark status-badge">In Development</span>
-                                        <img src="assets/screenshots/freelance/aman app/1.jpeg" class="card-img-top project-image" alt="Aman App">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                                <div class="project-card h-100">
+                                    <div class="phone-mockup-container">
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/1.jpeg" alt="Aman App 1">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/2.jpeg" alt="Aman App 2">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/3.jpeg" alt="Aman App 3">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/4.jpeg" alt="Aman App 4">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/5.jpeg" alt="Aman App 5">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/6.jpeg" alt="Aman App 6">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/7.jpeg" alt="Aman App 7">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/8.jpeg" alt="Aman App 8">
+                                            </div>
+                                        </div>
+                                        <div class="phone-mockup">
+                                            <div class="phone-notch"></div>
+                                            <div class="phone-screen">
+                                                <img src="assets/screenshots/freelance/aman app/9.jpeg" alt="Aman App 9">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Aman App</h5>
-                                        <p class="card-text project-description text-muted">Never miss your bus again! Aman allows you to track your bus instantly, know arrival times accurately, and stay informed about delays. Travel between cities like Muscat, Duqm, Sohar, Mecca, Riyadh seamlessly.</p>
+                                    <div class="project-info">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="fw-bold mb-0"><i class="bi bi-bus-front me-2 text-danger"></i>Aman App</h5>
+                                            <span class="badge bg-warning text-dark">In Development</span>
+                                        </div>
+                                        <p class="text-muted small mb-3">Never miss your bus again! Aman allows you to track your bus instantly, know arrival times accurately, and stay informed about delays. Travel between cities like Muscat, Duqm, Sohar, Mecca, Riyadh seamlessly.</p>
                                         <div class="mb-3">
                                             <span class="badge tech-badge bg-primary bg-opacity-10 text-primary me-1">Flutter</span>
                                             <span class="badge tech-badge bg-success bg-opacity-10 text-success me-1">FastAPI</span>

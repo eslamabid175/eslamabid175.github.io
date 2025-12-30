@@ -23,22 +23,48 @@
         <link href="css/styles.css" rel="stylesheet" />
         <!-- AOS Animation Library -->
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Particles.js for background -->
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <!-- Chart.js for skill charts -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
             /* Custom animations and improvements */
+            
+            /* Particle Background */
+            #particles-js {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: 0;
+            }
+            
             .hero-section {
                 min-height: 100vh;
                 display: flex;
                 align-items: center;
                 padding-top: 80px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .hero-content {
+                position: relative;
+                z-index: 1;
+            }
+            
+            /* Typing Animation */
+            .typing-container {
+                display: inline-block;
             }
             
             .typing-text {
+                display: inline-block;
                 overflow: hidden;
-                border-right: .15em solid #1e30f3;
+                border-right: 3px solid #1e30f3;
                 white-space: nowrap;
-                margin: 0 auto;
-                letter-spacing: .15em;
-                animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+                animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
             }
             
             @keyframes typing {
@@ -49,6 +75,298 @@
             @keyframes blink-caret {
                 from, to { border-color: transparent }
                 50% { border-color: #1e30f3; }
+            }
+            
+            /* Skill Progress Bars */
+            .skill-progress-container {
+                margin-bottom: 1.5rem;
+            }
+            
+            .skill-progress-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.5rem;
+            }
+            
+            .skill-progress-bar {
+                height: 12px;
+                background: #e9ecef;
+                border-radius: 10px;
+                overflow: hidden;
+                position: relative;
+            }
+            
+            .skill-progress-fill {
+                height: 100%;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                width: 0;
+                transition: width 1.5s ease-out;
+                position: relative;
+            }
+            
+            .skill-progress-fill::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                animation: shimmer 2s infinite;
+            }
+            
+            @keyframes shimmer {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(100%); }
+            }
+            
+            /* Career Timeline */
+            .timeline {
+                position: relative;
+                padding: 20px 0;
+            }
+            
+            .timeline::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(180deg, #1e30f3 0%, #e21e80 100%);
+                border-radius: 2px;
+            }
+            
+            .timeline-item {
+                position: relative;
+                margin-bottom: 40px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content {
+                margin-left: auto;
+                margin-right: calc(50% + 30px);
+                text-align: right;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: calc(50% + 30px);
+            }
+            
+            .timeline-content {
+                width: calc(50% - 60px);
+                padding: 20px;
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+            
+            .timeline-content:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            }
+            
+            .timeline-dot {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 20px;
+                height: 20px;
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                border-radius: 50%;
+                border: 4px solid white;
+                box-shadow: 0 0 0 4px rgba(30, 48, 243, 0.2);
+                z-index: 1;
+            }
+            
+            .timeline-year {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 25px;
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                color: white;
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 600;
+            }
+            
+            @media (max-width: 768px) {
+                .timeline::before {
+                    left: 20px;
+                }
+                
+                .timeline-item:nth-child(odd) .timeline-content,
+                .timeline-item:nth-child(even) .timeline-content {
+                    margin-left: 50px;
+                    margin-right: 0;
+                    width: calc(100% - 60px);
+                    text-align: left;
+                }
+                
+                .timeline-dot {
+                    left: 20px;
+                }
+                
+                .timeline-year {
+                    left: 20px;
+                }
+            }
+            
+            /* Testimonial Card */
+            .testimonial-card {
+                background: white;
+                border-radius: 20px;
+                padding: 2.5rem;
+                position: relative;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+            
+            .testimonial-card::before {
+                content: '"';
+                position: absolute;
+                top: 20px;
+                left: 30px;
+                font-size: 6rem;
+                font-family: Georgia, serif;
+                color: rgba(30, 48, 243, 0.1);
+                line-height: 1;
+            }
+            
+            .testimonial-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            }
+            
+            /* Certification Cards */
+            .cert-card {
+                background: white;
+                border-radius: 16px;
+                padding: 1.5rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                height: 100%;
+            }
+            
+            .cert-card:hover {
+                border-color: #1e30f3;
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(30, 48, 243, 0.15);
+            }
+            
+            .cert-badge {
+                width: 60px;
+                height: 60px;
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.5rem;
+            }
+            
+            /* Blog Article Card */
+            .article-card {
+                background: white;
+                border-radius: 16px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                height: 100%;
+            }
+            
+            .article-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            }
+            
+            .article-image {
+                height: 200px;
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 4rem;
+            }
+            
+            /* Open Source Cards */
+            .repo-card {
+                background: white;
+                border-radius: 16px;
+                padding: 1.5rem;
+                border: 1px solid #e9ecef;
+                transition: all 0.3s ease;
+                height: 100%;
+            }
+            
+            .repo-card:hover {
+                border-color: #1e30f3;
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            }
+            
+            /* Language Progress */
+            .language-item {
+                background: white;
+                border-radius: 16px;
+                padding: 1.5rem;
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+            
+            .language-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            }
+            
+            .language-circle {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 1rem;
+                position: relative;
+            }
+            
+            .language-circle svg {
+                transform: rotate(-90deg);
+            }
+            
+            .language-circle .circle-bg {
+                fill: none;
+                stroke: #e9ecef;
+                stroke-width: 8;
+            }
+            
+            .language-circle .circle-fill {
+                fill: none;
+                stroke: url(#gradient);
+                stroke-width: 8;
+                stroke-linecap: round;
+                stroke-dasharray: 283;
+                stroke-dashoffset: 283;
+                transition: stroke-dashoffset 1.5s ease-out;
+            }
+            
+            .language-percentage {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+            
+            /* Card tilt effect */
+            .tilt-card {
+                transform-style: preserve-3d;
+                transition: transform 0.3s ease;
+            }
+            
+            .tilt-card:hover {
+                transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
             }
             
             .tech-stack-item {
@@ -231,7 +549,8 @@
             
             <!-- Hero Section-->
             <header class="hero-section bg-light">
-                <div class="container px-5">
+                <div id="particles-js"></div>
+                <div class="container px-5 hero-content">
                     <div class="row gx-5 align-items-center">
                         <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-right">
                             <div class="text-center text-lg-start">
@@ -558,6 +877,466 @@
                     </div>
                 </div>
             </section>
+            
+            <!-- Skill Proficiency Charts Section -->
+            <section class="py-5 bg-light">
+                <div class="container px-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Skill Proficiency</span></h2>
+                        <p class="lead text-muted">Expertise levels based on real-world project experience</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <div class="col-lg-6" data-aos="fade-right">
+                            <div class="bg-white rounded-4 p-4 shadow-sm h-100">
+                                <h5 class="fw-bold mb-4"><i class="bi bi-code-slash text-primary me-2"></i>Development Skills</h5>
+                                
+                                <div class="skill-progress-container" data-skill="100">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">Flutter & Dart</span>
+                                        <span class="text-primary fw-bold">100%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="100">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">Clean Architecture</span>
+                                        <span class="text-primary fw-bold">100%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="95">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">Django REST Framework</span>
+                                        <span class="text-primary fw-bold">95%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="90">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">CI/CD & DevOps</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="90">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">State Management (BLoC)</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6" data-aos="fade-left">
+                            <div class="bg-white rounded-4 p-4 shadow-sm h-100">
+                                <h5 class="fw-bold mb-4"><i class="bi bi-tools text-success me-2"></i>Additional Skills</h5>
+                                
+                                <div class="skill-progress-container" data-skill="90">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">Native Integration (Kotlin/Swift)</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="90">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">Firebase & Cloud Services</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="90">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">PostgreSQL & Database Design</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="90">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">Docker & VPS Deployment</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-progress-container" data-skill="90">
+                                    <div class="skill-progress-header">
+                                        <span class="fw-medium">Google Maps & Geolocation</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Career Timeline Section -->
+            <section class="py-5">
+                <div class="container px-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Career Journey</span></h2>
+                        <p class="lead text-muted">From graduation to senior developer</p>
+                    </div>
+                    
+                    <div class="timeline">
+                        <!-- 2022 - Graduation & Freelance Start -->
+                        <div class="timeline-item" data-aos="fade-up">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-success me-2">2022</span>
+                                    <h5 class="fw-bold mb-0">B.Sc. Computer Science</h5>
+                                </div>
+                                <p class="text-muted mb-2">Cairo University</p>
+                                <p class="small mb-0">Graduated and started freelance software engineering career, building mobile apps for regional clients.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 2022-2024 - Freelance -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-warning text-dark me-2">2022-2024</span>
+                                    <h5 class="fw-bold mb-0">Software Engineer</h5>
+                                </div>
+                                <p class="text-muted mb-2">Freelance | Remote</p>
+                                <p class="small mb-0">Built sports booking apps, ride-sharing platforms, and serverless backends for Omani market clients.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 2024 - 3I Vision -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-primary me-2">Feb 2024</span>
+                                    <h5 class="fw-bold mb-0">Senior Flutter Developer</h5>
+                                </div>
+                                <p class="text-muted mb-2">3I Vision | Giza, Egypt (Hybrid) | 9 AM - 5 PM</p>
+                                <p class="small mb-0">AI-powered apps for People Detection & License Plate Recognition. Reduced app startup by 30%.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 2024 - Cogens (Parallel) -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="d-flex align-items-center flex-wrap mb-2">
+                                    <span class="badge bg-gradient-primary-to-secondary text-white me-2">Sep 2024</span>
+                                    <h5 class="fw-bold mb-0">Senior Software Engineer</h5>
+                                </div>
+                                <p class="text-muted mb-2">Cogens | Canada (Remote) | 6 PM - 1 AM</p>
+                                <p class="small mb-2">Architected ERP ecosystem with 4 mobile apps. Real-time bus tracking with Dart Isolates. Reduced deployment by 40%.</p>
+                                <span class="badge bg-danger bg-opacity-10 text-danger"><i class="bi bi-lightning me-1"></i>Working in parallel with 3I Vision</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Present -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-dark me-2">Present</span>
+                                    <h5 class="fw-bold mb-0">2+ Roles, 10+ Apps</h5>
+                                </div>
+                                <p class="text-muted mb-2">Senior Developer at 2 Companies</p>
+                                <p class="small mb-0">Currently working at both 3I Vision (day) and Cogens (night), delivering high-quality Flutter apps and Django backends.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Education Section -->
+            <section class="py-5 bg-light">
+                <div class="container px-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6" data-aos="fade-right">
+                            <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Education</span></h2>
+                            <div class="bg-white rounded-4 p-4 shadow-sm">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-primary bg-opacity-10 rounded-3 p-3 me-4">
+                                        <i class="bi bi-mortarboard text-primary" style="font-size: 2rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="fw-bold mb-1">B.Sc. Computer Science</h4>
+                                        <h5 class="text-primary mb-2">Cairo University</h5>
+                                        <p class="text-muted mb-0"><i class="bi bi-calendar3 me-2"></i>2017 - 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-left">
+                            <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Languages</span></h2>
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <div class="language-item shadow-sm">
+                                        <div class="language-circle">
+                                            <svg viewBox="0 0 100 100">
+                                                <defs>
+                                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                        <stop offset="0%" style="stop-color:#1e30f3"/>
+                                                        <stop offset="100%" style="stop-color:#e21e80"/>
+                                                    </linearGradient>
+                                                </defs>
+                                                <circle class="circle-bg" cx="50" cy="50" r="45"/>
+                                                <circle class="circle-fill" cx="50" cy="50" r="45" data-percent="100"/>
+                                            </svg>
+                                            <span class="language-percentage gradient-text">100%</span>
+                                        </div>
+                                        <h6 class="fw-bold mb-1">Arabic</h6>
+                                        <small class="text-muted">Native</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="language-item shadow-sm">
+                                        <div class="language-circle">
+                                            <svg viewBox="0 0 100 100">
+                                                <circle class="circle-bg" cx="50" cy="50" r="45"/>
+                                                <circle class="circle-fill" cx="50" cy="50" r="45" data-percent="90"/>
+                                            </svg>
+                                            <span class="language-percentage gradient-text">90%</span>
+                                        </div>
+                                        <h6 class="fw-bold mb-1">English</h6>
+                                        <small class="text-muted">Fluent</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="language-item shadow-sm">
+                                        <div class="language-circle">
+                                            <svg viewBox="0 0 100 100">
+                                                <circle class="circle-bg" cx="50" cy="50" r="45"/>
+                                                <circle class="circle-fill" cx="50" cy="50" r="45" data-percent="50"/>
+                                            </svg>
+                                            <span class="language-percentage gradient-text">50%</span>
+                                        </div>
+                                        <h6 class="fw-bold mb-1">French</h6>
+                                        <small class="text-muted">Intermediate</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Certifications Section -->
+            <section class="py-5">
+                <div class="container px-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Certifications</span></h2>
+                        <p class="lead text-muted">Continuous learning and professional development</p>
+                    </div>
+                    
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-md-6 col-lg-5" data-aos="fade-up">
+                            <a href="https://www.udemy.com/certificate/UC-2932f681-e072-482c-a0e2-37770d6dd0c7/" target="_blank" class="text-decoration-none">
+                                <div class="cert-card shadow-sm">
+                                    <div class="d-flex align-items-start">
+                                        <div class="cert-badge me-3">
+                                            <i class="bi bi-award"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-bold text-dark mb-1">The Complete Flutter & Dart</h5>
+                                            <p class="text-muted small mb-2">Basics to Advanced [Arabic]</p>
+                                            <div class="d-flex align-items-center flex-wrap gap-2">
+                                                <span class="badge bg-primary bg-opacity-10 text-primary">Udemy</span>
+                                                <span class="badge bg-success bg-opacity-10 text-success">55 Hours</span>
+                                                <span class="badge bg-warning bg-opacity-10 text-warning">2025</span>
+                                            </div>
+                                            <p class="text-muted small mt-2 mb-0"><i class="bi bi-person me-1"></i>Instructor: Abdallah Yassein</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="100">
+                            <a href="https://www.udemy.com/certificate/UC-df701db4-7470-4f96-9f32-a72379af93bd/" target="_blank" class="text-decoration-none">
+                                <div class="cert-card shadow-sm">
+                                    <div class="d-flex align-items-start">
+                                        <div class="cert-badge me-3">
+                                            <i class="bi bi-award"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-bold text-dark mb-1">Multi-Modular & Clean Architecture</h5>
+                                            <p class="text-muted small mb-2">Mastering Android Architecture</p>
+                                            <div class="d-flex align-items-center flex-wrap gap-2">
+                                                <span class="badge bg-primary bg-opacity-10 text-primary">Udemy</span>
+                                                <span class="badge bg-success bg-opacity-10 text-success">23 Hours</span>
+                                                <span class="badge bg-warning bg-opacity-10 text-warning">2024</span>
+                                            </div>
+                                            <p class="text-muted small mt-2 mb-0"><i class="bi bi-person me-1"></i>Instructor: Mina Farid</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Testimonials Section -->
+            <section class="py-5 bg-light">
+                <div class="container px-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Testimonials</span></h2>
+                        <p class="lead text-muted">What people say about working with me</p>
+                    </div>
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8" data-aos="zoom-in">
+                            <div class="testimonial-card">
+                                <div class="text-center">
+                                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                                        <i class="bi bi-eye text-success" style="font-size: 2rem;"></i>
+                                    </div>
+                                    <blockquote class="mb-4">
+                                        <p class="fs-4 fst-italic text-dark mb-0">"We won! Eslam, you are a very hard worker!"</p>
+                                    </blockquote>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div>
+                                            <h5 class="fw-bold mb-0">CEO</h5>
+                                            <p class="text-muted mb-0">3I Vision</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Blog/Articles Section -->
+            <section class="py-5">
+                <div class="container px-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Technical Articles</span></h2>
+                        <p class="lead text-muted">Sharing knowledge with the developer community</p>
+                    </div>
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 col-lg-6" data-aos="fade-up">
+                            <a href="https://medium.com/@eslamabid175/dart-isolates-explained-true-concurrency-in-flutter-d68e5069869c" target="_blank" class="text-decoration-none">
+                                <div class="article-card shadow-sm">
+                                    <div class="article-image">
+                                        <i class="bi bi-cpu"></i>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <span class="badge bg-primary me-2">Flutter</span>
+                                            <span class="badge bg-success me-2">Dart</span>
+                                            <span class="badge bg-warning text-dark">Concurrency</span>
+                                        </div>
+                                        <h4 class="fw-bold text-dark mb-2">Dart Isolates Explained: True Concurrency in Flutter</h4>
+                                        <p class="text-muted mb-3">Deep dive into Dart isolates - why they exist, when to use them, and practical examples for CPU-intensive tasks. Learn the difference between async/await and true parallelism.</p>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-medium text-dark me-2" style="font-size: 1.5rem;"></i>
+                                                <span class="text-muted small">Medium</span>
+                                            </div>
+                                            <span class="text-primary fw-medium">Read Article <i class="bi bi-arrow-right"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Open Source Section -->
+            <section class="py-5 bg-light">
+                <div class="container px-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bolder mb-3"><span class="gradient-text">Open Source</span></h2>
+                        <p class="lead text-muted">Contributing to the developer community</p>
+                    </div>
+                    
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-md-6" data-aos="fade-up">
+                            <a href="https://github.com/eslamabid175/eslamabid175.github.io" target="_blank" class="text-decoration-none">
+                                <div class="repo-card">
+                                    <div class="d-flex align-items-start justify-content-between mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-github text-dark me-2" style="font-size: 1.5rem;"></i>
+                                            <h5 class="fw-bold text-dark mb-0">eslamabid175.github.io</h5>
+                                        </div>
+                                        <span class="badge bg-primary">Public</span>
+                                    </div>
+                                    <p class="text-muted small mb-3">My professional portfolio website built with Bootstrap 5, featuring responsive design, animations, and modern UI. Open for contributions!</p>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <span class="text-muted small"><i class="bi bi-circle-fill text-warning me-1" style="font-size: 0.5rem;"></i>HTML/CSS/JS</span>
+                                        <span class="text-muted small"><i class="bi bi-star me-1"></i>Star</span>
+                                        <span class="text-muted small"><i class="bi bi-git me-1"></i>Fork</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                            <a href="https://github.com/eslamabid175/flutter_start_point" target="_blank" class="text-decoration-none">
+                                <div class="repo-card">
+                                    <div class="d-flex align-items-start justify-content-between mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-github text-dark me-2" style="font-size: 1.5rem;"></i>
+                                            <h5 class="fw-bold text-dark mb-0">flutter_start_point</h5>
+                                        </div>
+                                        <span class="badge bg-primary">Public</span>
+                                    </div>
+                                    <p class="text-muted small mb-3">Flutter boilerplate with Clean Architecture, BLoC pattern, dependency injection, and best practices. Perfect starting point for new Flutter projects!</p>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <span class="text-muted small"><i class="bi bi-circle-fill text-info me-1" style="font-size: 0.5rem;"></i>Dart</span>
+                                        <span class="text-muted small"><i class="bi bi-star me-1"></i>Star</span>
+                                        <span class="text-muted small"><i class="bi bi-git me-1"></i>Fork</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Featured Projects Section -->
             <section class="bg-light py-5">
@@ -648,7 +1427,7 @@
                                     <a class="btn btn-light btn-lg px-4" href="contact.html">
                                         <i class="bi bi-envelope me-2"></i>Get In Touch
                                     </a>
-                                    <a class="btn btn-outline-light btn-lg px-4" href="assets/resume/Eslam_Aped_Resume.pdf" download>
+                                    <a class="btn btn-outline-light btn-lg px-4" href="assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download>
                                         <i class="bi bi-download me-2"></i>Download CV
                                     </a>
                                 </div>
@@ -689,6 +1468,48 @@
                 offset: 100
             });
             
+            // Particles.js Configuration
+            if(document.getElementById('particles-js')) {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: ['#1e30f3', '#e21e80', '#6610f2'] },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.3, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#1e30f3',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: { enable: true, mode: 'grab' },
+                            onclick: { enable: true, mode: 'push' },
+                            resize: true
+                        },
+                        modes: {
+                            grab: { distance: 140, line_linked: { opacity: 0.5 } },
+                            push: { particles_nb: 4 }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+            
             // Counter animation
             const counters = document.querySelectorAll('.stats-counter');
             
@@ -716,6 +1537,56 @@
                 });
                 
                 observer.observe(counter);
+            });
+            
+            // Skill Progress Bars Animation
+            const skillBars = document.querySelectorAll('.skill-progress-container');
+            
+            skillBars.forEach(bar => {
+                const fill = bar.querySelector('.skill-progress-fill');
+                const skillLevel = bar.getAttribute('data-skill');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting) {
+                            fill.style.width = skillLevel + '%';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(bar);
+            });
+            
+            // Language Circle Animation
+            const languageCircles = document.querySelectorAll('.circle-fill');
+            
+            languageCircles.forEach(circle => {
+                const percent = circle.getAttribute('data-percent');
+                const circumference = 2 * Math.PI * 45; // radius = 45
+                const offset = circumference - (percent / 100) * circumference;
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting) {
+                            circle.style.strokeDashoffset = offset;
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(circle);
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
             });
         </script>
     </body>
