@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django & DRF — ملخص دراستي الشامل</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Cairo:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --card: #FFFFFF;
+            --border: #E2E8F0;
+            --accent: #4F46E5;
+            --accent-light: #EEF2FF;
+            --accent-dark: #3730A3;
+            --text: #0F172A;
+            --text-muted: #64748B;
+            --success: #059669;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --info: #0891B2;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .orb1 { width: 600px; height: 600px; background: #E0E7FF; top: -200px; right: -100px; animation: drift1 20s ease-in-out infinite; }
+        .orb2 { width: 500px; height: 500px; background: #F1F5F9; bottom: -150px; left: -100px; animation: drift2 25s ease-in-out infinite; }
+
+        @keyframes drift1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-100px, 100px); } }
+        @keyframes drift2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(100px, -100px); } }
+
+        .content { position: relative; z-index: 1; }
+
+        .portfolio-links {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 120;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 90vw;
+        }
+
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+
+        .portfolio-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-light);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+            color: var(--accent);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 100px;
+            margin-bottom: 40px;
+            animation: fadeSlideDown 0.8s ease forwards;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+
+        .hero h1 {
+            font-size: clamp(48px, 10vw, 100px);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 24px;
+            color: var(--text);
+            letter-spacing: -2px;
+            animation: fadeSlideDown 0.8s 0.1s ease both;
+        }
+
+        .hero h1 span.django {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span.drf { color: var(--text-muted); opacity: 0.8; }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-muted);
+            margin-bottom: 56px;
+            max-width: 700px;
+            animation: fadeSlideDown 0.8s 0.2s ease both;
+        }
+
+        .hero-subtitle span { color: var(--accent); font-weight: 700; }
+
+        .hero-flow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: fadeSlideDown 0.8s 0.3s ease both;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: var(--surface);
+            padding: 16px 32px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flow-node {
+            background: var(--accent-light);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .flow-node:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .flow-arrow { font-size: 20px; color: var(--border); }
+
+        /* Section */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 72px;
+        }
+
+        .section-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+
+        .section-title .highlight {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: var(--accent-light);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card.visible { opacity: 1; transform: translateY(0); }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon { transform: scale(1.1) rotate(5deg); }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .card-body {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+            direction: rtl;
+        }
+
+        .card-body strong { color: var(--text); font-weight: 700; }
+
+        /* HTTP Methods */
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .method-card {
+            border-radius: var(--radius-md);
+            padding: 28px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .method-card.visible { opacity: 1; transform: scale(1); }
+        .method-card:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
+
+        .method-badge {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .method-card.get .method-badge { color: var(--info); }
+        .method-card.post .method-badge { color: var(--success); }
+        .method-card.put .method-badge { color: var(--warning); }
+        .method-card.patch .method-badge { color: #8B5CF6; }
+        .method-card.delete .method-badge { color: var(--danger); }
+
+        .method-desc { color: var(--text-muted); font-size: 15px; font-weight: 600; direction: rtl; }
+
+        /* Code Block */
+        .code-block {
+            background: #111827;
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            color: #E2E8F0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block .lang-tag {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 10px;
+            color: #64748B;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .code-block .kw { color: #818CF8; }
+        .code-block .cls { color: #A5B4FC; }
+        .code-block .fn { color: #34D399; }
+        .code-block .str { color: #FCA5A5; }
+        .code-block .cm { color: #475569; font-style: italic; }
+        .code-block .var { color: #93C5FD; }
+        .code-block .num { color: #F97316; }
+        .code-block .dec { color: #FBBF24; }
+
+        /* Table */
+        .orm-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            direction: ltr;
+        }
+
+        .orm-table thead tr { background: var(--accent-light); }
+
+        .orm-table th {
+            padding: 16px 20px;
+            color: var(--accent);
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .orm-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .orm-table tr:hover td { background: var(--accent-light); }
+        .orm-table .code { font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-weight: 600; }
+
+        /* Architecture Grid */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .arch-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 28px 20px;
+            background: var(--bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .arch-step.visible { opacity: 1; transform: translateY(0); }
+
+        .arch-number {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);
+        }
+
+        .arch-name { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+        .arch-desc { color: var(--text-muted); font-size: 13px; line-height: 1.6; direction: rtl; }
+
+        /* Navigation */
+        .nav-dots {
+            position: fixed;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot:hover, .nav-dot.active {
+            background: var(--accent);
+            transform: scale(1.5);
+        }
+
+        .nav-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: var(--surface);
+            padding: 4px 10px;
+            border-radius: 6px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-dot:hover::after { opacity: 1; transform: translateY(-50%) translateX(4px); }
+
+        /* Dividers */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 0 40px;
+        }
+
+        .sep-deco {
+            text-align: center;
+            padding: 40px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--border);
+            letter-spacing: 8px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover, .tab.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 80px 24px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer span { color: var(--accent); font-weight: 700; }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Subsection Title */
+        .subsection-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text);
+            margin: 48px 0 24px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-light);
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .nav-dots { display: none; }
+            .two-col { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 48px; }
+            .portfolio-links {
+                top: 12px;
+                left: 12px;
+                right: 12px;
+            }
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: var(--accent-light);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            direction: rtl;
+        }
+
+        .tip-box strong { color: var(--accent); }
+
+        /* Flow Diagram */
+        .flow-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .flow-box {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            min-width: 160px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .flow-box:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .flow-arrow-down {
+            width: 2px;
+            height: 24px;
+            background: var(--border);
+            position: relative;
+        }
+
+        .flow-arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--border);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="portfolio-links">
+        <a class="portfolio-link" href="index.html">Portfolio</a>
+        <a class="portfolio-link" href="projects.html">Projects</a>
+        <a class="portfolio-link" href="backend.html">Backend Learning</a>
+        <a class="portfolio-link" href="flutter.html">Flutter Learning</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-dots">
+        <div class="nav-dot active" data-label="الرئيسية" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" data-label="HTTP & API" onclick="scrollToSection('http')"></div>
+        <div class="nav-dot" data-label="Serializers" onclick="scrollToSection('serializers')"></div>
+        <div class="nav-dot" data-label="ViewSets" onclick="scrollToSection('viewsets')"></div>
+        <div class="nav-dot" data-label="Models" onclick="scrollToSection('models')"></div>
+        <div class="nav-dot" data-label="Database" onclick="scrollToSection('database')"></div>
+        <div class="nav-dot" data-label="Authentication" onclick="scrollToSection('auth')"></div>
+        <div class="nav-dot" data-label="System Design" onclick="scrollToSection('system')"></div>
+        <div class="nav-dot" data-label="API Design" onclick="scrollToSection('api')"></div>
+    </nav>
+
+    <div class="content">
+
+        <!-- HERO -->
+        <section class="hero" id="hero">
+            <div class="hero-badge">ملخص شامل — COGENS Backend</div>
+            <h1>
+                <span class="django">Django</span><br>
+                <span class="drf">& DRF</span>
+            </h1>
+            <p class="hero-subtitle">
+                ملخص شامل لـ <span>Django REST Framework</span> — Serializers, ViewSets, Models, Authentication, Database Design, System Design & API Design
+            </p>
+
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
+                <a class="portfolio-link" href="index.html">الرجوع للـ Portfolio</a>
+                <a class="portfolio-link" href="flutter.html">الانتقال لملخص Flutter</a>
+            </div>
+
+            <div class="hero-flow">
+                <div class="flow-node">Request</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">URL</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">View</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">Serializer</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">Model</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">Database</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- HTTP & API BASICS -->
+        <section class="section" id="http">
+            <div class="section-header">
+                <span class="section-tag">// 01 — المفاهيم الأساسية</span>
+                <h2 class="section-title">HTTP, API & <span class="highlight">DRF</span></h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🌐</span>
+                    <div class="card-title">HTTP Protocol</div>
+                    <div class="card-body">
+                        <strong>Hyper Text Transfer Protocol</strong><br><br>
+                        بروتوكول الاتصال بين الـ <strong>Client</strong> والـ <strong>Server</strong>. يُستخدم لنقل البيانات بينهما عبر الإنترنت.
+                    </div>
+                </div>
+
+                <div class="card" data-animate>
+                    <span class="card-icon">🔌</span>
+                    <div class="card-title">REST API</div>
+                    <div class="card-body">
+                        <strong>Representational State Transfer</strong><br><br>
+                        نمط معماري للـ APIs يعتمد على HTTP Methods ويُرجع البيانات بصيغة <strong>JSON</strong>.
+                    </div>
+                </div>
+
+                <div class="card" data-animate>
+                    <span class="card-icon">⚙️</span>
+                    <div class="card-title">DRF</div>
+                    <div class="card-body">
+                        <strong>Django Rest Framework</strong><br><br>
+                        إطار عمل قوي لبناء <strong>APIs</strong> باستخدام Django — يوفر Serializers, ViewSets, Authentication وغيرها.
+                    </div>
+                </div>
+
+                <div class="card" data-animate>
+                    <span class="card-icon">📦</span>
+                    <div class="card-title">JSON Response</div>
+                    <div class="card-body">
+                        <strong>JavaScript Object Notation</strong><br><br>
+                        صيغة خفيفة لتبادل البيانات — سهلة القراءة للإنسان والآلة.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">HTTP Methods</h3>
+            <div class="methods-grid">
+                <div class="method-card get" data-animate>
+                    <div class="method-badge">GET</div>
+                    <div class="method-desc">جلب البيانات — Read Only</div>
+                </div>
+                <div class="method-card post" data-animate>
+                    <div class="method-badge">POST</div>
+                    <div class="method-desc">إنشاء بيانات جديدة — Create</div>
+                </div>
+                <div class="method-card put" data-animate>
+                    <div class="method-badge">PUT</div>
+                    <div class="method-desc">تعديل كامل — Full Update</div>
+                </div>
+                <div class="method-card patch" data-animate>
+                    <div class="method-badge">PATCH</div>
+                    <div class="method-desc">تعديل جزئي — Partial Update</div>
+                </div>
+                <div class="method-card delete" data-animate>
+                    <div class="method-badge">DELETE</div>
+                    <div class="method-desc">حذف البيانات — Remove</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- SERIALIZERS -->
+        <section class="section" id="serializers">
+            <div class="section-header">
+                <span class="section-tag">// 02 — Serializers</span>
+                <h2 class="section-title">DRF <span class="highlight">Serializers</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 الـ Serializer</strong> يقوم بـ:
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>تحويل Python Object إلى JSON (Serialization)</li>
+                    <li>تحويل JSON إلى Python Object (Deserialization)</li>
+                    <li>التحقق من صحة البيانات (Validation)</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">1. Basic ModelSerializer</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> rest_framework <span class="kw">import</span> serializers
+<span class="kw">from</span> .models <span class="kw">import</span> <span class="cls">School</span>
+
+<span class="kw">class</span> <span class="cls">SchoolSerializer</span>(serializers.ModelSerializer):
+    school_settings = <span class="cls">SettingsSerializer</span>(required=<span class="kw">False</span>)
+    
+    <span class="kw">class</span> <span class="cls">Meta</span>:
+        model = <span class="cls">School</span>
+        fields = <span class="str">'__all__'</span>   <span class="cm"># جميع الحقول</span>
+        exclude = [<span class="str">'vendors'</span>]  <span class="cm"># استثناء حقول معينة</span>
+        depth = <span class="num">1</span>              <span class="cm"># عمق العلاقات المتداخلة</span>
+            </div>
+
+            <h3 class="subsection-title">2. SerializerMethodField — Custom Fields</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">TeacherSerializer</span>(serializers.ModelSerializer):
+    job_type = serializers.<span class="fn">SerializerMethodField</span>()
+    status = serializers.<span class="fn">SerializerMethodField</span>()
+    full_name = serializers.<span class="fn">SerializerMethodField</span>()
+    
+    <span class="kw">class</span> <span class="cls">Meta</span>:
+        model = <span class="cls">Teacher</span>
+        fields = <span class="str">'__all__'</span>
+    
+    <span class="kw">def</span> <span class="fn">get_status</span>(self, obj):
+        <span class="cm"># إرجاع object مخصص بدل قيمة واحدة</span>
+        status_dic = <span class="fn">dict</span>(ALLAvailableStatus)
+        color_index = <span class="fn">list</span>(status_dic).<span class="fn">index</span>(obj.status)
+        <span class="kw">return</span> {
+            <span class="str">'value'</span>: obj.status,
+            <span class="str">'label'</span>: status_dic[obj.status],
+            <span class="str">'color'</span>: ALLAvailableStatusColors[color_index]
+        }
+    
+    <span class="kw">def</span> <span class="fn">get_full_name</span>(self, obj):
+        <span class="kw">return</span> <span class="str">f"{obj.first_name} {obj.last_name}"</span>
+            </div>
+
+            <h3 class="subsection-title">3. Write-Only Fields & Foreign Keys</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">PaymentSerializer</span>(serializers.ModelSerializer):
+    <span class="cm"># IntegerField للـ ForeignKey — يستقبل ID فقط</span>
+    student = serializers.<span class="fn">IntegerField</span>(required=<span class="kw">True</span>, write_only=<span class="kw">True</span>)
+    payment_class = serializers.<span class="fn">IntegerField</span>(required=<span class="kw">False</span>, write_only=<span class="kw">True</span>)
+    
+    <span class="cm"># ReadOnlyField للقراءة من علاقة</span>
+    student_name = serializers.<span class="fn">ReadOnlyField</span>(source=<span class="str">'student.name'</span>)
+    
+    <span class="kw">def</span> <span class="fn">create</span>(self, validated_data):
+        DB = self.context[<span class="str">'request'</span>].headers.<span class="fn">get</span>(<span class="str">'DB'</span>)
+        <span class="cm"># تحويل الـ ID إلى Object</span>
+        validated_data[<span class="str">'student'</span>] = <span class="cls">SchoolStudents</span>.objects.<span class="fn">using</span>(DB).<span class="fn">get</span>(
+            id=validated_data.<span class="fn">pop</span>(<span class="str">'student'</span>))
+        payment = <span class="cls">Payments</span>.objects.<span class="fn">using</span>(DB).<span class="fn">create</span>(**validated_data)
+        <span class="kw">return</span> payment
+            </div>
+
+            <h3 class="subsection-title">4. ListField for ManyToMany</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">EditTeacherSerializer</span>(serializers.ModelSerializer):
+    <span class="cm"># ListField لاستقبال array من IDs</span>
+    teacher_class = serializers.<span class="fn">ListField</span>(
+        child=serializers.<span class="fn">IntegerField</span>(), write_only=<span class="kw">True</span>
+    )
+    subjects = serializers.<span class="fn">ListField</span>(
+        child=serializers.<span class="fn">IntegerField</span>(), write_only=<span class="kw">True</span>
+    )
+    grades = serializers.<span class="fn">ListField</span>(
+        child=serializers.<span class="fn">IntegerField</span>(), write_only=<span class="kw">True</span>
+    )
+    
+    <span class="kw">def</span> <span class="fn">create</span>(self, validated_data):
+        teacher_class = validated_data.<span class="fn">pop</span>(<span class="str">'teacher_class'</span>, [])
+        subjects = validated_data.<span class="fn">pop</span>(<span class="str">'subjects'</span>, [])
+        grades = validated_data.<span class="fn">pop</span>(<span class="str">'grades'</span>, [])
+        
+        record = <span class="cls">Teacher</span>.objects.<span class="fn">using</span>(DB).<span class="fn">create</span>(**validated_data)
+        
+        <span class="cm"># ربط الـ ManyToMany</span>
+        record.teacher_class.<span class="fn">set</span>(teacher_class)
+        record.subjects.<span class="fn">set</span>(subjects)
+        record.grades.<span class="fn">set</span>(grades)
+        <span class="kw">return</span> record
+            </div>
+
+            <h3 class="subsection-title">5. Dynamic Validators (Multi-Database)</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> rest_framework.validators <span class="kw">import</span> <span class="cls">UniqueValidator</span>
+
+<span class="kw">class</span> <span class="cls">SchoolChildSerializer</span>(serializers.ModelSerializer):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, *args, **kwargs):
+        <span class="fn">super</span>().<span class="fn">__init__</span>(*args, **kwargs)
+        request = self.context.<span class="fn">get</span>(<span class="str">'request'</span>)
+        <span class="kw">if</span> request:
+            db = <span class="fn">get_db_key</span>(request)
+            <span class="cm"># تحديث الـ validators ديناميكيًا</span>
+            self.fields[<span class="str">'email'</span>].validators = [
+                <span class="cls">UniqueValidator</span>(
+                    queryset=<span class="cls">SchoolStudents</span>.objects.<span class="fn">using</span>(db).<span class="fn">all</span>(),
+                    message=<span class="str">"Email already exists"</span>
+                )
+            ]
+            </div>
+
+            <h3 class="subsection-title">6. Nested Serializers</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">DetailsChildSerializer</span>(serializers.ModelSerializer):
+    <span class="cm"># قراءة من علاقة ForeignKey</span>
+    parent_name = serializers.<span class="fn">ReadOnlyField</span>(source=<span class="str">'parent.name'</span>, allow_null=<span class="kw">True</span>)
+    parent_email = serializers.<span class="fn">ReadOnlyField</span>(source=<span class="str">'parent.email'</span>, allow_null=<span class="kw">True</span>)
+    
+    <span class="cm"># Nested Serializer للعلاقة</span>
+    school_details = <span class="cls">SchoolSerializer</span>(source=<span class="str">'school'</span>, read_only=<span class="kw">True</span>)
+    
+    <span class="cm"># SerializerMethodField للمنطق المخصص</span>
+    school_name = serializers.<span class="fn">SerializerMethodField</span>()
+    
+    <span class="kw">def</span> <span class="fn">get_school_name</span>(self, obj):
+        <span class="kw">if</span> obj.school:
+            <span class="kw">return</span> obj.school.school_name
+        <span class="kw">return</span> <span class="kw">None</span>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- VIEWSETS -->
+        <section class="section" id="viewsets">
+            <div class="section-header">
+                <span class="section-tag">// 03 — ViewSets & Views</span>
+                <h2 class="section-title">DRF <span class="highlight">ViewSets</span></h2>
+            </div>
+
+            <div class="cards-grid" style="margin-bottom: 40px;">
+                <div class="card" data-animate>
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">ModelViewSet</div>
+                    <div class="card-body">
+                        يوفر جميع الـ CRUD operations تلقائيًا:<br>
+                        <code>list()</code>, <code>create()</code>, <code>retrieve()</code>, <code>update()</code>, <code>destroy()</code>
+                    </div>
+                </div>
+
+                <div class="card" data-animate>
+                    <span class="card-icon">📋</span>
+                    <div class="card-title">APIView</div>
+                    <div class="card-body">
+                        للتحكم الكامل في الـ HTTP methods:<br>
+                        <code>get()</code>, <code>post()</code>, <code>put()</code>, <code>delete()</code>
+                    </div>
+                </div>
+
+                <div class="card" data-animate>
+                    <span class="card-icon">🔄</span>
+                    <div class="card-title">Generics</div>
+                    <div class="card-body">
+                        Views جاهزة لعمليات محددة:<br>
+                        <code>ListAPIView</code>, <code>CreateAPIView</code>, <code>RetrieveUpdateDestroyAPIView</code>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">1. ModelViewSet — Full CRUD</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> rest_framework <span class="kw">import</span> viewsets
+<span class="kw">from</span> rest_framework.authentication <span class="kw">import</span> <span class="cls">TokenAuthentication</span>
+<span class="kw">from</span> rest_framework.permissions <span class="kw">import</span> <span class="cls">IsAuthenticated</span>
+
+<span class="kw">class</span> <span class="cls">SchoolViewSet</span>(viewsets.ModelViewSet):
+    authentication_classes = [<span class="cls">TokenAuthentication</span>]
+    permission_classes = [<span class="cls">IsAuthenticated</span>]
+    queryset = <span class="cls">School</span>.objects.<span class="fn">all</span>()
+    serializer_class = <span class="cls">SchoolSerializer</span>
+    
+    <span class="kw">def</span> <span class="fn">get_queryset</span>(self):
+        <span class="cm"># Multi-database support</span>
+        db = <span class="fn">get_db_key</span>(self.request)
+        <span class="kw">return</span> <span class="cls">School</span>.objects.<span class="fn">all</span>().<span class="fn">using</span>(db)
+    
+    <span class="kw">def</span> <span class="fn">create</span>(self, request):
+        serializer = self.<span class="fn">get_serializer</span>(data=request.data)
+        <span class="kw">if</span> <span class="kw">not</span> serializer.<span class="fn">is_valid</span>():
+            <span class="kw">return</span> <span class="fn">api_response</span>(
+                status=ApiStatus.fail,
+                error=<span class="fn">error_serialization</span>(serializer.errors)
+            )
+        self.<span class="fn">perform_create</span>(serializer)
+        <span class="kw">return</span> <span class="fn">api_response</span>(data=serializer.data)
+    
+    <span class="kw">def</span> <span class="fn">list</span>(self, request):
+        queryset = self.<span class="fn">filter_queryset</span>(self.<span class="fn">get_queryset</span>())
+        
+        <span class="cm"># Pagination</span>
+        page = self.<span class="fn">paginate_queryset</span>(queryset)
+        <span class="kw">if</span> page <span class="kw">is not</span> <span class="kw">None</span>:
+            serializer = self.<span class="fn">get_serializer</span>(page, many=<span class="kw">True</span>)
+            <span class="kw">return</span> self.<span class="fn">get_paginated_response</span>(serializer.data)
+        
+        serializer = self.<span class="fn">get_serializer</span>(queryset, many=<span class="kw">True</span>)
+        <span class="kw">return</span> <span class="fn">api_response</span>(data=serializer.data)
+            </div>
+
+            <h3 class="subsection-title">2. APIView — Custom Logic</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> rest_framework.views <span class="kw">import</span> <span class="cls">APIView</span>
+<span class="kw">from</span> rest_framework.authtoken.models <span class="kw">import</span> <span class="cls">Token</span>
+
+<span class="kw">class</span> <span class="cls">UserRegister</span>(APIView):
+    <span class="kw">def</span> <span class="fn">post</span>(self, request):
+        serializer = <span class="cls">CreateAccountSerializer</span>(data=request.data)
+        
+        <span class="kw">if</span> serializer.<span class="fn">is_valid</span>():
+            serializer.<span class="fn">save</span>()
+            account = <span class="cls">Account</span>.objects.<span class="fn">get</span>(pk=serializer.data[<span class="str">'id'</span>])
+            
+            <span class="cm"># إنشاء Token للمستخدم</span>
+            token, created = <span class="cls">Token</span>.objects.<span class="fn">get_or_create</span>(user_id=account.pk)
+            
+            <span class="kw">return</span> <span class="fn">api_response</span>(data={
+                **serializer.data,
+                <span class="str">'token'</span>: token.key
+            })
+        
+        <span class="kw">return</span> <span class="fn">api_response</span>(
+            error=<span class="fn">error_serialization</span>(serializer.errors),
+            status=ApiStatus.fail
+        )
+            </div>
+
+            <h3 class="subsection-title">3. Filtering & Search</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">import</span> django_filters
+<span class="kw">from</span> django.db.models <span class="kw">import</span> <span class="cls">Q</span>
+
+<span class="kw">class</span> <span class="cls">PaymentsViewSet</span>(viewsets.ModelViewSet):
+    queryset = <span class="cls">Payments</span>.objects.<span class="fn">all</span>()
+    serializer_class = <span class="cls">PaymentSerializer</span>
+    filter_backends = [django_filters.rest_framework.<span class="cls">DjangoFilterBackend</span>]
+    
+    <span class="kw">def</span> <span class="fn">list</span>(self, request):
+        queryset = self.<span class="fn">filter_queryset</span>(self.<span class="fn">get_queryset</span>())
+        
+        <span class="cm"># Text Search</span>
+        <span class="kw">if</span> <span class="str">'search_text'</span> <span class="kw">in</span> request.query_params:
+            queryset = queryset.<span class="fn">filter</span>(
+                <span class="cls">Q</span>(title__icontains=request.query_params.<span class="fn">get</span>(<span class="str">'search_text'</span>)) |
+                <span class="cls">Q</span>(student__name__icontains=request.query_params.<span class="fn">get</span>(<span class="str">'search_text'</span>))
+            )
+        
+        <span class="cm"># Field Filtering</span>
+        <span class="kw">if</span> <span class="str">'type'</span> <span class="kw">in</span> request.query_params:
+            queryset = queryset.<span class="fn">filter</span>(type=request.query_params.<span class="fn">get</span>(<span class="str">'type'</span>))
+        <span class="kw">if</span> <span class="str">'status'</span> <span class="kw">in</span> request.query_params:
+            queryset = queryset.<span class="fn">filter</span>(status=request.query_params.<span class="fn">get</span>(<span class="str">'status'</span>))
+        
+        <span class="cm"># Date Range</span>
+        <span class="kw">if</span> <span class="str">'date_from'</span> <span class="kw">in</span> request.query_params:
+            queryset = queryset.<span class="fn">filter</span>(created_at__gte=request.query_params.<span class="fn">get</span>(<span class="str">'date_from'</span>))
+        
+        queryset = queryset.<span class="fn">order_by</span>(<span class="str">'-created_at'</span>)
+        <span class="kw">return</span> <span class="fn">api_response</span>(data=<span class="cls">PaymentSerializer</span>(queryset, many=<span class="kw">True</span>).data)
+            </div>
+
+            <h3 class="subsection-title">4. URL Routing — DefaultRouter</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> rest_framework.routers <span class="kw">import</span> <span class="cls">DefaultRouter</span>
+<span class="kw">from</span> django.urls <span class="kw">import</span> path, include
+
+router = <span class="cls">DefaultRouter</span>()
+router.<span class="fn">register</span>(r<span class="str">'schools'</span>, <span class="cls">SchoolViewSet</span>)
+router.<span class="fn">register</span>(r<span class="str">'teachers'</span>, <span class="cls">TeacherViewSet</span>)
+router.<span class="fn">register</span>(r<span class="str">'students'</span>, <span class="cls">StudentViewSet</span>)
+
+urlpatterns = [
+    <span class="cm"># APIView routes</span>
+    <span class="fn">path</span>(<span class="str">'login'</span>, <span class="cls">UserLogin</span>.<span class="fn">as_view</span>()),
+    <span class="fn">path</span>(<span class="str">'register'</span>, <span class="cls">UserRegister</span>.<span class="fn">as_view</span>()),
+    
+    <span class="cm"># ViewSet routes (auto-generated)</span>
+    <span class="fn">path</span>(<span class="str">''</span>, <span class="fn">include</span>(router.urls)),
+]
+
+<span class="cm"># Generated URLs:
+# GET    /schools/          → list()
+# POST   /schools/          → create()
+# GET    /schools/{id}/     → retrieve()
+# PUT    /schools/{id}/     → update()
+# PATCH  /schools/{id}/     → partial_update()
+# DELETE /schools/{id}/     → destroy()</span>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- MODELS -->
+        <section class="section" id="models">
+            <div class="section-header">
+                <span class="section-tag">// 04 — Models</span>
+                <h2 class="section-title">Django <span class="highlight">Models</span></h2>
+            </div>
+
+            <h3 class="subsection-title">1. Custom User Model</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> django.contrib.auth.models <span class="kw">import</span> <span class="cls">AbstractUser</span>, <span class="cls">BaseUserManager</span>
+<span class="kw">from</span> django.core.validators <span class="kw">import</span> <span class="cls">RegexValidator</span>
+
+<span class="cm"># Custom Manager</span>
+<span class="kw">class</span> <span class="cls">CustomUserManager</span>(BaseUserManager):
+    <span class="kw">def</span> <span class="fn">create_user</span>(self, email, password, **extra_fields):
+        email = self.<span class="fn">normalize_email</span>(email)
+        user = self.model(email=email, **extra_fields)
+        user.<span class="fn">set_password</span>(password)
+        user.<span class="fn">save</span>()
+        <span class="kw">return</span> user
+
+<span class="cm"># Validators</span>
+phone_regex = <span class="cls">RegexValidator</span>(
+    regex=r<span class="str">'^\+?1?\d{9,15}$'</span>,
+    message=<span class="str">"Phone number format: '+999999999'. Up to 15 digits."</span>
+)
+
+password_regex = <span class="cls">RegexValidator</span>(
+    regex=r<span class="str">'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$.!%*?&])[A-Za-z\d@$.!%*?&]{8,16}$'</span>,
+    message=<span class="str">"8-16 chars, uppercase, lowercase, number, special char"</span>
+)
+
+<span class="cm"># Custom User Model</span>
+<span class="kw">class</span> <span class="cls">Account</span>(AbstractUser):
+    username = <span class="kw">None</span>  <span class="cm"># إزالة username</span>
+    email = models.<span class="fn">EmailField</span>(unique=<span class="kw">True</span>)
+    phone = models.<span class="fn">CharField</span>(validators=[phone_regex], max_length=<span class="num">17</span>, unique=<span class="kw">True</span>)
+    password = models.<span class="fn">CharField</span>(max_length=<span class="num">300</span>, validators=[password_regex], null=<span class="kw">True</span>)
+    
+    <span class="cm"># Social Login IDs</span>
+    google_id = models.<span class="fn">CharField</span>(max_length=<span class="num">500</span>, unique=<span class="kw">True</span>, null=<span class="kw">True</span>)
+    apple_id = models.<span class="fn">CharField</span>(max_length=<span class="num">500</span>, unique=<span class="kw">True</span>, null=<span class="kw">True</span>)
+    
+    USERNAME_FIELD = <span class="str">'email'</span>
+    REQUIRED_FIELDS = []
+    objects = <span class="cls">CustomUserManager</span>()
+    
+    <span class="kw">def</span> <span class="fn">get_full_name</span>(self):
+        <span class="kw">if</span> self.first_name <span class="kw">and</span> self.last_name:
+            <span class="kw">return</span> <span class="str">f"{self.first_name} {self.last_name}"</span>
+        <span class="kw">return</span> self.name <span class="kw">or</span> <span class="str">""</span>
+            </div>
+
+            <h3 class="subsection-title">2. Model Relationships</h3>
+            <div class="two-col">
+                <div>
+                    <div class="code-block">
+                        <span class="lang-tag">python</span>
+<span class="cm"># ForeignKey (Many-to-One)</span>
+<span class="kw">class</span> <span class="cls">Teacher</span>(models.Model):
+    created_by = models.<span class="fn">ForeignKey</span>(
+        <span class="str">'user.User'</span>,
+        related_name=<span class="str">'created_teachers'</span>,
+        on_delete=models.SET_NULL,
+        null=<span class="kw">True</span>
+    )
+    school = models.<span class="fn">ForeignKey</span>(
+        <span class="cls">School</span>,
+        related_name=<span class="str">'teachers'</span>,
+        on_delete=models.CASCADE
+    )
+                    </div>
+                </div>
+                <div>
+                    <div class="code-block">
+                        <span class="lang-tag">python</span>
+<span class="cm"># ManyToMany</span>
+<span class="kw">class</span> <span class="cls">Teacher</span>(models.Model):
+    teacher_class = models.<span class="fn">ManyToManyField</span>(
+        <span class="str">'SchoolClass'</span>,
+        related_name=<span class="str">'class_teachers'</span>,
+        db_table=<span class="str">'teacher_class'</span>
+    )
+    subjects = models.<span class="fn">ManyToManyField</span>(
+        <span class="str">'Subject'</span>,
+        related_name=<span class="str">'teacher_subjects'</span>
+    )
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">3. Model Meta & Constraints</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> django.db.models <span class="kw">import</span> <span class="cls">UniqueConstraint</span>, <span class="cls">Q</span>
+
+<span class="kw">class</span> <span class="cls">SchoolClass</span>(models.Model):
+    title = models.<span class="fn">CharField</span>(max_length=<span class="num">100</span>)
+    class_grade = models.<span class="fn">ForeignKey</span>(<span class="cls">Grade</span>, on_delete=models.CASCADE)
+    key = models.<span class="fn">CharField</span>(max_length=<span class="num">50</span>, unique=<span class="kw">True</span>)
+    
+    <span class="kw">class</span> <span class="cls">Meta</span>:
+        db_table = <span class="str">"class"</span>  <span class="cm"># Custom table name</span>
+        ordering = [<span class="str">'-created_at'</span>]  <span class="cm"># Default ordering</span>
+        
+        <span class="cm"># Unique Constraints</span>
+        constraints = [
+            <span class="cls">UniqueConstraint</span>(
+                fields=[<span class="str">'title'</span>, <span class="str">'class_grade'</span>],
+                name=<span class="str">'class_unique_error'</span>
+            ),
+            <span class="cm"># Conditional Unique</span>
+            <span class="cls">UniqueConstraint</span>(
+                fields=[<span class="str">'email'</span>],
+                condition=<span class="cls">Q</span>(is_event_student=<span class="kw">False</span>),
+                name=<span class="str">'unique_email_if_not_event'</span>
+            )
+        ]
+        
+        <span class="cm"># Indexes</span>
+        indexes = [
+            models.<span class="fn">Index</span>(fields=[<span class="str">'key'</span>]),
+            models.<span class="fn">Index</span>(fields=[<span class="str">'created_at'</span>]),
+        ]
+            </div>
+
+            <h3 class="subsection-title">4. Custom Managers & Proxy Models</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># Custom Manager — يفلتر البيانات تلقائيًا</span>
+<span class="kw">class</span> <span class="cls">ActivePaymentManager</span>(models.Manager):
+    <span class="kw">def</span> <span class="fn">get_queryset</span>(self):
+        <span class="kw">return</span> <span class="fn">super</span>().<span class="fn">get_queryset</span>().<span class="fn">filter</span>(removed=<span class="kw">False</span>)
+
+<span class="kw">class</span> <span class="cls">AllPaymentManager</span>(models.Manager):
+    <span class="kw">def</span> <span class="fn">get_queryset</span>(self):
+        <span class="kw">return</span> <span class="fn">super</span>().<span class="fn">get_queryset</span>()  <span class="cm"># جميع البيانات</span>
+
+<span class="cm"># Base Model</span>
+<span class="kw">class</span> <span class="cls">Payments</span>(models.Model):
+    title = models.<span class="fn">CharField</span>(max_length=<span class="num">200</span>)
+    amount = models.<span class="fn">DecimalField</span>(max_digits=<span class="num">10</span>, decimal_places=<span class="num">2</span>)
+    status = models.<span class="fn">CharField</span>(max_length=<span class="num">50</span>)
+    removed = models.<span class="fn">BooleanField</span>(default=<span class="kw">False</span>)
+    
+    objects = <span class="cls">ActivePaymentManager</span>()  <span class="cm"># Default: excludes removed</span>
+
+<span class="cm"># Proxy Model — نفس الـ table، manager مختلف</span>
+<span class="kw">class</span> <span class="cls">PaymentAllStatus</span>(Payments):
+    <span class="kw">class</span> <span class="cls">Meta</span>:
+        proxy = <span class="kw">True</span>
+    
+    objects = <span class="cls">AllPaymentManager</span>()  <span class="cm"># All records including removed</span>
+
+<span class="cm"># Usage:
+# Payments.objects.all()          → only active payments
+# PaymentAllStatus.objects.all()  → all payments including removed</span>
+            </div>
+
+            <h3 class="subsection-title">5. Model Signals</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> django.db.models.signals <span class="kw">import</span> post_save
+<span class="kw">from</span> django.dispatch <span class="kw">import</span> receiver
+<span class="kw">from</span> rest_framework.authtoken.models <span class="kw">import</span> <span class="cls">Token</span>
+
+<span class="dec">@receiver</span>(post_save, sender=settings.AUTH_USER_MODEL)
+<span class="kw">def</span> <span class="fn">create_auth_token</span>(sender, instance=<span class="kw">None</span>, created=<span class="kw">False</span>, **kwargs):
+    <span class="str">"""إنشاء Token تلقائيًا عند إنشاء مستخدم جديد"""</span>
+    <span class="kw">if</span> created:
+        <span class="kw">try</span>:
+            <span class="cls">Token</span>.objects.<span class="fn">get_or_create</span>(user=instance)
+        <span class="kw">except</span> <span class="cls">Exception</span> <span class="kw">as</span> e:
+            logger.<span class="fn">exception</span>(<span class="str">"Failed to create token: %s"</span>, e)
+            </div>
+
+            <h3 class="subsection-title">6. File Upload Handlers</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># Dynamic path based on instance</span>
+<span class="kw">def</span> <span class="fn">user_directory_path</span>(instance, filename):
+    <span class="kw">return</span> <span class="str">f'user_{instance.id}/{filename}'</span>
+
+<span class="kw">def</span> <span class="fn">teacher_directory_path</span>(instance, filename):
+    <span class="kw">return</span> <span class="str">f'teacher_{instance.id}/{filename}'</span>
+
+<span class="kw">class</span> <span class="cls">User</span>(models.Model):
+    user_image = models.<span class="fn">ImageField</span>(
+        upload_to=user_directory_path,
+        null=<span class="kw">True</span>,
+        blank=<span class="kw">True</span>
+    )
+
+<span class="kw">class</span> <span class="cls">Task</span>(models.Model):
+    <span class="kw">def</span> <span class="fn">task_file_path</span>(self, filename):
+        <span class="kw">return</span> <span class="str">f'tasks_file_{self.pk}/{filename}'</span>
+    
+    file = models.<span class="fn">FileField</span>(upload_to=task_file_path, null=<span class="kw">True</span>)
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- DATABASE DESIGN -->
+        <section class="section" id="database">
+            <div class="section-header">
+                <span class="section-tag">// 05 — Database Design</span>
+                <h2 class="section-title">Database <span class="highlight">Design</span></h2>
+            </div>
+
+            <h3 class="subsection-title">ORM Lookups</h3>
+            <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:40px;">
+                <table class="orm-table">
+                    <thead>
+                        <tr>
+                            <th>Lookup</th>
+                            <th>المعنى</th>
+                            <th>SQL Equivalent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="code">field__exact</td><td>يساوي تمامًا</td><td>= value</td></tr>
+                        <tr><td class="code">field__iexact</td><td>يساوي (case-insensitive)</td><td>ILIKE value</td></tr>
+                        <tr><td class="code">field__contains</td><td>يحتوي على</td><td>LIKE '%value%'</td></tr>
+                        <tr><td class="code">field__icontains</td><td>يحتوي (case-insensitive)</td><td>ILIKE '%value%'</td></tr>
+                        <tr><td class="code">field__gt</td><td>أكبر من</td><td>> value</td></tr>
+                        <tr><td class="code">field__gte</td><td>أكبر من أو يساوي</td><td>>= value</td></tr>
+                        <tr><td class="code">field__lt</td><td>أصغر من</td><td>< value</td></tr>
+                        <tr><td class="code">field__lte</td><td>أصغر من أو يساوي</td><td><= value</td></tr>
+                        <tr><td class="code">field__in</td><td>ضمن قائمة</td><td>IN (a, b, c)</td></tr>
+                        <tr><td class="code">field__range</td><td>بين قيمتين</td><td>BETWEEN a AND b</td></tr>
+                        <tr><td class="code">field__isnull</td><td>فارغ</td><td>IS NULL / IS NOT NULL</td></tr>
+                        <tr><td class="code">field__startswith</td><td>يبدأ بـ</td><td>LIKE 'value%'</td></tr>
+                        <tr><td class="code">field__endswith</td><td>ينتهي بـ</td><td>LIKE '%value'</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">Multi-Database Routing</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># settings.py — Multiple Databases</span>
+DATABASES = {
+    <span class="str">'default'</span>: {
+        <span class="str">'ENGINE'</span>: <span class="str">'django.db.backends.sqlite3'</span>,
+        <span class="str">'NAME'</span>: BASE_DIR / <span class="str">'db.sqlite3'</span>,
+    },
+    <span class="str">'school_db_1'</span>: {
+        <span class="str">'ENGINE'</span>: <span class="str">'django.db.backends.mysql'</span>,
+        <span class="str">'NAME'</span>: <span class="str">'school1'</span>,
+        <span class="str">'USER'</span>: <span class="str">'root'</span>,
+        <span class="str">'PASSWORD'</span>: <span class="str">'password'</span>,
+        <span class="str">'HOST'</span>: <span class="str">'localhost'</span>,
+    },
+    <span class="str">'school_db_2'</span>: {
+        <span class="str">'ENGINE'</span>: <span class="str">'django.db.backends.mysql'</span>,
+        <span class="str">'NAME'</span>: <span class="str">'school2'</span>,
+        <span class="str">'USER'</span>: <span class="str">'root'</span>,
+    }
+}
+
+DATABASE_ROUTERS = [<span class="str">'cogens.routers.DatabaseRouter'</span>]
+            </div>
+
+            <div class="code-block" style="margin-top:16px;">
+                <span class="lang-tag">python</span>
+<span class="cm"># routers.py — Database Router</span>
+<span class="kw">class</span> <span class="cls">DatabaseRouter</span>:
+    EXCLUDE_MODELS = [<span class="str">"account"</span>, <span class="str">"school"</span>, <span class="str">"token"</span>]
+    ONLY_DEFAULT = [<span class="str">"oauth_app"</span>, <span class="str">"config_system_setting"</span>]
+    
+    <span class="kw">def</span> <span class="fn">allow_migrate</span>(self, db, app_label, model_name=<span class="kw">None</span>, **hints):
+        <span class="kw">if</span> app_label <span class="kw">in</span> self.ONLY_DEFAULT:
+            <span class="kw">return</span> db == <span class="str">'default'</span>
+        <span class="kw">if</span> db == <span class="str">'default'</span> <span class="kw">and</span> model_name <span class="kw">not in</span> self.EXCLUDE_MODELS:
+            <span class="kw">return</span> <span class="kw">False</span>
+        <span class="kw">return</span> <span class="kw">True</span>
+
+<span class="cm"># Usage in Views/Serializers:</span>
+db = request.headers.<span class="fn">get</span>(<span class="str">'DB'</span>, <span class="str">'default'</span>)
+queryset = <span class="cls">Model</span>.objects.<span class="fn">using</span>(db).<span class="fn">all</span>()
+            </div>
+
+            <h3 class="subsection-title">QuerySet Methods</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># Basic Queries</span>
+<span class="cls">Product</span>.objects.<span class="fn">all</span>()                      <span class="cm"># جميع السجلات</span>
+<span class="cls">Product</span>.objects.<span class="fn">filter</span>(status=<span class="str">'active'</span>)    <span class="cm"># فلترة</span>
+<span class="cls">Product</span>.objects.<span class="fn">exclude</span>(removed=<span class="kw">True</span>)      <span class="cm"># استثناء</span>
+<span class="cls">Product</span>.objects.<span class="fn">get</span>(id=<span class="num">1</span>)                  <span class="cm"># سجل واحد</span>
+
+<span class="cm"># Chaining</span>
+<span class="cls">Product</span>.objects.<span class="fn">filter</span>(status=<span class="str">'active'</span>).<span class="fn">exclude</span>(price=<span class="num">0</span>).<span class="fn">order_by</span>(<span class="str">'-created_at'</span>)
+
+<span class="cm"># Q Objects (OR conditions)</span>
+<span class="kw">from</span> django.db.models <span class="kw">import</span> <span class="cls">Q</span>
+<span class="cls">Product</span>.objects.<span class="fn">filter</span>(
+    <span class="cls">Q</span>(title__icontains=<span class="str">'phone'</span>) | <span class="cls">Q</span>(description__icontains=<span class="str">'phone'</span>)
+)
+
+<span class="cm"># Aggregation</span>
+<span class="kw">from</span> django.db.models <span class="kw">import</span> <span class="cls">Count</span>, <span class="cls">Sum</span>, <span class="cls">Avg</span>
+<span class="cls">Order</span>.objects.<span class="fn">aggregate</span>(
+    total=<span class="cls">Sum</span>(<span class="str">'amount'</span>),
+    avg_amount=<span class="cls">Avg</span>(<span class="str">'amount'</span>),
+    count=<span class="cls">Count</span>(<span class="str">'id'</span>)
+)
+
+<span class="cm"># Select Related (ForeignKey optimization)</span>
+<span class="cls">Payment</span>.objects.<span class="fn">select_related</span>(<span class="str">'student'</span>, <span class="str">'student__school'</span>)
+
+<span class="cm"># Prefetch Related (ManyToMany optimization)</span>
+<span class="cls">Teacher</span>.objects.<span class="fn">prefetch_related</span>(<span class="str">'subjects'</span>, <span class="str">'teacher_class'</span>)
+
+<span class="cm"># Values & Values List</span>
+<span class="cls">User</span>.objects.<span class="fn">values</span>(<span class="str">'id'</span>, <span class="str">'email'</span>)           <span class="cm"># → [{'id': 1, 'email': '...'}]</span>
+<span class="cls">User</span>.objects.<span class="fn">values_list</span>(<span class="str">'id'</span>, flat=<span class="kw">True</span>)  <span class="cm"># → [1, 2, 3, ...]</span>
+            </div>
+
+            <h3 class="subsection-title">Transactions</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> django.db <span class="kw">import</span> transaction
+
+<span class="cm"># Atomic Transaction</span>
+<span class="kw">def</span> <span class="fn">generate_unique_reference</span>(db_key):
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>):
+        code = <span class="str">''</span>.<span class="fn">join</span>(random.<span class="fn">choices</span>(string.ascii_uppercase, k=<span class="num">6</span>))
+        <span class="kw">try</span>:
+            <span class="kw">with</span> transaction.<span class="fn">atomic</span>(using=db_key):
+                <span class="kw">if not</span> <span class="cls">Payments</span>.objects.<span class="fn">using</span>(db_key).<span class="fn">filter</span>(reference=code).<span class="fn">exists</span>():
+                    <span class="kw">return</span> code
+        <span class="kw">except</span> <span class="cls">Exception</span>:
+            <span class="kw">continue</span>
+    <span class="kw">return</span> uuid.<span class="fn">uuid4</span>().hex[:<span class="num">6</span>].<span class="fn">upper</span>()
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- AUTHENTICATION -->
+        <section class="section" id="auth">
+            <div class="section-header">
+                <span class="section-tag">// 06 — Authentication & Permissions</span>
+                <h2 class="section-title"><span class="highlight">Authentication</span></h2>
+            </div>
+
+            <h3 class="subsection-title">1. Token Authentication</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># settings.py</span>
+REST_FRAMEWORK = {
+    <span class="str">'DEFAULT_AUTHENTICATION_CLASSES'</span>: (
+        <span class="str">'rest_framework.authentication.TokenAuthentication'</span>,
+    ),
+    <span class="str">'DEFAULT_PERMISSION_CLASSES'</span>: [
+        <span class="str">'rest_framework.permissions.IsAuthenticated'</span>
+    ]
+}
+
+INSTALLED_APPS = [
+    ...
+    <span class="str">'rest_framework.authtoken'</span>,
+]
+            </div>
+
+            <h3 class="subsection-title">2. Custom Authentication Backend</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># backends.py — Email & Phone Authentication</span>
+<span class="kw">from</span> django.contrib.auth.hashers <span class="kw">import</span> check_password
+<span class="kw">from</span> django.contrib.auth <span class="kw">import</span> get_user_model
+
+<span class="kw">class</span> <span class="cls">MyAuthBackend</span>:
+    <span class="dec">@staticmethod</span>
+    <span class="kw">def</span> <span class="fn">authenticate</span>(email=<span class="kw">None</span>, phone=<span class="kw">None</span>, password=<span class="kw">None</span>, **kwargs):
+        <span class="kw">try</span>:
+            <span class="kw">if</span> email:
+                user = <span class="fn">get_user_model</span>().objects.<span class="fn">get</span>(email=email)
+            <span class="kw">elif</span> phone:
+                user = <span class="fn">get_user_model</span>().objects.<span class="fn">get</span>(phone=phone)
+            <span class="kw">else</span>:
+                <span class="kw">return</span> <span class="kw">None</span>
+            
+            <span class="cm"># Check main password or alternative</span>
+            <span class="kw">if</span> <span class="fn">check_password</span>(password, user.password):
+                <span class="kw">return</span> user
+            <span class="kw">elif</span> <span class="fn">check_password</span>(password, user.alternative_password):
+                <span class="kw">return</span> user
+        <span class="kw">except</span> <span class="cls">Exception</span>:
+            <span class="kw">return</span> <span class="kw">None</span>
+
+<span class="cm"># settings.py</span>
+AUTHENTICATION_BACKENDS = (
+    <span class="str">'main.accounts.backends.MyAuthBackend'</span>,
+    <span class="str">'django.contrib.auth.backends.ModelBackend'</span>,
+)
+            </div>
+
+            <h3 class="subsection-title">3. OAuth2 — Google & Apple Login</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> google.oauth2 <span class="kw">import</span> id_token
+<span class="kw">from</span> google.auth.transport <span class="kw">import</span> requests
+
+<span class="kw">class</span> <span class="cls">UserRegister</span>(APIView):
+    <span class="kw">def</span> <span class="fn">post</span>(self, request):
+        social_provider = request.data.<span class="fn">get</span>(<span class="str">'social_provider'</span>)
+        
+        <span class="kw">if</span> social_provider == <span class="str">'google'</span>:
+            google_token = request.data.<span class="fn">get</span>(<span class="str">'google_token'</span>)
+            <span class="kw">try</span>:
+                idinfo = id_token.<span class="fn">verify_oauth2_token</span>(
+                    google_token,
+                    requests.<span class="cls">Request</span>()
+                )
+                <span class="cm"># Get user info from Google</span>
+                email = idinfo.<span class="fn">get</span>(<span class="str">'email'</span>)
+                google_id = idinfo.<span class="fn">get</span>(<span class="str">'sub'</span>)
+                name = idinfo.<span class="fn">get</span>(<span class="str">'name'</span>)
+                
+                account, created = <span class="cls">Account</span>.objects.<span class="fn">get_or_create</span>(
+                    google_id=google_id,
+                    defaults={<span class="str">'email'</span>: email, <span class="str">'name'</span>: name, <span class="str">'email_verified'</span>: <span class="kw">True</span>}
+                )
+            <span class="kw">except</span> <span class="cls">ValueError</span>:
+                <span class="kw">return</span> <span class="fn">api_response</span>(error=<span class="str">"Invalid Google token"</span>, status=ApiStatus.fail)
+            </div>
+
+            <h3 class="subsection-title">4. Permission Classes</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> rest_framework.permissions <span class="kw">import</span> <span class="cls">IsAuthenticated</span>, <span class="cls">AllowAny</span>, <span class="cls">IsAdminUser</span>
+
+<span class="kw">class</span> <span class="cls">MyViewSet</span>(viewsets.ModelViewSet):
+    <span class="cm"># View-level permissions</span>
+    permission_classes = [<span class="cls">IsAuthenticated</span>]
+    
+    <span class="cm"># Method-specific permissions</span>
+    <span class="kw">def</span> <span class="fn">get_permissions</span>(self):
+        <span class="kw">if</span> self.action == <span class="str">'list'</span>:
+            <span class="kw">return</span> [<span class="cls">AllowAny</span>()]
+        <span class="kw">elif</span> self.action == <span class="str">'destroy'</span>:
+            <span class="kw">return</span> [<span class="cls">IsAdminUser</span>()]
+        <span class="kw">return</span> [<span class="cls">IsAuthenticated</span>()]
+
+<span class="cm"># Custom Permission</span>
+<span class="kw">from</span> rest_framework.permissions <span class="kw">import</span> <span class="cls">BasePermission</span>
+
+<span class="kw">class</span> <span class="cls">IsOwner</span>(BasePermission):
+    <span class="kw">def</span> <span class="fn">has_object_permission</span>(self, request, view, obj):
+        <span class="kw">return</span> obj.created_by == request.user
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- SYSTEM DESIGN -->
+        <section class="section" id="system">
+            <div class="section-header">
+                <span class="section-tag">// 07 — System Design</span>
+                <h2 class="section-title">System <span class="highlight">Design</span></h2>
+            </div>
+
+            <h3 class="subsection-title">1. Management Commands (Cron Jobs)</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># management/commands/alert_attendance.py</span>
+<span class="kw">from</span> django.core.management.base <span class="kw">import</span> <span class="cls">BaseCommand</span>
+
+<span class="kw">class</span> <span class="cls">Command</span>(BaseCommand):
+    help = <span class="str">'Alert staff to take attendance'</span>
+    
+    <span class="kw">def</span> <span class="fn">handle</span>(self, *args, **options):
+        schools = <span class="cls">School</span>.objects.<span class="fn">all</span>()
+        <span class="kw">for</span> school <span class="kw">in</span> schools:
+            <span class="cm"># Custom timezone handling</span>
+            timezone = pytz.<span class="fn">timezone</span>(school.timezone)
+            now = datetime.<span class="fn">now</span>(timezone)
+            current_time = now.<span class="fn">strftime</span>(<span class="str">"%H:%M"</span>)
+            
+            <span class="kw">if</span> current_time == school.attendance_time:
+                <span class="fn">send_notification</span>(
+                    user_id=account.pk,
+                    db_key=school.db_key,
+                    title=<span class="str">f"Attendance Check"</span>,
+                    body=school.school_name,
+                    notification_type=<span class="cls">NotificationType</span>.alertAttendance.value
+                )
+
+<span class="cm"># Run command:</span>
+<span class="cm"># python manage.py alert_attendance</span>
+            </div>
+
+            <div class="code-block" style="margin-top:16px;">
+                <span class="lang-tag">python</span>
+<span class="cm"># settings.py — Cron Jobs Configuration</span>
+CRONJOBS = [
+    (<span class="str">'*/5 * * * *'</span>, <span class="str">'django.core.management.call_command'</span>, [<span class="str">'interc_payment'</span>]),
+    (<span class="str">'*/5 * * * *'</span>, <span class="str">'django.core.management.call_command'</span>, [<span class="str">'alert_attendance'</span>]),
+    (<span class="str">'*/30 * * * *'</span>, <span class="str">'django.core.management.call_command'</span>, [<span class="str">'late_pickup'</span>]),
+    (<span class="str">'0 9,18 * * *'</span>, <span class="str">'django.core.management.call_command'</span>, [<span class="str">'future_combo_meals'</span>]),
+]
+
+<span class="cm"># Cron Syntax: minute hour day month weekday
+# */5 = every 5 minutes
+# 0 9,18 = at 9:00 and 18:00
+# * * * = every day</span>
+            </div>
+
+            <h3 class="subsection-title">2. Background Jobs Model</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">import</span> uuid
+<span class="kw">import</span> json
+
+<span class="kw">class</span> <span class="cls">StatusTypes</span>:
+    PENDING = <span class="num">0</span>
+    SUCCEED = <span class="num">1</span>
+    FAILED = <span class="num">2</span>
+
+<span class="kw">class</span> <span class="cls">ScheduleJob</span>(models.Model):
+    public_id = models.<span class="fn">UUIDField</span>(default=uuid.uuid4)
+    status = models.<span class="fn">SmallIntegerField</span>(default=<span class="cls">StatusTypes</span>.PENDING)
+    job = models.<span class="fn">SmallIntegerField</span>()
+    unique_key = models.<span class="fn">CharField</span>(max_length=<span class="num">255</span>)  <span class="cm"># Prevents duplicates</span>
+    failed_tries = models.<span class="fn">SmallIntegerField</span>(default=<span class="num">0</span>)
+    max_tries = models.<span class="fn">SmallIntegerField</span>(default=<span class="num">1</span>)
+    db_key = models.<span class="fn">CharField</span>(max_length=<span class="num">50</span>, null=<span class="kw">True</span>)
+    payload = models.<span class="fn">TextField</span>(null=<span class="kw">True</span>)  <span class="cm"># JSON data</span>
+    exception_error = models.<span class="fn">TextField</span>(null=<span class="kw">True</span>)
+    
+    <span class="kw">class</span> <span class="cls">Meta</span>:
+        db_table = <span class="str">"schedule_jobs"</span>
+        unique_together = (<span class="str">'status'</span>, <span class="str">'job'</span>, <span class="str">'unique_key'</span>)
+    
+    <span class="kw">def</span> <span class="fn">get_payload</span>(self):
+        <span class="kw">return</span> json.<span class="fn">loads</span>(self.payload) <span class="kw">if</span> self.payload <span class="kw">else</span> {}
+    
+    <span class="kw">def</span> <span class="fn">set_fail</span>(self, exception):
+        self.exception_error = <span class="fn">str</span>(exception)
+        self.failed_tries += <span class="num">1</span>
+        <span class="kw">if</span> self.failed_tries >= self.max_tries:
+            self.status = <span class="cls">StatusTypes</span>.FAILED
+        self.<span class="fn">save</span>()
+            </div>
+
+            <h3 class="subsection-title">3. Email Service Pattern</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> django.core.mail.backends.smtp <span class="kw">import</span> <span class="cls">EmailBackend</span>
+<span class="kw">from</span> django.core.mail <span class="kw">import</span> <span class="cls">EmailMessage</span>
+<span class="kw">from</span> django.template.loader <span class="kw">import</span> render_to_string
+
+<span class="kw">class</span> <span class="cls">SendEmailMessage</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, subject, emails, DB=<span class="kw">None</span>):
+        <span class="cm"># Dynamic email config per school</span>
+        email_config = <span class="fn">get_setting</span>(DB, [<span class="str">'EMAIL_CONFIG'</span>])
+        
+        self.email_backend = <span class="cls">EmailBackend</span>(
+            host=email_config[<span class="str">'EMAIL_HOST'</span>],
+            port=email_config[<span class="str">'EMAIL_PORT'</span>],
+            username=email_config[<span class="str">'EMAIL_HOST_USER'</span>],
+            password=email_config[<span class="str">'EMAIL_HOST_PASSWORD'</span>],
+            use_tls=<span class="kw">True</span>
+        )
+        self.subject = subject
+        self.emails = emails
+    
+    <span class="kw">def</span> <span class="fn">send_email</span>(self, html_message):
+        message = <span class="cls">EmailMessage</span>(
+            self.subject,
+            html_message,
+            self.email_user,
+            self.emails,
+            connection=self.email_backend
+        )
+        message.content_subtype = <span class="str">'html'</span>
+        message.<span class="fn">send</span>()
+
+<span class="cm"># Usage with Template</span>
+<span class="kw">def</span> <span class="fn">send_invoice_email</span>(email, invoice_data, school_key):
+    html_message = <span class="fn">render_to_string</span>(<span class="str">'invoice_email.html'</span>, {
+        <span class="str">'body'</span>: invoice_data,
+        <span class="str">'school'</span>: school.school_name,
+    })
+    message = <span class="cls">SendEmailMessage</span>(DB=school_key, subject=<span class="str">'Invoice'</span>, emails=[email])
+    message.<span class="fn">send_email</span>(html_message=html_message)
+            </div>
+
+            <h3 class="subsection-title">4. Firebase Push Notifications</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">import</span> enum
+<span class="kw">from</span> pyfcm <span class="kw">import</span> <span class="cls">FCMNotification</span>
+
+<span class="kw">class</span> <span class="cls">NotificationType</span>(enum.Enum):
+    Login = <span class="str">'new_login'</span>
+    newMessage = <span class="str">'new_message'</span>
+    publicAlert = <span class="str">'public_alert'</span>
+    billing = <span class="str">'billing'</span>
+    todo = <span class="str">'todo'</span>
+    alertAttendance = <span class="str">'alert_attendance'</span>
+
+<span class="kw">def</span> <span class="fn">send_notification</span>(user_id, title, body, notification_type, data, db_key):
+    <span class="cm"># Check notification settings</span>
+    settings = <span class="cls">Settings</span>.objects.<span class="fn">using</span>(db_key).<span class="fn">filter</span>(account=user_id)
+    <span class="kw">if</span> settings <span class="kw">and not</span> settings[<span class="num">0</span>].send_notification:
+        <span class="kw">return</span>
+    
+    <span class="cm"># Initialize Firebase</span>
+    fcm = <span class="cls">FCMNotification</span>(
+        service_account_file=<span class="str">"firebase-adminsdk.json"</span>,
+        project_id=<span class="str">"my-project"</span>
+    )
+    
+    <span class="cm"># Get all user devices</span>
+    devices = <span class="cls">Device</span>.objects.<span class="fn">filter</span>(account_id=account.pk)
+    all_tokens = [d.device_token <span class="kw">for</span> d <span class="kw">in</span> devices]
+    
+    <span class="cm"># Send to multiple devices</span>
+    params_list = [{
+        <span class="str">"fcm_token"</span>: token,
+        <span class="str">"notification_title"</span>: title,
+        <span class="str">"notification_body"</span>: body,
+        <span class="str">"data_payload"</span>: {<span class="str">'data'</span>: json.<span class="fn">dumps</span>(data)}
+    } <span class="kw">for</span> token <span class="kw">in</span> all_tokens]
+    
+    fcm.<span class="fn">async_notify_multiple_devices</span>(params_list=params_list)
+            </div>
+
+            <h3 class="subsection-title">5. Middleware</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># settings.py</span>
+MIDDLEWARE = [
+    <span class="str">'corsheaders.middleware.CorsMiddleware'</span>,
+    <span class="str">'django.middleware.security.SecurityMiddleware'</span>,
+    <span class="str">'django.contrib.sessions.middleware.SessionMiddleware'</span>,
+    <span class="str">'django.middleware.common.CommonMiddleware'</span>,
+    <span class="str">'django_middleware_global_request.middleware.GlobalRequestMiddleware'</span>,
+]
+
+<span class="cm"># CORS Configuration</span>
+CORS_ALLOW_ALL_ORIGINS = <span class="kw">True</span>
+CORS_ALLOW_CREDENTIALS = <span class="kw">True</span>
+CORS_ALLOW_HEADERS = [<span class="str">'*'</span>]
+
+<span class="cm"># Global Request Pattern</span>
+<span class="kw">from</span> django_middleware_global_request <span class="kw">import</span> get_request
+
+<span class="kw">def</span> <span class="fn">save_model_date</span>(instance, request):
+    <span class="kw">if</span> request <span class="kw">and</span> request.user.is_authenticated:
+        <span class="kw">if</span> instance.pk <span class="kw">is</span> <span class="kw">None</span>:
+            instance.created_by = request.user
+        <span class="kw">else</span>:
+            instance.updated_by = request.user
+    instance.updated_at = datetime.<span class="fn">now</span>()
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- API DESIGN -->
+        <section class="section" id="api">
+            <div class="section-header">
+                <span class="section-tag">// 08 — API Design</span>
+                <h2 class="section-title">API <span class="highlight">Design</span></h2>
+            </div>
+
+            <h3 class="subsection-title">1. Standardized Response Format</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">import</span> enum
+<span class="kw">from</span> rest_framework.response <span class="kw">import</span> <span class="cls">Response</span>
+<span class="kw">from</span> rest_framework <span class="kw">import</span> status <span class="kw">as</span> stat
+
+<span class="kw">class</span> <span class="cls">ApiStatus</span>(enum.Enum):
+    success = <span class="num">200</span>
+    fail = <span class="num">400</span>
+    notFound = <span class="num">404</span>
+    unauthorized = <span class="num">401</span>
+    applicationException = <span class="num">500</span>
+
+<span class="kw">def</span> <span class="fn">api_response</span>(data=<span class="kw">None</span>, status=ApiStatus.success, message=<span class="kw">None</span>, error=<span class="kw">None</span>, count=<span class="kw">None</span>):
+    <span class="str">"""Standardized API response wrapper"""</span>
+    <span class="kw">if</span> error:
+        status = ApiStatus.fail
+    
+    <span class="kw">return</span> <span class="cls">Response</span>({
+        <span class="str">"data"</span>: data,
+        <span class="str">"message"</span>: message,
+        <span class="str">"status"</span>: status.name,  <span class="cm"># 'success', 'fail', etc.</span>
+        <span class="str">"errors"</span>: error,
+        <span class="str">"count"</span>: count
+    }, status=stat.HTTP_200_OK)
+
+<span class="cm"># Response Examples:</span>
+<span class="cm"># Success: {"data": {...}, "status": "success", "errors": null}</span>
+<span class="cm"># Error:   {"data": null, "status": "fail", "errors": {"email": "Required"}}</span>
+            </div>
+
+            <h3 class="subsection-title">2. Error Serialization Helper</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">def</span> <span class="fn">error_serialization</span>(error):
+    <span class="str">"""Convert nested DRF errors to flat dict"""</span>
+    <span class="cm"># Input:  {"email": ["This field is required"]}</span>
+    <span class="cm"># Output: {"email": "This field is required"}</span>
+    
+    <span class="cm"># Also handles nested:</span>
+    <span class="cm"># Input:  {"items": [{"student": ["Invalid pk"]}]}</span>
+    <span class="cm"># Output: {"items": "student: Invalid pk"}</span>
+    
+    data = {}
+    <span class="kw">for</span> item <span class="kw">in</span> error:
+        value = error[item]
+        <span class="kw">if</span> <span class="fn">isinstance</span>(value, <span class="fn">list</span>) <span class="kw">and</span> <span class="fn">len</span>(value) > <span class="num">0</span>:
+            <span class="kw">if</span> <span class="fn">isinstance</span>(value[<span class="num">0</span>], <span class="fn">str</span>):
+                data[item] = value[<span class="num">0</span>]
+            <span class="kw">elif</span> <span class="fn">isinstance</span>(value[<span class="num">0</span>], <span class="fn">dict</span>):
+                nested_errors = []
+                <span class="kw">for</span> nested_dict <span class="kw">in</span> value:
+                    <span class="kw">for</span> key, val <span class="kw">in</span> nested_dict.<span class="fn">items</span>():
+                        <span class="kw">if</span> <span class="fn">isinstance</span>(val, <span class="fn">list</span>):
+                            nested_errors.<span class="fn">append</span>(<span class="str">f"{key}: {val[0]}"</span>)
+                data[item] = <span class="str">"; "</span>.<span class="fn">join</span>(nested_errors)
+    <span class="kw">return</span> <span class="fn">dict</span>(data)
+            </div>
+
+            <h3 class="subsection-title">3. URL Structure Pattern</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># cogens/urls.py — Main URL Configuration</span>
+urlpatterns = [
+    <span class="cm"># Auth APIs</span>
+    <span class="fn">path</span>(<span class="str">'api/'</span>, <span class="fn">include</span>(<span class="str">'main.accounts.urls'</span>)),
+    <span class="fn">path</span>(<span class="str">'api/'</span>, <span class="fn">include</span>(<span class="str">'main.devices.urls'</span>)),
+    
+    <span class="cm"># School Management</span>
+    <span class="fn">path</span>(<span class="str">'api/'</span>, <span class="fn">include</span>(<span class="str">'school.school.urls'</span>)),
+    <span class="fn">path</span>(<span class="str">'api/'</span>, <span class="fn">include</span>(<span class="str">'school.teacher.urls'</span>)),
+    <span class="fn">path</span>(<span class="str">'api/'</span>, <span class="fn">include</span>(<span class="str">'school.school_students.urls'</span>)),
+    
+    <span class="cm"># Staff Management</span>
+    <span class="fn">path</span>(<span class="str">'api/'</span>, <span class="fn">include</span>(<span class="str">'staff.task.urls'</span>)),
+    
+    <span class="cm"># Billing & Payments</span>
+    <span class="fn">path</span>(<span class="str">'api/'</span>, <span class="fn">include</span>(<span class="str">'shopping_billing_promo_code.payment.urls'</span>)),
+    
+    <span class="cm"># API Versioning</span>
+    <span class="fn">path</span>(<span class="str">'api/v5/'</span>, <span class="fn">include</span>(<span class="str">'shopping_billing_promo_code.hotlunch.orders.v_5_staff_order.urls'</span>)),
+]
+            </div>
+
+            <h3 class="subsection-title">4. Pagination Configuration</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># settings.py</span>
+REST_FRAMEWORK = {
+    <span class="str">'DEFAULT_FILTER_BACKENDS'</span>: [
+        <span class="str">'django_filters.rest_framework.DjangoFilterBackend'</span>
+    ],
+    <span class="str">'DEFAULT_PAGINATION_CLASS'</span>: <span class="str">'rest_framework.pagination.LimitOffsetPagination'</span>,
+    <span class="str">'PAGE_SIZE'</span>: <span class="num">20</span>,
+}
+
+<span class="cm"># Custom Pagination Class</span>
+<span class="kw">from</span> rest_framework.pagination <span class="kw">import</span> <span class="cls">PageNumberPagination</span>
+
+<span class="kw">class</span> <span class="cls">CustomPagination</span>(PageNumberPagination):
+    page_size = <span class="num">20</span>
+    page_size_query_param = <span class="str">'page_size'</span>
+    max_page_size = <span class="num">100</span>
+            </div>
+
+            <h3 class="subsection-title">5. Status Constants Pattern</h3>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># constants.py — Centralized Status Constants</span>
+<span class="kw">class</span> <span class="cls">BillingStatus</span>:
+    PENDING = <span class="str">'pending'</span>
+    CASH = <span class="str">'cash_pending'</span>
+    PAID = <span class="str">'paid'</span>
+    PARTIAL = <span class="str">'partial'</span>
+    OVER_PAID = <span class="str">'over_paid'</span>
+
+<span class="kw">class</span> <span class="cls">PaymentTypes</span>:
+    LATE_PICKUP = <span class="str">'Late Pickup'</span>
+    TUITION = <span class="str">'Tuition'</span>
+    DEFAULT = <span class="str">'Other'</span>
+
+<span class="cm"># Model Choices</span>
+GENDER_CHOICES = (
+    (<span class="str">'male'</span>, <span class="str">'male'</span>),
+    (<span class="str">'female'</span>, <span class="str">'female'</span>),
+    (<span class="str">'prefer_not'</span>, <span class="str">'prefer not to say'</span>),
+)
+
+LOGIN_AS = (
+    (<span class="str">'school'</span>, <span class="str">'school'</span>),
+    (<span class="str">'employee'</span>, <span class="str">'employee'</span>),
+    (<span class="str">'parent'</span>, <span class="str">'parent'</span>),
+    (<span class="str">'student'</span>, <span class="str">'student'</span>),
+    (<span class="str">'teacher'</span>, <span class="str">'teacher'</span>),
+)
+
+<span class="cm"># Usage in Model</span>
+gender = models.<span class="fn">CharField</span>(max_length=<span class="num">200</span>, choices=GENDER_CHOICES, null=<span class="kw">True</span>)
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div style="margin-bottom:8px;">
+                <span style="font-size:22px;">🚀</span>
+            </div>
+            <div>Django & DRF — <span>ملخص دراستي الشامل</span></div>
+            <div style="margin-top:8px; font-size:11px; opacity:0.5;">
+                Serializers → ViewSets → Models → Database → Auth → System Design → API Design
+            </div>
+            <div style="margin-top:16px; font-size:12px; color:var(--text-muted);">
+                Based on COGENS Backend Project
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, entry.target.dataset.delay || 0);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('[data-animate]').forEach((el, i) => {
+            el.dataset.delay = (i % 4) * 120;
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.arch-step').forEach((el, i) => {
+            el.dataset.delay = i * 150;
+            observer.observe(el);
+        });
+
+        // Nav dots active state
+        const sections = ['hero', 'http', 'serializers', 'viewsets', 'models', 'database', 'auth', 'system', 'api'];
+        const dots = document.querySelectorAll('.nav-dot');
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = sections.indexOf(entry.target.id);
+                    dots.forEach(d => d.classList.remove('active'));
+                    if (idx >= 0) dots[idx].classList.add('active');
+                }
+            });
+        }, { threshold: 0.4 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sectionObserver.observe(el);
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Card animations
+        document.querySelectorAll('.card').forEach((card, i) => {
+            card.style.animationDelay = (i * 0.1) + 's';
+        });
+    </script>
+</body>
+</html>

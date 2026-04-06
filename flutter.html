@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter & Dart — ملخص دراستي الشامل</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Cairo:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F7FAFC;
+            --surface: #FFFFFF;
+            --card: #FFFFFF;
+            --border: #E2E8F0;
+            --accent: #0EA5E9;
+            --accent-light: #E0F2FE;
+            --accent-dark: #0369A1;
+            --text: #0F172A;
+            --text-muted: #64748B;
+            --success: #059669;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --info: #0284C7;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.08) 0px, transparent 50%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .orb1 { width: 550px; height: 550px; background: #E0F2FE; top: -150px; right: -120px; animation: drift1 22s ease-in-out infinite; }
+        .orb2 { width: 500px; height: 500px; background: #F0F9FF; bottom: -150px; left: -100px; animation: drift2 24s ease-in-out infinite; }
+
+        @keyframes drift1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-80px, 90px); } }
+        @keyframes drift2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(90px, -80px); } }
+
+        .content { position: relative; z-index: 1; }
+
+        .portfolio-links {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 120;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 90vw;
+        }
+
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+
+        .portfolio-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-light);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            color: var(--accent-dark);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 100px;
+            margin-bottom: 36px;
+            animation: fadeSlideDown 0.8s ease forwards;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+
+        .hero h1 {
+            font-size: clamp(44px, 10vw, 96px);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 20px;
+            color: var(--text);
+            letter-spacing: -2px;
+            animation: fadeSlideDown 0.8s 0.1s ease both;
+        }
+
+        .hero h1 span.flutter {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span.dart { color: var(--text-muted); opacity: 0.8; }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 760px;
+            animation: fadeSlideDown 0.8s 0.2s ease both;
+        }
+
+        .hero-subtitle span { color: var(--accent-dark); font-weight: 700; }
+
+        .hero-flow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeSlideDown 0.8s 0.3s ease both;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: var(--surface);
+            padding: 16px 28px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flow-node {
+            background: var(--accent-light);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            padding: 11px 20px;
+            border-radius: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            transition: all 0.3s ease;
+        }
+
+        .flow-node:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .flow-arrow { font-size: 18px; color: var(--border); }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 96px 24px;
+        }
+
+        .section-header { text-align: center; margin-bottom: 64px; }
+
+        .section-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-dark);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(30px, 5vw, 54px);
+            font-weight: 900;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+
+        .section-title .highlight {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: var(--accent-light);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: all 0.35s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card.visible { opacity: 1; transform: translateY(0); }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            width: 54px;
+            height: 54px;
+            background: var(--accent-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .card-body {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+            direction: rtl;
+        }
+
+        .subsection-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text);
+            margin: 44px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-light);
+        }
+
+        .code-block {
+            background: #0B1220;
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            color: #E2E8F0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block .lang-tag {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 10px;
+            color: #64748B;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .code-block .kw { color: #7DD3FC; }
+        .code-block .cls { color: #A5F3FC; }
+        .code-block .fn { color: #34D399; }
+        .code-block .str { color: #FCA5A5; }
+        .code-block .cm { color: #64748B; font-style: italic; }
+        .code-block .var { color: #BAE6FD; }
+        .code-block .num { color: #FBBF24; }
+        .code-block .dec { color: #C4B5FD; }
+
+        .tip-box {
+            background: var(--accent-light);
+            border: 1px solid rgba(14, 165, 233, 0.25);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            direction: rtl;
+        }
+
+        .tip-box strong { color: var(--accent-dark); }
+
+        .nav-dots {
+            position: fixed;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot:hover, .nav-dot.active {
+            background: var(--accent);
+            transform: scale(1.5);
+        }
+
+        .nav-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: var(--surface);
+            padding: 4px 10px;
+            border-radius: 6px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-dot:hover::after { opacity: 1; transform: translateY(-50%) translateX(4px); }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 0 40px;
+        }
+
+        .sep-deco {
+            text-align: center;
+            padding: 36px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--border);
+            letter-spacing: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 72px 24px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer span { color: var(--accent-dark); font-weight: 700; }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-dots { display: none; }
+            .hero h1 { font-size: 48px; }
+            .portfolio-links {
+                top: 12px;
+                left: 12px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="portfolio-links">
+        <a class="portfolio-link" href="index.html">Portfolio</a>
+        <a class="portfolio-link" href="projects.html">Projects</a>
+        <a class="portfolio-link" href="backend.html">Backend Learning</a>
+        <a class="portfolio-link" href="flutter.html">Flutter Learning</a>
+    </div>
+
+    <nav class="nav-dots">
+        <div class="nav-dot active" data-label="الرئيسية" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" data-label="Flutter Basics" onclick="scrollToSection('basics')"></div>
+        <div class="nav-dot" data-label="State" onclick="scrollToSection('state')"></div>
+        <div class="nav-dot" data-label="Architecture" onclick="scrollToSection('architecture')"></div>
+        <div class="nav-dot" data-label="Networking" onclick="scrollToSection('network')"></div>
+        <div class="nav-dot" data-label="Performance" onclick="scrollToSection('performance')"></div>
+        <div class="nav-dot" data-label="Testing" onclick="scrollToSection('testing')"></div>
+        <div class="nav-dot" data-label="Release" onclick="scrollToSection('release')"></div>
+    </nav>
+
+    <div class="content">
+        <section class="hero" id="hero">
+            <div class="hero-badge">ملخص شامل — Flutter Engineering</div>
+            <h1>
+                <span class="flutter">Flutter</span><br>
+                <span class="dart">& Dart</span>
+            </h1>
+            <p class="hero-subtitle">
+                ملخص عملي لـ <span>Flutter Development</span> من الأساسيات لحد الإنتاج: State Management, Clean Architecture, API Integration, Performance, Testing & Release.
+            </p>
+
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
+                <a class="portfolio-link" href="index.html">الرجوع للـ Portfolio</a>
+                <a class="portfolio-link" href="backend.html">الانتقال لملخص Backend</a>
+            </div>
+
+            <div class="hero-flow">
+                <div class="flow-node">UI</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">State</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">UseCase</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">Repository</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">DataSource</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">API / Local DB</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section" id="basics">
+            <div class="section-header">
+                <span class="section-tag">// 01 — الأساسيات</span>
+                <h2 class="section-title">Flutter & Dart <span class="highlight">Basics</span></h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">📱</span>
+                    <div class="card-title">Everything is Widget</div>
+                    <div class="card-body">
+                        في Flutter كل حاجة عبارة عن <strong>Widget</strong>: layout, text, buttons, animations. ده بيخلي بناء الـ UI modular وسهل إعادة الاستخدام.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">Stateless vs Stateful</div>
+                    <div class="card-body">
+                        <strong>StatelessWidget</strong> للـ UI الثابت، و <strong>StatefulWidget</strong> لما يبقى فيه state بيتغير زي loading, form values, pagination.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⚡</span>
+                    <div class="card-title">Hot Reload</div>
+                    <div class="card-body">
+                        أهم ميزة في Flutter إنها بتسرع التطوير جدًا. بتشوف التغييرات لحظيًا من غير restart كامل للتطبيق.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧠</span>
+                    <div class="card-title">Dart Null Safety</div>
+                    <div class="card-body">
+                        Null safety بيقلل crash بشكل كبير عن طريق enforce صارم للتعامل مع القيم الـ null أثناء الـ compile time.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Structure سريع لصفحة Flutter</h3>
+            <div class="code-block">
+                <span class="lang-tag">dart</span>
+<span class="kw">class</span> <span class="cls">HomePage</span> <span class="kw">extends</span> <span class="cls">StatelessWidget</span> {
+  <span class="kw">const</span> <span class="cls">HomePage</span>({super.key});
+
+  <span class="dec">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cls">Scaffold</span>(
+      appBar: <span class="cls">AppBar</span>(title: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Dashboard'</span>)),
+      body: <span class="cls">Center</span>(
+        child: <span class="cls">Column</span>(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Welcome back'</span>),
+            <span class="kw">const</span> <span class="cls">SizedBox</span>(height: <span class="num">12</span>),
+            <span class="cls">ElevatedButton</span>(
+              onPressed: () {},
+              child: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Get Started'</span>),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="state">
+            <div class="section-header">
+                <span class="section-tag">// 02 — State Management</span>
+                <h2 class="section-title">State <span class="highlight">Management</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 قاعدة مهمة:</strong>
+                اختار state management على حسب حجم المشروع:
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>مشروع صغير: Provider/Cubit بسيط</li>
+                    <li>مشروع متوسط: Cubit + feature modules</li>
+                    <li>مشروع كبير: BLoC/Cubit + Clean Architecture + DI</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">Cubit Example</h3>
+            <div class="code-block">
+                <span class="lang-tag">dart</span>
+<span class="kw">class</span> <span class="cls">LoginState</span> {
+  <span class="kw">final</span> <span class="cls">bool</span> isLoading;
+  <span class="kw">final</span> <span class="cls">String</span>? error;
+
+  <span class="kw">const</span> <span class="cls">LoginState</span>({this.isLoading = <span class="kw">false</span>, this.error});
+
+  <span class="cls">LoginState</span> <span class="fn">copyWith</span>({<span class="cls">bool</span>? isLoading, <span class="cls">String</span>? error}) {
+    <span class="kw">return</span> <span class="cls">LoginState</span>(
+      isLoading: isLoading ?? this.isLoading,
+      error: error,
+    );
+  }
+}
+
+<span class="kw">class</span> <span class="cls">LoginCubit</span> <span class="kw">extends</span> <span class="cls">Cubit</span>&lt;<span class="cls">LoginState</span>&gt; {
+  <span class="kw">final</span> <span class="cls">AuthRepository</span> repository;
+
+  <span class="cls">LoginCubit</span>(this.repository) : <span class="kw">super</span>(<span class="kw">const</span> <span class="cls">LoginState</span>());
+
+  <span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">login</span>({required <span class="cls">String</span> email, required <span class="cls">String</span> password}) <span class="kw">async</span> {
+    emit(state.copyWith(isLoading: <span class="kw">true</span>, error: <span class="kw">null</span>));
+    <span class="kw">try</span> {
+      <span class="kw">await</span> repository.login(email: email, password: password);
+      emit(state.copyWith(isLoading: <span class="kw">false</span>));
+    } <span class="kw">catch</span> (e) {
+      emit(state.copyWith(isLoading: <span class="kw">false</span>, error: e.toString()));
+    }
+  }
+}
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="architecture">
+            <div class="section-header">
+                <span class="section-tag">// 03 — Architecture</span>
+                <h2 class="section-title">Clean <span class="highlight">Architecture</span></h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧩</span>
+                    <div class="card-title">Presentation Layer</div>
+                    <div class="card-body">
+                        Widgets + Cubits/BLoCs + UI logic. مسؤول عن عرض البيانات والتفاعل مع المستخدم بس.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🏛️</span>
+                    <div class="card-title">Domain Layer</div>
+                    <div class="card-body">
+                        Use cases + entities + repository contracts. ده قلب البزنس logic المستقل عن أي framework.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🗄️</span>
+                    <div class="card-title">Data Layer</div>
+                    <div class="card-body">
+                        Repository implementation + remote/local data sources + models/mappers.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Feature Structure</h3>
+            <div class="code-block">
+                <span class="lang-tag">txt</span>
+lib/
+  core/
+    network/
+    error/
+    di/
+  features/
+    auth/
+      data/
+        datasources/
+        models/
+        repositories/
+      domain/
+        entities/
+        repositories/
+        usecases/
+      presentation/
+        cubit/
+        pages/
+        widgets/
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="network">
+            <div class="section-header">
+                <span class="section-tag">// 04 — Networking & API</span>
+                <h2 class="section-title">API <span class="highlight">Integration</span></h2>
+            </div>
+
+            <h3 class="subsection-title">Dio Client + Interceptors</h3>
+            <div class="code-block">
+                <span class="lang-tag">dart</span>
+<span class="kw">class</span> <span class="cls">ApiClient</span> {
+  <span class="kw">final</span> <span class="cls">Dio</span> dio;
+
+  <span class="cls">ApiClient</span>(this.dio) {
+    dio.options.baseUrl = <span class="str">'https://api.example.com'</span>;
+    dio.options.connectTimeout = <span class="kw">const</span> <span class="cls">Duration</span>(seconds: <span class="num">20</span>);
+    dio.options.receiveTimeout = <span class="kw">const</span> <span class="cls">Duration</span>(seconds: <span class="num">20</span>);
+
+    dio.interceptors.add(
+      <span class="cls">InterceptorsWrapper</span>(
+        onRequest: (options, handler) <span class="kw">async</span> {
+          <span class="kw">final</span> token = <span class="kw">await</span> <span class="fn">getToken</span>();
+          <span class="kw">if</span> (token != <span class="kw">null</span>) {
+            options.headers[<span class="str">'Authorization'</span>] = <span class="str">'Bearer $token'</span>;
+          }
+          handler.next(options);
+        },
+        onError: (error, handler) {
+          <span class="kw">if</span> (error.response?.statusCode == <span class="num">401</span>) {
+            <span class="cm">// redirect to login or refresh token</span>
+          }
+          handler.next(error);
+        },
+      ),
+    );
+  }
+}
+            </div>
+
+            <h3 class="subsection-title">Repository Pattern</h3>
+            <div class="code-block">
+                <span class="lang-tag">dart</span>
+<span class="kw">abstract class</span> <span class="cls">ProductRepository</span> {
+  <span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Product</span>&gt;&gt; <span class="fn">getProducts</span>();
+}
+
+<span class="kw">class</span> <span class="cls">ProductRepositoryImpl</span> <span class="kw">implements</span> <span class="cls">ProductRepository</span> {
+  <span class="kw">final</span> <span class="cls">ProductRemoteDataSource</span> remote;
+
+  <span class="cls">ProductRepositoryImpl</span>(this.remote);
+
+  <span class="dec">@override</span>
+  <span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Product</span>&gt;&gt; <span class="fn">getProducts</span>() <span class="kw">async</span> {
+    <span class="kw">final</span> response = <span class="kw">await</span> remote.getProducts();
+    <span class="kw">return</span> response.map(Product.fromJson).toList();
+  }
+}
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="performance">
+            <div class="section-header">
+                <span class="section-tag">// 05 — Optimization</span>
+                <h2 class="section-title">Performance <span class="highlight">Best Practices</span></h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🔧</span>
+                    <div class="card-title">Use const Widgets</div>
+                    <div class="card-body">
+                        استخدام <strong>const</strong> يقلل rebuilds وبالتالي بيحسن الأداء خاصة في الـ widget trees الكبيرة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧵</span>
+                    <div class="card-title">Isolates</div>
+                    <div class="card-body">
+                        العمليات الثقيلة (parsing كبير, encryption, image processing) يفضل تتنفذ في isolate بعيد عن main thread.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧹</span>
+                    <div class="card-title">Dispose Correctly</div>
+                    <div class="card-body">
+                        لازم تعمل dispose للـ controllers والـ streams لتجنب memory leaks مع الوقت.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🖼️</span>
+                    <div class="card-title">Image Optimization</div>
+                    <div class="card-body">
+                        استخدم lazy loading + caching + أحجام صور مناسبة لتقليل استهلاك الذاكرة وتسريع الـ rendering.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Compute Example</h3>
+            <div class="code-block">
+                <span class="lang-tag">dart</span>
+<span class="kw">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Item</span>&gt;&gt; <span class="fn">parseLargeJson</span>(<span class="cls">String</span> jsonString) <span class="kw">async</span> {
+  <span class="kw">return</span> <span class="fn">compute</span>(_parseItems, jsonString);
+}
+
+<span class="cls">List</span>&lt;<span class="cls">Item</span>&gt; <span class="fn">_parseItems</span>(<span class="cls">String</span> input) {
+  <span class="kw">final</span> decoded = jsonDecode(input) <span class="kw">as</span> <span class="cls">List</span>;
+  <span class="kw">return</span> decoded.map((e) =&gt; Item.fromJson(e)).toList();
+}
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="testing">
+            <div class="section-header">
+                <span class="section-tag">// 06 — Quality</span>
+                <h2 class="section-title">Testing <span class="highlight">Strategy</span></h2>
+            </div>
+
+            <h3 class="subsection-title">Unit Test Example</h3>
+            <div class="code-block">
+                <span class="lang-tag">dart</span>
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="fn">group</span>(<span class="str">'LoginCubit'</span>, () {
+    <span class="kw">late</span> <span class="cls">LoginCubit</span> cubit;
+    <span class="kw">late</span> <span class="cls">MockAuthRepository</span> repository;
+
+    <span class="fn">setUp</span>(() {
+      repository = <span class="cls">MockAuthRepository</span>();
+      cubit = <span class="cls">LoginCubit</span>(repository);
+    });
+
+    <span class="fn">blocTest</span>&lt;<span class="cls">LoginCubit</span>, <span class="cls">LoginState</span>&gt;(
+      <span class="str">'emits loading then success'</span>,
+      build: () {
+        <span class="fn">when</span>(() =&gt; repository.login(email: <span class="kw">any</span>(named: <span class="str">'email'</span>), password: <span class="kw">any</span>(named: <span class="str">'password'</span>)))
+            .thenAnswer((_) <span class="kw">async</span> {});
+        <span class="kw">return</span> cubit;
+      },
+      act: (cubit) =&gt; cubit.login(email: <span class="str">'test@mail.com'</span>, password: <span class="str">'12345678'</span>),
+      expect: () =&gt; [
+        <span class="kw">const</span> <span class="cls">LoginState</span>(isLoading: <span class="kw">true</span>),
+        <span class="kw">const</span> <span class="cls">LoginState</span>(isLoading: <span class="kw">false</span>),
+      ],
+    );
+  });
+}
+            </div>
+
+            <div class="tip-box">
+                <strong>اختبار متوازن =</strong>
+                Unit tests (المنطق) + Widget tests (سلوك الواجهة) + Integration tests (رحلة المستخدم الكاملة).
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="release">
+            <div class="section-header">
+                <span class="section-tag">// 07 — Deployment</span>
+                <h2 class="section-title">Build & <span class="highlight">Release</span></h2>
+            </div>
+
+            <h3 class="subsection-title">Release Commands</h3>
+            <div class="code-block">
+                <span class="lang-tag">bash</span>
+<span class="cm"># Android APK</span>
+flutter build apk --release
+
+<span class="cm"># Android App Bundle (Google Play)</span>
+flutter build appbundle --release
+
+<span class="cm"># iOS Release</span>
+flutter build ios --release
+
+<span class="cm"># Web</span>
+flutter build web --release
+            </div>
+
+            <h3 class="subsection-title">Checklist قبل النشر</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">✅</span>
+                    <div class="card-title">Environment Config</div>
+                    <div class="card-body">تأكد من مفاتيح production, base URLs, Firebase config, app identifiers.</div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔐</span>
+                    <div class="card-title">Signing & Security</div>
+                    <div class="card-body">تفعيل signing keys، وإخفاء الأسرار في CI/CD secrets، ومنع debug logs.</div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📊</span>
+                    <div class="card-title">Crash & Analytics</div>
+                    <div class="card-body">ربط Crashlytics + Analytics من أول نسخة production لمراقبة الجودة.</div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🚀</span>
+                    <div class="card-title">CI/CD Pipeline</div>
+                    <div class="card-body">Automate build/test/release عبر GitHub Actions أو Codemagic لتسريع التسليم.</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div style="margin-bottom:8px;"><span style="font-size:22px;">📘</span></div>
+            <div>Flutter & Dart — <span>ملخص دراستي الشامل</span></div>
+            <div style="margin-top:8px; font-size:11px; opacity:0.5;">
+                Basics → State Management → Architecture → API Integration → Performance → Testing → Release
+            </div>
+            <div style="margin-top:14px; font-size:12px; color:var(--text-muted);">Focused on Production Flutter Engineering</div>
+        </footer>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, entry.target.dataset.delay || 0);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('[data-animate]').forEach((el, i) => {
+            el.dataset.delay = (i % 4) * 120;
+            observer.observe(el);
+        });
+
+        const sections = ['hero', 'basics', 'state', 'architecture', 'network', 'performance', 'testing', 'release'];
+        const dots = document.querySelectorAll('.nav-dot');
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = sections.indexOf(entry.target.id);
+                    dots.forEach(d => d.classList.remove('active'));
+                    if (idx >= 0) dots[idx].classList.add('active');
+                }
+            });
+        }, { threshold: 0.4 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sectionObserver.observe(el);
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>
