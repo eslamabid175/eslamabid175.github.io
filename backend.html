@@ -340,15 +340,12 @@
 
         /* Code Block */
         .code-block {
-            background: #111827;
-            border-radius: 12px;
-            padding: 24px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
-            line-height: 1.7;
-            overflow-x: auto;
+            background: linear-gradient(180deg, #111827 0%, #020617 100%);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 18px;
+            overflow: hidden;
             position: relative;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 24px 50px rgba(2, 6, 23, 0.24);
             color: #E2E8F0;
             direction: ltr;
             text-align: left;
@@ -362,6 +359,99 @@
             color: #64748B;
             font-weight: 700;
             text-transform: uppercase;
+        }
+
+        .code-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            background: rgba(15, 23, 42, 0.92);
+        }
+
+        .code-window-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .code-dot.red { background: #F87171; }
+        .code-dot.yellow { background: #FBBF24; }
+        .code-dot.green { background: #34D399; }
+
+        .code-toolbar-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .code-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: #CBD5E1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .code-toolbar-lang {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: #A5B4FC;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(165, 180, 252, 0.2);
+            background: rgba(79, 70, 229, 0.08);
+            flex-shrink: 0;
+        }
+
+        .code-frame {
+            overflow-x: auto;
+            padding: 16px 0;
+        }
+
+        .code-line {
+            display: grid;
+            grid-template-columns: 56px minmax(0, 1fr);
+            align-items: baseline;
+            min-width: max-content;
+        }
+
+        .code-line:hover {
+            background: rgba(148, 163, 184, 0.06);
+        }
+
+        .code-line-no {
+            padding: 0 14px 0 18px;
+            text-align: right;
+            color: #475569;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            user-select: none;
+        }
+
+        .code-line-code {
+            padding-right: 22px;
+            white-space: pre;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.75;
         }
 
         .code-block .kw { color: #818CF8; }
@@ -653,6 +743,7 @@
     <!-- Navigation -->
     <nav class="nav-dots">
         <div class="nav-dot active" data-label="الرئيسية" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" data-label="Journey" onclick="scrollToSection('journey')"></div>
         <div class="nav-dot" data-label="HTTP & API" onclick="scrollToSection('http')"></div>
         <div class="nav-dot" data-label="Serializers" onclick="scrollToSection('serializers')"></div>
         <div class="nav-dot" data-label="ViewSets" onclick="scrollToSection('viewsets')"></div>
@@ -667,13 +758,13 @@
 
         <!-- HERO -->
         <section class="hero" id="hero">
-            <div class="hero-badge">ملخص شامل — COGENS Backend</div>
+            <div class="hero-badge">ملخص شامل — Backend</div>
             <h1>
                 <span class="django">Django</span><br>
                 <span class="drf">& DRF</span>
             </h1>
             <p class="hero-subtitle">
-                ملخص شامل لـ <span>Django REST Framework</span> — Serializers, ViewSets, Models, Authentication, Database Design, System Design & API Design
+                ملخص شامل لـ <span>Django REST Framework</span> — Serializers, ViewSets, Models, Authentication, Database Lifecycle, Celery, Redis, Channels, System Design & API Design
             </p>
 
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
@@ -697,6 +788,85 @@
         </section>
 
         <div class="divider"></div>
+
+        <section class="section" id="journey">
+            <div class="section-header">
+                <span class="section-tag">// 00 — Journey</span>
+                <h2 class="section-title">Backend <span class="highlight">Study Journey</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 طريقة دراسة الـ Backend بشكل عملي:</strong>
+                ابدأ من <strong>الدومين</strong> والـ <strong>database lifecycle</strong>، بعد كده صمم الـ serializers والـ API actions، ثم أضف الـ auth والـ async flows والـ realtime updates.
+            </div>
+
+            <div class="cards-grid" style="margin-bottom: 40px;">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧠</span>
+                    <div class="card-title">Think in Lifecycles</div>
+                    <div class="card-body">
+                        اتعلمت إن أهم سؤال مش "إيه الـ endpoint؟" لكن "إيه دورة حياة الـ record؟" زي الطلب: <strong>new → accepted → preparing → ready → delivered</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🗺️</span>
+                    <div class="card-title">Model Before View</div>
+                    <div class="card-body">
+                        لو الـ models والعلاقات والقيود واضحة، الـ serializers والـ viewsets بيبقوا أسهل وأوضح وأقل عرضة للغلط.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🗃️</span>
+                    <div class="card-title">Database as Source of Truth</div>
+                    <div class="card-body">
+                        التصميم الجيد للـ database بيحميك من bugs لاحقًا: <strong>UUIDs</strong>, snapshots, constraints, money fields, timestamps, وquery optimization.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⚙️</span>
+                    <div class="card-title">Async + Realtime</div>
+                    <div class="card-body">
+                        بعض الـ flows لازم تخرج من request-response العادي: rider assignment, notifications, background jobs, WebSocket status updates.
+                    </div>
+                </div>
+            </div>
+
+            <div class="arch-grid">
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">01</div>
+                    <div class="arch-name">Requirements</div>
+                    <div class="arch-desc">حدد actors, states, ownership rules, والبيانات التي يجب أن تبقى immutable.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">02</div>
+                    <div class="arch-name">Models</div>
+                    <div class="arch-desc">ابنِ entities واضحة بالعلاقات والـ choices والـ timestamps والـ constraints المناسبة.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">03</div>
+                    <div class="arch-name">Database</div>
+                    <div class="arch-desc">راجع schema, migrations, indexing, snapshot tables, وحقول الأموال والـ JSON المرنة.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">04</div>
+                    <div class="arch-name">Serializers</div>
+                    <div class="arch-desc">اعمل validation, read-only fields, nested data, وinput contracts تمنع البيانات الغلط.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">05</div>
+                    <div class="arch-name">Actions</div>
+                    <div class="arch-desc">صمم endpoints واضحة للـ CRUD والـ lifecycle transitions والعمليات الخاصة.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">06</div>
+                    <div class="arch-name">Operations</div>
+                    <div class="arch-desc">أضف auth, throttling, Celery, Redis, Channels, monitoring، وارجع اختبر الأداء والاستقرار.</div>
+                </div>
+            </div>
+
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
 
         <!-- HTTP & API BASICS -->
         <section class="section" id="http">
@@ -1088,6 +1258,64 @@ urlpatterns = [
 # PATCH  /schools/{id}/     → partial_update()
 # DELETE /schools/{id}/     → destroy()</span>
             </div>
+            <h3 class="subsection-title">5. Custom Actions — Order Lifecycle</h3>
+            <div class="code-block" data-file="apps/orders/views.py">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">OrderViewSet</span>(viewsets.ModelViewSet):
+    serializer_class = <span class="cls">OrderSerializer</span>
+    permission_classes = [permissions.<span class="cls">IsAuthenticated</span>]
+
+    <span class="kw">def</span> <span class="fn">get_queryset</span>(self):
+        user = self.request.user
+        <span class="kw">if</span> user.is_customer:
+            <span class="kw">return</span> <span class="cls">Order</span>.objects.<span class="fn">filter</span>(customer=user).<span class="fn">prefetch_related</span>(<span class="str">'items'</span>)
+        <span class="kw">elif</span> user.is_merchant:
+            <span class="kw">return</span> <span class="cls">Order</span>.objects.<span class="fn">filter</span>(merchant__owner=user).<span class="fn">prefetch_related</span>(<span class="str">'items'</span>)
+        <span class="kw">return</span> <span class="cls">Order</span>.objects.<span class="fn">none</span>()
+
+    <span class="dec">@action</span>(detail=<span class="kw">False</span>, methods=[<span class="str">'post'</span>])
+    <span class="kw">def</span> <span class="fn">place</span>(self, request):
+        serializer = <span class="cls">PlaceOrderSerializer</span>(data=request.data)
+        serializer.<span class="fn">is_valid</span>(raise_exception=<span class="kw">True</span>)
+        cart = <span class="cls">Cart</span>.objects.<span class="fn">get</span>(
+            id=serializer.validated_data[<span class="str">'cart_id'</span>],
+            customer=request.user,
+        )
+
+        order = <span class="cls">Order</span>.objects.<span class="fn">create</span>(
+            customer=request.user,
+            merchant=cart.merchant,
+            delivery_address_id=serializer.validated_data[<span class="str">'delivery_address_id'</span>],
+            subtotal=cart.total,
+            total=cart.total + cart.merchant.delivery_fee,
+        )
+
+        <span class="kw">for</span> cart_item <span class="kw">in</span> cart.items.<span class="fn">all</span>():
+            <span class="cls">OrderItem</span>.objects.<span class="fn">create</span>(
+                order=order,
+                menu_item=cart_item.menu_item,
+                item_name=cart_item.menu_item.name,
+                addons_names=[a.name <span class="kw">for</span> a <span class="kw">in</span> cart_item.addons.<span class="fn">all</span>()],
+                quantity=cart_item.quantity,
+                unit_price=cart_item.unit_price,
+                subtotal=cart_item.subtotal,
+            )
+
+        assign_rider_to_order.<span class="fn">delay</span>(<span class="fn">str</span>(order.id))
+        <span class="kw">return</span> <span class="cls">Response</span>(<span class="cls">OrderSerializer</span>(order).data, status=status.<span class="cls">HTTP_201_CREATED</span>)
+
+    <span class="dec">@action</span>(detail=<span class="kw">True</span>, methods=[<span class="str">'post'</span>])
+    <span class="kw">def</span> <span class="fn">accept</span>(self, request, pk=<span class="kw">None</span>):
+        order = self.<span class="fn">get_object</span>()
+        <span class="kw">if</span> order.status != <span class="cls">Order</span>.<span class="cls">Status</span>.NEW:
+            <span class="kw">return</span> <span class="cls">Response</span>(
+                {<span class="str">'error'</span>: <span class="str">'Only new orders can be accepted.'</span>},
+                status=status.<span class="cls">HTTP_400_BAD_REQUEST</span>,
+            )
+        order.status = <span class="cls">Order</span>.<span class="cls">Status</span>.ACCEPTED
+        order.<span class="fn">save</span>()
+        <span class="kw">return</span> <span class="cls">Response</span>(<span class="cls">OrderSerializer</span>(order).data)
+            </div>
         </section>
 
         <div class="sep-deco">/* ———————————————————————— */</div>
@@ -1303,6 +1531,78 @@ password_regex = <span class="cls">RegexValidator</span>(
                 <h2 class="section-title">Database <span class="highlight">Design</span></h2>
             </div>
 
+            <div class="tip-box">
+                <strong>💡 Database lifecycle mindset:</strong>
+                دراسة الـ database مش مجرد Models وORM. الرحلة الكاملة هي:
+                فهم الدومين → تصميم العلاقات → كتابة migrations → حماية integrity → تحسين queries → متابعة الأداء والتغييرات مع الوقت.
+            </div>
+
+            <h3 class="subsection-title">Database Lifecycle Journey</h3>
+            <div class="arch-grid">
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">01</div>
+                    <div class="arch-name">Requirements</div>
+                    <div class="arch-desc">اعرف مين بيكتب البيانات، مين بيقرأها، وإيه الحالة الطبيعية ودورة الحياة لكل record.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">02</div>
+                    <div class="arch-name">Schema</div>
+                    <div class="arch-desc">اختار tables, foreign keys, many-to-many relations, choices, وحقول timestamps من البداية.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">03</div>
+                    <div class="arch-name">Constraints</div>
+                    <div class="arch-desc">أضف uniqueness, validation, immutable snapshots, وقواعد تمنع التكرار أو drift في البيانات.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">04</div>
+                    <div class="arch-name">Migrations</div>
+                    <div class="arch-desc">غير الـ schema بمسار واضح وآمن بدل التعديل اليدوي المباشر على الجداول.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">05</div>
+                    <div class="arch-name">Querying</div>
+                    <div class="arch-desc">راجع الـ read patterns الفعلية واستخدم select_related, prefetch_related, filtering, ordering, pagination.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">06</div>
+                    <div class="arch-name">Operations</div>
+                    <div class="arch-desc">تابع الأداء، أضف indexing بحساب، استخدم transactions وقت الحاجة، وراجع أثر كل migration قبل النشر.</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Lessons From Real Projects</h3>
+            <div class="cards-grid" style="margin-bottom: 36px;">
+                <div class="card" data-animate>
+                    <span class="card-icon">🆔</span>
+                    <div class="card-title">UUIDs for Public IDs</div>
+                    <div class="card-body">
+                        استخدمت <strong>UUIDField</strong> كثيرًا في الأنظمة الحقيقية لأنّه آمن أكثر في الـ APIs وأسهل في الدمج بين خدمات متعددة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📸</span>
+                    <div class="card-title">Snapshot Tables</div>
+                    <div class="card-body">
+                        في الطلبات والدفعات لازم تحتفظ بنسخة وقت التنفيذ، مش تعتمد فقط على العلاقات الحية التي قد تتغير لاحقًا.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧩</span>
+                    <div class="card-title">JSON for Flexible Metadata</div>
+                    <div class="card-body">
+                        <strong>JSONField</strong> مفيد للـ metadata أو البيانات المرنة، لكن core business columns لازم تفضل أعمدة واضحة قابلة للفهرسة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">💰</span>
+                    <div class="card-title">Money Needs Discipline</div>
+                    <div class="card-body">
+                        قيم المال لازم تبقى <strong>DecimalField</strong> مش float، والعناوين الجغرافية أحيانًا تتخزن كـ decimal لتوافق أعلى مع محركات معينة.
+                    </div>
+                </div>
+            </div>
+
             <h3 class="subsection-title">ORM Lookups</h3>
             <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:40px;">
                 <table class="orm-table">
@@ -1376,6 +1676,32 @@ db = request.headers.<span class="fn">get</span>(<span class="str">'DB'</span>, 
 queryset = <span class="cls">Model</span>.objects.<span class="fn">using</span>(db).<span class="fn">all</span>()
             </div>
 
+            <h3 class="subsection-title">Snapshot + Metadata Patterns</h3>
+            <div class="code-block" data-file="apps/orders/models.py">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">Cart</span>(models.Model):
+    customer = models.<span class="fn">ForeignKey</span>(<span class="str">'accounts.User'</span>, on_delete=models.CASCADE, related_name=<span class="str">'carts'</span>)
+    merchant = models.<span class="fn">ForeignKey</span>(<span class="str">'merchants.Merchant'</span>, on_delete=models.CASCADE, related_name=<span class="str">'carts'</span>)
+
+    <span class="kw">class</span> <span class="cls">Meta</span>:
+        db_table = <span class="str">'carts'</span>
+        unique_together = [<span class="str">'customer'</span>, <span class="str">'merchant'</span>]
+
+<span class="kw">class</span> <span class="cls">OrderItem</span>(models.Model):
+    order = models.<span class="fn">ForeignKey</span>(<span class="cls">Order</span>, on_delete=models.CASCADE, related_name=<span class="str">'items'</span>)
+    item_name = models.<span class="fn">CharField</span>(max_length=<span class="num">200</span>)  <span class="cm"># snapshot of menu item name</span>
+    addons_names = models.<span class="fn">JSONField</span>(default=<span class="fn">list</span>, blank=<span class="kw">True</span>)
+    quantity = models.<span class="fn">PositiveSmallIntegerField</span>(default=<span class="num">1</span>)
+    unit_price = models.<span class="fn">DecimalField</span>(max_digits=<span class="num">10</span>, decimal_places=<span class="num">2</span>)
+    subtotal = models.<span class="fn">DecimalField</span>(max_digits=<span class="num">10</span>, decimal_places=<span class="num">2</span>)
+
+<span class="kw">class</span> <span class="cls">Transaction</span>(models.Model):
+    user = models.<span class="fn">ForeignKey</span>(<span class="str">'accounts.User'</span>, on_delete=models.PROTECT, related_name=<span class="str">'transactions'</span>)
+    amount = models.<span class="fn">DecimalField</span>(max_digits=<span class="num">12</span>, decimal_places=<span class="num">2</span>)
+    metadata = models.<span class="fn">JSONField</span>(default=<span class="fn">dict</span>, blank=<span class="kw">True</span>)
+    created_at = models.<span class="fn">DateTimeField</span>(auto_now_add=<span class="kw">True</span>)
+            </div>
+
             <h3 class="subsection-title">QuerySet Methods</h3>
             <div class="code-block">
                 <span class="lang-tag">python</span>
@@ -1429,6 +1755,25 @@ queryset = <span class="cls">Model</span>.objects.<span class="fn">using</span>(
         <span class="kw">except</span> <span class="cls">Exception</span>:
             <span class="kw">continue</span>
     <span class="kw">return</span> uuid.<span class="fn">uuid4</span>().hex[:<span class="num">6</span>].<span class="fn">upper</span>()
+            </div>
+
+            <h3 class="subsection-title">Migration Workflow Best Practice</h3>
+            <div class="code-block" data-file="terminal">
+                <span class="lang-tag">bash</span>
+<span class="cm"># 1) Change your models first</span>
+python manage.py makemigrations
+
+<span class="cm"># 2) Inspect generated SQL before applying critical changes</span>
+python manage.py sqlmigrate orders 0002
+
+<span class="cm"># 3) Apply migrations in order</span>
+python manage.py migrate
+
+<span class="cm"># 4) Verify migration state on every environment</span>
+python manage.py showmigrations
+
+<span class="cm"># 5) For dangerous changes: split into safe steps
+# add nullable column → backfill data → enforce constraint later</span>
             </div>
         </section>
 
@@ -1604,7 +1949,48 @@ CRONJOBS = [
 # * * * = every day</span>
             </div>
 
-            <h3 class="subsection-title">2. Background Jobs Model</h3>
+            <h3 class="subsection-title">2. Celery + Channels + Redis Flow</h3>
+            <div class="code-block" data-file="apps/delivery/tasks.py">
+                <span class="lang-tag">python</span>
+<span class="dec">@shared_task</span>(bind=<span class="kw">True</span>, max_retries=<span class="num">3</span>, default_retry_delay=<span class="num">30</span>)
+<span class="kw">def</span> <span class="fn">assign_rider_to_order</span>(self, order_id):
+    order = <span class="cls">Order</span>.objects.<span class="fn">select_related</span>(<span class="str">'merchant'</span>, <span class="str">'branch'</span>).<span class="fn">get</span>(id=order_id)
+    <span class="kw">if</span> order.status != <span class="cls">Order</span>.<span class="cls">Status</span>.NEW:
+        <span class="kw">return</span>
+
+    available_riders = <span class="cls">RiderProfile</span>.objects.<span class="fn">filter</span>(
+        status=<span class="cls">RiderProfile</span>.<span class="cls">Status</span>.AVAILABLE,
+        is_approved=<span class="kw">True</span>,
+        user__current_location__isnull=<span class="kw">False</span>,
+    ).<span class="fn">select_related</span>(<span class="str">'user'</span>, <span class="str">'user__current_location'</span>)
+
+    <span class="kw">for</span> rider_profile, distance, score <span class="kw">in</span> rider_distances[:<span class="num">5</span>]:
+        <span class="kw">if</span> distance &lt;= <span class="num">10.0</span>:
+            <span class="cls">DeliveryAssignment</span>.objects.<span class="fn">create</span>(
+                order=order,
+                rider=rider_profile.user,
+                status=<span class="cls">DeliveryAssignment</span>.<span class="cls">Status</span>.PENDING,
+                distance_km=<span class="fn">round</span>(distance, <span class="num">2</span>),
+            )
+            order.rider = rider_profile.user
+            order.status = <span class="cls">Order</span>.<span class="cls">Status</span>.ACCEPTED
+            order.<span class="fn">save</span>()
+
+            _notify_order_update(order_id, <span class="str">'accepted'</span>, <span class="str">'Rider assigned to your order'</span>)
+            send_push_notification.<span class="fn">delay</span>(<span class="fn">str</span>(rider_profile.user.id), <span class="str">'New Order Assignment'</span>, <span class="str">'Open dashboard now'</span>)
+            <span class="kw">return</span>
+
+    self.<span class="fn">retry</span>(countdown=<span class="num">60</span>)
+
+<span class="kw">def</span> <span class="fn">_notify_order_update</span>(order_id, status, message=<span class="str">''</span>):
+    channel_layer = <span class="fn">get_channel_layer</span>()
+    <span class="fn">async_to_sync</span>(channel_layer.group_send)(
+        <span class="str">f'order_{order_id}'</span>,
+        {<span class="str">'type'</span>: <span class="str">'order_status_update'</span>, <span class="str">'order_id'</span>: <span class="fn">str</span>(order_id), <span class="str">'status'</span>: status, <span class="str">'message'</span>: message},
+    )
+            </div>
+
+            <h3 class="subsection-title">3. Background Jobs Model</h3>
             <div class="code-block">
                 <span class="lang-tag">python</span>
 <span class="kw">import</span> uuid
@@ -1641,7 +2027,7 @@ CRONJOBS = [
         self.<span class="fn">save</span>()
             </div>
 
-            <h3 class="subsection-title">3. Email Service Pattern</h3>
+            <h3 class="subsection-title">4. Email Service Pattern</h3>
             <div class="code-block">
                 <span class="lang-tag">python</span>
 <span class="kw">from</span> django.core.mail.backends.smtp <span class="kw">import</span> <span class="cls">EmailBackend</span>
@@ -1684,7 +2070,7 @@ CRONJOBS = [
     message.<span class="fn">send_email</span>(html_message=html_message)
             </div>
 
-            <h3 class="subsection-title">4. Firebase Push Notifications</h3>
+            <h3 class="subsection-title">5. Firebase Push Notifications</h3>
             <div class="code-block">
                 <span class="lang-tag">python</span>
 <span class="kw">import</span> enum
@@ -1725,7 +2111,7 @@ CRONJOBS = [
     fcm.<span class="fn">async_notify_multiple_devices</span>(params_list=params_list)
             </div>
 
-            <h3 class="subsection-title">5. Middleware</h3>
+            <h3 class="subsection-title">6. Middleware</h3>
             <div class="code-block">
                 <span class="lang-tag">python</span>
 <span class="cm"># settings.py</span>
@@ -1913,16 +2299,63 @@ gender = models.<span class="fn">CharField</span>(max_length=<span class="num">2
             </div>
             <div>Django & DRF — <span>ملخص دراستي الشامل</span></div>
             <div style="margin-top:8px; font-size:11px; opacity:0.5;">
-                Serializers → ViewSets → Models → Database → Auth → System Design → API Design
+                Journey → Serializers → ViewSets → Models → Database → Auth → System Design → API Design
             </div>
             <div style="margin-top:16px; font-size:12px; color:var(--text-muted);">
-                Based on COGENS Backend Project
+                Based on real Django, DRF, Celery, Redis, and Channels patterns
             </div>
         </footer>
 
     </div>
 
     <script>
+        function enhanceCodeBlocks() {
+            const fileByLang = {
+                python: 'snippet.py',
+                bash: 'terminal',
+                txt: 'notes.txt',
+            };
+
+            document.querySelectorAll('.code-block').forEach((block) => {
+                if (block.dataset.enhanced === 'true') return;
+
+                const langEl = block.querySelector('.lang-tag');
+                const lang = (langEl?.textContent || block.dataset.lang || 'code').trim().toLowerCase();
+                const title = block.dataset.file || fileByLang[lang] || `${lang}-snippet`;
+                let rawHtml = block.innerHTML;
+
+                if (langEl) {
+                    rawHtml = rawHtml.replace(langEl.outerHTML, '');
+                }
+
+                rawHtml = rawHtml.replace(/^\n+/, '').replace(/\n+\s*$/, '');
+                const lines = rawHtml.split('\n');
+                const renderedLines = lines.map((line, index) => {
+                    const content = line.length ? line : '&nbsp;';
+                    return `<div class="code-line"><span class="code-line-no">${index + 1}</span><span class="code-line-code">${content}</span></div>`;
+                }).join('');
+
+                block.innerHTML = `
+                    <div class="code-toolbar">
+                        <div class="code-window-actions">
+                            <span class="code-dot red"></span>
+                            <span class="code-dot yellow"></span>
+                            <span class="code-dot green"></span>
+                        </div>
+                        <div class="code-toolbar-meta">
+                            <span class="code-title">${title}</span>
+                            <span class="code-toolbar-lang">${lang}</span>
+                        </div>
+                    </div>
+                    <div class="code-frame">${renderedLines}</div>
+                `;
+
+                block.dataset.enhanced = 'true';
+            });
+        }
+
+        enhanceCodeBlocks();
+
         // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, i) => {
@@ -1946,7 +2379,7 @@ gender = models.<span class="fn">CharField</span>(max_length=<span class="num">2
         });
 
         // Nav dots active state
-        const sections = ['hero', 'http', 'serializers', 'viewsets', 'models', 'database', 'auth', 'system', 'api'];
+        const sections = ['hero', 'journey', 'http', 'serializers', 'viewsets', 'models', 'database', 'auth', 'system', 'api'];
         const dots = document.querySelectorAll('.nav-dot');
 
         const sectionObserver = new IntersectionObserver((entries) => {

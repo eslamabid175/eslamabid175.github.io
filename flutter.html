@@ -300,15 +300,12 @@
         }
 
         .code-block {
-            background: #0B1220;
-            border-radius: 12px;
-            padding: 24px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
-            line-height: 1.7;
-            overflow-x: auto;
+            background: linear-gradient(180deg, #0F172A 0%, #020617 100%);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 18px;
+            overflow: hidden;
             position: relative;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 24px 50px rgba(2, 6, 23, 0.28);
             color: #E2E8F0;
             direction: ltr;
             text-align: left;
@@ -322,6 +319,99 @@
             color: #64748B;
             font-weight: 700;
             text-transform: uppercase;
+        }
+
+        .code-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            background: rgba(15, 23, 42, 0.92);
+        }
+
+        .code-window-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .code-dot.red { background: #F87171; }
+        .code-dot.yellow { background: #FBBF24; }
+        .code-dot.green { background: #34D399; }
+
+        .code-toolbar-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .code-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: #CBD5E1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .code-toolbar-lang {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: #7DD3FC;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(125, 211, 252, 0.18);
+            background: rgba(14, 165, 233, 0.08);
+            flex-shrink: 0;
+        }
+
+        .code-frame {
+            overflow-x: auto;
+            padding: 16px 0;
+        }
+
+        .code-line {
+            display: grid;
+            grid-template-columns: 56px minmax(0, 1fr);
+            align-items: baseline;
+            min-width: max-content;
+        }
+
+        .code-line:hover {
+            background: rgba(148, 163, 184, 0.06);
+        }
+
+        .code-line-no {
+            padding: 0 14px 0 18px;
+            text-align: right;
+            color: #475569;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            user-select: none;
+        }
+
+        .code-line-code {
+            padding-right: 22px;
+            white-space: pre;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.75;
         }
 
         .code-block .kw { color: #7DD3FC; }
@@ -449,6 +539,7 @@
         <div class="nav-dot" data-label="State" onclick="scrollToSection('state')"></div>
         <div class="nav-dot" data-label="Architecture" onclick="scrollToSection('architecture')"></div>
         <div class="nav-dot" data-label="Networking" onclick="scrollToSection('network')"></div>
+        <div class="nav-dot" data-label="Storage" onclick="scrollToSection('storage')"></div>
         <div class="nav-dot" data-label="Performance" onclick="scrollToSection('performance')"></div>
         <div class="nav-dot" data-label="Testing" onclick="scrollToSection('testing')"></div>
         <div class="nav-dot" data-label="Release" onclick="scrollToSection('release')"></div>
@@ -462,7 +553,7 @@
                 <span class="dart">& Dart</span>
             </h1>
             <p class="hero-subtitle">
-                ملخص عملي لـ <span>Flutter Development</span> من الأساسيات لحد الإنتاج: State Management, Clean Architecture, API Integration, Performance, Testing & Release.
+                ملخص عملي لـ <span>Flutter Development</span> من الأساسيات لحد الإنتاج: App Bootstrap, State Management, Clean Architecture, API Integration, Local DB, Realtime, Testing & Release.
             </p>
 
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
@@ -510,45 +601,56 @@
                 </div>
                 <div class="card" data-animate>
                     <span class="card-icon">⚡</span>
-                    <div class="card-title">Hot Reload</div>
+                    <div class="card-title">Production Bootstrap</div>
                     <div class="card-body">
-                        أهم ميزة في Flutter إنها بتسرع التطوير جدًا. بتشوف التغييرات لحظيًا من غير restart كامل للتطبيق.
+                        اللي اتعلمته فعليًا إن بداية التطبيق أهم من أول screen: لازم تجهز <strong>Firebase</strong>, <strong>Localization</strong>, <strong>DI</strong>, cache, notifications قبل <strong>runApp</strong>.
                     </div>
                 </div>
                 <div class="card" data-animate>
                     <span class="card-icon">🧠</span>
-                    <div class="card-title">Dart Null Safety</div>
+                    <div class="card-title">Localization & RTL</div>
                     <div class="card-body">
-                        Null safety بيقلل crash بشكل كبير عن طريق enforce صارم للتعامل مع القيم الـ null أثناء الـ compile time.
+                        في التطبيقات العربية الحقيقية لازم الـ <strong>RTL</strong> والترجمة يبقوا جزء من التصميم من البداية، مش خطوة متأخرة بعد ما الشاشات تخلص.
                     </div>
                 </div>
             </div>
 
-            <h3 class="subsection-title">Structure سريع لصفحة Flutter</h3>
-            <div class="code-block">
-                <span class="lang-tag">dart</span>
-<span class="kw">class</span> <span class="cls">HomePage</span> <span class="kw">extends</span> <span class="cls">StatelessWidget</span> {
-  <span class="kw">const</span> <span class="cls">HomePage</span>({super.key});
+            <div class="tip-box">
+                <strong>💡 أول درس عملي:</strong>
+                التطبيق الإنتاجي مش مجرد <strong>Widget tree</strong>. البداية الصح هي ترتيب startup sequence: bindings → Firebase/services → localization → dependency injection → offline cache → state providers → app shell.
+            </div>
 
-  <span class="dec">@override</span>
-  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> context) {
-    <span class="kw">return</span> <span class="cls">Scaffold</span>(
-      appBar: <span class="cls">AppBar</span>(title: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Dashboard'</span>)),
-      body: <span class="cls">Center</span>(
-        child: <span class="cls">Column</span>(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Welcome back'</span>),
-            <span class="kw">const</span> <span class="cls">SizedBox</span>(height: <span class="num">12</span>),
-            <span class="cls">ElevatedButton</span>(
-              onPressed: () {},
-              child: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Get Started'</span>),
-            ),
-          ],
-        ),
+            <h3 class="subsection-title">App Bootstrap من مشروع حقيقي</h3>
+            <div class="code-block" data-file="main.dart">
+                <span class="lang-tag">dart</span>
+<span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:flutter_bloc/flutter_bloc.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:easy_localization/easy_localization.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:firebase_core/firebase_core.dart'</span>;
+
+<span class="kw">void</span> <span class="fn">main</span>() <span class="kw">async</span> {
+  <span class="cls">WidgetsFlutterBinding</span>.<span class="fn">ensureInitialized</span>();
+  <span class="kw">await</span> <span class="cls">Firebase</span>.<span class="fn">initializeApp</span>(
+    options: <span class="cls">DefaultFirebaseOptions</span>.currentPlatform,
+  );
+  <span class="kw">await</span> <span class="cls">EasyLocalization</span>.<span class="fn">ensureInitialized</span>();
+  <span class="kw">await</span> <span class="fn">initDependencies</span>();
+  <span class="kw">await</span> sl&lt;<span class="cls">CacheService</span>&gt;().<span class="fn">initialize</span>();
+  <span class="kw">await</span> sl&lt;<span class="cls">NotificationService</span>&gt;().<span class="fn">initialize</span>();
+
+  <span class="fn">runApp</span>(
+    <span class="cls">EasyLocalization</span>(
+      supportedLocales: <span class="kw">const</span> [<span class="cls">Locale</span>(<span class="str">'ar'</span>), <span class="cls">Locale</span>(<span class="str">'en'</span>)],
+      path: <span class="str">'assets/translations'</span>,
+      child: <span class="cls">MultiBlocProvider</span>(
+        providers: [
+          <span class="cls">BlocProvider</span>&lt;<span class="cls">AuthCubit</span>&gt;(create: (_) =&gt; sl&lt;<span class="cls">AuthCubit</span>&gt;()..<span class="fn">checkAuth</span>()),
+          <span class="cls">BlocProvider</span>&lt;<span class="cls">HomeCubit</span>&gt;(create: (_) =&gt; sl&lt;<span class="cls">HomeCubit</span>&gt;()..<span class="fn">loadHome</span>()),
+        ],
+        child: <span class="kw">const</span> <span class="cls">NqlaCustomerApp</span>(),
       ),
-    );
-  }
+    ),
+  );
 }
             </div>
         </section>
@@ -565,43 +667,77 @@
                 <strong>💡 قاعدة مهمة:</strong>
                 اختار state management على حسب حجم المشروع:
                 <ul style="margin-top:8px; padding-right:20px;">
-                    <li>مشروع صغير: Provider/Cubit بسيط</li>
-                    <li>مشروع متوسط: Cubit + feature modules</li>
-                    <li>مشروع كبير: BLoC/Cubit + Clean Architecture + DI</li>
+                    <li>مشروع صغير: state بسيط داخل الشاشة أو Cubit صغير</li>
+                    <li>مشروع متوسط: Cubit + feature modules + service locator</li>
+                    <li>مشروع كبير: Cubit/BLoC + offline cache + token refresh + tests واضحة</li>
                 </ul>
             </div>
 
-            <h3 class="subsection-title">Cubit Example</h3>
-            <div class="code-block">
+            <h3 class="subsection-title">Cubit Pattern من مشروع إنتاجي</h3>
+            <div class="code-block" data-file="auth_cubit.dart">
                 <span class="lang-tag">dart</span>
-<span class="kw">class</span> <span class="cls">LoginState</span> {
-  <span class="kw">final</span> <span class="cls">bool</span> isLoading;
-  <span class="kw">final</span> <span class="cls">String</span>? error;
+<span class="kw">enum</span> <span class="cls">AuthStatus</span> { initial, loading, authenticated, unauthenticated, error }
 
-  <span class="kw">const</span> <span class="cls">LoginState</span>({this.isLoading = <span class="kw">false</span>, this.error});
+<span class="kw">class</span> <span class="cls">AuthState</span> <span class="kw">extends</span> <span class="cls">Equatable</span> {
+  <span class="kw">final</span> <span class="cls">AuthStatus</span> status;
+  <span class="kw">final</span> <span class="cls">AuthUser</span>? user;
+  <span class="kw">final</span> <span class="cls">String</span>? errorMessage;
 
-  <span class="cls">LoginState</span> <span class="fn">copyWith</span>({<span class="cls">bool</span>? isLoading, <span class="cls">String</span>? error}) {
-    <span class="kw">return</span> <span class="cls">LoginState</span>(
-      isLoading: isLoading ?? this.isLoading,
-      error: error,
+  <span class="kw">const</span> <span class="cls">AuthState</span>({
+    this.status = <span class="cls">AuthStatus</span>.initial,
+    this.user,
+    this.errorMessage,
+  });
+
+  <span class="cls">AuthState</span> <span class="fn">copyWith</span>({<span class="cls">AuthStatus</span>? status, <span class="cls">AuthUser</span>? user, <span class="cls">String</span>? errorMessage}) {
+    <span class="kw">return</span> <span class="cls">AuthState</span>(
+      status: status ?? this.status,
+      user: user ?? this.user,
+      errorMessage: errorMessage,
     );
   }
 }
 
-<span class="kw">class</span> <span class="cls">LoginCubit</span> <span class="kw">extends</span> <span class="cls">Cubit</span>&lt;<span class="cls">LoginState</span>&gt; {
-  <span class="kw">final</span> <span class="cls">AuthRepository</span> repository;
+<span class="kw">class</span> <span class="cls">AuthCubit</span> <span class="kw">extends</span> <span class="cls">Cubit</span>&lt;<span class="cls">AuthState</span>&gt; {
+  <span class="kw">final</span> <span class="cls">AuthRemoteDataSource</span> _dataSource;
+  <span class="kw">final</span> <span class="cls">SecureStorageService</span> _storage;
 
-  <span class="cls">LoginCubit</span>(this.repository) : <span class="kw">super</span>(<span class="kw">const</span> <span class="cls">LoginState</span>());
+  <span class="cls">AuthCubit</span>({required <span class="cls">AuthRemoteDataSource</span> dataSource, required <span class="cls">SecureStorageService</span> storage})
+      : _dataSource = dataSource,
+        _storage = storage,
+        <span class="kw">super</span>(<span class="kw">const</span> <span class="cls">AuthState</span>());
 
-  <span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">login</span>({required <span class="cls">String</span> email, required <span class="cls">String</span> password}) <span class="kw">async</span> {
-    emit(state.copyWith(isLoading: <span class="kw">true</span>, error: <span class="kw">null</span>));
+  <span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">checkAuth</span>() <span class="kw">async</span> {
+    <span class="kw">final</span> token = <span class="kw">await</span> _storage.<span class="fn">getAccessToken</span>();
+    <span class="kw">if</span> (token == <span class="kw">null</span>) {
+      emit(<span class="kw">const</span> <span class="cls">AuthState</span>(status: <span class="cls">AuthStatus</span>.unauthenticated));
+      <span class="kw">return</span>;
+    }
     <span class="kw">try</span> {
-      <span class="kw">await</span> repository.login(email: email, password: password);
-      emit(state.copyWith(isLoading: <span class="kw">false</span>));
-    } <span class="kw">catch</span> (e) {
-      emit(state.copyWith(isLoading: <span class="kw">false</span>, error: e.toString()));
+      <span class="kw">final</span> user = <span class="kw">await</span> _dataSource.<span class="fn">getProfile</span>();
+      emit(<span class="cls">AuthState</span>(status: <span class="cls">AuthStatus</span>.authenticated, user: user));
+    } <span class="kw">catch</span> (_) {
+      <span class="kw">await</span> _storage.<span class="fn">clearTokens</span>();
+      emit(<span class="kw">const</span> <span class="cls">AuthState</span>(status: <span class="cls">AuthStatus</span>.unauthenticated));
     }
   }
+}
+            </div>
+
+            <h3 class="subsection-title">Freezed State Union لما السيناريوهات تكتر</h3>
+            <div class="code-block" data-file="azkar_state.dart">
+                <span class="lang-tag">dart</span>
+<span class="kw">import</span> <span class="str">'package:freezed_annotation/freezed_annotation.dart'</span>;
+
+<span class="kw">part</span> <span class="str">'azkar_state.freezed.dart'</span>;
+
+<span class="dec">@freezed</span>
+<span class="kw">class</span> <span class="cls">AzkarState</span>&lt;T&gt; <span class="kw">with</span> _$AzkarState&lt;T&gt; {
+  <span class="kw">const factory</span> <span class="cls">AzkarState</span>.initial() = <span class="cls">Initial</span>&lt;T&gt;;
+  <span class="kw">const factory</span> <span class="cls">AzkarState</span>.loading() = <span class="cls">Loading</span>&lt;T&gt;;
+  <span class="kw">const factory</span> <span class="cls">AzkarState</span>.loaded(T data) = <span class="cls">Loaded</span>&lt;T&gt;;
+  <span class="kw">const factory</span> <span class="cls">AzkarState</span>.error(<span class="cls">String</span> message) = <span class="cls">Error</span>&lt;T&gt;;
+  <span class="kw">const factory</span> <span class="cls">AzkarState</span>.copyToClipboard() = <span class="cls">CopyToClipboard</span>&lt;T&gt;;
 }
             </div>
         </section>
@@ -638,28 +774,66 @@
                 </div>
             </div>
 
-            <h3 class="subsection-title">Feature Structure</h3>
-            <div class="code-block">
+            <h3 class="subsection-title">Feature Structure من مشاريع فعلية</h3>
+            <div class="code-block" data-file="lib/">
                 <span class="lang-tag">txt</span>
 lib/
+  app/
+    app.dart
+    di.dart
+    app_initializer.dart
   core/
     network/
-    error/
-    di/
+    storage/
+    services/
+    helpers/
+    widgets/
   features/
     auth/
       data/
         datasources/
         models/
-        repositories/
       domain/
-        entities/
-        repositories/
-        usecases/
+        models/
       presentation/
         cubit/
         pages/
         widgets/
+    orders/
+      data/
+      presentation/
+    quran_kariem/
+      data/
+      presentation/
+      logic/
+    home/
+      data/
+      ui/
+      logic/
+            </div>
+
+            <h3 class="subsection-title">Dependency Injection مع GetIt</h3>
+            <div class="code-block" data-file="injection_container.dart">
+                <span class="lang-tag">dart</span>
+<span class="kw">final</span> sl = <span class="cls">GetIt</span>.instance;
+
+<span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">initDependencies</span>() <span class="kw">async</span> {
+  sl.<span class="fn">registerLazySingleton</span>&lt;<span class="cls">SecureStorageService</span>&gt;(() =&gt; <span class="cls">SecureStorageService</span>());
+  sl.<span class="fn">registerLazySingleton</span>&lt;<span class="cls">DioClient</span>&gt;(() =&gt; <span class="cls">DioClient</span>());
+  sl.<span class="fn">registerLazySingleton</span>&lt;<span class="cls">WebSocketService</span>&gt;(() =&gt; <span class="cls">WebSocketService</span>());
+
+  sl.<span class="fn">registerLazySingleton</span>&lt;<span class="cls">AuthRemoteDataSource</span>&gt;(
+    () =&gt; <span class="cls">AuthRemoteDataSource</span>(sl&lt;<span class="cls">DioClient</span>&gt;()),
+  );
+
+  sl.<span class="fn">registerFactory</span>&lt;<span class="cls">AuthCubit</span>&gt;(() =&gt; <span class="cls">AuthCubit</span>(
+        dataSource: sl&lt;<span class="cls">AuthRemoteDataSource</span>&gt;(),
+        storage: sl&lt;<span class="cls">SecureStorageService</span>&gt;(),
+      ));
+  sl.<span class="fn">registerFactory</span>&lt;<span class="cls">OrdersCubit</span>&gt;(
+    () =&gt; <span class="cls">OrdersCubit</span>(dataSource: sl&lt;<span class="cls">OrdersRemoteDataSource</span>&gt;()),
+  );
+}
             </div>
         </section>
 
@@ -671,40 +845,87 @@ lib/
                 <h2 class="section-title">API <span class="highlight">Integration</span></h2>
             </div>
 
-            <h3 class="subsection-title">Dio Client + Interceptors</h3>
-            <div class="code-block">
+            <h3 class="subsection-title">Dio Client + JWT Refresh</h3>
+            <div class="code-block" data-file="dio_client.dart">
                 <span class="lang-tag">dart</span>
-<span class="kw">class</span> <span class="cls">ApiClient</span> {
-  <span class="kw">final</span> <span class="cls">Dio</span> dio;
+<span class="kw">class</span> <span class="cls">DioClient</span> {
+  <span class="kw">late final</span> <span class="cls">Dio</span> dio;
+  <span class="kw">final</span> <span class="cls">FlutterSecureStorage</span> _storage = <span class="kw">const</span> <span class="cls">FlutterSecureStorage</span>();
 
-  <span class="cls">ApiClient</span>(this.dio) {
-    dio.options.baseUrl = <span class="str">'https://api.example.com'</span>;
-    dio.options.connectTimeout = <span class="kw">const</span> <span class="cls">Duration</span>(seconds: <span class="num">20</span>);
-    dio.options.receiveTimeout = <span class="kw">const</span> <span class="cls">Duration</span>(seconds: <span class="num">20</span>);
-
-    dio.interceptors.add(
-      <span class="cls">InterceptorsWrapper</span>(
-        onRequest: (options, handler) <span class="kw">async</span> {
-          <span class="kw">final</span> token = <span class="kw">await</span> <span class="fn">getToken</span>();
-          <span class="kw">if</span> (token != <span class="kw">null</span>) {
-            options.headers[<span class="str">'Authorization'</span>] = <span class="str">'Bearer $token'</span>;
-          }
-          handler.next(options);
-        },
-        onError: (error, handler) {
-          <span class="kw">if</span> (error.response?.statusCode == <span class="num">401</span>) {
-            <span class="cm">// redirect to login or refresh token</span>
-          }
-          handler.next(error);
-        },
+  <span class="cls">DioClient</span>() {
+    dio = <span class="cls">Dio</span>(
+      <span class="cls">BaseOptions</span>(
+        baseUrl: <span class="cls">ApiConstants</span>.baseUrl,
+        connectTimeout: <span class="kw">const</span> <span class="cls">Duration</span>(seconds: <span class="num">15</span>),
+        receiveTimeout: <span class="kw">const</span> <span class="cls">Duration</span>(seconds: <span class="num">15</span>),
+        headers: {<span class="str">'Accept'</span>: <span class="str">'application/json'</span>, <span class="str">'Accept-Language'</span>: <span class="str">'ar'</span>},
       ),
+    );
+
+    dio.interceptors.addAll([
+      _authInterceptor(),
+      <span class="cls">LogInterceptor</span>(requestBody: <span class="kw">true</span>, responseBody: <span class="kw">true</span>, error: <span class="kw">true</span>),
+    ]);
+  }
+
+  <span class="cls">InterceptorsWrapper</span> <span class="fn">_authInterceptor</span>() {
+    <span class="kw">return</span> <span class="cls">InterceptorsWrapper</span>(
+      onRequest: (options, handler) <span class="kw">async</span> {
+        <span class="kw">final</span> token = <span class="kw">await</span> _storage.<span class="fn">read</span>(key: <span class="str">'access_token'</span>);
+        <span class="kw">if</span> (token != <span class="kw">null</span>) {
+          options.headers[<span class="str">'Authorization'</span>] = <span class="str">'Bearer $token'</span>;
+        }
+        handler.<span class="fn">next</span>(options);
+      },
+      onError: (error, handler) <span class="kw">async</span> {
+        <span class="kw">if</span> (error.response?.statusCode == <span class="num">401</span> &amp;&amp; <span class="kw">await</span> <span class="fn">_refreshToken</span>()) {
+          <span class="kw">final</span> token = <span class="kw">await</span> _storage.<span class="fn">read</span>(key: <span class="str">'access_token'</span>);
+          error.requestOptions.headers[<span class="str">'Authorization'</span>] = <span class="str">'Bearer $token'</span>;
+          <span class="kw">final</span> response = <span class="kw">await</span> dio.<span class="fn">fetch</span>(error.requestOptions);
+          <span class="kw">return</span> handler.<span class="fn">resolve</span>(response);
+        }
+        handler.<span class="fn">next</span>(error);
+      },
     );
   }
 }
             </div>
 
+            <h3 class="subsection-title">WebSocket Order Tracking</h3>
+            <div class="code-block" data-file="websocket_service.dart">
+                <span class="lang-tag">dart</span>
+<span class="kw">class</span> <span class="cls">WebSocketService</span> {
+  <span class="cls">WebSocketChannel</span>? _channel;
+  <span class="cls">StreamSubscription</span>? _subscription;
+
+  <span class="kw">final</span> _controller = <span class="cls">StreamController</span>&lt;<span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt;&gt;.<span class="fn">broadcast</span>();
+  <span class="cls">Stream</span>&lt;<span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt;&gt; <span class="kw">get</span> stream =&gt; _controller.stream;
+
+  <span class="kw">void</span> <span class="fn">connectOrderTracking</span>(<span class="cls">String</span> orderId, <span class="cls">String</span> wsUrl) {
+    <span class="fn">disconnect</span>();
+    _channel = <span class="cls">WebSocketChannel</span>.connect(<span class="cls">Uri</span>.<span class="fn">parse</span>(wsUrl));
+    _subscription = _channel!.stream.<span class="fn">listen</span>((data) {
+      <span class="kw">try</span> {
+        <span class="kw">final</span> decoded = <span class="fn">jsonDecode</span>(data <span class="kw">as</span> <span class="cls">String</span>) <span class="kw">as</span> <span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt;;
+        _controller.<span class="fn">add</span>(decoded);
+      } <span class="kw">catch</span> (_) {}
+    });
+  }
+
+  <span class="kw">void</span> <span class="fn">send</span>(<span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt; data) {
+    _channel?.sink.<span class="fn">add</span>(<span class="fn">jsonEncode</span>(data));
+  }
+
+  <span class="kw">void</span> <span class="fn">disconnect</span>() {
+    _subscription?.<span class="fn">cancel</span>();
+    _channel?.sink.<span class="fn">close</span>();
+    _channel = <span class="kw">null</span>;
+  }
+}
+            </div>
+
             <h3 class="subsection-title">Repository Pattern</h3>
-            <div class="code-block">
+            <div class="code-block" data-file="product_repository.dart">
                 <span class="lang-tag">dart</span>
 <span class="kw">abstract class</span> <span class="cls">ProductRepository</span> {
   <span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Product</span>&gt;&gt; <span class="fn">getProducts</span>();
@@ -717,8 +938,116 @@ lib/
 
   <span class="dec">@override</span>
   <span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Product</span>&gt;&gt; <span class="fn">getProducts</span>() <span class="kw">async</span> {
-    <span class="kw">final</span> response = <span class="kw">await</span> remote.getProducts();
-    <span class="kw">return</span> response.map(Product.fromJson).toList();
+    <span class="kw">final</span> response = <span class="kw">await</span> remote.<span class="fn">getProducts</span>();
+    <span class="kw">return</span> response.<span class="fn">map</span>(Product.fromJson).<span class="fn">toList</span>();
+  }
+}
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="storage">
+            <div class="section-header">
+                <span class="section-tag">// 05 — Local Storage & Offline</span>
+                <h2 class="section-title">Local DB & <span class="highlight">Offline Thinking</span></h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧱</span>
+                    <div class="card-title">Hive for Cache</div>
+                    <div class="card-body">
+                        استخدمت <strong>Hive</strong> لتخزين JSON cache, user preferences, timestamps, وآخر بيانات متاحة للمستخدم لما الشبكة تكون ضعيفة أو مقطوعة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🗃️</span>
+                    <div class="card-title">sqflite for Structured Data</div>
+                    <div class="card-body">
+                        لما البيانات تبقى relational أو محتاجة CRUD منظم محليًا، <strong>sqflite</strong> مناسب أكتر من key-value caching.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔐</span>
+                    <div class="card-title">Secure Storage</div>
+                    <div class="card-body">
+                        التوكنز وبيانات الجلسة الحساسة لازم تروح لـ <strong>flutter_secure_storage</strong> مش Hive أو SharedPreferences.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⏱️</span>
+                    <div class="card-title">TTL + Cleanup</div>
+                    <div class="card-body">
+                        الكاش الناجح مش تخزين فقط. لازم تحدد <strong>max age</strong>, timestamps, وتنضف البيانات المنتهية بوضوح.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Hive Cache Service</h3>
+            <div class="code-block" data-file="cache_service.dart">
+                <span class="lang-tag">dart</span>
+<span class="kw">class</span> <span class="cls">CacheService</span> {
+  <span class="kw">static const</span> <span class="cls">String</span> _merchantsBoxName = <span class="str">'merchants_cache'</span>;
+  <span class="kw">static const</span> <span class="cls">String</span> _userPrefsBoxName = <span class="str">'user_prefs'</span>;
+
+  <span class="kw">late</span> <span class="cls">Box</span>&lt;<span class="cls">String</span>&gt; _merchantsBox;
+  <span class="kw">late</span> <span class="cls">Box</span>&lt;<span class="cls">String</span>&gt; _userPrefsBox;
+
+  <span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">initialize</span>() <span class="kw">async</span> {
+    <span class="kw">await</span> <span class="cls">Hive</span>.<span class="fn">initFlutter</span>();
+    _merchantsBox = <span class="kw">await</span> <span class="cls">Hive</span>.<span class="fn">openBox</span>&lt;<span class="cls">String</span>&gt;(_merchantsBoxName);
+    _userPrefsBox = <span class="kw">await</span> <span class="cls">Hive</span>.<span class="fn">openBox</span>&lt;<span class="cls">String</span>&gt;(_userPrefsBoxName);
+  }
+
+  <span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">cacheMerchants</span>(<span class="cls">String</span> category, <span class="cls">List</span>&lt;<span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt;&gt; merchants) <span class="kw">async</span> {
+    <span class="kw">await</span> _merchantsBox.<span class="fn">put</span>(category, <span class="fn">jsonEncode</span>(merchants));
+    <span class="kw">await</span> _merchantsBox.<span class="fn">put</span>(<span class="str">'${category}_timestamp'</span>, <span class="cls">DateTime</span>.now().<span class="fn">toIso8601String</span>());
+  }
+
+  <span class="cls">List</span>&lt;<span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt;&gt;? <span class="fn">getCachedMerchants</span>(<span class="cls">String</span> category, {<span class="cls">Duration</span> maxAge = <span class="kw">const</span> <span class="cls">Duration</span>(hours: <span class="num">1</span>)}) {
+    <span class="kw">final</span> data = _merchantsBox.<span class="fn">get</span>(category);
+    <span class="kw">final</span> timestampStr = _merchantsBox.<span class="fn">get</span>(<span class="str">'${category}_timestamp'</span>);
+    <span class="kw">if</span> (data == <span class="kw">null</span> || timestampStr == <span class="kw">null</span>) <span class="kw">return</span> <span class="kw">null</span>;
+    <span class="kw">if</span> (<span class="cls">DateTime</span>.now().<span class="fn">difference</span>(<span class="cls">DateTime</span>.<span class="fn">parse</span>(timestampStr)) &gt; maxAge) <span class="kw">return</span> <span class="kw">null</span>;
+    <span class="kw">return</span> (<span class="fn">jsonDecode</span>(data) <span class="kw">as</span> <span class="cls">List</span>).<span class="fn">cast</span>&lt;<span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt;&gt;();
+  }
+}
+            </div>
+
+            <h3 class="subsection-title">sqflite CRUD Helper</h3>
+            <div class="code-block" data-file="sqflite_helper.dart">
+                <span class="lang-tag">dart</span>
+<span class="kw">class</span> <span class="cls">SqlHelper</span> {
+  <span class="kw">static final</span> <span class="cls">SqlHelper</span> _instance = <span class="cls">SqlHelper</span>._internal();
+  <span class="cls">SqlHelper</span>._internal();
+  <span class="kw">factory</span> <span class="cls">SqlHelper</span>() =&gt; _instance;
+
+  <span class="cls">Database</span>? _db;
+
+  <span class="cls">Future</span>&lt;<span class="cls">Database</span>&gt; <span class="kw">get</span> database <span class="kw">async</span> {
+    <span class="kw">if</span> (_db != <span class="kw">null</span>) <span class="kw">return</span> _db!;
+    _db = <span class="kw">await</span> <span class="fn">initDB</span>();
+    <span class="kw">return</span> _db!;
+  }
+
+  <span class="cls">Future</span>&lt;<span class="cls">Database</span>&gt; <span class="fn">initDB</span>() <span class="kw">async</span> {
+    <span class="kw">return</span> <span class="fn">openDatabase</span>(
+      <span class="str">'nouralhuda.db'</span>,
+      version: <span class="num">3</span>,
+      onCreate: (db, version) <span class="kw">async</span> =&gt; <span class="kw">await</span> <span class="fn">_createTables</span>(db),
+      onUpgrade: (db, oldVersion, newVersion) <span class="kw">async</span> {
+        <span class="kw">if</span> (oldVersion &lt; <span class="num">3</span>) {
+          <span class="kw">await</span> db.<span class="fn">execute</span>(<span class="str">'DROP TABLE IF EXISTS achievement'</span>);
+          <span class="kw">await</span> <span class="fn">_createTables</span>(db);
+        }
+      },
+    );
+  }
+
+  <span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">insertData</span>({required <span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">dynamic</span>&gt; data, required <span class="cls">String</span> tableName}) <span class="kw">async</span> {
+    <span class="kw">final</span> db = <span class="kw">await</span> database;
+    <span class="kw">await</span> db.<span class="fn">insert</span>(tableName, data, conflictAlgorithm: <span class="cls">ConflictAlgorithm</span>.replace);
   }
 }
             </div>
@@ -728,7 +1057,7 @@ lib/
 
         <section class="section" id="performance">
             <div class="section-header">
-                <span class="section-tag">// 05 — Optimization</span>
+                <span class="section-tag">// 06 — Optimization</span>
                 <h2 class="section-title">Performance <span class="highlight">Best Practices</span></h2>
             </div>
 
@@ -781,36 +1110,42 @@ lib/
 
         <section class="section" id="testing">
             <div class="section-header">
-                <span class="section-tag">// 06 — Quality</span>
+                <span class="section-tag">// 07 — Quality</span>
                 <h2 class="section-title">Testing <span class="highlight">Strategy</span></h2>
             </div>
 
-            <h3 class="subsection-title">Unit Test Example</h3>
-            <div class="code-block">
+            <h3 class="subsection-title">Cubit Test من مشروع فعلي</h3>
+            <div class="code-block" data-file="auth_cubit_test.dart">
                 <span class="lang-tag">dart</span>
 <span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="fn">group</span>(<span class="str">'LoginCubit'</span>, () {
-    <span class="kw">late</span> <span class="cls">LoginCubit</span> cubit;
-    <span class="kw">late</span> <span class="cls">MockAuthRepository</span> repository;
+  <span class="kw">late</span> <span class="cls">AuthCubit</span> cubit;
+  <span class="kw">late</span> <span class="cls">MockAuthDataSource</span> mockDataSource;
+  <span class="kw">late</span> <span class="cls">MockSecureStorage</span> mockStorage;
 
-    <span class="fn">setUp</span>(() {
-      repository = <span class="cls">MockAuthRepository</span>();
-      cubit = <span class="cls">LoginCubit</span>(repository);
+  <span class="fn">setUp</span>(() {
+    mockDataSource = <span class="cls">MockAuthDataSource</span>();
+    mockStorage = <span class="cls">MockSecureStorage</span>();
+    cubit = <span class="cls">AuthCubit</span>(dataSource: mockDataSource, storage: mockStorage);
+  });
+
+  <span class="fn">group</span>(<span class="str">'AuthCubit'</span>, () {
+    <span class="fn">test</span>(<span class="str">'emits unauthenticated when no token stored'</span>, () <span class="kw">async</span> {
+      <span class="fn">when</span>(() =&gt; mockStorage.<span class="fn">getAccessToken</span>()).<span class="fn">thenAnswer</span>((_) <span class="kw">async</span> =&gt; <span class="kw">null</span>);
+
+      <span class="kw">await</span> cubit.<span class="fn">checkAuth</span>();
+
+      <span class="fn">expect</span>(cubit.state.status, <span class="cls">AuthStatus</span>.unauthenticated);
     });
 
-    <span class="fn">blocTest</span>&lt;<span class="cls">LoginCubit</span>, <span class="cls">LoginState</span>&gt;(
-      <span class="str">'emits loading then success'</span>,
-      build: () {
-        <span class="fn">when</span>(() =&gt; repository.login(email: <span class="kw">any</span>(named: <span class="str">'email'</span>), password: <span class="kw">any</span>(named: <span class="str">'password'</span>)))
-            .thenAnswer((_) <span class="kw">async</span> {});
-        <span class="kw">return</span> cubit;
-      },
-      act: (cubit) =&gt; cubit.login(email: <span class="str">'test@mail.com'</span>, password: <span class="str">'12345678'</span>),
-      expect: () =&gt; [
-        <span class="kw">const</span> <span class="cls">LoginState</span>(isLoading: <span class="kw">true</span>),
-        <span class="kw">const</span> <span class="cls">LoginState</span>(isLoading: <span class="kw">false</span>),
-      ],
-    );
+    <span class="fn">test</span>(<span class="str">'emits authenticated when token valid and profile loads'</span>, () <span class="kw">async</span> {
+      <span class="fn">when</span>(() =&gt; mockStorage.<span class="fn">getAccessToken</span>()).<span class="fn">thenAnswer</span>((_) <span class="kw">async</span> =&gt; <span class="str">'valid_token'</span>);
+      <span class="fn">when</span>(() =&gt; mockDataSource.<span class="fn">getProfile</span>()).<span class="fn">thenAnswer</span>((_) <span class="kw">async</span> =&gt; user);
+
+      <span class="kw">await</span> cubit.<span class="fn">checkAuth</span>();
+
+      <span class="fn">expect</span>(cubit.state.status, <span class="cls">AuthStatus</span>.authenticated);
+      <span class="fn">expect</span>(cubit.state.user, user);
+    });
   });
 }
             </div>
@@ -825,7 +1160,7 @@ lib/
 
         <section class="section" id="release">
             <div class="section-header">
-                <span class="section-tag">// 07 — Deployment</span>
+                <span class="section-tag">// 08 — Deployment</span>
                 <h2 class="section-title">Build & <span class="highlight">Release</span></h2>
             </div>
 
@@ -874,13 +1209,60 @@ flutter build web --release
             <div style="margin-bottom:8px;"><span style="font-size:22px;">📘</span></div>
             <div>Flutter & Dart — <span>ملخص دراستي الشامل</span></div>
             <div style="margin-top:8px; font-size:11px; opacity:0.5;">
-                Basics → State Management → Architecture → API Integration → Performance → Testing → Release
+                Basics → State Management → Architecture → API Integration → Local DB → Performance → Testing → Release
             </div>
             <div style="margin-top:14px; font-size:12px; color:var(--text-muted);">Focused on Production Flutter Engineering</div>
         </footer>
     </div>
 
     <script>
+        function enhanceCodeBlocks() {
+            const fileByLang = {
+                dart: 'main.dart',
+                bash: 'terminal',
+                txt: 'project-structure.txt',
+            };
+
+            document.querySelectorAll('.code-block').forEach((block) => {
+                if (block.dataset.enhanced === 'true') return;
+
+                const langEl = block.querySelector('.lang-tag');
+                const lang = (langEl?.textContent || block.dataset.lang || 'code').trim().toLowerCase();
+                const title = block.dataset.file || fileByLang[lang] || `${lang}-snippet`;
+                let rawHtml = block.innerHTML;
+
+                if (langEl) {
+                    rawHtml = rawHtml.replace(langEl.outerHTML, '');
+                }
+
+                rawHtml = rawHtml.replace(/^\n+/, '').replace(/\n+\s*$/, '');
+                const lines = rawHtml.split('\n');
+                const renderedLines = lines.map((line, index) => {
+                    const content = line.length ? line : '&nbsp;';
+                    return `<div class="code-line"><span class="code-line-no">${index + 1}</span><span class="code-line-code">${content}</span></div>`;
+                }).join('');
+
+                block.innerHTML = `
+                    <div class="code-toolbar">
+                        <div class="code-window-actions">
+                            <span class="code-dot red"></span>
+                            <span class="code-dot yellow"></span>
+                            <span class="code-dot green"></span>
+                        </div>
+                        <div class="code-toolbar-meta">
+                            <span class="code-title">${title}</span>
+                            <span class="code-toolbar-lang">${lang}</span>
+                        </div>
+                    </div>
+                    <div class="code-frame">${renderedLines}</div>
+                `;
+
+                block.dataset.enhanced = 'true';
+            });
+        }
+
+        enhanceCodeBlocks();
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
@@ -897,7 +1279,7 @@ flutter build web --release
             observer.observe(el);
         });
 
-        const sections = ['hero', 'basics', 'state', 'architecture', 'network', 'performance', 'testing', 'release'];
+        const sections = ['hero', 'basics', 'state', 'architecture', 'network', 'storage', 'performance', 'testing', 'release'];
         const dots = document.querySelectorAll('.nav-dot');
 
         const sectionObserver = new IntersectionObserver((entries) => {

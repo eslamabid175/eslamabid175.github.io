@@ -200,6 +200,149 @@
                 border-radius: 50px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             }
+
+            .learning-card {
+                background: white;
+                border: 1px solid #e9ecef;
+                border-radius: 20px;
+                padding: 1.5rem;
+                height: 100%;
+                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+                transition: all 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .learning-card:hover {
+                transform: translateY(-6px);
+                border-color: #1e30f3;
+                box-shadow: 0 18px 40px rgba(30, 48, 243, 0.12);
+            }
+
+            .learning-icon {
+                width: 3.5rem;
+                height: 3.5rem;
+                border-radius: 1rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.4rem;
+            }
+
+            .learning-label {
+                font-size: 0.75rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: #6c757d;
+                font-weight: 700;
+            }
+
+            .learning-card p {
+                color: #6c757d;
+                margin-bottom: 0;
+            }
+
+            .learning-pills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .learning-pill {
+                display: inline-flex;
+                align-items: center;
+                padding: 0.35rem 0.7rem;
+                border-radius: 999px;
+                background: #f8f9fa;
+                font-size: 0.78rem;
+                font-weight: 600;
+                color: #495057;
+            }
+
+            .learning-drawer {
+                border-left: 1px solid rgba(30, 48, 243, 0.08);
+            }
+
+            .learning-drawer .offcanvas-header {
+                background: linear-gradient(135deg, rgba(30, 48, 243, 0.08), rgba(226, 30, 128, 0.08));
+            }
+
+            .learning-drawer .offcanvas-body {
+                padding: 1.5rem;
+            }
+
+            .drawer-section {
+                background: #f8f9fa;
+                border: 1px solid #e9ecef;
+                border-radius: 1rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .drawer-section h6 {
+                font-weight: 700;
+                margin-bottom: 0.75rem;
+            }
+
+            .drawer-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .drawer-list li {
+                position: relative;
+                padding-left: 1.2rem;
+                margin-bottom: 0.6rem;
+                color: #495057;
+            }
+
+            .drawer-list li:last-child {
+                margin-bottom: 0;
+            }
+
+            .drawer-list li::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0.55rem;
+                width: 0.45rem;
+                height: 0.45rem;
+                border-radius: 50%;
+                background: #1e30f3;
+            }
+
+            .drawer-journey {
+                display: grid;
+                gap: 0.75rem;
+            }
+
+            .drawer-step {
+                display: grid;
+                grid-template-columns: 2rem 1fr;
+                gap: 0.75rem;
+                align-items: start;
+            }
+
+            .drawer-step span {
+                width: 2rem;
+                height: 2rem;
+                border-radius: 0.75rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #1e30f3, #e21e80);
+                color: white;
+                font-size: 0.8rem;
+                font-weight: 700;
+            }
+
+            .drawer-step strong {
+                display: block;
+                color: #212529;
+                margin-bottom: 0.2rem;
+            }
             
             @media (max-width: 768px) {
                 .timeline:before {
@@ -603,6 +746,93 @@
                                 </div>
                             </div>
                         </section>
+
+                        <!-- Learnings -->
+                        <section class="mb-5" data-aos="fade-left" data-aos-delay="50">
+                            <h2 class="fw-bolder mb-4">
+                                <i class="bi bi-journal-richtext text-primary me-2"></i>Learnings
+                            </h2>
+                            <div class="row g-4">
+                                <div class="col-lg-4">
+                                    <div class="learning-card">
+                                        <div class="learning-icon bg-primary bg-opacity-10 text-primary">
+                                            <i class="bi bi-server"></i>
+                                        </div>
+                                        <div class="learning-label">Production Backend</div>
+                                        <div>
+                                            <h5 class="fw-bold mb-2">Backend Engineering</h5>
+                                            <p>Django and DRF study notes built around real work: order lifecycle APIs, serializers, JWT auth, Redis, Celery, Channels, and role-based dashboards.</p>
+                                        </div>
+                                        <div class="learning-pills">
+                                            <span class="learning-pill">Models</span>
+                                            <span class="learning-pill">ViewSets</span>
+                                            <span class="learning-pill">Celery</span>
+                                            <span class="learning-pill">WebSockets</span>
+                                        </div>
+                                        <div class="d-flex flex-wrap gap-2 mt-auto">
+                                            <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#backendLearningDrawer" aria-controls="backendLearningDrawer">
+                                                <i class="bi bi-layout-sidebar-inset me-1"></i>Open Drawer
+                                            </button>
+                                            <a class="btn btn-outline-primary btn-sm" href="backend.html">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i>Open Page
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="learning-card">
+                                        <div class="learning-icon bg-info bg-opacity-10 text-info">
+                                            <i class="bi bi-phone"></i>
+                                        </div>
+                                        <div class="learning-label">Production Flutter</div>
+                                        <div>
+                                            <h5 class="fw-bold mb-2">Flutter Engineering</h5>
+                                            <p>Study notes expanded from actual Flutter apps: app bootstrap, DI with GetIt, Cubit/BLoC, Dio token refresh, Hive and sqflite, WebSocket flows, and testable feature modules.</p>
+                                        </div>
+                                        <div class="learning-pills">
+                                            <span class="learning-pill">DI</span>
+                                            <span class="learning-pill">Cubit</span>
+                                            <span class="learning-pill">Offline Cache</span>
+                                            <span class="learning-pill">Testing</span>
+                                        </div>
+                                        <div class="d-flex flex-wrap gap-2 mt-auto">
+                                            <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#flutterLearningDrawer" aria-controls="flutterLearningDrawer">
+                                                <i class="bi bi-layout-sidebar-inset me-1"></i>Open Drawer
+                                            </button>
+                                            <a class="btn btn-outline-primary btn-sm" href="flutter.html">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i>Open Page
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="learning-card">
+                                        <div class="learning-icon bg-success bg-opacity-10 text-success">
+                                            <i class="bi bi-database"></i>
+                                        </div>
+                                        <div class="learning-label">Data Design Journey</div>
+                                        <div>
+                                            <h5 class="fw-bold mb-2">Database Learning</h5>
+                                            <p>A focused study path for database lifecycle thinking: requirements, schema design, migrations, constraints, indexing, query optimization, transactions, and safe evolution.</p>
+                                        </div>
+                                        <div class="learning-pills">
+                                            <span class="learning-pill">Lifecycle</span>
+                                            <span class="learning-pill">Migrations</span>
+                                            <span class="learning-pill">Queries</span>
+                                            <span class="learning-pill">Best Practices</span>
+                                        </div>
+                                        <div class="d-flex flex-wrap gap-2 mt-auto">
+                                            <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#databaseLearningDrawer" aria-controls="databaseLearningDrawer">
+                                                <i class="bi bi-layout-sidebar-inset me-1"></i>Open Drawer
+                                            </button>
+                                            <a class="btn btn-outline-primary btn-sm" href="backend.html#database">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i>Open Page
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                         
                         <!-- Languages -->
                         <section class="mb-5" data-aos="fade-left" data-aos-delay="100">
@@ -672,6 +902,120 @@
                 <i class="bi bi-download me-2"></i>Download CV
             </a>
         </main>
+
+        <div class="offcanvas offcanvas-end learning-drawer" tabindex="-1" id="backendLearningDrawer" aria-labelledby="backendLearningDrawerLabel">
+            <div class="offcanvas-header">
+                <div>
+                    <div class="text-uppercase small text-primary fw-bold mb-1">Study Drawer</div>
+                    <h5 class="offcanvas-title mb-0" id="backendLearningDrawerLabel">Backend Engineering</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="drawer-section">
+                    <h6>What this guide covers</h6>
+                    <ul class="drawer-list">
+                        <li>Django model design with roles, order lifecycle states, carts, wallets, payouts, and snapshot tables.</li>
+                        <li>DRF serializers and custom actions for cart management, order placement, and guarded status transitions.</li>
+                        <li>Infrastructure patterns with JWT, Redis, Celery tasks, Firebase push notifications, and Channels for real-time updates.</li>
+                    </ul>
+                </div>
+                <div class="drawer-section">
+                    <h6>Study journey</h6>
+                    <div class="drawer-journey">
+                        <div class="drawer-step">
+                            <span>1</span>
+                            <div><strong>Model the domain first</strong>Define entities, states, relationships, and what must stay immutable like order snapshots and payment records.</div>
+                        </div>
+                        <div class="drawer-step">
+                            <span>2</span>
+                            <div><strong>Design safe API contracts</strong>Validate inputs with serializers, expose read-only derived fields, and keep action-specific endpoints explicit.</div>
+                        </div>
+                        <div class="drawer-step">
+                            <span>3</span>
+                            <div><strong>Add async and realtime workflows</strong>Move rider assignment, notifications, and long-running work to Celery while Channels pushes status changes live.</div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary w-100" href="backend.html">Open Backend Learning Page</a>
+            </div>
+        </div>
+
+        <div class="offcanvas offcanvas-end learning-drawer" tabindex="-1" id="flutterLearningDrawer" aria-labelledby="flutterLearningDrawerLabel">
+            <div class="offcanvas-header">
+                <div>
+                    <div class="text-uppercase small text-primary fw-bold mb-1">Study Drawer</div>
+                    <h5 class="offcanvas-title mb-0" id="flutterLearningDrawerLabel">Flutter Engineering</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="drawer-section">
+                    <h6>What this guide covers</h6>
+                    <ul class="drawer-list">
+                        <li>Real app startup sequences with Firebase, EasyLocalization, dependency injection, and startup services before <code>runApp</code>.</li>
+                        <li>Production state management with Cubit/BLoC, feature modules, token refresh, secure storage, offline caching, and real-time order tracking.</li>
+                        <li>Testing strategy from Cubit tests to feature behavior verification using mocktail and structured states.</li>
+                    </ul>
+                </div>
+                <div class="drawer-section">
+                    <h6>Study journey</h6>
+                    <div class="drawer-journey">
+                        <div class="drawer-step">
+                            <span>1</span>
+                            <div><strong>Boot the app correctly</strong>Initialize bindings, Firebase, localization, DI, cache, and notifications in the right order.</div>
+                        </div>
+                        <div class="drawer-step">
+                            <span>2</span>
+                            <div><strong>Separate responsibilities</strong>Keep widgets, Cubits, data sources, repositories, and local storage concerns isolated by feature.</div>
+                        </div>
+                        <div class="drawer-step">
+                            <span>3</span>
+                            <div><strong>Support production behavior</strong>Handle offline cache, retries, token refresh, websockets, and tests instead of stopping at UI only.</div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary w-100" href="flutter.html">Open Flutter Learning Page</a>
+            </div>
+        </div>
+
+        <div class="offcanvas offcanvas-end learning-drawer" tabindex="-1" id="databaseLearningDrawer" aria-labelledby="databaseLearningDrawerLabel">
+            <div class="offcanvas-header">
+                <div>
+                    <div class="text-uppercase small text-primary fw-bold mb-1">Study Drawer</div>
+                    <h5 class="offcanvas-title mb-0" id="databaseLearningDrawerLabel">Database Learning</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="drawer-section">
+                    <h6>What this guide covers</h6>
+                    <ul class="drawer-list">
+                        <li>How to move from requirements to entities, table relationships, constraints, and migration-safe schema changes.</li>
+                        <li>Why UUIDs, JSON fields, snapshot tables, decimal money fields, and query optimization matter in real business systems.</li>
+                        <li>How to study the database lifecycle end to end: design, migration, querying, scaling, and safe maintenance.</li>
+                    </ul>
+                </div>
+                <div class="drawer-section">
+                    <h6>Lifecycle journey</h6>
+                    <div class="drawer-journey">
+                        <div class="drawer-step">
+                            <span>1</span>
+                            <div><strong>Understand the data shape</strong>List actors, events, ownership rules, and the states each record moves through.</div>
+                        </div>
+                        <div class="drawer-step">
+                            <span>2</span>
+                            <div><strong>Design for integrity</strong>Pick constraints, unique rules, foreign keys, and immutable snapshots where history must not drift.</div>
+                        </div>
+                        <div class="drawer-step">
+                            <span>3</span>
+                            <div><strong>Operate and optimize</strong>Measure query paths, add indexes carefully, use transactions where consistency matters, and evolve via migrations instead of manual edits.</div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary w-100" href="backend.html#database">Open Database Section</a>
+            </div>
+        </div>
         
         <!-- Footer-->
         <footer class="bg-white py-4 mt-auto">
