@@ -3,11 +3,21 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Eslam Abed - Flutter Developer Resume" />
-        <meta name="author" content="Eslam Abed" />
-        <title>Resume - Eslam Abed</title>
+        <meta name="description" content="Eslam Aped - Software Engineer Resume (Flutter + Python/Django) with 3+ years of experience" />
+        <meta name="author" content="Eslam Aped" />
+        <link rel="canonical" href="https://eslamabid175.github.io/resume.html" />
+        <meta property="og:title" content="Resume - Eslam Aped | Software Engineer" />
+        <meta property="og:description" content="Experience, skills, certifications, and production engineering achievements in Flutter and Django." />
+        <meta property="og:image" content="https://eslamabid175.github.io/assets/profile.png" />
+        <meta property="og:url" content="https://eslamabid175.github.io/resume.html" />
+        <meta property="og:type" content="profile" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Resume - Eslam Aped | Software Engineer" />
+        <meta name="twitter:description" content="Experience, skills, certifications, and production engineering achievements in Flutter and Django." />
+        <meta name="twitter:image" content="https://eslamabid175.github.io/assets/profile.png" />
+        <title>Resume - Eslam Aped | Software Engineer</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,155 +26,639 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <!-- AOS Animation Library -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 80px;
+            }
+            
+            .bg-gradient-primary-to-secondary {
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            }
+            
+            .gradient-text {
+                background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            
+            .timeline {
+                position: relative;
+                padding: 0;
+                list-style: none;
+            }
+            
+            .timeline:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 40px;
+                height: 100%;
+                width: 3px;
+                background: linear-gradient(180deg, #1e30f3 0%, #e21e80 100%);
+                border-radius: 3px;
+            }
+            
+            .timeline > li {
+                position: relative;
+                min-height: 50px;
+            }
+            
+            .timeline > li:before {
+                content: "";
+                position: absolute;
+                top: 20px;
+                left: 30px;
+                width: 23px;
+                height: 23px;
+                border-radius: 50%;
+                background: #1e30f3;
+                z-index: 1;
+                box-shadow: 0 0 0 4px white, 0 0 0 6px #1e30f3;
+            }
+            
+            .experience-card {
+                margin-left: 90px;
+                position: relative;
+                transition: all 0.3s ease;
+            }
+            
+            .experience-card:hover {
+                transform: translateX(10px);
+            }
+            
+            .experience-card .card {
+                border-radius: 16px;
+                border: 1px solid #e9ecef;
+            }
+            
+            .experience-card:hover .card {
+                border-color: #1e30f3;
+                box-shadow: 0 15px 40px rgba(30, 48, 243, 0.15) !important;
+            }
+            
+            .skill-category {
+                background: white;
+                border-radius: 16px;
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+                border: 1px solid #e9ecef;
+                transition: all 0.3s ease;
+            }
+            
+            .skill-category:hover {
+                border-color: #1e30f3;
+                transform: translateY(-3px);
+            }
+            
+            .skill-tag {
+                display: inline-block;
+                padding: 0.4rem 0.8rem;
+                margin: 0.2rem;
+                background: #f8f9fa;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                transition: all 0.3s ease;
+            }
+            
+            .skill-tag:hover {
+                background: #1e30f3;
+                color: white;
+                transform: translateY(-2px);
+            }
+            
+            .certification-card {
+                transition: all 0.3s ease;
+                border-left: 4px solid transparent;
+                border-radius: 12px;
+            }
+            
+            .certification-card:hover {
+                border-left-color: #1e30f3;
+                transform: translateX(5px);
+            }
+            
+            .download-btn {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                z-index: 1000;
+                animation: pulse 2s infinite;
+                border-radius: 50px;
+                padding: 1rem 1.5rem;
+                box-shadow: 0 10px 30px rgba(30, 48, 243, 0.3);
+            }
+            
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(30, 48, 243, 0.4);
+                }
+                70% {
+                    box-shadow: 0 0 0 15px rgba(30, 48, 243, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(30, 48, 243, 0);
+                }
+            }
+            
+            .stat-card {
+                background: white;
+                border-radius: 16px;
+                padding: 1.5rem;
+                text-align: center;
+                border: 1px solid #e9ecef;
+                transition: all 0.3s ease;
+            }
+            
+            .stat-card:hover {
+                transform: translateY(-5px);
+                border-color: #1e30f3;
+                box-shadow: 0 10px 30px rgba(30, 48, 243, 0.1);
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #1e30f3;
+            }
+            
+            .education-card {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                border-radius: 16px;
+                padding: 2rem;
+            }
+            
+            .language-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.75rem 1.25rem;
+                background: white;
+                border-radius: 50px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            }
+            
+            @media (max-width: 768px) {
+                .timeline:before {
+                    left: 20px;
+                }
+                
+                .timeline > li:before {
+                    left: 10px;
+                    width: 20px;
+                    height: 20px;
+                }
+                
+                .experience-card {
+                    margin-left: 50px;
+                }
+                
+                .stat-number {
+                    font-size: 2rem;
+                }
+            }
+        </style>
     </head>
     <body class="d-flex flex-column h-100 bg-light">
         <main class="flex-shrink-0">
             <!-- Navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top shadow-sm">
                 <div class="container px-5">
-                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Eslam Abed</span></a>
+                    <a class="navbar-brand" href="index.html">
+                        <span class="fw-bolder text-primary">EA</span>
+                        <span class="text-muted small ms-2 d-none d-md-inline">Software Engineer | Flutter + Django</span>
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="resume.html">Resume</a></li>
                             <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                            <li class="nav-item"><a class="nav-link" href="backend.html">Backend Learning</a></li>
+                            <li class="nav-item"><a class="nav-link" href="flutter.html">Flutter Learning</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://github.com/eslamabid175" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"><i class="bi bi-github"></i></a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"><i class="bi bi-linkedin"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
+            
+            <!-- Hero Section -->
+            <section class="py-5 bg-gradient-primary-to-secondary text-white">
+                <div class="container px-5 py-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h1 class="display-4 fw-bolder mb-2" data-aos="fade-right">Eslam Aped</h1>
+                            <h2 class="h4 fw-normal mb-3 opacity-90" data-aos="fade-right" data-aos-delay="100">Software Engineer (Flutter + Python/Django)</h2>
+                            <p class="lead mb-4 opacity-90" data-aos="fade-right" data-aos-delay="200">
+                                Building high-performance Flutter applications and Django REST APIs with Clean Architecture
+                            </p>
+                            <div class="d-flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="300">
+                                <span class="badge bg-light text-dark px-3 py-2"><i class="bi bi-geo-alt me-1"></i>Cairo, Egypt</span>
+                                <span class="badge bg-light text-dark px-3 py-2"><i class="bi bi-envelope me-1"></i>eslamabid175@gmail.com</span>
+                                <span class="badge bg-light text-dark px-3 py-2"><i class="bi bi-phone me-1"></i>+201023332583</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0" data-aos="fade-left">
+                            <a href="assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download class="btn btn-light btn-lg px-4">
+                                <i class="bi bi-download me-2"></i>Download CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
             <!-- Page Content-->
             <div class="container px-5 my-5">
-                <div class="text-center mb-5">
-                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Resume</span></h1>
+                
+                <!-- Quick Stats -->
+                <div class="row g-4 mb-5">
+                    <div class="col-6 col-md-3" data-aos="zoom-in">
+                        <div class="stat-card">
+                            <div class="stat-number">3+</div>
+                            <p class="text-muted mb-0 small fw-medium">Years Experience</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="stat-card">
+                            <div class="stat-number">15+</div>
+                            <p class="text-muted mb-0 small fw-medium">Apps Delivered</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="stat-card">
+                            <div class="stat-number">10+</div>
+                            <p class="text-muted mb-0 small fw-medium">Published Apps</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="stat-card">
+                            <div class="stat-number">40%</div>
+                            <p class="text-muted mb-0 small fw-medium">Deploy Time Reduced</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-11 col-xl-9 col-xxl-8">
+                
+                <!-- Summary Section -->
+                <div class="row mb-5">
+                    <div class="col-12" data-aos="fade-up">
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h3 class="fw-bold mb-3"><i class="bi bi-person-circle text-primary me-2"></i>Professional Summary</h3>
+                            <p class="text-muted mb-0 lead">
+                                Software Engineer with 3+ years of experience building and scaling production Flutter applications and Python/Django backends across education, AI, and Islamic digital products. Delivered multi-app platforms including Cogens (Parent, Student, Staff, Bus, Admin, Vendor), MACLINK, 3I Vision, DataMind Agent, Aman, and NooN, with end-to-end ownership from architecture and API integration to app store release. Strong in modular feature-based architecture, Cubit/BLoC state management, multi-tenant backend patterns, and Arabic-first RTL UX.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row gx-5">
+                    <!-- Left Column - Experience -->
+                    <div class="col-lg-8">
                         <!-- Experience Section-->
-                        <section>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h2 class="text-primary fw-bolder mb-0">Experience</h2>
-                                <!-- Download resume button-->
-                                <a class="btn btn-primary px-4 py-3" href="mailto:eslamabid175@gmail.com">
-                                    <div class="d-inline-block bi bi-envelope me-2"></div>
-                                    Contact Me
-                                </a>
-                            </div>
-                            <!-- Experience Card 1-->
-                            <div class="card shadow border-0 rounded-4 mb-5">
-                                <div class="card-body p-5">
-                                    <div class="row align-items-center gx-5">
-                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                            <div class="bg-light p-4 rounded-4">
-                                                <div class="text-primary fw-bolder mb-2">March 2025 - Present</div>
-                                                <div class="small fw-bolder">Flutter Developer</div>
-                                                <div class="small text-muted">3i-vision</div>
-                                                <div class="small text-muted">Cairo, Egypt</div>
+                        <section class="mb-5">
+                            <h2 class="fw-bolder mb-4" data-aos="fade-up">
+                                <i class="bi bi-briefcase text-primary me-2"></i>Work Experience
+                            </h2>
+                            
+                            <ul class="timeline">
+                                <!-- Experience 1 - Cogens -->
+                                <li data-aos="fade-right">
+                                    <div class="experience-card">
+                                        <div class="card shadow-sm border-0 mb-4">
+                                            <div class="card-body p-4">
+                                                <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+                                                    <div>
+                                                        <h4 class="fw-bold mb-1">Software Engineer</h4>
+                                                        <h5 class="text-primary mb-2">
+                                                            <a href="https://cogens.com/" target="_blank" rel="noopener noreferrer" class="text-decoration-none">Cogens <i class="bi bi-box-arrow-up-right small"></i></a>
+                                                        </h5>
+                                                        <p class="text-muted small mb-0"><i class="bi bi-geo-alt me-1"></i>Canada (Remote)</p>
+                                                    </div>
+                                                    <span class="badge bg-success px-3 py-2">Jan 2025 - Present</span>
+                                                </div>
+                                                <ul class="mb-3 text-muted">
+                                                    <li><strong>School Management Platform:</strong> Built and scaled a multi-app Education Management ecosystem (Parent, Staff, Student, Bus Driver, Admin Dashboard, Vendor Portal).</li>
+                                                    <li><strong>MACLINK Product Development:</strong> Delivered a production-grade multi-domain Flutter app (events, donations, mosque services, prayers, forms/surveys, ticketing, family module, content, and exam workflows).</li>
+                                                    <li><strong>Modular Flutter Architecture:</strong> Implemented feature-based architecture with reusable shared packages across apps.</li>
+                                                    <li><strong>Django REST Multi-Tenant Backend:</strong> Designed multi-database routing (default + school-specific DBs), token/JWT auth, and clean API contracts.</li>
+                                                    <li><strong>Backend Integration:</strong> Implemented wide REST integrations using Dio + Retrofit with centralized API constants and reusable service layers.</li>
+                                                    <li><strong>Real-Time + Notifications:</strong> Integrated WebSocket channels for live messaging and FCM for payload-based in-app routing.</li>
+                                                    <li><strong>Core Systems:</strong> Implemented FCM notifications (direct/batch/topic), billing and invoice workflows, and report-card PDF pipelines.</li>
+                                                    <li><strong>Live Tracking + DevOps:</strong> Delivered live bus tracking, scheduled jobs with django-crontab, and CI/CD automation for production releases.</li>
+                                                    <li><strong>Tech Skills:</strong> Flutter, Dart 3, BLoC/Cubit, GetIt, Dio/Retrofit, Freezed, WebSocket, FCM, Python, Django/DRF, MySQL, Docker.</li>
+                                                </ul>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    <span class="skill-tag">Flutter</span>
+                                                    <span class="skill-tag">Django REST</span>
+                                                    <span class="skill-tag">Multi-Tenant</span>
+                                                    <span class="skill-tag">Dio + Retrofit</span>
+                                                    <span class="skill-tag">GetIt</span>
+                                                    <span class="skill-tag">WebSocket</span>
+                                                    <span class="skill-tag">FCM</span>
+                                                    <span class="skill-tag">Payments</span>
+                                                    <span class="skill-tag">CI/CD</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-8"><div>Developing and integrating AI-powered systems into mobile applications. Gained hands-on experience in collaborating with a team using Git/Azure DevOps workflows, applying Clean Architecture and SOLID Principles, implementing Test-Driven Development (TDD) and Domain-Driven Design (DDD) methodologies.</div></div>
                                     </div>
+                                </li>
+                                
+                                <!-- Experience 2 - 3I Vision -->
+                                <li data-aos="fade-right" data-aos-delay="100">
+                                    <div class="experience-card">
+                                        <div class="card shadow-sm border-0 mb-4">
+                                            <div class="card-body p-4">
+                                                <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+                                                    <div>
+                                                        <h4 class="fw-bold mb-1">Software Engineer</h4>
+                                                        <h5 class="text-primary mb-2">
+                                                            <a href="http://3i-vision.com/#/home" target="_blank" rel="noopener noreferrer" class="text-decoration-none">3I Vision <i class="bi bi-box-arrow-up-right small"></i></a>
+                                                        </h5>
+                                                        <p class="text-muted small mb-0"><i class="bi bi-geo-alt me-1"></i>Giza, Egypt (Hybrid)</p>
+                                                    </div>
+                                                    <span class="badge bg-primary px-3 py-2">Jan 2024 - Present</span>
+                                                </div>
+                                                <ul class="mb-3 text-muted">
+                                                    <li><strong>AI/ML On-Device Processing:</strong> Engineered "DataMind," implementing logic to process ML model responses (People Detection, License Plate Recognition).</li>
+                                                    <li><strong>Performance Optimization:</strong> Refactored legacy codebases to improve memory management, reducing app start-up time by 30%.</li>
+                                                    <li><strong>Offline-First Architecture:</strong> Built robust offline synchronization for the "Aramco Inventory" app using Hive/SQLite.</li>
+                                                    <li><strong>Security:</strong> Developed the "Permit Management Flow" with rigorous authentication protocols.</li>
+                                                    <li><strong>Tech Skills:</strong> Flutter.</li>
+                                                </ul>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    <span class="skill-tag">Flutter</span>
+                                                    <span class="skill-tag">AI/ML Integration</span>
+                                                    <span class="skill-tag">Hive</span>
+                                                    <span class="skill-tag">SQLite</span>
+                                                    <span class="skill-tag">BLoC</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <!-- Experience 3 - Freelance -->
+                                <li data-aos="fade-right" data-aos-delay="200">
+                                    <div class="experience-card">
+                                        <div class="card shadow-sm border-0 mb-4">
+                                            <div class="card-body p-4">
+                                                <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+                                                    <div>
+                                                        <h4 class="fw-bold mb-1">Software Engineer</h4>
+                                                        <h5 class="text-primary mb-2">Freelance & Project-Based</h5>
+                                                        <p class="text-muted small mb-0"><i class="bi bi-geo-alt me-1"></i>Remote</p>
+                                                    </div>
+                                                    <span class="badge bg-secondary px-3 py-2">Jan 2023 - Present</span>
+                                                </div>
+                                                <ul class="mb-3 text-muted">
+                                                    <li><strong>Aman Product Delivery:</strong> Developed Aman, a Flutter-based trip management platform (Admin/Driver/Passenger) with real-time tracking, booking workflows, push notifications, and hybrid payment/wallet logic.</li>
+                                                    <li><strong>FastAPI Backend Integration:</strong> Built and integrated production-ready FastAPI services with PostgreSQL, Firebase Auth (Google/Apple/OTP), SQLAlchemy, and role-based API design.</li>
+                                                    <li><strong>Maps + Tracking + Localization:</strong> Implemented Google Maps, geolocation/geocoding, driver live tracking, route workflows, and multilingual UX support.</li>
+                                                    <li><strong>Payments + Wallet:</strong> Delivered cash/gateway/hybrid payment flows, wallet ledger/points logic, idempotent verification, and cancellation crediting rules.</li>
+                                                    <li><strong>Full product ownership from idea to launch.</strong></li>
+                                                    <li><strong>Deployment:</strong> Docker + Docker Compose, Gunicorn/Uvicorn, Nginx reverse proxy, Makefile-based release workflows.</li>
+                                                    <li><strong>Tech Skills:</strong> Flutter (Android/iOS/Web), Dart, Clean Architecture, BLoC/Cubit, hydrated_bloc, get_it, Dio/HTTP, JSON serialization, Google Maps, geolocation/geocoding, Firebase Auth (Google/Apple/OTP), FCM/local notifications, flutter_secure_storage, SQLite/Hive/SharedPreferences, FastAPI, SQLAlchemy, Pydantic, PostgreSQL, Docker Compose, Gunicorn/Uvicorn, Nginx.</li>
+                                                </ul>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    <span class="skill-tag">Flutter</span>
+                                                    <span class="skill-tag">Firebase</span>
+                                                    <span class="skill-tag">Google Maps</span>
+                                                    <span class="skill-tag">FastAPI</span>
+                                                    <span class="skill-tag">Real-time</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+                        
+                        <!-- Education Section -->
+                        <section class="mb-5" data-aos="fade-up">
+                            <h2 class="fw-bolder mb-4">
+                                <i class="bi bi-mortarboard text-primary me-2"></i>Education
+                            </h2>
+                            <div class="education-card">
+                                <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                    <div>
+                                        <h4 class="fw-bold mb-1">Bachelor's Degree in Computer Science</h4>
+                                        <h5 class="text-primary mb-2">Cairo University</h5>
+                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt me-1"></i>Cairo, Egypt</p>
+                                    </div>
+                                    <span class="badge bg-dark px-3 py-2">Sep 2017 - Jun 2022</span>
                                 </div>
                             </div>
-                            <!-- Experience Card 2-->
-                            <div class="card shadow border-0 rounded-4 mb-5">
-                                <div class="card-body p-5">
-                                    <div class="row align-items-center gx-5">
-                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                            <div class="bg-light p-4 rounded-4">
-                                                <div class="text-primary fw-bolder mb-2">Oct 2023 - Mar 2025</div>
-                                                <div class="small fw-bolder">Reserve Officer</div>
-                                                <div class="small text-muted">Military Research Authority</div>
-                                                <div class="small text-muted">Cairo, Egypt</div>
+                        </section>
+                        
+                        <!-- Certifications Section -->
+                        <section class="mb-5" data-aos="fade-up">
+                            <h2 class="fw-bolder mb-4">
+                                <i class="bi bi-award text-primary me-2"></i>Certifications
+                            </h2>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="card certification-card shadow-sm border-0">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                                <div>
+                                                    <h5 class="fw-bold mb-1">Flutter Advanced Course – Clean Architecture with MVVM</h5>
+                                                    <p class="text-muted mb-0">Udemy</p>
+                                                </div>
+                                                <span class="badge bg-primary-subtle text-primary px-3 py-2">Apr 2024</span>
                                             </div>
                                         </div>
-                                        <div class="col-lg-8"><div>Designed and developed a smart baby incubator mobile application, integrating real-time notifications and sensor data, enhancing monitoring efficiency by 30%. Served as a Software Engineer leading the development of mission-critical mobile applications.</div></div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Experience Card 3-->
-                            <div class="card shadow border-0 rounded-4 mb-5">
-                                <div class="card-body p-5">
-                                    <div class="row align-items-center gx-5">
-                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                            <div class="bg-light p-4 rounded-4">
-                                                <div class="text-primary fw-bolder mb-2">2019 - Present</div>
-                                                <div class="small fw-bolder">Freelance Mobile App Developer</div>
-                                                <div class="small text-muted">Flutter & Native Android</div>
-                                                <div class="small text-muted">Remote</div>
+                                <div class="col-12">
+                                    <div class="card certification-card shadow-sm border-0">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                                <div>
+                                                    <h5 class="fw-bold mb-1">Mastering Multi-Module Architecture and Clean Architecture in Android</h5>
+                                                    <p class="text-muted mb-0">Udemy</p>
+                                                </div>
+                                                <span class="badge bg-primary-subtle text-primary px-3 py-2">Dec 2024</span>
                                             </div>
                                         </div>
-                                        <div class="col-lg-8"><div>Developed and delivered 15+ successful mobile apps for clients, improving user engagement and app efficiency. Optimized network requests and integrated custom UI components, ensuring smooth UX and high performance. Implemented Clean Architecture and MVVM/MVI patterns in multiple projects.</div></div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="card certification-card shadow-sm border-0">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                                <div>
+                                                    <h5 class="fw-bold mb-1">Mastering Mobile App Development</h5>
+                                                    <p class="text-muted mb-0">YAT – Cairo</p>
+                                                </div>
+                                                <span class="badge bg-primary-subtle text-primary px-3 py-2">Dec 2021</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </section>
-                        <!-- Education Section-->
-                        <section>
-                            <h2 class="text-secondary fw-bolder mb-4">Education</h2>
-                            <!-- Education Card 1-->
-                            <div class="card shadow border-0 rounded-4 mb-5">
-                                <div class="card-body p-5">
-                                    <div class="row align-items-center gx-5">
-                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                            <div class="bg-light p-4 rounded-4">
-                                                <div class="text-secondary fw-bolder mb-2">2017 - 2022</div>
-                                                <div class="mb-2">
-                                                    <div class="small fw-bolder">Cairo University</div>
-                                                    <div class="small text-muted">Cairo, Egypt</div>
-                                                </div>
-                                                <div class="fst-italic">
-                                                    <div class="small text-muted">Bachelor's Degree</div>
-                                                    <div class="small text-muted">Computer Science</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8"><div>Graduated with Good Standing, specialized in Software Engineering. Gained comprehensive knowledge in computer science fundamentals, software development methodologies, and programming languages.</div></div>
-                                    </div>
+                    </div>
+                    
+                    <!-- Right Column - Skills -->
+                    <div class="col-lg-4">
+                        <!-- Technical Skills -->
+                        <section class="mb-5" data-aos="fade-left">
+                            <h2 class="fw-bolder mb-4">
+                                <i class="bi bi-code-slash text-primary me-2"></i>Technical Skills
+                            </h2>
+                            
+                            <div class="skill-category">
+                                <h6 class="fw-bold text-primary mb-3"><i class="bi bi-phone me-2"></i>Mobile Development</h6>
+                                <div>
+                                    <span class="skill-tag">Flutter (Dart)</span>
+                                    <span class="skill-tag">Native Integration</span>
+                                    <span class="skill-tag">Kotlin/Swift</span>
+                                    <span class="skill-tag">KMP</span>
+                                    <span class="skill-tag">CMP</span>
+                                    <span class="skill-tag">Isolates</span>
+                                    <span class="skill-tag">Background Services</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h6 class="fw-bold text-success mb-3"><i class="bi bi-layers me-2"></i>Architecture & Design</h6>
+                                <div>
+                                    <span class="skill-tag">Clean Architecture</span>
+                                    <span class="skill-tag">MVVM</span>
+                                    <span class="skill-tag">SOLID</span>
+                                    <span class="skill-tag">Modular Architecture</span>
+                                    <span class="skill-tag">Design Patterns</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h6 class="fw-bold text-warning mb-3"><i class="bi bi-server me-2"></i>Backend & Database</h6>
+                                <div>
+                                    <span class="skill-tag">Python</span>
+                                    <span class="skill-tag">Django/DRF</span>
+                                    <span class="skill-tag">JWT/Auth Tokens</span>
+                                    <span class="skill-tag">Multi-Database Router</span>
+                                    <span class="skill-tag">MySQL</span>
+                                    <span class="skill-tag">SQLite</span>
+                                    <span class="skill-tag">django-filter</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h6 class="fw-bold text-info mb-3"><i class="bi bi-gear me-2"></i>DevOps & Infra</h6>
+                                <div>
+                                    <span class="skill-tag">CI/CD</span>
+                                    <span class="skill-tag">GitHub Actions</span>
+                                    <span class="skill-tag">Codemagic</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">docker-compose</span>
+                                    <span class="skill-tag">Nginx</span>
+                                    <span class="skill-tag">Gunicorn</span>
+                                    <span class="skill-tag">uWSGI</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h6 class="fw-bold text-danger mb-3"><i class="bi bi-diagram-3 me-2"></i>State Management</h6>
+                                <div>
+                                    <span class="skill-tag">BLoC/Cubit</span>
+                                    <span class="skill-tag">Riverpod</span>
+                                    <span class="skill-tag">Provider</span>
+                                    <span class="skill-tag">GetX</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h6 class="fw-bold text-dark mb-3"><i class="bi bi-app-indicator me-2"></i>MacLink Stack</h6>
+                                <div>
+                                    <span class="skill-tag">Dart 3</span>
+                                    <span class="skill-tag">GetIt</span>
+                                    <span class="skill-tag">Dio + Retrofit</span>
+                                    <span class="skill-tag">json_serializable</span>
+                                    <span class="skill-tag">Freezed</span>
+                                    <span class="skill-tag">WebSocket</span>
+                                    <span class="skill-tag">SharedPreferences</span>
+                                    <span class="skill-tag">flutter_map</span>
+                                    <span class="skill-tag">geolocator</span>
+                                    <span class="skill-tag">infinite_scroll_pagination</span>
+                                    <span class="skill-tag">permission_handler</span>
+                                    <span class="skill-tag">shorebird_code_push</span>
+                                    <span class="skill-tag">build_runner</span>
+                                    <span class="skill-tag">Dev/Staging/Prod Flavors</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h6 class="fw-bold text-secondary mb-3"><i class="bi bi-kanban me-2"></i>Methodologies</h6>
+                                <div>
+                                    <span class="skill-tag">Agile/Scrum</span>
+                                    <span class="skill-tag">JIRA</span>
+                                    <span class="skill-tag">Git Flow</span>
+                                    <span class="skill-tag">Unit Testing</span>
+                                    <span class="skill-tag">Code Reviews</span>
                                 </div>
                             </div>
                         </section>
-                        <!-- Divider-->
-                        <div class="pb-5"></div>
-                        <!-- Skills Section-->
-                        <section>
-                            <!-- Skillset Card-->
-                            <div class="card shadow border-0 rounded-4 mb-5">
-                                <div class="card-body p-5">
-                                    <!-- Professional skills list-->
-                                    <div class="mb-5">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3"><i class="bi bi-tools"></i></div>
-                                            <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">Professional Skills</span></h3>
-                                        </div>
-                                        <div class="row row-cols-1 row-cols-md-3 mb-4">
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Clean Architecture</div></div>
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">State Management</div></div>
-                                            <div class="col"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Mobile Development</div></div>
-                                        </div>
-                                        <div class="row row-cols-1 row-cols-md-3">
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">UI/UX Design</div></div>
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Performance Optimization</div></div>
-                                            <div class="col"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Test-Driven Development</div></div>
+                        
+                        <!-- Languages -->
+                        <section class="mb-5" data-aos="fade-left" data-aos-delay="100">
+                            <h2 class="fw-bolder mb-4">
+                                <i class="bi bi-translate text-primary me-2"></i>Languages
+                            </h2>
+                            <div class="d-flex flex-wrap gap-3">
+                                <div class="language-badge">
+                                    <span class="fw-bold">🇪🇬 Arabic</span>
+                                    <span class="badge bg-success">Native</span>
+                                </div>
+                                <div class="language-badge">
+                                    <span class="fw-bold">🇺🇸 English</span>
+                                    <span class="badge bg-primary">Fluent</span>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!-- Contact Info -->
+                        <section data-aos="fade-left" data-aos-delay="200">
+                            <h2 class="fw-bolder mb-4">
+                                <i class="bi bi-person-lines-fill text-primary me-2"></i>Contact
+                            </h2>
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div class="card-body p-4">
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-envelope text-primary me-3" style="font-size: 1.25rem;"></i>
+                                            <div>
+                                                <p class="text-muted small mb-0">Email</p>
+                                                <a href="mailto:eslamabid175@gmail.com" class="text-decoration-none">eslamabid175@gmail.com</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- Languages list-->
-                                    <div class="mb-0">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3"><i class="bi bi-code-slash"></i></div>
-                                            <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline">Technologies</span></h3>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-phone text-primary me-3" style="font-size: 1.25rem;"></i>
+                                            <div>
+                                                <p class="text-muted small mb-0">Phone</p>
+                                                <a href="tel:+201023332583" class="text-decoration-none">+20 102 333 2583</a>
+                                            </div>
                                         </div>
-                                        <div class="row row-cols-1 row-cols-md-3 mb-4">
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Flutter/Dart</div></div>
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Kotlin</div></div>
-                                            <div class="col"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Firebase</div></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-geo-alt text-primary me-3" style="font-size: 1.25rem;"></i>
+                                            <div>
+                                                <p class="text-muted small mb-0">Location</p>
+                                                <span>Cairo, Egypt</span>
+                                            </div>
                                         </div>
-                                        <div class="row row-cols-1 row-cols-md-3">
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">REST APIs</div></div>
-                                            <div class="col mb-4 mb-md-0"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">SQLite</div></div>
-                                            <div class="col"><div class="d-flex align-items-center bg-light rounded-4 p-3 h-100">Git/Azure DevOps</div></div>
-                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex gap-2">
+                                        <a href="https://github.com/eslamabid175" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm flex-fill"><i class="bi bi-github me-1"></i>GitHub</a>
+                                        <a href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm flex-fill"><i class="bi bi-linkedin me-1"></i>LinkedIn</a>
                                     </div>
                                 </div>
                             </div>
@@ -172,26 +666,42 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Download Resume Button -->
+            <a href="assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download class="btn btn-primary download-btn shadow-lg">
+                <i class="bi bi-download me-2"></i>Download CV
+            </a>
         </main>
+        
         <!-- Footer-->
         <footer class="bg-white py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Eslam Abed 2025</div></div>
                     <div class="col-auto">
-                        <a class="small" href="#!">Privacy</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="#!">Terms</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="#!">Contact</a>
+                        <div class="small m-0">Copyright &copy; Eslam Aped 2025. All rights reserved.</div>
+                    </div>
+                    <div class="col-auto">
+                        <a class="small text-muted text-decoration-none me-3" href="https://github.com/eslamabid175" target="_blank" rel="noopener noreferrer"><i class="bi bi-github me-1"></i>GitHub</a>
+                        <a class="small text-muted text-decoration-none me-3" href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin me-1"></i>LinkedIn</a>
+                        <a class="small text-muted text-decoration-none" href="mailto:eslamabid175@gmail.com"><i class="bi bi-envelope me-1"></i>Email</a>
                     </div>
                 </div>
             </div>
         </footer>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- AOS JS -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <script>
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+        </script>
     </body>
 </html>
-

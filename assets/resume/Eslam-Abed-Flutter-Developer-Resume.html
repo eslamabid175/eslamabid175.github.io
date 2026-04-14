@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eslam Aped - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @page {
+            size: A4;
+            margin: 0.5in;
+            /* Hide browser headers and footers */
+            margin-top: 0.3in;
+            margin-bottom: 0.3in;
+        }
+        
+        @page :first {
+            margin-top: 0.3in;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9.5pt;
+            line-height: 1.3;
+            color: #000;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.2in;
+            background: #fff;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        .header h1 {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .header .title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 6px;
+        }
+        
+        .header .contact {
+            font-size: 10pt;
+            color: #000;
+        }
+        
+        .header .contact a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .contact-item {
+            display: inline;
+        }
+        
+        .contact-separator {
+            margin: 0 4px;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 8px;
+        }
+        
+        .section-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+            padding-bottom: 2px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        /* Summary */
+        .summary {
+            font-size: 10pt;
+            color: #000;
+            line-height: 1.5;
+            text-align: justify;
+        }
+        
+        /* Skills - ATS Optimized */
+        .skills-section {
+            margin-bottom: 8px;
+        }
+        
+        .skills-category {
+            margin-bottom: 3px;
+        }
+        
+        .skills-category-title {
+            font-weight: bold;
+            display: inline;
+        }
+        
+        .skills-list {
+            display: inline;
+        }
+        
+        /* Experience */
+        .experience-item {
+            margin-bottom: 8px;
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2px;
+        }
+        
+        .job-title {
+            font-weight: bold;
+            font-size: 11pt;
+        }
+        
+        .job-date {
+            font-size: 10pt;
+        }
+        
+        .job-company {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+            font-style: italic;
+        }
+        
+        .company-name {
+            font-size: 10pt;
+        }
+        
+        .company-location {
+            font-size: 10pt;
+        }
+        
+        .job-bullets {
+            list-style-type: disc;
+            margin-left: 20px;
+            font-size: 10pt;
+        }
+        
+        .job-bullets li {
+            margin-bottom: 1px;
+            line-height: 1.25;
+        }
+        
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .project-item {
+            font-size: 10pt;
+        }
+        
+        .project-title {
+            font-weight: bold;
+        }
+        
+        .project-desc {
+            font-size: 8.5pt;
+            line-height: 1.2;
+        }
+        
+        .project-links {
+            font-size: 9pt;
+        }
+        
+        .project-links a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        /* Education & Certifications */
+        .education-item {
+            margin-bottom: 4px;
+        }
+        
+        .cert-item {
+            margin-bottom: 4px;
+            font-size: 10pt;
+        }
+        
+        .cert-title {
+            font-weight: bold;
+        }
+        
+        /* Two Column Layout for bottom sections */
+        .two-column {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <h1>ESLAM APED</h1>
+        <div class="title">Software Engineer (Flutter + Python/Django)</div>
+        <div class="contact">
+            <div class="contact-row">
+                <span class="contact-item">Cairo, Egypt</span>
+                <span class="contact-separator">|</span>
+                <span class="contact-item">+201023332583</span>
+                <span class="contact-separator">|</span>
+                <span class="contact-item">eslamabid175@gmail.com</span>
+            </div>
+            <div class="contact-row">
+                <span class="contact-item"><a href="https://linkedin.com/in/eslamaped">linkedin.com/in/eslamaped</a></span>
+                <span class="contact-separator">|</span>
+                <span class="contact-item"><a href="https://github.com/eslamabid175">github.com/eslamabid175</a></span>
+                <span class="contact-separator">|</span>
+                <span class="contact-item"><a href="https://eslamabid175.github.io">eslamabid175.github.io</a></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFESSIONAL SUMMARY -->
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <p class="summary">
+            Software Engineer with 3+ years of experience building and scaling production Flutter applications and Python/Django backends across education, AI, and Islamic digital products. Delivered multi-app platforms including Cogens (Parent, Student, Staff, Bus, Admin, Vendor), MACLINK, 3I Vision, DataMind Agent, Aman, and NooN, with end-to-end ownership from architecture and API integration to app store release. Strong in modular feature-based architecture, Cubit/BLoC state management, multi-tenant backend patterns, and Arabic-first RTL UX. Experienced in offline-first mobile flows, real-time notifications and tracking, and shipping reliable cross-platform apps with clean, reusable engineering practices.
+        </p>
+    </div>
+
+    <!-- TECHNICAL SKILLS -->
+    <div class="section">
+        <div class="section-title">Technical Skills</div>
+        <div class="skills-section">
+            <div class="skills-category">
+                <span class="skills-category-title">Backend:</span>
+                <span class="skills-list">Python, Django, Django REST Framework (DRF), REST APIs, Token Authentication, JWT, django-filter, CORS</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Architecture:</span>
+                <span class="skills-list">Multi-tenant / Multi-database Architecture (default + school-specific DBs), Database Router Pattern, Clean Architecture, SOLID Principles</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Databases:</span>
+                <span class="skills-list">SQLite/sqflite (dev/testing), MySQL (production-ready setup), Hive, SharedPreferences, Firestore, ORM Query Optimization</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Background Jobs:</span>
+                <span class="skills-list">django-crontab, Scheduled Jobs, Automated Notification/Billing Tasks</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Payments & Billing:</span>
+                <span class="skills-list">Stripe, PayPal/Interac-style Gateway Integration Patterns, Recurring Charges, Invoice Workflows</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Notifications:</span>
+                <span class="skills-list">Firebase Cloud Messaging (FCM), awesome_notifications, Push Notifications, Topic-based/Batch Notifications, Permission-safe notification handling</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Files & Reports:</span>
+                <span class="skills-list">PDF Generation/Report Pipelines, Excel Import/Export (openpyxl), Report Generation Workflows</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Flutter (Mobile/Web):</span>
+                <span class="skills-list">Flutter, Dart 3, flutter_bloc (Cubit/BLoC), GetIt, Dio/Retrofit, json_serializable, Freezed, build_runner, flutter_screenutil, easy_localization (RTL), audioplayers, JSON assets parsing, infinite_scroll_pagination, permission_handler, Multi-environment Flavors (Prod/Staging/Dev)</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Maps & Location:</span>
+                <span class="skills-list">Google Maps Flutter, Geolocator, Geocoding, Live Location Tracking, Qibla direction support</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">Firebase in Flutter:</span>
+                <span class="skills-list">firebase_core, firebase_messaging, Local Notifications</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">State & App Architecture:</span>
+                <span class="skills-list">Feature-based Modular Architecture, Reusable Shared Packages, Role-based Access Patterns, Arabic-first RTL UX architecture</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">DevOps/Infra:</span>
+                <span class="skills-list">Docker, docker-compose, Gunicorn/uWSGI-style Deployment Setup, GitHub Actions, Codemagic, Nginx, Android build/release basics (ProGuard/minify), iOS/Android deployment workflow</span>
+            </div>
+            <div class="skills-category">
+                <span class="skills-category-title">General Engineering:</span>
+                <span class="skills-list">Clean API Response Contracts, Soft Delete Pattern, Audit Fields, Agile/Scrum, Code Reviews, Git/GitHub collaboration, Iterative debugging, Islamic domain integrations (Prayer times, Hijri calendar)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFESSIONAL EXPERIENCE -->
+    <div class="section">
+        <div class="section-title">Professional Experience</div>
+        
+        <div class="experience-item">
+            <div class="job-header">
+                <span class="job-title">Software Engineer</span>
+                <span class="job-date">January 2025 - Present</span>
+            </div>
+            <div class="job-company">
+                <span class="company-name">Cogens (cogens.com)</span>
+                <span class="company-location">Canada (Remote)</span>
+            </div>
+            <ul class="job-bullets">
+                <li>Built and scaled a multi-app School Management Platform (Education Management Domain) serving 6 applications: Parent, Staff, Student, Bus Driver, Admin Web Dashboard, and Vendor Web Portal</li>
+                <li>Developed MACLINK under Cogens, a large-scale multi-domain Flutter platform covering events, donations, mosque services, prayers, employee collaboration, forms/surveys, bookings/tickets, family modules, content workflows, and exam flows</li>
+                <li>Designed and implemented a modular Flutter architecture with shared reusable packages to reduce duplication and speed delivery across apps</li>
+                <li>Designed and co-developed a Django REST multi-tenant backend with multi-database routing (default + school-specific databases)</li>
+                <li>Implemented token-based/JWT authentication, role-based access patterns, audit fields, and standardized API response contracts</li>
+                <li>Integrated large REST backend surfaces via Dio + Retrofit (auth, profile, events, tickets, donations, polls, attendance, forms, surveys, content) with centralized API constants and reusable service layers</li>
+                <li>Implemented real-time messaging with WebSocket and notification-driven navigation using Firebase Cloud Messaging payload routing</li>
+                <li>Built core backend systems for FCM notifications (direct, batch, topic), billing/invoice workflows, report-card PDF generation, and live bus tracking.</li>
+            </ul>
+        </div>
+        
+        <div class="experience-item">
+            <div class="job-header">
+                <span class="job-title">Software Engineer</span>
+                <span class="job-date">January 2024 - Present</span>
+            </div>
+            <div class="job-company">
+                <span class="company-name">3I Vision (3i-vision.com)</span>
+                <span class="company-location">Giza, Egypt (Hybrid)</span>
+            </div>
+            <ul class="job-bullets">
+                <li>Designed and developed AI-powered mobile applications integrating ML models for People Detection and License Plate Recognition</li>
+                <li>Applied Clean Architecture and design patterns to maintain code quality, modularity, and testability</li>
+                <li>Optimized application responsiveness and resource usage, reducing app startup time by 30% through lazy loading</li>
+                <li>Built robust offline-first architecture using Hive/SQLite with cloud synchronization via Firebase</li>
+                <li>Implemented testing and Agile delivery practices across sprints for reliable releases.</li>
+            </ul>
+        </div>
+        
+        <div class="experience-item">
+            <div class="job-header">
+                <span class="job-title">Software Engineer (Freelance)</span>
+                <span class="job-date">January 2023 - Present</span>
+            </div>
+            <div class="job-company">
+                <span class="company-name">Self-Employed</span>
+                <span class="company-location">Remote</span>
+            </div>
+            <ul class="job-bullets">
+                <li>Developed NooN, a production-grade Flutter app with 20+ modular features using Cubit/BLoC and DI (get_it).</li>
+                <li>Built hybrid data flows using local JSON assets, SQLite, SharedPreferences, Hive, and REST APIs via dio.</li>
+                <li>Implemented Arabic-first RTL localization and responsive UI with easy_localization and flutter_screenutil.</li>
+                <li>Integrated Quran reading, audio recitation, prayer times, Qibla, Hijri calendar, bookmarks, and safe local notifications.</li>
+                <li>Resolved critical UX/runtime issues in rendering, search, audio controls, and permission handling through iterative debugging.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section">
+        <div class="section-title">Projects</div>
+        <div class="projects-grid">
+            <div class="project-item">
+                <span class="project-title">Cogens Parent App</span>
+                <div class="project-desc">School management app for parents - attendance, payments, bus tracking</div>
+                <div class="project-links"><a href="https://apps.apple.com/eg/app/cogens-parent/id1607885469">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.trispects.school.parents">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">Cogens Student App</span>
+                <div class="project-desc">Educational app for students - schedules, grades, assignments</div>
+                <div class="project-links"><a href="https://apps.apple.com/eg/app/cogens-student/id6476619759">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.trispects.school.students">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">Cogens Bus Driver App</span>
+                <div class="project-desc">Real-time GPS tracking and route management for school buses</div>
+                <div class="project-links"><a href="https://apps.apple.com/eg/app/cogens-bus-driver/id6479618217">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.trispects.school.bus.driver">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">Cogens Staff App</span>
+                <div class="project-desc">Staff management with attendance, scheduling, and notifications</div>
+                <div class="project-links"><a href="https://apps.apple.com/eg/app/cogens-staff/id1607885245">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.trispects.school.management">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">Cogens Admin Panel</span>
+                <div class="project-desc">Django-based web dashboard for school administration</div>
+                <div class="project-links"><a href="https://admin.cogens.com">Web App</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">Cogens Vendor Panel</span>
+                <div class="project-desc">Hot lunch vendor portal with payment integration</div>
+                <div class="project-links"><a href="https://vendor.cogens.com">Web App</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">MACLINK</span>
+                <div class="project-desc">Cross-platform app for events, donations, mosque services, collaboration, surveys, bookings, and exams.</div>
+                <div class="project-links"><a href="https://apps.apple.com/us/app/maclink/id6502847350">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.mac.maclink&pcampaignid=web_share">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">3I Vision App</span>
+                <div class="project-desc">AI-powered People Detection and License Plate Recognition</div>
+                <div class="project-links"><a href="https://apps.apple.com/eg/app/3i-vision/id6670479729">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.vision.watcharea">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">DataMind Agent</span>
+                <div class="project-desc">AI-powered file manager with intelligent classification</div>
+                <div class="project-links"><a href="https://apps.apple.com/eg/app/datamind-agent/id6754242027">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.datamind.agent">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">Yalla L3b</span>
+                <div class="project-desc">Sports court booking with ratings and geolocation</div>
+                <div class="project-links"><a href="https://play.google.com/store/apps/details?id=com.yallaL3b.app">Play Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">Aman App</span>
+                <div class="project-desc">Trip management app with real-time tracking, booking workflows, notifications, and hybrid wallet payments.</div>
+                <div class="project-links"><a href="https://play.google.com/store/apps/details?id=com.omanaman.aman&pcampaignid=web_share">Google Play</a> | <a href="https://apps.apple.com/eg/app/aman-oman/id6759229386">App Store</a></div>
+            </div>
+            <div class="project-item">
+                <span class="project-title">NooN</span>
+                <div class="project-desc">Arabic-first Islamic companion app with 20+ features including Quran, Hadith, Azkar, prayer timings, Qibla, Hijri calendar, Tafseer, audio recitation, and responsive RTL UX.</div>
+                <div class="project-links"><a href="https://apps.apple.com/us/app/%D9%86-noon-%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D9%88%D8%A7%D9%84%D8%A3%D8%B0%D9%83%D8%A7%D8%B1/id6759193445">App Store</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <div class="two-column">
+        <div class="column">
+            <div class="section">
+                <div class="section-title">Education</div>
+                <div class="education-item">
+                    <strong>Bachelor of Science in Computer Science</strong><br>
+                    Cairo University | 2017 - 2022
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="section">
+                <div class="section-title">Certifications</div>
+                <div class="cert-item">
+                    <span class="cert-title">The Complete Flutter & Dart: Basics to Advanced</span> - Udemy (2025)
+                </div>
+                <div class="cert-item">
+                    <span class="cert-title">Mastering Multi-Modular & Clean Architecture in Android</span> - Udemy (2024)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LANGUAGES -->
+    <div class="section">
+        <div class="section-title">Languages</div>
+        <span>Arabic (Native) | English (Fluent) | French (Intermediate)</span>
+    </div>
+</body>
+</html>
