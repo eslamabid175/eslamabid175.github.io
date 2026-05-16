@@ -65,7 +65,7 @@ I'm a passionate Flutter Developer from Cairo, Egypt 🇪🇬 with expertise in 
 
 - **AI/ML On-Device Processing:** Engineered "DataMind," implementing ML model responses for People Detection and License Plate Recognition
 - **Performance Optimization:** Refactored legacy codebases, reducing app start-up time by 30%
-- **Offline-First Architecture:** Built robust offline synchronization for "Aramco Inventory" app using Hive/SQLite
+- **Aramco App (Private):** Built a Saudi Aramco data management app with sample registration, camera scanning, SQLite offline support, Excel export, and Zebra integration
 - **Security:** Developed "Permit Management Flow" with rigorous authentication protocols
 
 ### **Freelance & Project-Based** | Software Engineer | Jan 2022 – Jan 2025
@@ -94,6 +94,7 @@ I'm a passionate Flutter Developer from Cairo, Egypt 🇪🇬 with expertise in 
 |-----|-------------|-------|
 | **3I Vision** | AI-powered People Detection & License Plate Recognition | [App Store](https://apps.apple.com/eg/app/3i-vision/id6670479729) • [Play Store](https://play.google.com/store/apps/details?id=com.vision.watcharea) |
 | **DataMind Agent** | Intelligent file manager with AI classification | [App Store](https://apps.apple.com/eg/app/datamind-agent/id6754242027) • [Play Store](https://play.google.com/store/apps/details?id=com.datamind.agent) |
+| **Aramco App (Private)** | Saudi Aramco data management; sample registration, camera scanning, SQLite, Excel export, Zebra integration | Private Enterprise App |
 | **Adahi** | AI-based health and qualification detection | [Play Store](https://play.google.com/store/apps/details?id=com.adahi.sa) |
 
 ### 🎯 **Freelance Projects**
