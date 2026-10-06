@@ -980,12 +980,12 @@
                 <div class="tl-item">
                     <div class="tl-when">16 – 28 سبتمبر 2026 · مرحلة 5</div>
                     <div class="tl-title">البيئة الكاملة: مكسبي + مشروع الشغل الأساسي</div>
-                    <div class="tl-body">في <strong>مكسبي</strong> (offline-first Flutter) وفي <strong>مشروع الشغل الأساسي <bdi dir="ltr">(Flutter + Django, multi-app)</bdi></strong> (أول نسخة 16 سبتمبر، وv2 في 27–28): ملف <code>CURRENT.md</code> بيعيش بعد الـ compaction، وgates مقارنة بـ baseline، وcode graph، وworkflows فيها كذا agent، وwork loop، وdeploy ledger، ونسخة قابلة للمشاركة <code>claude instr/</code> متشال منها أي state شخصي.</div>
+                    <div class="tl-body">في <strong>مكسبي</strong> (offline-first Flutter) وفي <strong>مشروع الشغل الأساسي <bdi dir="ltr">(Flutter + Django, multi-app)</bdi></strong> (أول نسخة 16 سبتمبر، ونسخة <bdi dir="ltr">v2</bdi> في 27–28): ملف <code>CURRENT.md</code> بيعيش بعد الـ compaction، وgates مقارنة بـ baseline، وcode graph، وworkflows فيها كذا agent، وwork loop، وdeploy ledger، ونسخة قابلة للمشاركة <code>claude instr/</code> متشال منها أي state شخصي.</div>
                 </div>
                 <div class="tl-item now">
                     <div class="tl-when">أكتوبر 2026 · دلوقتي</div>
                     <div class="tl-title">تنضيف + Kit عام</div>
-                    <div class="tl-body">شلت الـ guard hook من مكسبي لأنه كان بيطلب موافقة كتير في auto mode، وبقت الحماية في الـ rules والـ deny permissions وسكريبت الـ E2E. وجمعت الأجزاء العامة في <a class="roadmap-link" href="#install">Flutter Claude Kit</a> من غير أي تفاصيل خاصة بشركة أو عميل.</div>
+                    <div class="tl-body">شلت الـ guard hook من مكسبي لأنه كان بيطلب موافقة كتير في auto mode، وبقت الحماية في الـ rules والـ deny permissions وسكريبت الـ E2E. وجمعت الأجزاء العامة في <a class="roadmap-link" href="#install" dir="ltr" style="white-space:nowrap;">Flutter Claude Kit</a> من غير أي تفاصيل خاصة بشركة أو عميل.</div>
                 </div>
             </div>
         </section>
@@ -1220,42 +1220,42 @@ flutter-claude-kit/
             <h3 class="subsection-title lesson-title">الـ Agents: كل واحد ليه دور وموديل</h3>
             <div class="cards-grid">
                 <div class="card" data-animate>
-                    <span class="model-tag">model: strongest · opus في الـ Kit</span>
+                    <span class="model-tag" dir="ltr">model: strongest · kit: opus</span>
                     <div class="card-title">architect</div>
                     <div class="card-body">
                         بيقرا الـ rules والـ docs والكود وبياخد كل القرارات التقنية. الـ output الوحيد: <code>.claude/plans/current-task.md</code> بأقسام ثابتة: Goal، Technical Decisions (ومعاها البدائل اللي اترفضت)، Files To Modify / NOT To Touch، Implementation Steps، Acceptance Criteria، Docs To Update. <strong>عمره ما بينفّذ.</strong>
                     </div>
                 </div>
                 <div class="card" data-animate>
-                    <span class="model-tag">model: opus · inherit في الـ Kit</span>
+                    <span class="model-tag" dir="ltr">model: opus · kit: inherit</span>
                     <div class="card-title">executor</div>
                     <div class="card-body">
                         بينفّذ الخطة بالظبط. أول حاجة snapshot لـ <code>git status</code> عشان ما يلمسش شغلي. ترتيب ثابت: <bdi dir="ltr">schema → data → domain → cubit → UI → l10n</bdi>، ولازم يشغّل أوامر التحقق ويحط الـ output الحقيقي. ولو لقى تناقض معماري بيقف (STOP) وما يخمّنش.
                     </div>
                 </div>
                 <div class="card" data-animate>
-                    <span class="model-tag">model: strongest · read-only · opus في الـ Kit</span>
+                    <span class="model-tag" dir="ltr">model: strongest · read-only · kit: opus</span>
                     <div class="card-title">reviewer</div>
                     <div class="card-body">
                         بيراجع الـ <code>git diff</code> الحقيقي، مش تقرير الـ executor. أول سطر لازم يكون <code>VERDICT: APPROVED</code> أو <code>VERDICT: CHANGES REQUIRED</code> ومعاه «Fix List For Executor» بترجع للـ executor بالحرف. <strong>بحد أقصى 2 rounds.</strong>
                     </div>
                 </div>
                 <div class="card" data-animate>
-                    <span class="model-tag">model: inherit · plan mode</span>
+                    <span class="model-tag" dir="ltr">model: inherit · plan mode</span>
                     <div class="card-title">investigators</div>
                     <div class="card-body">
                         read-only للبحث الواسع: مين بينادي الـ endpoint ده؟ الـ cubit ده مستخدم فين؟ الرد أقل من 60 سطر وفيه <code>path:line</code>، فالـ context الرئيسي يفضل نضيف.
                     </div>
                 </div>
                 <div class="card" data-animate>
-                    <span class="model-tag">model: sonnet</span>
+                    <span class="model-tag" dir="ltr">model: sonnet</span>
                     <div class="card-title">test-runner / gate-runner</div>
                     <div class="card-body">
                         بيشغّل الأوامر اللي اتقالت له بس، ويرجّع سطر لكل أمر وأول الـ failures. الـ logs الطويلة ما تدخلش الـ context الغالي.
                     </div>
                 </div>
                 <div class="card" data-animate>
-                    <span class="model-tag">read-only · sonnet في الـ Kit</span>
+                    <span class="model-tag" dir="ltr">read-only · kit: sonnet</span>
                     <div class="card-title">ui-auditor</div>
                     <div class="card-body">
                         بيراجع الـ UI على <code>design/tokens.md</code>: dark mode، RTL، مفاتيح l10n في كل لغة، loading/empty/error، accessibility (48dp، text scale 1.3)، والـ shared widgets. كل finding بـ severity و<code>path:line</code> والـ fix بالظبط.
@@ -1378,28 +1378,28 @@ Paths already modified before this task started (the user's work).
                     <span class="card-icon">🧠</span>
                     <div class="card-title">session-start.sh</div>
                     <div class="card-body">
-                        <strong>SessionStart (startup | resume | compact | clear):</strong> بيرجّع <code>CURRENT.md</code> لو فيه مهمة شغالة، وأي plan مفتوحة، والـ branch وعدد الملفات المتعدلة مع جملة «ده شغل المستخدم، ما ترميهوش». في مشروع الشغل كمان بيعدّ الـ deploys اللي لسه ما نزلتش ويقول لو الـ code graph قديم.
+                        <strong><bdi dir="ltr">SessionStart (startup | resume | compact | clear)</bdi>:</strong> بيرجّع <code>CURRENT.md</code> لو فيه مهمة شغالة، وأي plan مفتوحة، والـ branch وعدد الملفات المتعدلة مع جملة «ده شغل المستخدم، ما ترميهوش». في مشروع الشغل كمان بيعدّ الـ deploys اللي لسه ما نزلتش ويقول لو الـ code graph قديم.
                     </div>
                 </div>
                 <div class="card" data-animate>
                     <span class="card-icon">🚧</span>
                     <div class="card-title">guard.sh</div>
                     <div class="card-body">
-                        <strong>PreToolUse (Bash):</strong> <strong>deny</strong> لطباعة <code>.env</code> و<code>key.properties</code> والـ keystores والـ service accounts. <strong>ask</strong> قبل <code>git push</code>، <code>reset --hard</code>، <code>rm -rf</code>، <code>firebase deploy</code>، <code>pm clear</code>، patrol من غير <code>-d emulator-N</code>، و<code>dart format .</code>.
+                        <strong><bdi dir="ltr">PreToolUse (Bash)</bdi>:</strong> <strong>deny</strong> لطباعة <code>.env</code> و<code>key.properties</code> والـ keystores والـ service accounts. <strong>ask</strong> قبل <code>git push</code>، <code>reset --hard</code>، <code>rm -rf</code>، <code>firebase deploy</code>، <code>pm clear</code>، patrol من غير <code>-d emulator-N</code>، و<code>dart format .</code>.
                     </div>
                 </div>
                 <div class="card" data-animate>
                     <span class="card-icon">🧯</span>
                     <div class="card-title">e2e-guard.sh</div>
                     <div class="card-body">
-                        <strong>PreToolUse (<code>mcp__patrol__run</code>):</strong> بيسأل لو الـ dev API لسه placeholder، أو ملف الـ API مش بيستخدم <code>String.fromEnvironment</code> (يعني الـ run هيضرب production)، أو patrol مش في الـ pubspec، أو فيه تليفون حقيقي متوصل.
+                        <strong><bdi dir="ltr">PreToolUse (<code>mcp__patrol__run</code>)</bdi>:</strong> بيسأل لو الـ dev API لسه placeholder، أو ملف الـ API مش بيستخدم <code>String.fromEnvironment</code> (يعني الـ run هيضرب production)، أو patrol مش في الـ pubspec، أو فيه تليفون حقيقي متوصل.
                     </div>
                 </div>
                 <div class="card" data-animate>
                     <span class="card-icon">✍️</span>
                     <div class="card-title">after-edit.sh</div>
                     <div class="card-body">
-                        <strong>PostToolUse (Edit | Write):</strong> <code>dart format</code> و<code>dart analyze</code> للملف اللي اتعدّل <strong>بس</strong>، والـ errors بترجع لـ Claude كـ context. وتذكيرات مرة واحدة في الـ session: build_runner لو فيه <code>part '*.g.dart'</code>، المفاتيح في كل ملفات الـ <code>.arb</code>، schema bump، <code>pub get</code>.
+                        <strong><bdi dir="ltr">PostToolUse (Edit | Write)</bdi>:</strong> <code>dart format</code> و<code>dart analyze</code> للملف اللي اتعدّل <strong>بس</strong>، والـ errors بترجع لـ Claude كـ context. وتذكيرات مرة واحدة في الـ session: build_runner لو فيه <code>part '*.g.dart'</code>، المفاتيح في كل ملفات الـ <code>.arb</code>، schema bump، <code>pub get</code>.
                     </div>
                 </div>
             </div>
@@ -1454,7 +1454,7 @@ Paths already modified before this task started (the user's work).
             </div>
 
             <ol class="steps">
-                <li><strong>المتطلبات:</strong> Claude Code، وFlutter فيه <strong>Dart 3.12 أو أحدث</strong> (عشان <code>dart mcp-server</code> والـ flag <code>--disable</code>؛ على 3.10/3.11 غيّره لـ <code>--exclude-tool</code> والتفاصيل في الـ README)، وNode 20+، وAndroid SDK ومعاه emulator، وpython3. واختياري: Patrol CLI و<code>patrol_mcp</code> و<code>marionette_mcp</code>.</li>
+                <li><strong>المتطلبات:</strong> Claude Code، وFlutter فيه <strong>Dart 3.12 أو أحدث</strong> (عشان <code>dart mcp-server</code>؛ لو أقدم شوف الـ README)، وNode 20+، وAndroid SDK ومعاه emulator، وpython3. واختياري: Patrol CLI و<code>patrol_mcp</code> و<code>marionette_mcp</code>.</li>
                 <li><strong>انسخ الـ Kit</strong> في root المشروع بـ <code>cp -rn</code> عشان ما يكتبش فوق ملفاتك. لو عندك <code>CLAUDE.md</code> أو <code>settings.json</code> قبل كده، ادمجهم بإيدك.</li>
                 <li><strong>املا الـ placeholders:</strong> اسم المشروع والـ stack والأوامر في <code>CLAUDE.md</code>، والـ dev API في <code>.mcp.json</code>، والـ architecture في <code>rules/mobile.md</code>، وملف الـ API في <code>e2e-guard.sh</code>. لو monorepo كرر الـ <code>patrol</code> entry لكل app.</li>
                 <li><strong>خلّي الـ API URL يتغير من بره</strong> بـ <code class="wrap">String.fromEnvironment('API_BASE_URL')</code>، وإلا الـ E2E هيضرب production.</li>
@@ -1467,7 +1467,8 @@ Paths already modified before this task started (the user's work).
                 <span class="lang-tag">bash</span>
 <span class="cm"># 1) copy the kit into your Flutter repo (never overwrite your files)</span>
 unzip flutter-claude-kit.zip
-cp -rn flutter-claude-kit/. /path/to/your_app/
+cd flutter-claude-kit
+cp -Rn CLAUDE.md .mcp.json .claude /path/to/your_app/
 cd /path/to/your_app
 chmod +x .claude/hooks/*.sh .claude/mcp/launch.sh .claude/bin/*
 
