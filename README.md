@@ -80,7 +80,7 @@ I'm a passionate Flutter Developer from Cairo, Egypt 🇪🇬 with expertise in 
 
 ## 💼 Work Experience
 
-### **Cogens** | Senior Software Engineer | Sep 2025 – Present
+### **Cogens** | Senior Software Engineer | Jul 2025 – Present
 📍 Canada (Remote) | 🌐 [cogens.com](https://cogens.com/)
 
 - **ERP System Architecture:** Architected "Cogens," a complex ERP ecosystem consisting of 4 interconnected mobile apps (Parent, Staff, Student, Driver) using a modular monolith approach
@@ -90,7 +90,7 @@ I'm a passionate Flutter Developer from Cairo, Egypt 🇪🇬 with expertise in 
 - **Payment Integration:** Integrated multi-gateway payment systems (Stripe, PayPal)
 - **Muslim Association of Canada Apps (team work with Abdalrhman Reda):** MACLINK, MAC Convention (conference booking & registration), and MAC Work (internal staff app)
 
-### **3I Vision** | Senior Flutter Developer | Jan 2024 – Present
+### **3I Vision** | Senior Flutter Developer | May 2025 – Present
 📍 Giza, Egypt (Hybrid) | 🌐 [3i-vision.com](http://3i-vision.com/#/home)
 
 - **AI/ML On-Device Processing:** Engineered "DataMind," implementing ML model responses for People Detection and License Plate Recognition
@@ -98,7 +98,7 @@ I'm a passionate Flutter Developer from Cairo, Egypt 🇪🇬 with expertise in 
 - **Aramco App (Private):** Built a Saudi Aramco data management app with sample registration, camera scanning, SQLite offline support, Excel export, and Zebra integration
 - **Security:** Developed "Permit Management Flow" with rigorous authentication protocols
 
-### **Freelance & Project-Based** | Software Engineer | Jan 2023 – Present
+### **Freelance & Project-Based** | Software Engineer | Jan 2022 – Present
 📍 Remote
 
 - **Full-Cycle Development:** Managed complete SDLC for regional and Omani market clients

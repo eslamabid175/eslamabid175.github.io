@@ -1,0 +1,8 @@
+# Per-machine and per-task state: never commit these.
+settings.local.json
+local/
+progress/CURRENT.md
+progress/archive/
+plans/*
+!plans/.gitkeep
+__pycache__/

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "disabledMcpjsonServers": ["firebase", "playwright"],
+  "permissions": {
+    "allow": [
+      "Bash(flutter analyze)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter test)",
+      "Bash(flutter test *)",
+      "Bash(flutter pub get)",
+      "Bash(flutter pub deps *)",
+      "Bash(flutter pub outdated *)",
+      "Bash(flutter gen-l10n)",
+      "Bash(flutter devices)",
+      "Bash(flutter doctor *)",
+      "Bash(flutter --version)",
+      "Bash(dart analyze *)",
+      "Bash(dart run build_runner build *)",
+      "Bash(dart pub global list)",
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git diff)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git blame *)",
+      "Bash(git ls-files *)",
+      "Bash(git branch --show-current)",
+      "Bash(bash .claude/bin/gates.sh)",
+      "Bash(bash .claude/bin/gates.sh --quick)",
+      "Bash(python3 .claude/bin/mcp_probe.py)",
+      "Bash(python3 .claude/bin/mcp_probe.py *)",
+      "Bash(python3 .claude/bin/check_arb_parity.py)",
+      "Bash(patrol devices)",
+      "Bash(patrol doctor)",
+      "Bash(patrol test -d emulator-*)",
+      "Bash(adb devices)",
+      "Bash(emulator -list-avds)",
+      "mcp__dart__*",
+      "mcp__marionette__*",
+      "mcp__mobile__*",
+      "mcp__context7__*",
+      "mcp__patrol__status",
+      "mcp__patrol__screenshot",
+      "mcp__patrol__native-tree",
+      "mcp__patrol__devices"
+    ],
+    "deny": [
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/key.properties)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Read(**/*.p12)",
+      "Read(**/*.pem)",
+      "Read(**/service-account*.json)",
+      "Read(.claude/local/**)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-env.sh", "timeout": 10 }
+        ]
+      },
+      {
+        "matcher": "startup|resume|compact|clear",
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh", "timeout": 20 }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard.sh", "timeout": 10 }
+        ]
+      },
+      {
+        "matcher": "mcp__patrol__run",
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/e2e-guard.sh", "timeout": 15 }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/after-edit.sh", "timeout": 60 }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "dart": {
+      "command": "bash",
+      "args": [".claude/mcp/launch.sh", "dart", "mcp-server", "--disable", "create_project"]
+    },
+    "marionette": {
+      "command": "bash",
+      "args": [".claude/mcp/launch.sh", "marionette_mcp"]
+    },
+    "patrol": {
+      "command": "bash",
+      "args": [".claude/mcp/launch.sh", "dart", "pub", "global", "run", "patrol_mcp"],
+      "env": {
+        "PROJECT_ROOT": ".",
+        "PATROL_FLAGS": "--dart-define=API_BASE_URL=<YOUR_DEV_API_URL>",
+        "PATROL_DEFINES_FILE": ".claude/local/e2e-defines.json",
+        "SHOW_TERMINAL": "false"
+      }
+    },
+    "mobile": {
+      "command": "bash",
+      "args": [".claude/mcp/launch.sh", "npx", "-y", "@mobilenext/mobile-mcp@latest"]
+    },
+    "playwright": {
+      "command": "bash",
+      "args": [".claude/mcp/launch.sh", "npx", "-y", "@playwright/mcp@latest"]
+    },
+    "firebase": {
+      "command": "bash",
+      "args": [".claude/mcp/launch.sh", "npx", "-y", "firebase-tools@latest", "mcp", "--dir", "."]
+    },
+    "context7": {
+      "command": "bash",
+      "args": [".claude/mcp/launch.sh", "npx", "-y", "@upstash/context7-mcp@latest"]
+    }
+  }
+}

@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Environment — بيئة Claude Code لمشاريع Flutter</title>
+    <meta name="description" content="إزاي ببني بيئة Claude Code لكل مشروع Flutter: MCP servers، skills، agents، hooks، وtask state، ومعاها Kit جاهز للتحميل.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Cairo:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F7FAFC;
+            --surface: #FFFFFF;
+            --card: #FFFFFF;
+            --border: #E2E8F0;
+            --accent: #0EA5E9;
+            --accent-light: #E0F2FE;
+            --accent-dark: #0369A1;
+            --text: #0F172A;
+            --text-muted: #64748B;
+            --success: #059669;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --info: #0284C7;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.08) 0px, transparent 50%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .orb1 { width: 550px; height: 550px; background: #E0F2FE; top: -150px; right: -120px; animation: drift1 22s ease-in-out infinite; }
+        .orb2 { width: 500px; height: 500px; background: #F0F9FF; bottom: -150px; left: -100px; animation: drift2 24s ease-in-out infinite; }
+
+        @keyframes drift1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-80px, 90px); } }
+        @keyframes drift2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(90px, -80px); } }
+
+        .content { position: relative; z-index: 1; }
+
+        .portfolio-links {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 120;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 90vw;
+        }
+
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+
+        .portfolio-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-light);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            color: var(--accent-dark);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 100px;
+            margin-bottom: 36px;
+            animation: fadeSlideDown 0.8s ease forwards;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+
+        .hero h1 {
+            font-size: clamp(44px, 10vw, 96px);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 20px;
+            color: var(--text);
+            letter-spacing: -2px;
+            animation: fadeSlideDown 0.8s 0.1s ease both;
+        }
+
+        .hero h1 span.flutter {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span.dart { color: var(--text-muted); opacity: 0.8; }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 760px;
+            animation: fadeSlideDown 0.8s 0.2s ease both;
+        }
+
+        .hero-subtitle span { color: var(--accent-dark); font-weight: 700; }
+
+        .hero-flow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeSlideDown 0.8s 0.3s ease both;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: var(--surface);
+            padding: 16px 28px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flow-node {
+            background: var(--accent-light);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            padding: 11px 20px;
+            border-radius: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            transition: all 0.3s ease;
+        }
+
+        .flow-node:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .flow-arrow { font-size: 18px; color: var(--border); }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 96px 24px;
+        }
+
+        .section-header { text-align: center; margin-bottom: 64px; }
+
+        .section-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-dark);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(30px, 5vw, 54px);
+            font-weight: 900;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+
+        .section-title .highlight {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: var(--accent-light);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: all 0.35s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card.visible { opacity: 1; transform: translateY(0); }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            width: 54px;
+            height: 54px;
+            background: var(--accent-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .card-body {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+            direction: rtl;
+        }
+
+        .subsection-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text);
+            margin: 44px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-light);
+        }
+
+        .code-block {
+            background: linear-gradient(180deg, #0F172A 0%, #020617 100%);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 24px 50px rgba(2, 6, 23, 0.28);
+            color: #E2E8F0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block .lang-tag {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 10px;
+            color: #64748B;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .code-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            background: rgba(15, 23, 42, 0.92);
+        }
+
+        .code-window-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .code-dot.red { background: #F87171; }
+        .code-dot.yellow { background: #FBBF24; }
+        .code-dot.green { background: #34D399; }
+
+        .code-toolbar-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .code-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: #CBD5E1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .code-toolbar-lang {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: #7DD3FC;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(125, 211, 252, 0.18);
+            background: rgba(14, 165, 233, 0.08);
+            flex-shrink: 0;
+        }
+
+        .code-frame {
+            overflow-x: auto;
+            padding: 16px 0;
+        }
+
+        .code-line {
+            display: grid;
+            grid-template-columns: 56px minmax(0, 1fr);
+            align-items: baseline;
+            min-width: max-content;
+        }
+
+        .code-line:hover {
+            background: rgba(148, 163, 184, 0.06);
+        }
+
+        .code-line-no {
+            padding: 0 14px 0 18px;
+            text-align: right;
+            color: #475569;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            user-select: none;
+        }
+
+        .code-line-code {
+            padding-right: 22px;
+            white-space: pre;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+        .code-block .kw { color: #7DD3FC; }
+        .code-block .cls { color: #A5F3FC; }
+        .code-block .fn { color: #34D399; }
+        .code-block .str { color: #FCA5A5; }
+        .code-block .cm { color: #64748B; font-style: italic; }
+        .code-block .var { color: #BAE6FD; }
+        .code-block .num { color: #FBBF24; }
+        .code-block .dec { color: #C4B5FD; }
+
+        .tip-box {
+            background: var(--accent-light);
+            border: 1px solid rgba(14, 165, 233, 0.25);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            direction: rtl;
+        }
+
+        .tip-box strong { color: var(--accent-dark); }
+
+        .tip-box.tradeoff {
+            background: #FFF7ED;
+            border-color: rgba(217, 119, 6, 0.25);
+        }
+
+        .tip-box.tradeoff strong { color: #B45309; }
+
+        .tip-box.practice {
+            background: #ECFDF5;
+            border-color: rgba(5, 150, 105, 0.25);
+        }
+
+        .tip-box.practice strong { color: #047857; }
+
+        .code-block + .code-block,
+        .cards-grid + .code-block,
+        .code-block + .cards-grid,
+        .cards-grid + .cards-grid { margin-top: 20px; }
+
+        .section-flow {
+            margin: 24px auto;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .lesson-title::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-left: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            vertical-align: middle;
+        }
+
+        .roadmap-link {
+            color: var(--accent-dark);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(3, 105, 161, 0.4);
+        }
+
+        .roadmap-link:hover { color: var(--accent); }
+
+        .qa-list {
+            display: grid;
+            gap: 10px;
+            margin: 20px 0;
+            direction: rtl;
+        }
+
+        .qa-head {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .qa-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.25s ease;
+        }
+
+        .qa-item[open] { border-color: var(--accent); }
+
+        .qa-item summary {
+            cursor: pointer;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .qa-item summary::marker { color: var(--accent); }
+
+        .qa-item p {
+            margin-top: 10px;
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .nav-dots {
+            position: fixed;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot:hover, .nav-dot.active {
+            background: var(--accent);
+            transform: scale(1.5);
+        }
+
+        .nav-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: var(--surface);
+            padding: 4px 10px;
+            border-radius: 6px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-dot:hover::after { opacity: 1; transform: translateY(-50%) translateX(4px); }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 0 40px;
+        }
+
+        .sep-deco {
+            text-align: center;
+            padding: 36px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--border);
+            letter-spacing: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 72px 24px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer span { color: var(--accent-dark); font-weight: 700; }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-dots { display: none; }
+            .hero h1 { font-size: 48px; }
+            .portfolio-links {
+                top: 12px;
+                left: 12px;
+                right: 12px;
+            }
+        }
+
+        /* ===== AI Environment page additions ===== */
+        .hero h1 span.flutter, .hero h1 span.dart { white-space: nowrap; }
+        .hero-flow { direction: ltr; }
+        bdi[dir="ltr"] { unicode-bidi: isolate; }
+
+        .timeline {
+            position: relative;
+            display: grid;
+            gap: 18px;
+            padding-right: 28px;
+            direction: rtl;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            bottom: 6px;
+            right: 7px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .tl-item {
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            right: -27px;
+            top: 26px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px var(--bg);
+        }
+
+        .tl-item.now::before { background: var(--success); }
+
+        .tl-when {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .tl-title { font-size: 19px; font-weight: 800; margin: 4px 0 8px; }
+
+        .tl-body { color: var(--text-muted); font-size: 15px; line-height: 1.85; }
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--card);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .map-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14.5px;
+            direction: rtl;
+            min-width: 640px;
+        }
+
+        .map-table th, .map-table td {
+            text-align: right;
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.7;
+        }
+
+        .map-table th {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            letter-spacing: 0.5px;
+        }
+
+        .map-table tr:last-child td { border-bottom: none; }
+        .map-table td:first-child { font-weight: 800; white-space: nowrap; }
+        .map-table td { color: var(--text-muted); }
+        .map-table td:first-child { color: var(--text); }
+
+        code, .mono {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.88em;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: 1px 6px;
+            border-radius: 5px;
+            direction: ltr;
+            unicode-bidi: isolate;
+            white-space: nowrap;
+        }
+
+        code.wrap { white-space: normal; overflow-wrap: anywhere; }
+
+        .code-block code { background: none; color: inherit; padding: 0; }
+
+        .copy-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: #E2E8F0;
+            background: rgba(148, 163, 184, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 8px;
+            padding: 5px 10px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover { background: rgba(125, 211, 252, 0.18); color: #fff; }
+        .copy-btn.done { color: #34D399; border-color: rgba(52, 211, 153, 0.5); }
+
+        .steps {
+            display: grid;
+            gap: 14px;
+            counter-reset: step;
+            list-style: none;
+            direction: rtl;
+        }
+
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px 64px 18px 20px;
+            color: var(--text-muted);
+            line-height: 1.85;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            right: 18px;
+            top: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .steps li strong { color: var(--text); }
+        .steps + .code-block { margin-top: 20px; }
+
+        .link-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            direction: rtl;
+        }
+
+        .portfolio-link.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .portfolio-link.primary:hover { background: var(--accent-dark); }
+
+        .model-tag {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 2px 10px;
+            margin-bottom: 10px;
+        }
+
+        .card-body ul, .tip-box ul { margin-top: 8px; padding-right: 20px; }
+
+        .footer [data-visits] { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--text-muted); }
+        .footer [data-visits][hidden] { display: none; }
+
+        @media (max-width: 768px) {
+            .hero { padding-top: 140px; }
+            .section { padding: 64px 16px; }
+            .hero-flow { padding: 14px 16px; }
+            .flow-node { padding: 8px 12px; font-size: 12px; }
+            .card { padding: 22px; }
+            .steps li { padding: 16px 56px 16px 16px; }
+            .timeline { padding-right: 22px; }
+            .tl-item { padding: 18px; }
+            .tl-item::before { right: -21px; }
+            .timeline::before { right: 5px; }
+            .map-table { min-width: 0; }
+            .map-table thead { display: none; }
+            .map-table, .map-table tbody, .map-table tr, .map-table td { display: block; width: 100%; }
+            .map-table tr { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+            .map-table tr:last-child { border-bottom: none; }
+            .map-table td { border: none; padding: 2px 0; white-space: normal; }
+            .map-table td:first-child { font-size: 16px; margin-bottom: 4px; }
+            .map-table td:nth-child(2)::before { content: 'مكانها: '; }
+            .map-table td:nth-child(3)::before { content: 'بتتحمّل: '; }
+            .map-table td:nth-child(n+2)::before { font-weight: 700; color: var(--text); font-size: 13px; }
+            .map-table td code { white-space: normal; overflow-wrap: anywhere; }
+            .sep-deco { padding: 28px 16px; letter-spacing: 4px; overflow: hidden; white-space: nowrap; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/notes-editorial.css">
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="portfolio-links">
+        <a class="portfolio-link" href="index.html">Portfolio</a>
+        <a class="portfolio-link" href="index.html#work">Projects</a>
+        <a class="portfolio-link" href="backend.html">Backend Learning</a>
+        <a class="portfolio-link" href="flutter.html">Flutter Learning</a>
+        <a class="portfolio-link" href="ai-environment.html">AI Environment</a>
+    </div>
+
+    <nav class="nav-dots">
+        <div class="nav-dot active" data-label="الرئيسية" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" data-label="ليه أصلاً" onclick="scrollToSection('why')"></div>
+        <div class="nav-dot" data-label="التطور" onclick="scrollToSection('evolution')"></div>
+        <div class="nav-dot" data-label="خريطة البيئة" onclick="scrollToSection('map')"></div>
+        <div class="nav-dot" data-label="MCP Servers" onclick="scrollToSection('mcp')"></div>
+        <div class="nav-dot" data-label="Skills & Agents" onclick="scrollToSection('loop')"></div>
+        <div class="nav-dot" data-label="Hooks" onclick="scrollToSection('hooks')"></div>
+        <div class="nav-dot" data-label="التركيب" onclick="scrollToSection('install')"></div>
+        <div class="nav-dot" data-label="الدروس" onclick="scrollToSection('lessons')"></div>
+        <div class="nav-dot" data-label="اختبر نفسك" onclick="scrollToSection('quiz')"></div>
+    </nav>
+
+    <div class="content">
+        <section class="hero" id="hero">
+            <div class="hero-badge">Claude Code × Flutter — بيئة شغل</div>
+            <h1>
+                <span class="flutter">AI</span><br>
+                <span class="dart">Environment</span>
+            </h1>
+            <p class="hero-subtitle">
+                إزاي بقيت أشتغل مع <span>Claude Code</span> كزميل في الفريق مش كـ autocomplete: ذاكرة للمشروع، أدوات بيشوف بيها التطبيق وهو شغال، طريقة شغل ثابتة (<bdi dir="ltr" style="white-space:nowrap;">plan → execute → review</bdi>)، وحواجز أمان. ده ملخص البيئة اللي بعملها لكل مشروع Flutter، ومعاه <span>Kit جاهز</span> تنزّله وتركّبه في مشروعك.
+            </p>
+
+            <div class="link-row" style="justify-content:center; margin-top:0; margin-bottom:24px;">
+                <a class="portfolio-link primary" href="ai-setup/flutter-claude-kit.zip" download>⬇ تحميل الـ Kit (zip)</a>
+                <a class="portfolio-link" href="#install">إزاي تركّبه</a>
+                <a class="portfolio-link" href="flutter.html">ملخص Flutter</a>
+            </div>
+
+            <div class="hero-flow">
+                <div class="flow-node">request</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">/plan</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">/execute</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">review</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">verify</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">CURRENT.md</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ===== 01 ===== -->
+        <section class="section" id="why">
+            <div class="section-header">
+                <span class="section-tag">// 01 — ليه أصلاً</span>
+                <h2 class="section-title">ليه <span class="highlight">AI Environment</span>؟</h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 الفكرة في جملة:</strong>
+                من غير بيئة، كل session بتبدأ من الصفر: الـ agent بيخمّن شكل المشروع، ويقولك «خلصت» من غير ما يشغّل حاجة، وينسى كل اللي اتعمل بعد <code>/clear</code>. البيئة بتديله <strong>ذاكرة</strong> و<strong>أدوات</strong> و<strong>طريقة شغل</strong> و<strong>حدود</strong>، فيبقى زميل بيتحاسب على شغله.
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🗺️</span>
+                    <div class="card-title">ذاكرة المشروع</div>
+                    <div class="card-body">
+                        <code>CLAUDE.md</code> قصير (خريطة مش موسوعة)، وrules بتتحمّل بس لما يلمس ملفات معينة، وdocs بيقرأها وقت ما يحتاج. وقاعدة ثابتة: <strong>لو الكود والـ doc اختلفوا، الكود يكسب وتتصلّح الـ doc في نفس التغيير.</strong>
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">👀</span>
+                    <div class="card-title">عينين وإيدين</div>
+                    <div class="card-body">
+                        MCP servers بتخليه يشغّل <code>analyze</code> والـ tests، ويعمل hot reload، ويدوس ويكتب ويصوّر screenshots في التطبيق وهو شغال على emulator أو في المتصفح.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔁</span>
+                    <div class="card-title">طريقة شغل ثابتة</div>
+                    <div class="card-body">
+                        Skills وagents بأدوار واضحة: architect بيقرر ويكتب خطة، executor بينفّذ، reviewer بيراجع الـ diff الحقيقي. ومفيش «خلصت» من غير output أوامر حقيقية.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🛡️</span>
+                    <div class="card-title">حدود وأمان</div>
+                    <div class="card-body">
+                        Hooks وpermissions بتمنع قراية الـ secrets، وبتسأل قبل <code>git push</code> أو <code>rm -rf</code> أو deploy، وبتمنع الـ E2E إنه يضرب على production.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 02 ===== -->
+        <section class="section" id="evolution">
+            <div class="section-header">
+                <span class="section-tag">// 02 — التطور</span>
+                <h2 class="section-title">من prompts لـ <span class="highlight">بيئة كاملة</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 الاتجاه العام:</strong>
+                بدأت بملفات تعليمات طويلة و skills جاهزة نزّلتها بالجملة، وانتهيت بـ pipeline صغيرة كتبتها بنفسي ومتجربة: الخطة عقد بين الـ agents، موديل بيقرر وموديل بينفّذ، review loop، gates حقيقية، hooks للبيئة، MCP للتعامل مع الجهاز والمتصفح، والـ docs هي ذاكرة الـ agent.
+            </div>
+
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-when">فبراير – مارس 2026 · مرحلة 0</div>
+                    <div class="tl-title">Copilot instructions</div>
+                    <div class="tl-body">ملف <code>.github/copilot-instructions.md</code> بطريقة «<bdi dir="ltr">Discuss → Architect → Plan → Implement</bdi>» والـ AI كأنه زميل senior، وملفات specs طويلة لكل feature بستخدمها كـ prompts. دي كانت البذرة اللي طلع منها الـ architect/executor/reviewer بعد كده.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-when">يونيو 2026 · مرحلة 1</div>
+                    <div class="tl-title">CLAUDE.md بأسلوب <code>/init</code></div>
+                    <div class="tl-body">خريطة طويلة للكود (16–18KB): الـ layout، الـ git topology، الأوامر، الـ gotchas. وأول skill كتبتها بنفسي: <code>rtl-formatting</code>، عشان الرد العربي المخلوط بكود ومسارات وأرقام يتقري صح في VS Code والـ terminal.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-when">يونيو – يوليو 2026 · مرحلة 2</div>
+                    <div class="tl-title">مرحلة «نزّل skills»</div>
+                    <div class="tl-body">حوالي 32 skill جاهزة من كتالوجات مفتوحة (Spec Kit، flutter-*، code review، debugging…). لسه مفيش agents ولا hooks ولا MCP. اتعلمت إن العدد الكبير مش معناه فايدة: كل skill بتاكل من الـ context، ومعظمها مش عارف حاجة عن مشروعي.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-when">أوائل سبتمبر 2026 · مرحلة 3</div>
+                    <div class="tl-title">Pipeline بنيتها بنفسي</div>
+                    <div class="tl-body">3 agents (architect، executor، reviewer) و3 skills (<code>/plan</code>، <code>/execute</code>، <code>/feature</code>)، وملف <code>.claude/plans/current-task.md</code> هو العقد بينهم. موديل أقوى بيقرر ويراجع، وOpus بينفّذ. واتجربت على شغل حقيقي: خطة 62KB واتضافلها «Addendum» بعد أول round.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-when">أواخر سبتمبر 2026 · مرحلة 4</div>
+                    <div class="tl-title">Settings + Hooks + MCP</div>
+                    <div class="tl-body"><code>settings.json</code> فيه allow/deny، SessionStart hook بيظبط الـ PATH، 10 MCP servers كلها بتقوم من <code>launch.sh</code>، و<code>mcp_probe.py</code> لاختبارها من غير restart. وبعدها Marionette وPatrol عشان الـ agent يسوق التطبيق بنفسه ويعمل E2E على emulator.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-when">16 – 28 سبتمبر 2026 · مرحلة 5</div>
+                    <div class="tl-title">البيئة الكاملة: مكسبي + مشروع الشغل الأساسي</div>
+                    <div class="tl-body">في <strong>مكسبي</strong> (offline-first Flutter) وفي <strong>مشروع الشغل الأساسي <bdi dir="ltr">(Flutter + Django, multi-app)</bdi></strong> (أول نسخة 16 سبتمبر، وv2 في 27–28): ملف <code>CURRENT.md</code> بيعيش بعد الـ compaction، وgates مقارنة بـ baseline، وcode graph، وworkflows فيها كذا agent، وwork loop، وdeploy ledger، ونسخة قابلة للمشاركة <code>claude instr/</code> متشال منها أي state شخصي.</div>
+                </div>
+                <div class="tl-item now">
+                    <div class="tl-when">أكتوبر 2026 · دلوقتي</div>
+                    <div class="tl-title">تنضيف + Kit عام</div>
+                    <div class="tl-body">شلت الـ guard hook من مكسبي لأنه كان بيطلب موافقة كتير في auto mode، وبقت الحماية في الـ rules والـ deny permissions وسكريبت الـ E2E. وجمعت الأجزاء العامة في <a class="roadmap-link" href="#install">Flutter Claude Kit</a> من غير أي تفاصيل خاصة بشركة أو عميل.</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 03 ===== -->
+        <section class="section" id="map">
+            <div class="section-header">
+                <span class="section-tag">// 03 — خريطة البيئة</span>
+                <h2 class="section-title">كل جزء <span class="highlight">وشغلته</span></h2>
+            </div>
+
+            <div class="table-wrap">
+                <table class="map-table">
+                    <thead>
+                        <tr><th>الطبقة</th><th>مكانها</th><th>بتتحمّل امتى</th><th>شغلتها</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>CLAUDE.md</td><td><code>./CLAUDE.md</code></td><td>كل session</td><td>خريطة قصيرة (~90 سطر): الـ layout، أوامر متجربة بتاريخ، «How to work here»، والممنوعات.</td></tr>
+                        <tr><td>Rules</td><td><code>.claude/rules/*.md</code></td><td>لما يلمس ملفات تطابق <code>paths:</code></td><td>conventions لكل جزء (mobile، backend، l10n، e2e…) من غير ما تتقل كل session.</td></tr>
+                        <tr><td>Docs / Design</td><td><code>docs/</code>، <code>design/tokens.md</code></td><td>عند الحاجة</td><td>العقود: architecture، الـ design system، شاشات كل app.</td></tr>
+                        <tr><td>Skills</td><td><code>.claude/skills/&lt;name&gt;/SKILL.md</code></td><td>من الـ description أو <code>/name</code></td><td>طرق شغل: investigate، verify، plan، task-state، e2e…</td></tr>
+                        <tr><td>Agents</td><td><code>.claude/agents/*.md</code></td><td>الـ orchestrator بيستدعيهم</td><td>أدوار ليها موديل وأدوات محددة: architect، executor، reviewer…</td></tr>
+                        <tr><td>Hooks</td><td><code>.claude/hooks/*.sh</code></td><td>events (SessionStart، PreToolUse، PostToolUse)</td><td>حواجز، context بيرجع لوحده، تذكيرات بعد التعديل.</td></tr>
+                        <tr><td>MCP</td><td><code>.mcp.json</code> ← <code>launch.sh</code></td><td>أول الـ session</td><td>أدوات: Dart analyzer، الجهاز، المتصفح، الـ docs.</td></tr>
+                        <tr><td>State</td><td><code>progress/CURRENT.md</code>، <code>plans/</code></td><td>الـ hook بيرجّعها</td><td>ذاكرة بين الـ sessions: الهدف، اللي خلص بإثباته، القرارات، الخطوة الجاية.</td></tr>
+                        <tr><td>Tools</td><td><code>.claude/bin/</code>، <code>tools/</code></td><td>من Bash</td><td>mcp_probe، gates، code graph، check-docs، sync للنسخة المشتركة.</td></tr>
+                        <tr><td>Workflows</td><td><code>.claude/workflows/*.js</code></td><td>يدوي</td><td>شغل متعدد الـ agents: review-changes، investigate-wide، docs-drift، ui-sweep.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">شكل الـ Kit على الديسك</h3>
+            <div class="code-block" data-file="flutter-claude-kit/">
+                <span class="lang-tag">txt</span>
+flutter-claude-kit/
+├── CLAUDE.md                     <span class="cm">project map + rules template (&lt;PLACEHOLDERS&gt;)</span>
+├── .mcp.json                     <span class="cm">dart, marionette, patrol, mobile, playwright, firebase, context7</span>
+└── .claude/
+    ├── settings.json             <span class="cm">permissions (allow/deny) + hook wiring</span>
+    ├── mcp/launch.sh             <span class="cm">PATH-fixing launcher every MCP server goes through</span>
+    ├── hooks/                    <span class="cm">session-env, session-start, guard, e2e-guard, after-edit</span>
+    ├── agents/                   <span class="cm">architect, executor, reviewer, test-runner,</span>
+    │                             <span class="cm">flutter-investigator, ui-auditor</span>
+    ├── skills/&lt;name&gt;/SKILL.md    <span class="cm">plan, execute, feature, investigate, verify-change,</span>
+    │                             <span class="cm">flutter-check, task-state, continue-task, e2e-patrol,</span>
+    │                             <span class="cm">run-app, ui-audit, l10n, db-migration, release, env-doctor</span>
+    ├── rules/mobile.md           <span class="cm">path-scoped Flutter conventions</span>
+    ├── progress/TEMPLATE.md      <span class="cm">task-state template (+ CURRENT.md stub)</span>
+    ├── plans/                    <span class="cm">architect writes current-task.md here</span>
+    ├── bin/                      <span class="cm">mcp_probe.py, gates.sh, check_arb_parity.py</span>
+    ├── baseline/analyze.txt      <span class="cm">known analyzer issues (gates fail only on NEW ones)</span>
+    └── workflows/review-changes.js
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 04 ===== -->
+        <section class="section" id="mcp">
+            <div class="section-header">
+                <span class="section-tag">// 04 — MCP Servers</span>
+                <h2 class="section-title">MCP لـ <span class="highlight">Flutter</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 أول مشكلة هتقابلك — الـ PATH:</strong>
+                Claude Code بيشغّل الـ MCP servers بـ PATH صغير، فـ Flutter اللي متسطب من الـ IDE أو FVM، و<code>~/.pub-cache/bin</code>، وNode من nvm، و<code>adb</code> بيطلعوا «command not found». الحل اللي ثبّته في كل مشروع: كل server يقوم من <code>.claude/mcp/launch.sh</code>، اللي بيدوّر على الـ SDK بالترتيب ده: <bdi dir="ltr">FVM pin → PATH → $FLUTTER_ROOT → FVM default → common install dirs</bdi>، وبعدين يعمل <code>exec</code> للـ server الحقيقي.
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">dart</div>
+                    <div class="card-body">
+                        الـ server الرسمي (<code>dart mcp-server</code>): analyze، LSP (definition / references)، pub، والاتصال بالتطبيق وهو شغال: hot reload، widget inspector، والـ runtime errors. (من Dart 3.12 أدوات زي <code>run_tests</code> و<code>dart_format</code> مقفولة by default، والـ tests بتتشغّل بـ <code>flutter test</code>.) في مشروع الشغل قفلت أدوات الـ format/fix لأن ملفات كتير مش متفرمتة، والـ format لملف كامل بيدفن الـ diff الحقيقي.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🕹️</span>
+                    <div class="card-title">marionette</div>
+                    <div class="card-body">
+                        بيسوق debug build شغال عن طريق الـ VM service: <code>connect</code>، <code>get_interactive_elements</code>، <code>tap</code>، <code>enter_text</code>، screenshots، logs، hot reload. محتاج <code>marionette_flutter</code> و binding جوه <code>kDebugMode</code> بس.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧪</span>
+                    <div class="card-title">patrol</div>
+                    <div class="card-body">
+                        <code>patrol_mcp</code> بيشغّل E2E من <code>patrol_test/</code>: run، status، screenshot، native tree. في monorepo بعمل instance لكل app بـ <code>PROJECT_ROOT</code> بتاعه. <strong>Emulator بس، وعلى dev API بس.</strong>
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📱</span>
+                    <div class="card-title">mobile</div>
+                    <div class="card-body">
+                        <code>@mobilenext/mobile-mcp</code>: يتحكم في الـ emulator: عناصر الشاشة، taps، كتابة، screenshots، logs، وكمان system dialogs زي طلب الـ permissions اللي Flutter نفسه مش شايفها.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🌐</span>
+                    <div class="card-title">playwright</div>
+                    <div class="card-body">
+                        Flutter <strong>web</strong> في متصفح حقيقي (لوحات الأدمن مثلاً). التريكة: دوس على <code>flt-semantics-placeholder</code> الأول عشان الـ semantics tree يتفعّل وتعرف تعمل snapshot وتدوس بالـ role.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔥</span>
+                    <div class="card-title">firebase</div>
+                    <div class="card-body">
+                        أدوات Firestore / Auth / FCM / Crashlytics. <strong>مقفول by default</strong> لأنه بيكلّم project حقيقي. في مكسبي production «hands-off»: الـ agent يعرض preview والأمر، وأنا اللي أنفّذ أي write.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📚</span>
+                    <div class="card-title">context7</div>
+                    <div class="card-body">
+                        docs محدّثة لـ packages الـ pub.dev وغيرها، بدل ما الموديل يفتكر API قديم من الـ training.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🐍</span>
+                    <div class="card-title">django (في مشاريع الـ backend)</div>
+                    <div class="card-body">
+                        <code>mcp-django</code> للـ routes والـ models والـ management commands، بس على test settings بـ SQLite في الميموري، في venv منفصل عشان venv المشروع يفضل مطابق لـ production. الـ introspection مسموح، والـ shell بيسأل.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">الـ <code>.mcp.json</code> — انسخه زي ما هو</h3>
+            <div class="code-block" data-file=".mcp.json">
+                <span class="lang-tag">json</span>
+{
+  <span class="var">"mcpServers"</span>: {
+    <span class="var">"dart"</span>: {
+      <span class="var">"command"</span>: <span class="str">"bash"</span>,
+      <span class="var">"args"</span>: [<span class="str">".claude/mcp/launch.sh"</span>, <span class="str">"dart"</span>, <span class="str">"mcp-server"</span>, <span class="str">"--disable"</span>, <span class="str">"create_project"</span>]
+    },
+    <span class="var">"marionette"</span>: {
+      <span class="var">"command"</span>: <span class="str">"bash"</span>,
+      <span class="var">"args"</span>: [<span class="str">".claude/mcp/launch.sh"</span>, <span class="str">"marionette_mcp"</span>]
+    },
+    <span class="var">"patrol"</span>: {
+      <span class="var">"command"</span>: <span class="str">"bash"</span>,
+      <span class="var">"args"</span>: [<span class="str">".claude/mcp/launch.sh"</span>, <span class="str">"dart"</span>, <span class="str">"pub"</span>, <span class="str">"global"</span>, <span class="str">"run"</span>, <span class="str">"patrol_mcp"</span>],
+      <span class="var">"env"</span>: {
+        <span class="var">"PROJECT_ROOT"</span>: <span class="str">"."</span>,
+        <span class="var">"PATROL_FLAGS"</span>: <span class="str">"--dart-define=API_BASE_URL=&lt;YOUR_DEV_API_URL&gt;"</span>,
+        <span class="var">"PATROL_DEFINES_FILE"</span>: <span class="str">".claude/local/e2e-defines.json"</span>,
+        <span class="var">"SHOW_TERMINAL"</span>: <span class="str">"false"</span>
+      }
+    },
+    <span class="var">"mobile"</span>: {
+      <span class="var">"command"</span>: <span class="str">"bash"</span>,
+      <span class="var">"args"</span>: [<span class="str">".claude/mcp/launch.sh"</span>, <span class="str">"npx"</span>, <span class="str">"-y"</span>, <span class="str">"@mobilenext/mobile-mcp@latest"</span>]
+    },
+    <span class="var">"playwright"</span>: {
+      <span class="var">"command"</span>: <span class="str">"bash"</span>,
+      <span class="var">"args"</span>: [<span class="str">".claude/mcp/launch.sh"</span>, <span class="str">"npx"</span>, <span class="str">"-y"</span>, <span class="str">"@playwright/mcp@latest"</span>]
+    },
+    <span class="var">"firebase"</span>: {
+      <span class="var">"command"</span>: <span class="str">"bash"</span>,
+      <span class="var">"args"</span>: [<span class="str">".claude/mcp/launch.sh"</span>, <span class="str">"npx"</span>, <span class="str">"-y"</span>, <span class="str">"firebase-tools@latest"</span>, <span class="str">"mcp"</span>, <span class="str">"--dir"</span>, <span class="str">"."</span>]
+    },
+    <span class="var">"context7"</span>: {
+      <span class="var">"command"</span>: <span class="str">"bash"</span>,
+      <span class="var">"args"</span>: [<span class="str">".claude/mcp/launch.sh"</span>, <span class="str">"npx"</span>, <span class="str">"-y"</span>, <span class="str">"@upstash/context7-mcp@latest"</span>]
+    }
+  }
+}
+            </div>
+
+            <div class="tip-box practice">
+                <strong>✅ اختبره من غير restart:</strong>
+                <code>.mcp.json</code> بيتقري أول الـ session بس. عشان كده كتبت <code>mcp_probe.py</code> (Python standard library بس): بيكلّم كل server بـ JSON-RPC على stdio، يعمل <code>initialize</code> و<code>tools/list</code>، ويطبع <code>ok</code> أو <code>FAIL</code> لكل واحد. و<code>--call NAME JSON</code> بيشغّل tool من الـ shell ويحفظ الصور.
+            </div>
+
+            <div class="code-block" data-file="lib/main.dart + lib/core/config/api_config.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// lib/main.dart</span>
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="cm">// Marionette needs this binding; never ship it in release.</span>
+  <span class="kw">if</span> (<span class="var">kDebugMode</span>) <span class="cls">MarionetteBinding</span>.<span class="fn">ensureInitialized</span>();
+  <span class="fn">runApp</span>(<span class="kw">const</span> <span class="cls">MyApp</span>());
+}
+
+<span class="cm">// lib/core/config/api_config.dart (the file e2e-guard.sh checks)</span>
+<span class="cm">// API URL overridable from the command line, so E2E can target a dev API:</span>
+<span class="kw">class</span> <span class="cls">ApiConfig</span> {
+  <span class="kw">static const</span> <span class="var">baseUrl</span> = <span class="cls">String</span>.<span class="fn">fromEnvironment</span>(
+    <span class="str">'API_BASE_URL'</span>,
+    defaultValue: <span class="str">'&lt;YOUR_PROD_API_URL&gt;'</span>,
+  );
+}
+            </div>
+
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                <code>patrol_mcp</code> بيختار التليفون الحقيقي الأول لو متوصل، وكل run بيمسح داتا التطبيق. عشان كده الـ E2E عندي emulator بس (فيه سكريبت بيرفض أي <code>-d</code> مش <code>emulator-N</code>)، والـ emulator بياخد حوالي 5GB رام، فالـ patrol servers التقيلة بتبقى مقفولة by default وبفتحها بـ <code>/mcp</code> وقت الحاجة.
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 05 ===== -->
+        <section class="section" id="loop">
+            <div class="section-header">
+                <span class="section-tag">// 05 — Skills & Agents</span>
+                <h2 class="section-title">الـ <span class="highlight">Work Loop</span></h2>
+            </div>
+
+            <div class="hero-flow section-flow">
+                <div class="flow-node">investigate</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">/plan</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">approve</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">/execute</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">verify</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">task-state</div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 قسّم حسب الحجم:</strong>
+                تعديل صغير (ملف واحد، fix واضح) ← <code>investigate</code> ← تعديل مباشر ← <code>verify-change</code>. أي حاجة أكبر (feature جديدة، أكتر من layer، تغيير schema أو API) ← <code>/plan</code> ← أراجع الخطة ← <code>/execute</code>. أو <code>/feature</code> يعمل الاتنين من غير وقفة الموافقة.
+            </div>
+
+            <h3 class="subsection-title lesson-title">الـ Agents: كل واحد ليه دور وموديل</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="model-tag">model: strongest · opus في الـ Kit</span>
+                    <div class="card-title">architect</div>
+                    <div class="card-body">
+                        بيقرا الـ rules والـ docs والكود وبياخد كل القرارات التقنية. الـ output الوحيد: <code>.claude/plans/current-task.md</code> بأقسام ثابتة: Goal، Technical Decisions (ومعاها البدائل اللي اترفضت)، Files To Modify / NOT To Touch، Implementation Steps، Acceptance Criteria، Docs To Update. <strong>عمره ما بينفّذ.</strong>
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="model-tag">model: opus · inherit في الـ Kit</span>
+                    <div class="card-title">executor</div>
+                    <div class="card-body">
+                        بينفّذ الخطة بالظبط. أول حاجة snapshot لـ <code>git status</code> عشان ما يلمسش شغلي. ترتيب ثابت: <bdi dir="ltr">schema → data → domain → cubit → UI → l10n</bdi>، ولازم يشغّل أوامر التحقق ويحط الـ output الحقيقي. ولو لقى تناقض معماري بيقف (STOP) وما يخمّنش.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="model-tag">model: strongest · read-only · opus في الـ Kit</span>
+                    <div class="card-title">reviewer</div>
+                    <div class="card-body">
+                        بيراجع الـ <code>git diff</code> الحقيقي، مش تقرير الـ executor. أول سطر لازم يكون <code>VERDICT: APPROVED</code> أو <code>VERDICT: CHANGES REQUIRED</code> ومعاه «Fix List For Executor» بترجع للـ executor بالحرف. <strong>بحد أقصى 2 rounds.</strong>
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="model-tag">model: inherit · plan mode</span>
+                    <div class="card-title">investigators</div>
+                    <div class="card-body">
+                        read-only للبحث الواسع: مين بينادي الـ endpoint ده؟ الـ cubit ده مستخدم فين؟ الرد أقل من 60 سطر وفيه <code>path:line</code>، فالـ context الرئيسي يفضل نضيف.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="model-tag">model: sonnet</span>
+                    <div class="card-title">test-runner / gate-runner</div>
+                    <div class="card-body">
+                        بيشغّل الأوامر اللي اتقالت له بس، ويرجّع سطر لكل أمر وأول الـ failures. الـ logs الطويلة ما تدخلش الـ context الغالي.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="model-tag">read-only · sonnet في الـ Kit</span>
+                    <div class="card-title">ui-auditor</div>
+                    <div class="card-body">
+                        بيراجع الـ UI على <code>design/tokens.md</code>: dark mode، RTL، مفاتيح l10n في كل لغة، loading/empty/error، accessibility (48dp، text scale 1.3)، والـ shared widgets. كل finding بـ severity و<code>path:line</code> والـ fix بالظبط.
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block" data-file=".claude/agents/architect.md">
+                <span class="lang-tag">md</span>
+---
+<span class="var">name</span>: architect
+<span class="var">description</span>: Lead architect for this Flutter project. Use for any non-trivial task
+  BEFORE code is written. Reads CLAUDE.md, the rules and the code, makes every
+  technical decision, and writes the implementation plan to
+  .claude/plans/current-task.md. Never implements.
+<span class="var">tools</span>: Read, Grep, Glob, Bash, Write
+<span class="var">model</span>: opus
+---
+You are the lead architect. You THINK, ANALYZE, DECIDE and PLAN. You never
+implement: the `executor` agent carries out exactly what you decide, and the
+`reviewer` agent checks the result against your plan.
+            </div>
+
+            <h3 class="subsection-title lesson-title">ذاكرة بتعيش بعد <code>/clear</code> والـ compaction</h3>
+            <div class="tip-box">
+                <strong>💡 الفكرة:</strong>
+                الـ progress ما يتحطش في الـ chat ولا في الـ auto-memory. بيتحط في ملف: <code>.claude/progress/CURRENT.md</code>. الـ skill <code>task-state</code> بيعمل <code>start / update / done</code>، والـ SessionStart hook بيطبع الملف تاني بعد startup أو resume أو clear أو compaction، و<code>continue-task</code> بيقارنه بـ git ويعيد آخر تحقق رخيص ويكمل من غير ما يعيد خطوات خلصت. ولما المهمة تخلص بيتنقل لـ <code class="wrap">progress/archive/YYYY-MM-DD-slug.md</code>.
+            </div>
+            <div class="code-block" data-file=".claude/progress/TEMPLATE.md">
+                <span class="lang-tag">md</span>
+<span class="kw"># Task: &lt;short title&gt;</span>
+status: in-progress
+started: YYYY-MM-DD
+plan: .claude/plans/current-task.md | ticket &lt;id&gt; | ad hoc
+
+<span class="kw">## Goal</span>
+What "done" means and how it will be verified.
+
+<span class="kw">## Pre-existing changes</span>
+Paths already modified before this task started (the user's work).
+
+<span class="kw">## Completed (with verification)</span>
+- YYYY-MM-DD: &lt;what&gt; - verified by `&lt;command&gt;` -&gt; &lt;result&gt;
+
+<span class="kw">## Decisions (why)</span>
+- &lt;decision&gt;: &lt;reason&gt;; rejected &lt;alternative&gt; because &lt;reason&gt;
+
+<span class="kw">## Verification log</span>
+| when | command | result |
+
+<span class="kw">## Next actions</span>
+1.
+            </div>
+
+            <h3 class="subsection-title lesson-title">Skills بستخدمها كل يوم</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🔎</span>
+                    <div class="card-title">investigate / trace-api</div>
+                    <div class="card-body">
+                        trace read-only قبل أي fix: <bdi dir="ltr">route → page → cubit → repository → data source</bdi>، وفي مشاريع الـ backend لحد <bdi dir="ltr">Django urls → view → serializer → model</bdi>. ومعاه <code>git log -S</code> للتاريخ. الـ output: findings بـ <code>path:line</code>، root cause، risks، next action.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">✅</span>
+                    <div class="card-title">verify-change / verify</div>
+                    <div class="card-body">
+                        جدول <code>check | command | result</code>: codegen، <code>flutter analyze</code> (الجديد بس)، أقرب tests، arb parity، فحص إن مفيش ملفات تانية اتلمست، ومفيش secrets أو debug. وقسم «Not verified» بالسبب.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧱</span>
+                    <div class="card-title">gates بـ baseline</div>
+                    <div class="card-body">
+                        مشروع قديم فيه analyzer issues من زمان؟ <code>gates.sh</code> بيقارن بـ <code>.claude/baseline/</code> ويفشل على الـ issues <strong>الجديدة</strong> بس، ويقولك كمان على اللي اتصلّح.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🕸️</span>
+                    <div class="card-title">code graph</div>
+                    <div class="card-body">
+                        سكريبت Python من غير dependencies بيعمل index: <bdi dir="ltr">routes → pages → cubits → API calls</bdi>، وفي مشروع الشغل بيربط calls الـ Flutter بالـ Django endpoints عبر الـ repos. بيجاوب «لو غيّرت ده إيه يتكسر» من غير ما يقرا الـ repo كله. وفي مكسبي: لو <code>--impact</code> لمس أكتر من 3 modules يبقى لازم <code>/plan</code>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔂</span>
+                    <div class="card-title">work loop (<code>/next-task</code>)</div>
+                    <div class="card-body">
+                        في مكسبي: <code>/loop</code> بياخد أول item من <code>QUEUE.md</code> أو <code>PLAN.md</code>، يحدد حجمه، ينفّذه، يشغّل <code>/verify</code>، ويسجّل، ويخلص بسطر واحد <code class="wrap">LOOP: DONE|PROGRESS|QUEUE_EMPTY|BLOCKED|GATE_RED|CAP</code>. وفيه حد أقصى للـ iterations.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧑‍⚖️</span>
+                    <div class="card-title">review-changes workflow</div>
+                    <div class="card-body">
+                        مراجعة عدائية: agent يحدد الـ scope، وبعدين reviewers بالتوازي لكل بُعد (correctness، architecture، data/API، UI/l10n، security)، وبعدين 2 skeptics لكل finding. في الـ Kit الـ finding بيتشال بس لو الاتنين نفوه.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 06 ===== -->
+        <section class="section" id="hooks">
+            <div class="section-header">
+                <span class="section-tag">// 06 — Hooks</span>
+                <h2 class="section-title">الـ <span class="highlight">Hooks</span>: حواجز وتذكير</h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧭</span>
+                    <div class="card-title">session-env.sh</div>
+                    <div class="card-body">
+                        <strong>SessionStart:</strong> بيكتب PATH exports في <code>$CLAUDE_ENV_FILE</code> عشان كل أمر Bash يلاقي Flutter (ومعاه FVM)، وأدوات الـ pub-cache، وNode، و<code>adb</code>. لو مش لاقي حاجة يعدّيها بهدوء ومايوقّعش الـ session.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧠</span>
+                    <div class="card-title">session-start.sh</div>
+                    <div class="card-body">
+                        <strong>SessionStart (startup | resume | compact | clear):</strong> بيرجّع <code>CURRENT.md</code> لو فيه مهمة شغالة، وأي plan مفتوحة، والـ branch وعدد الملفات المتعدلة مع جملة «ده شغل المستخدم، ما ترميهوش». في مشروع الشغل كمان بيعدّ الـ deploys اللي لسه ما نزلتش ويقول لو الـ code graph قديم.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🚧</span>
+                    <div class="card-title">guard.sh</div>
+                    <div class="card-body">
+                        <strong>PreToolUse (Bash):</strong> <strong>deny</strong> لطباعة <code>.env</code> و<code>key.properties</code> والـ keystores والـ service accounts. <strong>ask</strong> قبل <code>git push</code>، <code>reset --hard</code>، <code>rm -rf</code>، <code>firebase deploy</code>، <code>pm clear</code>، patrol من غير <code>-d emulator-N</code>، و<code>dart format .</code>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧯</span>
+                    <div class="card-title">e2e-guard.sh</div>
+                    <div class="card-body">
+                        <strong>PreToolUse (<code>mcp__patrol__run</code>):</strong> بيسأل لو الـ dev API لسه placeholder، أو ملف الـ API مش بيستخدم <code>String.fromEnvironment</code> (يعني الـ run هيضرب production)، أو patrol مش في الـ pubspec، أو فيه تليفون حقيقي متوصل.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">✍️</span>
+                    <div class="card-title">after-edit.sh</div>
+                    <div class="card-body">
+                        <strong>PostToolUse (Edit | Write):</strong> <code>dart format</code> و<code>dart analyze</code> للملف اللي اتعدّل <strong>بس</strong>، والـ errors بترجع لـ Claude كـ context. وتذكيرات مرة واحدة في الـ session: build_runner لو فيه <code>part '*.g.dart'</code>، المفاتيح في كل ملفات الـ <code>.arb</code>، schema bump، <code>pub get</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block" data-file=".claude/settings.json (hooks)">
+                <span class="lang-tag">json</span>
+<span class="var">"hooks"</span>: {
+  <span class="var">"SessionStart"</span>: [
+    { <span class="var">"hooks"</span>: [{ <span class="var">"type"</span>: <span class="str">"command"</span>, <span class="var">"command"</span>: <span class="str">"bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-env.sh"</span>, <span class="var">"timeout"</span>: <span class="num">10</span> }] },
+    { <span class="var">"matcher"</span>: <span class="str">"startup|resume|compact|clear"</span>,
+      <span class="var">"hooks"</span>: [{ <span class="var">"type"</span>: <span class="str">"command"</span>, <span class="var">"command"</span>: <span class="str">"bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh"</span>, <span class="var">"timeout"</span>: <span class="num">20</span> }] }
+  ],
+  <span class="var">"PreToolUse"</span>: [
+    { <span class="var">"matcher"</span>: <span class="str">"Bash"</span>,
+      <span class="var">"hooks"</span>: [{ <span class="var">"type"</span>: <span class="str">"command"</span>, <span class="var">"command"</span>: <span class="str">"bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard.sh"</span>, <span class="var">"timeout"</span>: <span class="num">10</span> }] },
+    { <span class="var">"matcher"</span>: <span class="str">"mcp__patrol__run"</span>,
+      <span class="var">"hooks"</span>: [{ <span class="var">"type"</span>: <span class="str">"command"</span>, <span class="var">"command"</span>: <span class="str">"bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/e2e-guard.sh"</span>, <span class="var">"timeout"</span>: <span class="num">15</span> }] }
+  ],
+  <span class="var">"PostToolUse"</span>: [
+    { <span class="var">"matcher"</span>: <span class="str">"Edit|Write|MultiEdit"</span>,
+      <span class="var">"hooks"</span>: [{ <span class="var">"type"</span>: <span class="str">"command"</span>, <span class="var">"command"</span>: <span class="str">"bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/after-edit.sh"</span>, <span class="var">"timeout"</span>: <span class="num">60</span> }] }
+  ]
+}
+            </div>
+
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off اللي اتعلمته:</strong>
+                hook بيسأل على كل حاجة خطيرة شكله آمن، بس في auto mode بيوقف الشغل كل شوية. في مكسبي شلت الـ guard والـ format hook، وبقت الحماية في <code>CLAUDE.md</code> والـ rules والـ <code>deny</code> في <code>settings.json</code> وسكريبت الـ E2E اللي بيرفض أي جهاز مش emulator. وفي الـ Kit: شيل من <code>guard.sh</code> اللي مش محتاجه، والـ <code>deny</code> هتفضل شغالة. وكمان الـ format on edit: لو الـ repo مش متفرمت أصلاً، أول تعديل هيفرمت الملف كله ويدفن الـ diff، عشان كده فيه <code>KIT_FORMAT_ON_EDIT=0</code>.
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 07 ===== -->
+        <section class="section" id="install">
+            <div class="section-header">
+                <span class="section-tag">// 07 — التركيب</span>
+                <h2 class="section-title">ركّبها في <span class="highlight">مشروعك</span></h2>
+            </div>
+
+            <div class="tip-box practice">
+                <strong>📦 Flutter Claude Kit:</strong>
+                نسخة عامة من البيئة دي، من غير أي اسم شركة أو host أو app id. فيها 7 MCP servers، و6 agents، و15 skill، و5 hooks، وأدوات الـ probe والـ gates. كل اللي عليك تملا الـ <code>&lt;PLACEHOLDERS&gt;</code> وتشيل اللي مش محتاجه.
+                <div class="link-row">
+                    <a class="portfolio-link primary" href="ai-setup/flutter-claude-kit.zip" download dir="ltr">⬇ flutter-claude-kit.zip</a>
+                    <a class="portfolio-link" href="https://github.com/eslamabid175/eslamabid175.github.io/tree/main/ai-setup/flutter-claude-kit" target="_blank" rel="noopener">تصفّح الـ Kit على GitHub</a>
+                    <a class="portfolio-link" href="https://github.com/eslamabid175/eslamabid175.github.io/blob/main/ai-setup/flutter-claude-kit/README.md" target="_blank" rel="noopener" dir="ltr">README.md</a>
+                    <a class="portfolio-link" href="https://github.com/eslamabid175/eslamabid175.github.io/blob/main/ai-setup/flutter-claude-kit/.mcp.json" target="_blank" rel="noopener" dir="ltr">.mcp.json</a>
+                    <a class="portfolio-link" href="https://github.com/eslamabid175/eslamabid175.github.io/blob/main/ai-setup/flutter-claude-kit/CLAUDE.md" target="_blank" rel="noopener" dir="ltr">CLAUDE.md</a>
+                    <a class="portfolio-link" href="https://github.com/eslamabid175/eslamabid175.github.io/blob/main/ai-setup/flutter-claude-kit/.claude/settings.json" target="_blank" rel="noopener" dir="ltr">settings.json</a>
+                </div>
+            </div>
+
+            <ol class="steps">
+                <li><strong>المتطلبات:</strong> Claude Code، وFlutter فيه <strong>Dart 3.12 أو أحدث</strong> (عشان <code>dart mcp-server</code> والـ flag <code>--disable</code>؛ على 3.10/3.11 غيّره لـ <code>--exclude-tool</code> والتفاصيل في الـ README)، وNode 20+، وAndroid SDK ومعاه emulator، وpython3. واختياري: Patrol CLI و<code>patrol_mcp</code> و<code>marionette_mcp</code>.</li>
+                <li><strong>انسخ الـ Kit</strong> في root المشروع بـ <code>cp -rn</code> عشان ما يكتبش فوق ملفاتك. لو عندك <code>CLAUDE.md</code> أو <code>settings.json</code> قبل كده، ادمجهم بإيدك.</li>
+                <li><strong>املا الـ placeholders:</strong> اسم المشروع والـ stack والأوامر في <code>CLAUDE.md</code>، والـ dev API في <code>.mcp.json</code>، والـ architecture في <code>rules/mobile.md</code>، وملف الـ API في <code>e2e-guard.sh</code>. لو monorepo كرر الـ <code>patrol</code> entry لكل app.</li>
+                <li><strong>خلّي الـ API URL يتغير من بره</strong> بـ <code class="wrap">String.fromEnvironment('API_BASE_URL')</code>، وإلا الـ E2E هيضرب production.</li>
+                <li><strong>اعمل baseline</strong> للـ analyzer issues الحالية: <code class="wrap">bash .claude/bin/gates.sh --update-baseline</code>، فالـ gates تفشل على الجديد بس.</li>
+                <li><strong>اتأكد:</strong> افتح <code>claude</code>، وافق على الـ MCP servers، و<code>/mcp</code>. أو من الـ shell: <code class="wrap">python3 .claude/bin/mcp_probe.py</code>. و<code>/env-doctor</code> بيفحص الباقي.</li>
+                <li><strong>اعمل commit</strong> للـ Kit (ما عدا اللي في <code>.claude/.gitignore</code>) عشان فريقك ياخده.</li>
+            </ol>
+
+            <div class="code-block" data-file="terminal">
+                <span class="lang-tag">bash</span>
+<span class="cm"># 1) copy the kit into your Flutter repo (never overwrite your files)</span>
+unzip flutter-claude-kit.zip
+cp -rn flutter-claude-kit/. /path/to/your_app/
+cd /path/to/your_app
+chmod +x .claude/hooks/*.sh .claude/mcp/launch.sh .claude/bin/*
+
+<span class="cm"># 2) find every placeholder you still need to fill</span>
+grep -rn '&lt;[A-Z_]*&gt;' CLAUDE.md .mcp.json .claude
+
+<span class="cm"># 3) optional tools for device control and E2E</span>
+dart pub global activate patrol_cli
+dart pub global activate patrol_mcp
+dart pub global activate marionette_mcp
+
+<span class="cm"># 4) snapshot today's analyzer issues, then check every MCP server</span>
+bash .claude/bin/gates.sh --update-baseline
+python3 .claude/bin/mcp_probe.py
+
+<span class="cm"># 5) start working</span>
+claude
+<span class="cm">#   /plan add offline favourites   -&gt; review the plan</span>
+<span class="cm">#   /execute                       -&gt; executor + reviewer, max 2 rounds</span>
+<span class="cm">#   /verify-change                 -&gt; evidence table</span>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 لو الـ SDK في مكان مش معروف:</strong>
+                اعمل <code class="wrap">export FLUTTER_ROOT=/path/to/flutter</code> قبل ما تفتح Claude، أو زوّد المسار في <code>launch.sh</code> و<code>session-env.sh</code>. والـ models في الـ agents (<code>opus</code> / <code>sonnet</code> / <code>inherit</code>) غيّرها على حسب اشتراكك وميزانيتك.
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 08 ===== -->
+        <section class="section" id="lessons">
+            <div class="section-header">
+                <span class="section-tag">// 08 — أخطاء اتعلمتها</span>
+                <h2 class="section-title">Lessons & <span class="highlight">Trade-offs</span></h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">💸</span>
+                    <div class="card-title">الـ tokens فلوس</div>
+                    <div class="card-body">
+                        الموديل الأقوى للقرار والمراجعة بس، والتنفيذ بـ Opus، والشغل الميكانيكي (tests، gates) بـ Sonnet. الـ investigators بيرجّعوا أقل من 60 سطر، والـ logs ما تدخلش الـ context. و<code>CLAUDE.md</code> قصير لأنه بيتحمّل كل session.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧺</span>
+                    <div class="card-title">skills كتير ≠ أحسن</div>
+                    <div class="card-body">
+                        نزّلت حوالي 32 skill جاهزة ومعظمها ما اتستخدمش، وكانت بتاكل context. 15 skill صغيرة مكتوبة على مقاس المشروع أنفع بكتير. وبراجع كل فترة أنهي skills بتتستخدم فعلاً.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📄</span>
+                    <div class="card-title">الـ docs بتقدم</div>
+                    <div class="card-body">
+                        doc غلط أخطر من مفيش doc، لأن الـ agent بيصدّقه. الحل: «الكود يكسب، صلّح الـ doc في نفس التغيير»، وقسم Docs To Update في كل خطة، و<code>check-docs.py</code> للينكات والمسارات الميتة، وworkflow بيعمل fact-check لكل doc بـ agent مستقل.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔐</span>
+                    <div class="card-title">الـ agent ما يشوفش secrets</div>
+                    <div class="card-body">
+                        <code>deny</code> لقراية <code>.env</code> والـ keystores والـ service accounts، والـ test accounts في ملف شخصي gitignored بيتضاف للـ flags من غير ما يتقري. وأي write على production: الـ agent يعرض preview والأمر، وأنا اللي أنفّذ.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧾</span>
+                    <div class="card-title">مفيش «خلصت» من غير دليل</div>
+                    <div class="card-body">
+                        الـ executor لازم يحط output الأوامر الحقيقي، والـ reviewer بيبص على الـ diff مش على التقرير. وتستات الـ Django بتشتغل على SQLite في الميموري، مش على داتا حقيقية.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔌</span>
+                    <div class="card-title">الشغل الطويل بيموت</div>
+                    <div class="card-body">
+                        restart للـ session قتل agents كانت شغالة في workflow. الحل: كل agent يكتب <code>progress-&lt;role&gt;.md</code> وكل مهمة كبيرة ليها فولدر فيه <code>STATE.md</code>، فأي حد يكمل من مكان ما وقف.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off الأكبر:</strong>
+                البيئة نفسها كود لازم يتصان: hooks وskills وdocs بتقدم مع الوقت (لسه فيه agent في مكسبي بيتكلم عن format hook اتشال). عشان كده بخلّي كل حاجة صغيرة وقابلة للفحص: <code>mcp_probe</code> للـ servers، <code>check-docs</code> للـ docs، و<code>--check</code> للنسخة المشتركة اللي بيتشال منها الـ state الشخصي.
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ===== 09 ===== -->
+        <section class="section" id="quiz">
+            <div class="section-header">
+                <span class="section-tag">// 09 — اختبر نفسك</span>
+                <h2 class="section-title">اختبر <span class="highlight">نفسك</span></h2>
+            </div>
+
+            <div class="qa-list">
+                <div class="qa-head">🧪 جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>الـ MCP server بيقول «<bdi dir="ltr">dart: command not found</bdi>» مع إن Flutter شغال في الـ terminal عندي. ليه، وإيه الحل؟</summary>
+                    <p>لأن Claude Code بيشغّل الـ stdio servers بـ PATH صغير مش بتاع الـ shell بتاعك. الحل إن كل server يقوم من wrapper زي <code>launch.sh</code> بيدوّر على الـ SDK والـ pub-cache وNode وadb ويضيفهم للـ PATH، وبعدين أختبره بـ <code>mcp_probe.py</code> من غير restart.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>عملت <code>/clear</code> في نص مهمة كبيرة. الـ agent هيعرف يكمل إزاي؟</summary>
+                    <p>من <code>.claude/progress/CURRENT.md</code>: الـ SessionStart hook بيطبعه تاني بعد الـ clear، و<code>/continue-task</code> بيقارنه بـ <code>git status</code> و<code>git log</code>، ويعيد آخر تحقق رخيص، ويكمل من الـ Next action من غير ما يعيد خطوات خلصت.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>ليه الـ reviewer بيراجع الـ git diff ومش تقرير الـ executor؟ وليه حد أقصى 2 rounds؟</summary>
+                    <p>لأن التقرير ممكن يقول «عملت» واللي في الكود حاجة تانية؛ الـ diff هو الحقيقة. والحد الأقصى بيمنع loop لا نهائي بيحرق tokens: لو بعد 2 rounds لسه فيه مشاكل، يبقى غالباً المشكلة في الخطة نفسها وترجع للـ architect أو ليا.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>إيه اللي يضمن إن E2E بالـ Patrol ما يضربش على production؟</summary>
+                    <p>3 طبقات: الـ API URL بيتغير بـ <code>String.fromEnvironment</code> والـ <code>PATROL_FLAGS</code> فيها الـ dev API، و<code>e2e-guard.sh</code> بيسأل لو ده مش متظبط أو فيه تليفون حقيقي متوصل، والتشغيل على emulator بس لأن كل run بيمسح داتا التطبيق.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>الـ repo مليان analyzer warnings قديمة. إزاي أخلي الـ gate مفيد بدل ما يبقى أحمر على طول؟</summary>
+                    <p>أعمل baseline بالـ issues الحالية (<code>gates.sh --update-baseline</code>)، والـ gate يقارن بيها ويفشل على الـ issues الجديدة بس. والـ baseline ما يتحدّثش غير بموافقتي، عشان الـ agent ما يخبّيش مشاكل جديدة فيه.</p>
+                </details>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div style="margin-bottom:8px;"><span style="font-size:22px;">🤖</span></div>
+            <div>AI Environment — <span>بيئة Claude Code لمشاريع Flutter</span></div>
+            <div dir="ltr" style="margin-top:8px; font-size:11px; opacity:0.5;">
+                CLAUDE.md → Rules → MCP → Skills & Agents → Hooks → Progress State → Workflows
+            </div>
+            <div style="margin-top:14px; font-size:12px; color:var(--text-muted);">
+                <a class="roadmap-link" href="ai-setup/flutter-claude-kit.zip" download>تحميل الـ Kit</a> · <a class="roadmap-link" href="index.html">الرجوع للبورتفوليو</a>
+            </div>
+            <span data-visits hidden><span data-visits-value></span> زيارة للبورتفوليو لحد دلوقتي</span>
+        </footer>
+    </div>
+
+    <script>
+        function enhanceCodeBlocks() {
+            document.querySelectorAll('.code-block').forEach((block) => {
+                if (block.dataset.enhanced === 'true') return;
+
+                const langEl = block.querySelector('.lang-tag');
+                const lang = (langEl?.textContent || block.dataset.lang || 'code').trim().toLowerCase();
+                const title = block.dataset.file || `${lang}-snippet`;
+                let rawHtml = block.innerHTML;
+
+                if (langEl) {
+                    rawHtml = rawHtml.replace(langEl.outerHTML, '');
+                }
+
+                rawHtml = rawHtml.replace(/^\s*\n/, '').replace(/\n+\s*$/, '');
+                const lines = rawHtml.split('\n');
+                const renderedLines = lines.map((line, index) => {
+                    const content = line.length ? line : '&nbsp;';
+                    return `<div class="code-line"><span class="code-line-no">${index + 1}</span><span class="code-line-code">${content}</span></div>`;
+                }).join('');
+
+                block.innerHTML = `
+                    <div class="code-toolbar">
+                        <div class="code-window-actions">
+                            <span class="code-dot red"></span>
+                            <span class="code-dot yellow"></span>
+                            <span class="code-dot green"></span>
+                        </div>
+                        <div class="code-toolbar-meta">
+                            <span class="code-title">${title}</span>
+                            <span class="code-toolbar-lang">${lang}</span>
+                        </div>
+                        <button type="button" class="copy-btn">Copy</button>
+                    </div>
+                    <div class="code-frame">${renderedLines}</div>
+                `;
+
+                const btn = block.querySelector('.copy-btn');
+                btn.addEventListener('click', () => {
+                    const text = Array.from(block.querySelectorAll('.code-line-code'))
+                        .map((el) => el.textContent.replace(/^ $/, ''))
+                        .join('\n');
+                    const done = () => {
+                        btn.textContent = 'Copied';
+                        btn.classList.add('done');
+                        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+                    };
+                    const fallback = () => {
+                        const ta = document.createElement('textarea');
+                        ta.value = text;
+                        ta.style.position = 'fixed';
+                        ta.style.opacity = '0';
+                        document.body.appendChild(ta);
+                        ta.select();
+                        try { document.execCommand('copy'); done(); } catch (e) {}
+                        ta.remove();
+                    };
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(text).then(done, fallback);
+                    } else {
+                        fallback();
+                    }
+                });
+
+                block.dataset.enhanced = 'true';
+            });
+        }
+
+        enhanceCodeBlocks();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, entry.target.dataset.delay || 0);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('[data-animate]').forEach((el, i) => {
+            el.dataset.delay = (i % 4) * 120;
+            observer.observe(el);
+        });
+
+        const sections = ['hero', 'why', 'evolution', 'map', 'mcp', 'loop', 'hooks', 'install', 'lessons', 'quiz'];
+        const dots = document.querySelectorAll('.nav-dot');
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = sections.indexOf(entry.target.id);
+                    dots.forEach(d => d.classList.remove('active'));
+                    if (idx >= 0) dots[idx].classList.add('active');
+                }
+            });
+        }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sectionObserver.observe(el);
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+<script src="js/visits.js" defer></script>
+</body>
+
+</html>
