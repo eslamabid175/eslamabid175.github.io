@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eslam Aped Resume</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -239,6 +239,12 @@
             text-decoration: underline;
         }
 
+        @media screen and (max-width: 600px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media print {
             body {
                 padding: 0;
@@ -253,10 +259,28 @@
 
             .section {
                 margin-bottom: 8px;
+                break-inside: auto;
+                page-break-inside: auto;
+            }
+
+            .skill-group,
+            .cert-item,
+            .edu-card {
+                break-inside: avoid;
             }
 
             .experience-item {
                 margin-bottom: 8px;
+            }
+
+            .role-head,
+            .role-company {
+                break-after: avoid;
+            }
+
+            ul.compact-list li,
+            .project-links .app-row {
+                break-inside: avoid;
             }
 
             ul.compact-list li {
@@ -325,7 +349,7 @@
                     <div class="role-company">
                         <span class="company-name">Cogens</span>
                         <span class="company-meta">
-                            <span class="meta-item"><i class="bi bi-calendar3"></i>Jan 2025 - Present</span>
+                            <span class="meta-item"><i class="bi bi-calendar3"></i>Sep 2025 - Present</span>
                             <span class="meta-item"><i class="bi bi-geo-alt"></i>Canada (Remote)</span>
                         </span>
                     </div>
@@ -333,7 +357,8 @@
                         <li>Scaled a multi-app school ecosystem (Parent, Student, Staff, Bus, Admin, Vendor).</li>
                         <li>Built Django multi-tenant backend, real-time notifications, and billing/report workflows.</li>
                         <li>Implemented token/JWT auth, role-based access, and standardized API contracts across modules.</li>
-                        <li>Key projects: Cogens Parent, Cogens Student, Cogens Staff, Cogens Bus Driver, MACLINK.</li>
+                        <li>Team work with Abdalrhman Reda on Muslim Association of Canada apps: MAC Convention (conference booking &amp; registration) and MAC Work (internal staff app), alongside MACLINK.</li>
+                        <li>Key projects: Cogens Parent, Cogens Student, Cogens Staff, Cogens Bus Driver, MACLINK, MAC Convention, MAC Work.</li>
                     </ul>
                     <div class="project-links">
                         <div class="app-row"><strong>Cogens Parent:</strong> <a href="https://apps.apple.com/eg/app/cogens-parent/id1607885469">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.trispects.school.parents">Play Store</a></div>
@@ -341,6 +366,8 @@
                         <div class="app-row"><strong>Cogens Staff:</strong> <a href="https://apps.apple.com/eg/app/cogens-staff/id1607885245">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.trispects.school.management">Play Store</a></div>
                         <div class="app-row"><strong>Cogens Bus Driver:</strong> <a href="https://apps.apple.com/eg/app/cogens-bus-driver/id6479618217">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.trispects.school.bus.driver">Play Store</a></div>
                         <div class="app-row"><strong>MACLINK:</strong> <a href="https://apps.apple.com/us/app/maclink/id6502847350">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.mac.maclink&pcampaignid=web_share">Play Store</a></div>
+                        <div class="app-row"><strong>MAC Convention (team):</strong> <a href="https://apps.apple.com/eg/app/mac-convention/id6778484730">App Store</a> | <a href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.convention">Play Store</a></div>
+                        <div class="app-row"><strong>MAC Work (team):</strong> <a href="https://apps.apple.com/eg/app/mac-work/id6783499971">App Store</a> | <a href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.work">Play Store</a></div>
                     </div>
                 </div>
 
@@ -358,11 +385,17 @@
                     <ul class="compact-list">
                         <li>Shipped production apps with maps, live tracking, localization, and secure payment flows.</li>
                         <li>Integrated backend services and deployment pipelines for end-to-end delivery.</li>
-                        <li>Key projects: Aman, NooN, Yalla L3b.</li>
+                        <li>Mksaby (built solo, end-to-end): Arabic-first, offline-first shop sales &amp; inventory app; feature-first Clean Architecture, BLoC, Drift (22 synced tables) with outbox sync to Firestore, phone/WhatsApp OTP, PDF invoices, granular employee permissions, Sentry, Patrol E2E and ~229 unit/widget test files.</li>
+                        <li>Snippet (performance optimization): image &amp; video compression, video thumbnail generation, play-on-open feed videos, and image caching across feeds and stories for media-heavy screens.</li>
+                        <li>Alarmiq &amp; Yusr (co-developed with Abdalrhman Reda): smart alarm suite (interval batch alarms, GPS trip alarm, world clock, timers) and an Islamic companion (Quran &amp; tafsir, prayer times, Qibla, Prophet's biography).</li>
+                        <li>Key projects: Mksaby, Snippet, Alarmiq, Yusr (formerly NooN), Aman, Yalla L3b.</li>
                     </ul>
                     <div class="project-links">
+                        <div class="app-row"><strong>Mksaby (solo):</strong> <a href="https://play.google.com/store/apps/details?id=com.mksaby.app">Play Store</a></div>
+                        <div class="app-row"><strong>Snippet (performance):</strong> <a href="https://play.google.com/store/apps/details?id=com.stackmassage.stackmassage">Play Store</a></div>
+                        <div class="app-row"><strong>Alarmiq (co-developed):</strong> <a href="https://apps.apple.com/us/app/alarmiq/id6797606606">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.alarmiq.app">Play Store</a></div>
+                        <div class="app-row"><strong>Yusr (co-developed):</strong> <a href="https://apps.apple.com/eg/app/%D9%86-noon-%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D9%88%D8%A7%D9%84%D8%A3%D8%B0%D9%83%D8%A7%D8%B1/id6759193445">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.nooralhuda.noor">Play Store</a></div>
                         <div class="app-row"><strong>Aman:</strong> <a href="https://apps.apple.com/eg/app/aman-oman/id6759229386">App Store</a> | <a href="https://play.google.com/store/apps/details?id=com.omanaman.aman&pcampaignid=web_share">Play Store</a></div>
-                        <div class="app-row"><strong>NooN:</strong> <a href="https://apps.apple.com/us/app/%D9%86-noon-%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D9%88%D8%A7%D9%84%D8%A3%D8%B0%D9%83%D8%A7%D8%B1/id6759193445">App Store</a></div>
                         <div class="app-row"><strong>Yalla L3b:</strong> <a href="https://play.google.com/store/apps/details?id=com.yallaL3b.app">Play Store</a></div>
                     </div>
                 </div>
@@ -380,6 +413,7 @@
                 <div class="section-title"><i class="bi bi-patch-check-fill"></i>Certifications</div>
                 <div class="cert-item"><i class="bi bi-award-fill"></i><span>The Complete Flutter &amp; Dart - Udemy (2022)</span></div>
                 <div class="cert-item"><i class="bi bi-award-fill"></i><span>Multi-Modular &amp; Clean Architecture - Udemy (2021)</span></div>
+                <div class="cert-item"><i class="bi bi-award-fill"></i><span><strong>Senior / Lead Training - completed:</strong> 30 lessons across 6 tracks: Django backend in depth, Flutter in depth, System Design, DevOps &amp; Production, Code Quality, and Lead Skills.</span></div>
             </div>
         </div>
 
@@ -387,22 +421,29 @@
             <div class="section">
                 <div class="section-title"><i class="bi bi-person-circle"></i>Summary</div>
                 <p class="summary">
-                    Software Engineer with 3+ years of experience building scalable, high-performance mobile and backend systems.
+                    Software Engineer with 3+ years of experience building scalable, high-performance mobile and backend systems,
+                    with 16 apps published on the App Store and Google Play.
                     Specialized in Flutter and Python (Django, FastAPI, Flask), with strong ownership of architecture, deployment,
-                    and production quality.
+                    and production quality. Completed Senior / Lead training in system design, database &amp; ORM performance,
+                    offline-first sync, observability, testing strategy, ADRs, incident handling, and mentoring.
                 </p>
             </div>
 
             <div class="section">
                 <div class="section-title"><i class="bi bi-tools"></i>Skills</div>
-                <div class="skill-group"><strong>Mobile:</strong> Flutter, Dart, State Management, Debugging, SDLC</div>
-                <div class="skill-group"><strong>Backend:</strong> Python, Django/DRF, FastAPI, Flask, REST APIs</div>
-                <div class="skill-group"><strong>Data:</strong> PostgreSQL, MySQL, SQLite, Hive</div>
-                <div class="skill-group"><strong>DevOps:</strong> Docker, Nginx, CI/CD, GitHub Actions, Codemagic</div>
+                <div class="skill-group"><strong>Languages:</strong> Dart, Python, JavaScript, C++, C#, PHP, R, GDScript</div>
+                <div class="skill-group"><strong>Mobile:</strong> Flutter, Dart, Android, iOS, Bloc/Cubit, Riverpod, Provider, Responsive UI, Localization (RTL), Debugging, SDLC</div>
+                <div class="skill-group"><strong>Backend:</strong> Python, Django/DRF, FastAPI, Flask, Node.js/Express, REST APIs, GraphQL</div>
+                <div class="skill-group"><strong>Data:</strong> PostgreSQL, MySQL, SQLite/Sqflite, Hive, Drift, Firestore, MongoDB, Offline-first Sync</div>
+                <div class="skill-group"><strong>Testing:</strong> Unit, Widget, Integration (Patrol E2E)</div>
+                <div class="skill-group"><strong>DevOps:</strong> Docker, Nginx, CI/CD, GitHub Actions, Codemagic, Fastlane, TestFlight, Store Deployment</div>
+                <div class="skill-group"><strong>Platform:</strong> FCM Push, Google Maps SDK, In-App Purchases, HLS Streaming, Media Compression, Sentry</div>
+                <div class="skill-group"><strong>Senior / Lead:</strong> System Design, DB Indexing &amp; Query Optimization, Transactions &amp; Concurrency, Caching, API Design, Security (AuthN/AuthZ, JWT, SQLi/XSS), Observability, SOLID &amp; Design Patterns, ADRs, Estimation, Incident Postmortems, Mentoring</div>
+                <div class="skill-group"><strong>Other:</strong> Godot, Unity, Figma, Material Design, Animations, Agile/Scrum</div>
                 <div class="skill-group"><strong>Cloud &amp; Hosting:</strong> Firebase (Auth, FCM, Firestore), AWS (EC2/S3 basics), Hetzner Cloud (VPS)</div>
                 <div class="skill-group"><strong>Domain (Cogens):</strong> Education Systems Management</div>
                 <div class="skill-group"><strong>Domain (3I Vision Watch Area):</strong> AI-Powered Computer Vision + ERP + IoT for Security, Automation, and Analytics Solutions</div>
-                <div class="skill-group"><strong>Domain (Freelance):</strong> Transportation &amp; Booking Systems Management</div>
+                <div class="skill-group"><strong>Domain (Freelance):</strong> Transportation &amp; Booking Systems Management, Retail POS &amp; Inventory, Social Media, Productivity</div>
                 <div class="chip-line">
                     <span class="chip">Clean Architecture</span>
                     <span class="chip">Performance</span>

@@ -434,6 +434,90 @@
 
         .tip-box strong { color: var(--accent-dark); }
 
+        .tip-box.tradeoff {
+            background: #FFF7ED;
+            border-color: rgba(217, 119, 6, 0.25);
+        }
+
+        .tip-box.tradeoff strong { color: #B45309; }
+
+        .tip-box.practice {
+            background: #ECFDF5;
+            border-color: rgba(5, 150, 105, 0.25);
+        }
+
+        .tip-box.practice strong { color: #047857; }
+
+        .code-block + .code-block,
+        .cards-grid + .code-block,
+        .code-block + .cards-grid,
+        .cards-grid + .cards-grid { margin-top: 20px; }
+
+        .section-flow {
+            margin: 24px auto;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .lesson-title::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-left: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            vertical-align: middle;
+        }
+
+        .roadmap-link {
+            color: var(--accent-dark);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(3, 105, 161, 0.4);
+        }
+
+        .roadmap-link:hover { color: var(--accent); }
+
+        .qa-list {
+            display: grid;
+            gap: 10px;
+            margin: 20px 0;
+            direction: rtl;
+        }
+
+        .qa-head {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .qa-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.25s ease;
+        }
+
+        .qa-item[open] { border-color: var(--accent); }
+
+        .qa-item summary {
+            cursor: pointer;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .qa-item summary::marker { color: var(--accent); }
+
+        .qa-item p {
+            margin-top: 10px;
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
         .nav-dots {
             position: fixed;
             left: 32px;
@@ -520,6 +604,8 @@
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/notes-editorial.css">
 </head>
 
 <body>
@@ -528,7 +614,7 @@
 
     <div class="portfolio-links">
         <a class="portfolio-link" href="index.html">Portfolio</a>
-        <a class="portfolio-link" href="projects.html">Projects</a>
+        <a class="portfolio-link" href="index.html#work">Projects</a>
         <a class="portfolio-link" href="backend.html">Backend Learning</a>
         <a class="portfolio-link" href="flutter.html">Flutter Learning</a>
     </div>
@@ -543,6 +629,13 @@
         <div class="nav-dot" data-label="Performance" onclick="scrollToSection('performance')"></div>
         <div class="nav-dot" data-label="Testing" onclick="scrollToSection('testing')"></div>
         <div class="nav-dot" data-label="Release" onclick="scrollToSection('release')"></div>
+        <div class="nav-dot" data-label="Senior / Lead Roadmap" onclick="scrollToSection('roadmap')"></div>
+        <div class="nav-dot" data-label="Architecture Deep Dive" onclick="scrollToSection('arch-deep')"></div>
+        <div class="nav-dot" data-label="Offline & Sync" onclick="scrollToSection('offline-sync')"></div>
+        <div class="nav-dot" data-label="Performance Deep Dive" onclick="scrollToSection('perf-deep')"></div>
+        <div class="nav-dot" data-label="Publishing" onclick="scrollToSection('publishing')"></div>
+        <div class="nav-dot" data-label="Code Quality" onclick="scrollToSection('quality')"></div>
+        <div class="nav-dot" data-label="Lead Skills" onclick="scrollToSection('lead')"></div>
     </nav>
 
     <div class="content">
@@ -553,7 +646,7 @@
                 <span class="dart">& Dart</span>
             </h1>
             <p class="hero-subtitle">
-                ملخص عملي لـ <span>Flutter Development</span> من الأساسيات لحد الإنتاج: App Bootstrap, State Management, Clean Architecture, API Integration, Local DB, Realtime, Testing & Release.
+                ملخص عملي لـ <span>Flutter Development</span> من الأساسيات لحد الإنتاج: App Bootstrap, State Management, Clean Architecture, API Integration, Local DB, Realtime, Testing & Release — وبعدها اللي اتعلمته في <span>Senior / Lead Roadmap</span>: Offline-first Sync, Performance, Publishing, Code Quality & Lead Skills.
             </p>
 
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
@@ -1205,11 +1298,1208 @@ flutter build web --release
             </div>
         </section>
 
+        <!-- ===== Senior / Lead Roadmap notes (start) ===== -->
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section roadmap-intro" id="roadmap">
+            <div class="section-header">
+                <span class="section-tag">// Senior / Lead Roadmap — Completed</span>
+                <h2 class="section-title">اللي اتعلمته في <span class="highlight">الطريق لـ Senior / Lead</span></h2>
+            </div>
+            <div class="tip-box">
+                <strong>💡 الجزء ده إيه؟</strong>
+                خلّصت roadmap من 30 درس في 6 tracks للانتقال من Mid لـ Senior / Lead. هنا ملخصي لـ 3 tracks منهم تخص الصفحة دي:
+                <strong>Flutter بعمق</strong> (4 دروس)، و<strong>جودة الكود</strong> (5 دروس)، و<strong>مهارات الـ Lead</strong> (5 دروس) — مع الـ trade-off بتاع كل درس، وأسئلة «اختبر نفسك»، وإزاي طبّقت الكلام ده فعليًا في Mksaby و Snippet.
+            </div>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🏗️</span>
+                    <div class="card-title">Flutter بعمق</div>
+                    <div class="card-body">
+                        معمارية تستحمل التغيير، وتطبيق بيشتغل من غير نت، وأداء ناعم، ونشر من غير مفاجآت. <a class="roadmap-link" href="#arch-deep">Architecture</a> · <a class="roadmap-link" href="#offline-sync">Offline & Sync</a> · <a class="roadmap-link" href="#perf-deep">Performance</a> · <a class="roadmap-link" href="#publishing">Release</a>
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧪</span>
+                    <div class="card-title">جودة الكود</div>
+                    <div class="card-body">
+                        Testing strategy، و SOLID بالبلدي، و Patterns ليها لازمة، و Refactoring آمن، و Code review (حتى لكود الـ AI). <a class="roadmap-link" href="#quality">افتح الـ track</a>
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧭</span>
+                    <div class="card-title">مهارات الـ Lead</div>
+                    <div class="card-body">
+                        تقسيم الشغل والتقدير، و ADRs، و Incidents و postmortems، والكلام مع ناس مش تقنيين، وتعليم الـ juniors. <a class="roadmap-link" href="#lead">افتح الـ track</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="arch-deep">
+            <div class="section-header">
+                <span class="section-tag">// 09 — Flutter بعمق · المعمارية</span>
+                <h2 class="section-title">Architecture <span class="highlight">Deep Dive</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 المعمارية الكويسة هدفها حاجتين:</strong>
+                إن التغيير في مكان ما يكسرش مكان تاني، وإن كل حتة أقدر أختبرها لوحدها. ده اللي ثبّته في دماغي درس المعمارية في الـ Senior / Lead Roadmap.
+            </div>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧩</span>
+                    <div class="card-title">Presentation</div>
+                    <div class="card-body">
+                        الشاشات والـ state management (Cubit / Notifier). <strong>ما تعرفش حاجة</strong> عن HTTP ولا JSON.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🏛️</span>
+                    <div class="card-title">Domain</div>
+                    <div class="card-body">
+                        Entities (classes Dart عادية) + use cases + الـ <strong>interfaces</strong> بتاعة الـ repositories. منطق صافي من غير Flutter ولا أي package.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🗄️</span>
+                    <div class="card-title">Data</div>
+                    <div class="card-body">
+                        تنفيذ الـ repositories + مصادر البيانات (API عن طريق dio، وتخزين محلي زي drift) + الـ DTOs اللي فيها fromJson.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔁</span>
+                    <div class="card-title">قاعدة الاعتمادية</div>
+                    <div class="card-body">
+                        الـ Presentation والـ Data الاتنين بيعتمدوا على الـ Domain، والـ Domain <strong>ما بيعتمدش على حد</strong>. الـ Data بتنفّذ interface الـ Domain عرّفه = <strong>Dependency Inversion</strong>.
+                    </div>
+                </div>
+            </div>
+            <div class="hero-flow section-flow">
+                <div class="flow-node">Presentation</div>
+                <div class="flow-arrow">←</div>
+                <div class="flow-node">Domain</div>
+                <div class="flow-arrow">←</div>
+                <div class="flow-node">Data</div>
+            </div>
+
+            <h3 class="subsection-title">Domain بيعرّف «إيه»، Data بتنفّذ «إزاي»</h3>
+            <div class="code-block" data-file="course_repository.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// domain: بيعرّف إيه المطلوب</span>
+<span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">CourseRepository</span> {
+  <span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Course</span>&gt;&gt; <span class="fn">getCourses</span>();
+}
+
+<span class="cm">// data: بتنفّذ إزاي</span>
+<span class="kw">class</span> <span class="cls">CourseRepositoryImpl</span> <span class="kw">implements</span> <span class="cls">CourseRepository</span> {
+  <span class="cls">CourseRepositoryImpl</span>(<span class="kw">this</span>._api, <span class="kw">this</span>._local);
+  <span class="kw">final</span> <span class="cls">CourseApi</span> _api;
+  <span class="kw">final</span> <span class="cls">CourseLocalStore</span> _local;
+
+  <span class="dec">@override</span>
+  <span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Course</span>&gt;&gt; <span class="fn">getCourses</span>() <span class="kw">async</span> {
+    <span class="kw">final</span> dtos = <span class="kw">await</span> _api.<span class="fn">fetchCourses</span>();
+    <span class="kw">final</span> courses = dtos.<span class="fn">map</span>((d) =&gt; d.<span class="fn">toEntity</span>()).<span class="fn">toList</span>();
+    <span class="kw">await</span> _local.<span class="fn">saveAll</span>(courses);
+    <span class="kw">return</span> courses;
+  }
+}
+            </div>
+            <div class="tip-box">
+                <strong>💡 الفايدة العملية:</strong>
+                في الـ tests بدي الـ Cubit <strong>FakeCourseRepository</strong> من غير نت. ولو غيّرت dio بمكتبة تانية، مش هلمس ولا شاشة ولا سطر في الـ Domain.
+            </div>
+
+            <h3 class="subsection-title">نظّم بالـ feature مش بالطبقة</h3>
+            <div class="code-block" data-file="lib/ (feature-first)">
+                <span class="lang-tag">txt</span>
+lib/
+  core/              network, errors, theme, di
+  features/
+    courses/
+      data/          CourseApi, CourseDto, CourseRepositoryImpl
+      domain/        Course, CourseRepository, EnrollInCourse
+      presentation/  CoursesCubit, CoursesPage
+    auth/
+            </div>
+            <div class="tip-box">
+                <strong>💡 ليه feature-first؟</strong>
+                لما الفريق يكبر، كل واحد بيشتغل في feature مقفولة على نفسها، بدل ما الكل يعدّل في نفس الفولدرات (models/ و screens/ الكبار).
+            </div>
+
+            <h3 class="subsection-title">DI من غير boilerplate: get_it + injectable</h3>
+            <div class="code-block" data-file="injection.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// مثال مبسّط: injectable بيولّد الـ registration بدل ما أكتبه بإيدي</span>
+<span class="kw">final</span> getIt = <span class="cls">GetIt</span>.instance;
+
+<span class="dec">@InjectableInit</span>()
+<span class="kw">void</span> <span class="fn">configureDependencies</span>() =&gt; getIt.<span class="fn">init</span>();
+
+<span class="dec">@LazySingleton</span>(<span class="kw">as</span>: <span class="cls">ProductRepository</span>)
+<span class="kw">class</span> <span class="cls">ProductRepositoryImpl</span> <span class="kw">implements</span> <span class="cls">ProductRepository</span> {
+  <span class="cls">ProductRepositoryImpl</span>(<span class="kw">this</span>._local);
+  <span class="kw">final</span> <span class="cls">ProductLocalDataSource</span> _local;
+}
+
+<span class="dec">@injectable</span>
+<span class="kw">class</span> <span class="cls">ProductsCubit</span> <span class="kw">extends</span> <span class="cls">Cubit</span>&lt;<span class="cls">ProductsState</span>&gt; {
+  <span class="cls">ProductsCubit</span>(<span class="kw">this</span>._repo) : <span class="kw">super</span>(<span class="kw">const</span> <span class="cls">ProductsState</span>.<span class="fn">initial</span>());
+  <span class="kw">final</span> <span class="cls">ProductRepository</span> _repo;
+}
+            </div>
+            <div class="tip-box practice">
+                <strong>🛠️ من شغلي الحقيقي — Mksaby (مكسبي، بنيته لوحدي من الأول للآخر):</strong>
+                التطبيق مبني <strong>feature-first Clean Architecture</strong> بالـ 3 طبقات (data / domain / presentation)، و<strong>BLoC/Cubit</strong> مع <strong>freezed</strong> للـ states، و<strong>get_it + injectable</strong> للـ DI، و<strong>go_router</strong> للتنقل، و<strong>fpdart</strong>. ده نفس الكلام اللي في الدرس بس متطبق على تطبيق محاسبة حقيقي على Google Play.
+            </div>
+
+            <h3 class="subsection-title">Bloc ولا Riverpod؟</h3>
+            <div class="tip-box">
+                <strong>💡 السؤال الحقيقي مش «مين أحسن»:</strong>
+                السؤال: الحالة عايشة فين؟ ومين يقدر يغيّرها؟ والشاشة بتتحدث إمتى؟
+            </div>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧱</span>
+                    <div class="card-title">Bloc / Cubit</div>
+                    <div class="card-body">
+                        events بتدخل و states بتطلع. كود متكرر أكتر، بس <strong>تتبّع التغييرات واضح جدًا</strong> (كل تغيير ليه event). الـ DI بـ RepositoryProvider أو get_it، والـ loading/error بكتبهم بنفسي. مناسب لـ<strong>فرق كبيرة وflows معقدة</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🌿</span>
+                    <div class="card-title">Riverpod</div>
+                    <div class="card-body">
+                        providers بتوفّر قيم وحالة. كود أقل، الـ DI مدمج، و<strong>AsyncValue</strong> جاهز للـ async. أقل صرامة في التتبّع. مناسب لـ<strong>فرق صغيرة ومتوسطة</strong> وسرعة في التطوير.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                الـ 3 طبقات في MVP صغير أو تطبيق عمره قصير بتضيف كود كتير من غير فايدة، والـ use case اللي كل شغلته إنه ينادي الـ repository ممكن يتشال. الحكم ده نفسه جزء من كونك سنيور: <strong>كبّر المعمارية على قد حجم الفريق وعمر التطبيق</strong>. واللي بيبوّظ المشاريع مش اختيار Bloc أو Riverpod، هو إن كل شاشة تتكتب بطريقة، أو إن الـ business logic تتسرب جوه الـ widgets.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>ليه طبقة الـ Domain ما ينفعش تعمل import لـ dio أو Flutter؟</summary>
+                    <p>لأنها لو اعتمدت عليهم، أي تغيير في المكتبة أو في الشاشات هيوصل للمنطق، ومش هقدر أختبرها بسرعة في Dart عادي. الـ Domain بيعرّف الـ interfaces، والطبقات التانية هي اللي تتكيف معاه.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>فريق 8 مطورين وتطبيق بنكي: Bloc ولا Riverpod؟</summary>
+                    <p>غالبًا Bloc: كل تغيير في الحالة ليه event واضح وسهل تتبعه وتسجله، ودا مهم في تطبيق مالي وفريق كبير محتاج قواعد صارمة. Riverpod ينفع برضه لو الفريق متفق على conventions واضحة؛ المهم إن الكل يمشي بنفس الطريقة.</p>
+                </details>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="offline-sync">
+            <div class="section-header">
+                <span class="section-tag">// 10 — Flutter بعمق · Offline-first</span>
+                <h2 class="section-title">Offline-first & <span class="highlight">Sync</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 الفكرة في جملة:</strong>
+                في التطبيق الـ offline-first، <strong>الداتابيز المحلية هي مصدر الحقيقة للشاشات</strong>، والسيرفر بيتزامن معاها في الخلفية. الشاشة عمرها ما تقرا من الـ API مباشرة؛ بتسمع على stream من الداتابيز المحلية، فوجود النت أو غيابه ما بيغيّرش كود الشاشة.
+            </div>
+            <div class="hero-flow section-flow">
+                <div class="flow-node">UI (Flutter)</div>
+                <div class="flow-arrow">←</div>
+                <div class="flow-node">Local DB (drift)</div>
+                <div class="flow-arrow">←</div>
+                <div class="flow-node">Outbox</div>
+                <div class="flow-arrow">←</div>
+                <div class="flow-node">Sync engine</div>
+                <div class="flow-arrow">←</div>
+                <div class="flow-node">Server</div>
+            </div>
+
+            <h3 class="subsection-title">الكتابة: الـ Outbox Pattern</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">1️⃣</span>
+                    <div class="card-title">اكتب محلي فورًا</div>
+                    <div class="card-body">
+                        التعديل يتكتب في الداتابيز المحلية على طول، فالشاشة تتحدث فورًا (<strong>optimistic UI</strong>).
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">2️⃣</span>
+                    <div class="card-title">نفس الـ transaction</div>
+                    <div class="card-body">
+                        في نفس الـ transaction ضيف العملية في جدول <strong>outbox</strong>: طابور العمليات اللي لسه ما اتبعتتش.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">3️⃣</span>
+                    <div class="card-title">Sync engine</div>
+                    <div class="card-body">
+                        بيبعت العمليات <strong>بالترتيب</strong> لما النت يرجع، ويعيد المحاولة بـ <strong>backoff</strong> لو فشلت.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">4️⃣</span>
+                    <div class="card-title">السيرفر أكّد؟</div>
+                    <div class="card-body">
+                        امسح العملية من الـ outbox. لو وصلت مرتين، السيرفر بيتجاهل المكرر بالـ id.
+                    </div>
+                </div>
+            </div>
+            <div class="code-block" data-file="pending_ops.dart">
+                <span class="lang-tag">dart</span>
+<span class="kw">class</span> <span class="cls">PendingOps</span> <span class="kw">extends</span> <span class="cls">Table</span> {
+  <span class="cls">TextColumn</span> <span class="kw">get</span> id =&gt; <span class="fn">text</span>()();          <span class="cm">// UUID من الموبايل = idempotency key</span>
+  <span class="cls">TextColumn</span> <span class="kw">get</span> entity =&gt; <span class="fn">text</span>()();      <span class="cm">// 'sale'</span>
+  <span class="cls">TextColumn</span> <span class="kw">get</span> operation =&gt; <span class="fn">text</span>()();   <span class="cm">// 'create' | 'update' | 'delete'</span>
+  <span class="cls">TextColumn</span> <span class="kw">get</span> payload =&gt; <span class="fn">text</span>()();     <span class="cm">// JSON</span>
+  <span class="cls">IntColumn</span> <span class="kw">get</span> attempts =&gt; <span class="fn">integer</span>().<span class="fn">withDefault</span>(<span class="kw">const</span> <span class="cls">Constant</span>(<span class="num">0</span>))();
+  <span class="cls">DateTimeColumn</span> <span class="kw">get</span> createdAt =&gt; <span class="fn">dateTime</span>()();
+
+  <span class="dec">@override</span>
+  <span class="cls">Set</span>&lt;<span class="cls">Column</span>&gt; <span class="kw">get</span> primaryKey =&gt; {id};
+}
+            </div>
+            <div class="code-block" data-file="sales_local_repository.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// الكتابة: الصف + العملية في الـ outbox في نفس الـ transaction</span>
+<span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">addSale</span>(<span class="cls">Sale</span> sale) {
+  <span class="kw">return</span> _db.<span class="fn">transaction</span>(() <span class="kw">async</span> {
+    <span class="kw">await</span> _db.<span class="fn">into</span>(_db.sales).<span class="fn">insert</span>(sale.<span class="fn">toCompanion</span>());
+    <span class="kw">await</span> _db.<span class="fn">into</span>(_db.pendingOps).<span class="fn">insert</span>(<span class="cls">PendingOpsCompanion</span>.<span class="fn">insert</span>(
+      id: _uuid.<span class="fn">v4</span>(),                    <span class="cm">// idempotency key للعملية</span>
+      entity: <span class="str">'sale'</span>,
+      operation: <span class="str">'create'</span>,
+      payload: <span class="fn">jsonEncode</span>(sale.<span class="fn">toJson</span>()),
+      createdAt: <span class="cls">DateTime</span>.<span class="fn">now</span>(),
+    ));
+  });
+}
+
+<span class="cm">// القراية: الشاشة بتسمع على stream من القاعدة المحلية، مش من الـ API</span>
+<span class="cls">Stream</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Sale</span>&gt;&gt; <span class="fn">watchSales</span>() {
+  <span class="kw">return</span> _db.<span class="fn">select</span>(_db.sales).<span class="fn">watch</span>().<span class="fn">map</span>(
+        (rows) =&gt; rows.<span class="fn">map</span>((r) =&gt; r.<span class="fn">toEntity</span>()).<span class="fn">toList</span>(),
+      );
+}
+            </div>
+            <div class="code-block" data-file="sync_engine.dart">
+                <span class="lang-tag">dart</span>
+<span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">flush</span>() <span class="kw">async</span> {
+  <span class="kw">final</span> ops = <span class="kw">await</span> (_db.<span class="fn">select</span>(_db.pendingOps)
+        ..<span class="fn">orderBy</span>([(o) =&gt; <span class="cls">OrderingTerm</span>(expression: o.createdAt)]))
+      .<span class="kw">get</span>();
+
+  <span class="kw">for</span> (<span class="kw">final</span> op <span class="kw">in</span> ops) {
+    <span class="kw">try</span> {
+      <span class="kw">await</span> _remote.<span class="fn">push</span>(op); <span class="cm">// السيرفر بيتجاهل الـ id المكرر</span>
+      <span class="kw">await</span> (_db.<span class="fn">delete</span>(_db.pendingOps)..<span class="fn">where</span>((o) =&gt; o.id.<span class="fn">equals</span>(op.id))).<span class="fn">go</span>();
+    } <span class="kw">catch</span> (_) {
+      <span class="kw">await</span> (_db.<span class="fn">update</span>(_db.pendingOps)..<span class="fn">where</span>((o) =&gt; o.id.<span class="fn">equals</span>(op.id)))
+          .<span class="fn">write</span>(<span class="cls">PendingOpsCompanion</span>(attempts: <span class="cls">Value</span>(op.attempts + <span class="num">1</span>)));
+      <span class="fn">_scheduleRetry</span>(<span class="cls">Duration</span>(seconds: <span class="num">1</span> &lt;&lt; <span class="fn">min</span>(op.attempts, <span class="num">8</span>))); <span class="cm">// backoff</span>
+      <span class="kw">break</span>; <span class="cm">// نحافظ على الترتيب: ما نعديش العملية اللي فشلت</span>
+    }
+  }
+}
+            </div>
+            <div class="tip-box">
+                <strong>💡 ليه الـ UUID بيتولد على الموبايل؟</strong>
+                السجل ليه id ثابت من أول لحظة حتى لو اتعمل offline، فأقدر أربط بيه حاجات تانية، والسيرفر يقدر يتجاهل العملية لو وصلته مرتين. دي نفس فكرة الـ <strong>idempotency key</strong> في درس تصميم الـ API.
+            </div>
+
+            <h3 class="subsection-title">القراية: Delta sync</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🕒</span>
+                    <div class="card-title">updated_at / version</div>
+                    <div class="card-body">
+                        على كل جدول بيتزامن، عشان أسأل السيرفر: «إيه اللي اتغير من آخر مزامنة؟» بدل ما أحمّل كل البيانات كل مرة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🗑️</span>
+                    <div class="card-title">Soft delete</div>
+                    <div class="card-body">
+                        عمود <strong>deleted_at</strong> بدل المسح الفعلي. لو الصف اتمسح من الداتابيز، مفيش حاجة أقول بيها للموبايل إنه اتمسح.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔗</span>
+                    <div class="card-title">Changes endpoint</div>
+                    <div class="card-body">
+                        زي <strong>GET /api/changes?since=&lt;cursor&gt;</strong> بيرجّع اللي اتعدّل واللي اتمسح من بعد الـ cursor.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">الـ Conflicts: جهازين عدّلوا نفس الحاجة offline، مين يكسب؟</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">⏱️</span>
+                    <div class="card-title">Last write wins</div>
+                    <div class="card-body">
+                        الأحدث يكسب. بسيط، بس ممكن يضيّع بيانات، وساعة الموبايل مش مضمونة، فاعتمد على <strong>version من السيرفر</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📏</span>
+                    <div class="card-title">Server / Client wins</div>
+                    <div class="card-body">
+                        قاعدة ثابتة حسب نوع البيانات.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧬</span>
+                    <div class="card-title">Field-level merge</div>
+                    <div class="card-body">
+                        لو كل جهاز عدّل field مختلف، خد الاتنين.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🙋</span>
+                    <div class="card-title">اسأل المستخدم</div>
+                    <div class="card-body">
+                        للبيانات المهمة، زي الـ conflicts في Git.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">مش كل تطبيق محتاج كل ده</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">1</span>
+                    <div class="card-title">Cache للقراية</div>
+                    <div class="card-body">
+                        يعرض آخر بيانات اتحملت لما النت يقطع. التعقيد: <strong>قليل</strong>. (زي تطبيق أخبار)
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">2</span>
+                    <div class="card-title">قراية offline كاملة</div>
+                    <div class="card-body">
+                        داتابيز محلية + delta sync. التعقيد: <strong>متوسط</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">3</span>
+                    <div class="card-title">كتابة offline</div>
+                    <div class="card-body">
+                        outbox + حل الـ conflicts. التعقيد: <strong>عالي جدًا</strong>.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box practice">
+                <strong>🛠️ من شغلي الحقيقي — Mksaby:</strong>
+                Mksaby تطبيق <strong>offline-first</strong> من المستوى التالت: <strong>Drift (SQLite)</strong> هو مصدر الحقيقة بـ <strong>22 جدول بيتزامنوا</strong>، والتعديلات بتتسجل محليًا وبتترفع لـ <strong>Cloud Firestore</strong> عن طريق <strong>offline outbox sync</strong>. والموظفين بيدخلوا من موبايلاتهم وبيتزامنوا live مع صاحب المحل. يعني البيع والمشتريات والمخزون شغالين حتى والنت قاطع.
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                كل مستوى أعلى = تعقيد أكتر بكتير (outbox، retries، conflicts، soft delete على الـ backend). اختار المستوى على قد احتياج المستخدم الحقيقي، و<strong>قرّر بدري</strong>: التحويل للمستوى 3 بعد ما التطبيق يكبر مكلّف جدًا. تطبيق أخبار كفاية عليه المستوى 1، لكن حد بيسجّل عمليات في مكان النت فيه ضعيف محتاج المستوى 3.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>ليه الـ soft delete ضروري في الـ delta sync؟</summary>
+                    <p>لأن الـ delta sync بيسأل «إيه اللي اتغير من آخر مرة»، والصف اللي اتمسح فعليًا مش هيرجع في أي نتيجة. الـ deleted_at بيخلي المسح نفسه تغيير يتبعت للموبايل فيمسح نسخته.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>ليه الـ id بيتولد على الموبايل مش على السيرفر؟</summary>
+                    <p>لأن السجل اللي اتعمل offline محتاج id من أول لحظة عشان أربط بيه حاجات تانية. وكمان السيرفر بيستخدمه كـ idempotency key، فلو العملية وصلت مرتين يعرف إنها نفس العملية.</p>
+                </details>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="perf-deep">
+            <div class="section-header">
+                <span class="section-tag">// 11 — Flutter بعمق · الأداء</span>
+                <h2 class="section-title">Performance <span class="highlight">Deep Dive</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 أغلب مشاكل الأداء ليها سببين:</strong>
+                <strong>rebuild</strong> لجزء أكبر من اللازم، أو <strong>شغل تقيل على الـ main isolate</strong>.
+            </div>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🌳</span>
+                    <div class="card-title">3 أشجار</div>
+                    <div class="card-body">
+                        <strong>Widgets</strong> (وصف خفيف بيتعمل من جديد كتير) ← <strong>Elements</strong> (بتحفظ الحالة وبتربط) ← <strong>RenderObjects</strong> (الـ layout والرسم، ودي التقيلة).
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⏳</span>
+                    <div class="card-title">ميزانية الـ frame</div>
+                    <div class="card-body">
+                        حوالي <strong>16ms</strong> لكل frame عشان 60fps، و<strong>8ms</strong> على شاشات 120Hz. لو الـ frame عدّاهم = jank.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔁</span>
+                    <div class="card-title">الـ rebuild مش عدو</div>
+                    <div class="card-body">
+                        المشكلة مش الـ rebuild نفسه؛ المشكلة إني أعيد بناء شجرة كبيرة مع كل حرف بيتكتب أو مع كل frame في animation.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">قلّل الـ rebuild</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🔒</span>
+                    <div class="card-title">const</div>
+                    <div class="card-body">
+                        الـ widget الـ const بيتعمل مرة واحدة، وFlutter بيتخطاه في الـ rebuild.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧩</span>
+                    <div class="card-title">Widgets مش methods</div>
+                    <div class="card-body">
+                        الـ method اللي بترجع widget بتتبني تاني مع الأب كل مرة؛ الـ widget المنفصل ليه element خاص بيه وممكن يتخطى.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">اسمع على اللي محتاجه بس</div>
+                    <div class="card-body">
+                        <strong>BlocSelector</strong> أو <strong>context.select</strong> أو <strong>ref.watch(provider.select(...))</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📜</span>
+                    <div class="card-title">ListView.builder</div>
+                    <div class="card-body">
+                        بيبني اللي ظاهر على الشاشة بس، على عكس ListView(children: [...]).
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🖼️</span>
+                    <div class="card-title">cacheWidth / cacheHeight</div>
+                    <div class="card-body">
+                        بيفكّوا الصورة بحجم العرض مش بحجمها الأصلي، ودا بيوفر ذاكرة كتير.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🎞️</span>
+                    <div class="card-title">RepaintBoundary</div>
+                    <div class="card-body">
+                        حواليه الجزء اللي بيتحرك، عشان الـ animation ما تعيدش رسم الشاشة كلها.
+                    </div>
+                </div>
+            </div>
+            <div class="code-block" data-file="rebuild_tips.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// 1. اسمع على الـ field اللي يهمك بس</span>
+<span class="cls">BlocSelector</span>&lt;<span class="cls">CartCubit</span>, <span class="cls">CartState</span>, int&gt;(
+  selector: (state) =&gt; state.itemsCount,
+  builder: (context, count) =&gt; <span class="cls">CartBadge</span>(count: count),
+);
+
+<span class="cm">// 2. القوايم الطويلة: ابني اللي ظاهر بس</span>
+<span class="cls">ListView</span>.<span class="fn">builder</span>(
+  itemCount: products.length,
+  itemBuilder: (context, i) =&gt; <span class="cls">ProductTile</span>(product: products[i]),
+);
+
+<span class="cm">// 3. فك الصورة بحجم العرض مش بحجمها الأصلي</span>
+<span class="cls">Image</span>.<span class="fn">network</span>(url, cacheWidth: <span class="num">300</span>, cacheHeight: <span class="num">300</span>);
+
+<span class="cm">// 4. اعزل الجزء اللي بيتحرك</span>
+<span class="kw">const</span> <span class="cls">RepaintBoundary</span>(child: <span class="cls">LoadingSpinner</span>());
+            </div>
+
+            <h3 class="subsection-title">الـ Isolates: async مش معناها parallel</h3>
+            <div class="tip-box">
+                <strong>💡 الفكرة:</strong>
+                Dart بيشغّل كودي على thread واحد (الـ main isolate) بـ event loop. الـ <strong>await</strong> بيخليني أستنى الشبكة من غير ما أعطّل الشاشة، لكنه مش بيشغّل الحسبة على thread تاني. فلو فكّيت JSON حجمه 5 ميجا جوه دالة async، الشاشة هتهنّج برضه.
+            </div>
+            <div class="code-block" data-file="courses_repository.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// غلط: async لوحده — فك الـ JSON لسه على الـ main isolate</span>
+<span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Course</span>&gt;&gt; <span class="fn">load</span>() <span class="kw">async</span> {
+  <span class="kw">final</span> body = <span class="kw">await</span> _api.<span class="fn">getRawCourses</span>();
+  <span class="kw">return</span> <span class="fn">parseCourses</span>(body); <span class="cm">// الشاشة هتهنّج هنا</span>
+}
+
+<span class="cm">// صح: الحسبة التقيلة في isolate تاني</span>
+<span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Course</span>&gt;&gt; <span class="fn">loadFast</span>() <span class="kw">async</span> {
+  <span class="kw">final</span> body = <span class="kw">await</span> _api.<span class="fn">getRawCourses</span>();
+  <span class="kw">return</span> <span class="cls">Isolate</span>.<span class="fn">run</span>(() =&gt; <span class="fn">parseCourses</span>(body));
+}
+            </div>
+
+            <h3 class="subsection-title">قيس قبل ما تصلّح</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">📐</span>
+                    <div class="card-title">Profile mode</div>
+                    <div class="card-body">
+                        شغّل بـ <strong>flutter run --profile</strong> مش debug؛ الـ debug أبطأ بكتير ومش بيعكس الحقيقة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧠</span>
+                    <div class="card-title">UI thread بطيء؟</div>
+                    <div class="card-body">
+                        في DevTools → Performance: قلّل الـ rebuilds والشغل جوه build (الـ build والـ layout).
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🎨</span>
+                    <div class="card-title">Raster thread بطيء؟</div>
+                    <div class="card-body">
+                        دوّر على رسم تقيل: saveLayer بسبب Opacity أو clipping أو ShaderMask، وshadows كتير، وصور كبيرة.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box practice">
+                <strong>🛠️ من شغلي الحقيقي — Snippet (Freelance، دوري كان الـ performance optimization):</strong>
+                Snippet تطبيق سوشيال (posts، فيديوهات، مقالات، جروبات، شات، stories و feeds). اللي اشتغلت عليه وطلع في الـ release notes:
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>ضغط الصور قبل الرفع (<strong>image compression</strong>) فالرفع بقى أسرع.</li>
+                    <li>الفيديوهات بتترفع بـ <strong>compression</strong> وبيتعملها <strong>thumbnail generation</strong>.</li>
+                    <li>فيديوهات الـ feed بتتحمّل أنعم و<strong>ما بتبدأش غير لما تتفتح</strong> (lazy init / play-on-open).</li>
+                    <li>تحسين الـ <strong>image caching</strong> في الـ feeds والـ stories.</li>
+                    <li>أداء أحسن للـ categories الكبيرة والشاشات المليانة media.</li>
+                </ul>
+            </div>
+            <div class="code-block" data-file="lazy_feed_video.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// مثال مبسّط للفكرة (مش كود المشروع نفسه):</span>
+<span class="cm">// الـ controller ما يتعملوش init غير لما المستخدم يفتح الفيديو</span>
+<span class="kw">class</span> _FeedVideoState <span class="kw">extends</span> <span class="cls">State</span>&lt;<span class="cls">FeedVideo</span>&gt; {
+  <span class="cls">VideoPlayerController</span>? _controller;
+
+  <span class="cls">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">_open</span>() <span class="kw">async</span> {
+    <span class="kw">final</span> controller = <span class="cls">VideoPlayerController</span>.<span class="fn">networkUrl</span>(<span class="cls">Uri</span>.<span class="fn">parse</span>(widget.url));
+    <span class="fn">setState</span>(() =&gt; _controller = controller);
+    <span class="kw">await</span> controller.<span class="fn">initialize</span>();
+    <span class="kw">if</span> (!mounted) <span class="kw">return</span>;
+    <span class="fn">setState</span>(() {});
+    controller.<span class="fn">play</span>();
+  }
+
+  <span class="dec">@override</span>
+  <span class="kw">void</span> <span class="fn">dispose</span>() {
+    _controller?.<span class="fn">dispose</span>(); <span class="cm">// اللي اتفتح بس هو اللي ماسك ذاكرة</span>
+    <span class="kw">super</span>.<span class="fn">dispose</span>();
+  }
+
+  <span class="dec">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> context) {
+    <span class="kw">final</span> controller = _controller;
+    <span class="kw">if</span> (controller == <span class="kw">null</span> || !controller.value.isInitialized) {
+      <span class="kw">return</span> <span class="cls">GestureDetector</span>(
+        onTap: controller == <span class="kw">null</span> ? _open : <span class="kw">null</span>,
+        child: <span class="cls">Image</span>.<span class="fn">network</span>(widget.thumbnailUrl, cacheWidth: <span class="num">600</span>), <span class="cm">// thumbnail بس في الـ feed</span>
+      );
+    }
+    <span class="kw">return</span> <span class="cls">AspectRatio</span>(
+      aspectRatio: controller.value.aspectRatio,
+      child: <span class="cls">VideoPlayer</span>(controller),
+    );
+  }
+}
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                الـ isolates <strong>ما بتشاركش الذاكرة</strong>؛ البيانات بتتنقل بينهم، فنقل حاجة ضخمة من غير داعي ليه تمن. والـ lazy video init بيوفر ذاكرة وشبكة في الـ feed، في مقابل تحميل بسيط أول ما المستخدم يفتح الفيديو. والأهم: ما أصلّحش حاجة من غير ما أقيسها الأول في profile mode.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>ليه async لوحده ما بيمنعش الشاشة تهنّج مع JSON ضخم؟</summary>
+                    <p>لأن async بيحرر الـ thread وانا مستني I/O بس. فك الـ JSON نفسه حسبة على الـ CPU بتتنفذ على نفس الـ main isolate، فبتعطل رسم الـ frames. الحل Isolate.run.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>في DevTools لقيت الـ raster thread هو اللي بطيء. هدوّر على إيه؟</summary>
+                    <p>على رسم تقيل على الـ GPU: saveLayer بسبب Opacity أو clipping أو ShaderMask، وshadows كتير، وصور كبيرة بتتفك بحجمها الأصلي. الـ rebuilds مش هي المشكلة هنا.</p>
+                </details>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="publishing">
+            <div class="section-header">
+                <span class="section-tag">// 12 — Flutter بعمق · النشر</span>
+                <h2 class="section-title">Release & <span class="highlight">Publishing</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 الـ release الاحترافي:</strong>
+                أي حد في الفريق يطلّع نسخة صح <strong>بخطوة واحدة</strong>، من غير ما يحتاج لابتوب شخص معين.
+            </div>
+
+            <h3 class="subsection-title">الـ Signing</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🤖</span>
+                    <div class="card-title">Android</div>
+                    <div class="card-body">
+                        بوقّع الـ app bundle بـ <strong>upload key</strong>، وجوجل بتوقّعه بالمفتاح النهائي عن طريق <strong>Play App Signing</strong>. لو الـ upload key ضاع أطلب reset من Play Console.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🍎</span>
+                    <div class="card-title">iOS</div>
+                    <div class="card-body">
+                        certificates و provisioning profiles. عشان ما يحصلش لخبطة بين أجهزة الفريق والـ CI: <strong>fastlane match</strong> يخزّنهم في مكان واحد.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔐</span>
+                    <div class="card-title">الأسرار</div>
+                    <div class="card-body">
+                        الـ keystore والباسوردات <strong>عمرهم ما يدخلوا الـ repo</strong>؛ مكانهم الـ secrets بتاعة الـ CI.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">الـ Flavors: dev و staging و prod</h3>
+            <div class="tip-box">
+                <strong>💡 ليه؟</strong>
+                كل بيئة ليها API URL واسم وأيقونة و<strong>bundle ID</strong> مختلف، فأقدر أنزّل نسخة dev جنب prod على نفس الموبايل، وما أبعتش بيانات تجربة للسيرفر الحقيقي بالغلط.
+            </div>
+            <div class="code-block" data-file="terminal">
+                <span class="lang-tag">bash</span>
+flutter build appbundle --flavor prod -t lib/main_prod.dart --dart-define-from-file=config/prod.json
+            </div>
+            <div class="code-block" data-file="pubspec.yaml">
+                <span class="lang-tag">yaml</span>
+version: 1.4.2+37   <span class="cm"># 1.4.2 للمستخدم (semantic) — 37 = build number ولازم يزيد مع كل رفع للمتجر</span>
+            </div>
+
+            <h3 class="subsection-title">النشر بالتدريج</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧪</span>
+                    <div class="card-title">Internal testing</div>
+                    <div class="card-body">
+                        للفريق الأول.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧑‍🤝‍🧑</span>
+                    <div class="card-title">Beta</div>
+                    <div class="card-body">
+                        closed testing على Play، و<strong>TestFlight</strong> على iOS.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📈</span>
+                    <div class="card-title">Staged rollout</div>
+                    <div class="card-body">
+                        نسبة صغيرة من المستخدمين الأول وبعدين أزوّد تدريجيًا (على iOS اسمها <strong>phased release</strong>).
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🚨</span>
+                    <div class="card-title">راقب</div>
+                    <div class="card-body">
+                        الـ crash rate في Crashlytics أو <strong>Sentry</strong>، ولو زاد <strong>أوقف الـ rollout</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">تفاصيل بتفرق</h3>
+            <div class="code-block" data-file="terminal">
+                <span class="lang-tag">bash</span>
+<span class="cm"># obfuscation + symbols عشان أقدر أقرا الـ stack traces</span>
+flutter build appbundle --release --obfuscate --split-debug-info=build/symbols
+<span class="cm"># ارفع build/symbols لأداة الـ crashes</span>
+            </div>
+            <div class="code-block" data-file="force_update_gate.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// مثال مبسّط: الـ force update لازم يكون موجود من أول نسخة</span>
+<span class="kw">class</span> <span class="cls">ForceUpdateGate</span> <span class="kw">extends</span> <span class="cls">StatelessWidget</span> {
+  <span class="kw">const</span> <span class="cls">ForceUpdateGate</span>({<span class="kw">super</span>.key, <span class="kw">required</span> <span class="kw">this</span>.minSupportedBuild, <span class="kw">required</span> <span class="kw">this</span>.currentBuild, <span class="kw">required</span> <span class="kw">this</span>.child});
+  <span class="kw">final</span> int minSupportedBuild; <span class="cm">// جاي من السيرفر / remote config</span>
+  <span class="kw">final</span> int currentBuild;      <span class="cm">// رقم الـ build الحالي</span>
+  <span class="kw">final</span> <span class="cls">Widget</span> child;
+
+  <span class="dec">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> context) {
+    <span class="kw">if</span> (currentBuild &lt; minSupportedBuild) {
+      <span class="kw">return</span> <span class="kw">const</span> <span class="cls">UpdateRequiredPage</span>(); <span class="cm">// زرار واحد يودّي للمتجر</span>
+    }
+    <span class="kw">return</span> child;
+  }
+}
+            </div>
+            <div class="tip-box">
+                <strong>💡 CI للموبايل:</strong>
+                مع كل tag، GitHub Actions أو Codemagic مع <strong>fastlane</strong> يعملوا test و build و sign، ويرفعوا على TestFlight و Play internal لوحدهم.
+            </div>
+            <div class="tip-box practice">
+                <strong>🛠️ من شغلي الحقيقي — Mksaby:</strong>
+                فيه <strong>forced-update gate</strong>، و<strong>Sentry</strong> لمراقبة الـ crashes في production.
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                الـ staged rollout أبطأ في وصول التحديث لكل الناس، بس بيكشف الـ crashes على أجهزة ونسخ أندرويد عمري ما جربت عليها وانا لسه على نسبة صغيرة. وخلي بالك: أي قيمة في <strong>--dart-define</strong> بتتحط جوه التطبيق، يعني عامة؛ تنفع لـ URL وما تنفعش لـ secret.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>ليه لازم dev و prod يكون ليهم bundle ID مختلف؟</summary>
+                    <p>عشان أقدر أنزّل الاتنين على نفس الموبايل، وكل واحد ليه بياناته وإعداداته. وكمان بيقلل احتمال إن نسخة التجربة تكلم سيرفر production بالغلط.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>إيه اللي يحصل لو الـ keystore بتاع أندرويد ضاع، وإزاي Play App Signing بيحميني؟</summary>
+                    <p>من غير Play App Signing، مش هقدر أرفع تحديث للتطبيق تاني، وهضطر أنشر تطبيق جديد. مع Play App Signing، جوجل ماسكة مفتاح التوقيع النهائي، والـ upload key لو ضاع أطلب له reset.</p>
+                </details>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="quality">
+            <div class="section-header">
+                <span class="section-tag">// 13 — جودة الكود</span>
+                <h2 class="section-title">Code <span class="highlight">Quality</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 الـ Track ده في جملة:</strong>
+                كود أقدر أغيّره وانا مطمّن: tests بتحميني، ومبادئ بتخلي التغيير في مكان واحد، و review بيمسك الغلط قبل المستخدم.
+            </div>
+
+            <h3 class="subsection-title lesson-title">1. استراتيجية الـ Testing</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">⚡</span>
+                    <div class="card-title">Unit — كتير</div>
+                    <div class="card-body">
+                        دالة أو class لوحدها. <strong>سريع جدًا</strong>. قواعد البيزنس، والـ Cubits، والـ repositories.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔗</span>
+                    <div class="card-title">Integration — أقل</div>
+                    <div class="card-body">
+                        أجزاء مع بعض. <strong>متوسط</strong>. زي الـ API endpoints مع داتابيز حقيقية.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📱</span>
+                    <div class="card-title">E2E — قليل</div>
+                    <div class="card-body">
+                        التطبيق كله زي المستخدم. <strong>بطيء وممكن يبقى متقلب</strong>. للـ flows الحرجة بس: login والدفع.
+                    </div>
+                </div>
+            </div>
+            <div class="code-block" data-file="courses_cubit_test.dart">
+                <span class="lang-tag">dart</span>
+blocTest&lt;<span class="cls">CoursesCubit</span>, <span class="cls">CoursesState</span>&gt;(
+  <span class="str">'emits loading then loaded when courses load'</span>,
+  build: () =&gt; <span class="cls">CoursesCubit</span>(<span class="cls">FakeCourseRepository</span>()),
+  act: (cubit) =&gt; cubit.<span class="fn">load</span>(),
+  expect: () =&gt; [<span class="kw">const</span> <span class="cls">CoursesLoading</span>(), isA&lt;<span class="cls">CoursesLoaded</span>&gt;()],
+);
+            </div>
+            <div class="tip-box">
+                <strong>💡 قواعد مهمة:</strong>
+                
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>اختبر <strong>السلوك</strong> مش التفاصيل الداخلية، وإلا أي refactor هيكسر الـ tests.</li>
+                    <li>اعمل mock <strong>على الحدود بس</strong>: بوابة الدفع، والـ APIs الخارجية، والوقت.</li>
+                    <li>كل bug بصلّحه: أكتب له test يفشل الأول، وبعدين أصلّحه.</li>
+                    <li>الـ coverage مؤشر، مش هدف.</li>
+                </ul>
+            </div>
+            <div class="code-block" data-file="quick_sale_test.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// شكل مبسّط لـ Patrol E2E: بيشتغل على جهاز حقيقي أو emulator</span>
+<span class="fn">patrolTest</span>(<span class="str">'user completes the critical flow'</span>, ($) <span class="kw">async</span> {
+  <span class="kw">await</span> $.<span class="fn">pumpWidgetAndSettle</span>(<span class="kw">const</span> <span class="cls">App</span>());
+
+  <span class="kw">await</span> $(#searchField).<span class="fn">enterText</span>(<span class="str">'item'</span>);
+  <span class="kw">await</span> $(#firstResult).<span class="fn">tap</span>();
+  <span class="kw">await</span> $(#confirmButton).<span class="fn">tap</span>();
+
+  <span class="fn">expect</span>($(#successMessage), findsOneWidget);
+});
+            </div>
+            <div class="tip-box practice">
+                <strong>🛠️ من شغلي الحقيقي — Mksaby:</strong>
+                حوالي <strong>229 ملف unit/widget tests</strong>، و<strong>Patrol on-device E2E tests</strong> للـ flows المهمة، و<strong>CI gate scripts</strong> بتتأكد من تطابق ملفات الترجمة (ARB parity) ومن استخدام الـ theme tokens بدل الألوان الـ hardcoded.
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                الـ E2E بيدّي ثقة عالية بس بطيء ومتقلب، فبخليه للـ flows الحرجة. والـ mocks الكتير بتخلي الـ tests تنجح والكود بايظ، لأن الـ mock بيرجّع اللي انا قلتله مش اللي الكود الحقيقي بيعمله.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>لقيت bug في حساب الخصم. إيه أول حاجة أعملها قبل ما أصلّحه؟</summary>
+                    <p>أكتب test بيعيد إنتاج الـ bug ويفشل. بعدها أصلّح لحد ما ينجح، فيبقى عندي دليل إني صلّحته، وحماية إنه ما يرجعش.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">2. SOLID بالبلدي</h3>
+            <div class="tip-box">
+                <strong>💡 الهدف:</strong>
+                خمس قواعد هدفها واحد: لما المتطلبات تتغير، الكود يتغير <strong>في مكان واحد بس</strong>.
+            </div>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">S</span>
+                    <div class="card-title">مسؤولية واحدة</div>
+                    <div class="card-body">
+                        الكلاس اللي بيحسب ويبعت إيميل ويعمل PDF عنده 3 أسباب يتغير. قسّمه لـ services.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">O</span>
+                    <div class="card-title">ضيف من غير ما تعدّل</div>
+                    <div class="card-body">
+                        بوابة دفع جديدة = class جديدة، مش elif جديد جوه دالة شغالة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">L</span>
+                    <div class="card-title">البديل يشتغل زي الأصل</div>
+                    <div class="card-body">
+                        لو class ورث من repository وبيرمي <strong>UnimplementedError</strong> في save، هيكسر أي كود بيستخدمه.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">I</span>
+                    <div class="card-title">interfaces صغيرة</div>
+                    <div class="card-body">
+                        ما تجبرش class ينفّذ methods مش محتاجها.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">D</span>
+                    <div class="card-title">اعتمد على الـ abstraction</div>
+                    <div class="card-body">
+                        زي <strong>CourseRepository</strong> في جزء المعمارية فوق، اللي خلاني أختبر بـ fake.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>عندي دالة pay فيها if/elif لكل بوابة دفع. أنهي مبدأ بكسره، وإزاي أصلحه؟</summary>
+                    <p>بكسر Open/Closed: كل بوابة جديدة محتاجة تعديل في دالة شغالة. الحل interface واحد لكل البوابات، وكل بوابة class، والدالة تختار الـ class من غير ما تتعدل.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">3. Patterns ليها لازمة في شغلي</h3>
+            <div class="code-block" data-file="payment_gateway.dart">
+                <span class="lang-tag">dart</span>
+<span class="cm">// Strategy: بوابة جديدة = class جديد، و pay() ما بتتلمسش</span>
+<span class="kw">abstract</span> <span class="kw">interface</span> <span class="kw">class</span> <span class="cls">PaymentGateway</span> {
+  <span class="cls">Future</span>&lt;<span class="cls">PaymentResult</span>&gt; <span class="fn">charge</span>(<span class="cls">Money</span> amount, <span class="cls">String</span> token);
+}
+
+<span class="kw">class</span> <span class="cls">StripeGateway</span> <span class="kw">implements</span> <span class="cls">PaymentGateway</span> {
+  <span class="dec">@override</span>
+  <span class="cls">Future</span>&lt;<span class="cls">PaymentResult</span>&gt; <span class="fn">charge</span>(<span class="cls">Money</span> amount, <span class="cls">String</span> token) <span class="kw">async</span> { <span class="cm">/* Stripe SDK */</span> }
+}
+
+<span class="kw">class</span> <span class="cls">PaymobGateway</span> <span class="kw">implements</span> <span class="cls">PaymentGateway</span> {
+  <span class="dec">@override</span>
+  <span class="cls">Future</span>&lt;<span class="cls">PaymentResult</span>&gt; <span class="fn">charge</span>(<span class="cls">Money</span> amount, <span class="cls">String</span> token) <span class="kw">async</span> { <span class="cm">/* Paymob API */</span> }
+}
+
+<span class="kw">final</span> gateways = &lt;<span class="cls">String</span>, <span class="cls">PaymentGateway</span>&gt;{
+  <span class="str">'stripe'</span>: <span class="cls">StripeGateway</span>(),
+  <span class="str">'paymob'</span>: <span class="cls">PaymobGateway</span>(),
+};
+
+<span class="cls">Future</span>&lt;<span class="cls">PaymentResult</span>&gt; <span class="fn">pay</span>(<span class="cls">Order</span> order, <span class="cls">String</span> method, <span class="cls">String</span> token) =&gt;
+    gateways[method]!.<span class="fn">charge</span>(order.total, token);
+            </div>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🗄️</span>
+                    <div class="card-title">Repository</div>
+                    <div class="card-body">
+                        بيخبّي مصدر البيانات (API ولا local DB) عن باقي التطبيق.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔌</span>
+                    <div class="card-title">Adapter</div>
+                    <div class="card-body">
+                        غلّف أي SDK خارجي بـ interface بتاعي، فلو غيّرته أغيّر مكان واحد، وفي الـ tests أبدّله بـ fake.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📡</span>
+                    <div class="card-title">Observer</div>
+                    <div class="card-body">
+                        زي الـ Streams في Dart والـ signals في Django. بس خلي بالك: بيخبّي تسلسل الكود، فما تحطش فيه business logic مهم.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                الـ pattern بيحل مشكلة موجودة؛ <strong>لو مفيش مشكلة، يبقى مجرد تعقيد</strong>. أعرف المشكلة الأول وبعدين أختار الحل.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>ليه أغلّف SDK خارجي بـ Adapter بدل ما أستخدمه مباشرة في كل حتة؟</summary>
+                    <p>عشان كودي يعتمد على interface انا عامله. لو غيّرت المزوّد أو الـ SDK اتغير، بعدّل الـ Adapter بس، وفي الـ tests ببدّله بـ fake بسهولة.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">4. الـ Refactoring</h3>
+            <div class="tip-box">
+                <strong>💡 التعريف:</strong>
+                تغيير شكل الكود <strong>من غير ما سلوكه يتغير</strong>، ولازم الـ tests تكون موجودة الأول كشبكة أمان.
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>خطوات صغيرة، وكل commit الـ tests فيه خضرا.</li>
+                    <li>افصل PR الـ refactoring عن PR تغيير السلوك.</li>
+                    <li>Code smells: دوال طويلة، لوجيك متكرر، widgets / views تخينة، maps بتتنقل في كل حتة بدل types واضحة، و if جوه if جوه if.</li>
+                    <li>النظام القديم الكبير ما تعيدش كتابته مرة واحدة؛ بدّله حتة حتة لحد ما القديم يختفي.</li>
+                </ul>
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>ليه أفصل PR الـ refactoring عن PR تغيير السلوك؟</summary>
+                    <p>عشان المراجع يعرف إن الـ refactoring المفروض ما يغيّرش أي سلوك، فيراجعه بعين، والتغيير الحقيقي بعين تانية. لو اتخلطوا، الـ bug بيستخبى وسط مئات السطور اللي اتنقلت.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">5. الـ Code review ومراجعة كود الـ AI</h3>
+            <div class="tip-box">
+                <strong>💡 الـ review آخر فرصة:</strong>
+                أمسك bug أو ثغرة قبل ما توصل للمستخدمين — مش بحث عن فواصل ومسافات. براجع بالترتيب ده من الأهم للأقل:
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>هل الكود صح؟ والـ edge cases متغطية؟</li>
+                    <li>الأمان: الصلاحيات والـ injection.</li>
+                    <li>البيانات: الـ migrations، والـ N+1، والـ transactions.</li>
+                    <li>التصميم وسهولة القراية.</li>
+                    <li>الـ tests موجودة؟</li>
+                    <li>الأسماء والـ style — وده سيبه لأدوات زي <strong>dart format</strong> و ruff.</li>
+                </ul>
+            </div>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">💬</span>
+                    <div class="card-title">أسلوب التعليق</div>
+                    <div class="card-body">
+                        بلطف ووضّح «ليه»، وفرّق بين اللي لازم يتصلح والملاحظة الصغيرة (ابدأها بـ <strong>nit:</strong>).
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🤖</span>
+                    <div class="card-title">كود الـ AI</div>
+                    <div class="card-body">
+                        راجعه زي كود junior شاطر: شكله مقنع، بس ممكن يستخدم API مش موجود، أو ينسى edge case، أو يخالف طريقة المشروع. <strong>السطر اللي مش فاهمه ما يتعملوش merge.</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>إيه أكتر حاجة أركز عليها وانا براجع كود كتبه الـ AI؟</summary>
+                    <p>إنه ممكن يبان صح وهو غلط: API مش موجود، أو edge case منسي، أو ثغرة زي query مش متفلتر بالمستخدم. وأهم قاعدة: السطر اللي مش فاهمه ما يتعملوش merge.</p>
+                </details>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <section class="section" id="lead">
+            <div class="section-header">
+                <span class="section-tag">// 14 — مهارات الـ Lead</span>
+                <h2 class="section-title">Lead <span class="highlight">Skills</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 الـ Track ده في جملة:</strong>
+                السنيور بيكتب كود كويس؛ الـ Lead بيخلي الفريق كله يطلّع شغل كويس: تقسيم وتقدير أمين، قرارات مكتوبة، هدوء وقت الأزمة، كلام واضح مع البيزنس، وتعليم الـ juniors.
+            </div>
+
+            <h3 class="subsection-title lesson-title">1. تقسيم الشغل والتقدير</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🍰</span>
+                    <div class="card-title">Vertical slices</div>
+                    <div class="card-body">
+                        قسّم الـ feature لمهام كل واحدة يوم أو اتنين بالكتير، واقطعها شريحة رفيعة من الأول للآخر (الداتابيز + الـ API + شاشة Flutter) بدل ما أخلص الـ backend كله الأول. مشاكل الربط تظهر في الأسبوع الأول مش الأخير.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📏</span>
+                    <div class="card-title">التقدير مدى مش وعد</div>
+                    <div class="card-body">
+                        3 أرقام: متفائل <strong>O</strong>، متوقع <strong>M</strong>، متشائم <strong>P</strong>. ولو الفرق بين O و P كبير = فيه مجهول كبير ← اعمل <strong>spike</strong> (وقت محدد للاستكشاف) قبل ما تلتزم.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📣</span>
+                    <div class="card-title">قول بدري</div>
+                    <div class="card-body">
+                        التقدير بيشمل الـ tests والمراجعة والـ deploy مش الكود بس. والخبر الوحش بدري ممكن يتدار، ومتأخر بيبقى أزمة.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>🧮 المعادلة:</strong>
+                <strong dir="ltr" style="display:inline-block;">E = (O + 4M + P) ÷ 6</strong> — مثال (بالأيام): <bdi dir="ltr" style="white-space:nowrap;">O = 2, M = 4, P = 10</bdi> ← <bdi dir="ltr" style="white-space:nowrap;">E = 28 ÷ 6 ≈ 4.7</bdi> <strong>يوم</strong>.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>قدّرت مهمة بالأيام: <bdi dir="ltr" style="white-space:nowrap;">O = 1, M = 3, P = 11</bdi>. احسب E، والأرقام دي بتقولي إيه؟</summary>
+                    <p><span dir="ltr" style="display:inline-block;">E = (1 + 12 + 11) ÷ 6 = 4</span> أيام. والفرق الكبير بين 1 و 11 معناه إن فيه مجهول كبير، فالأحسن أعمل spike قبل ما ألتزم بميعاد.</p>
+                </details>
+                <details class="qa-item">
+                    <summary>مديري عايز feature في أسبوع وانا شايفها 3 أسابيع. أقوله إيه؟</summary>
+                    <p>أشرح ليه 3 أسابيع، وأعرض اختيارات: نسخة أصغر تطلع في أسبوع وفيها كذا وناقصها كذا، أو الـ feature كاملة في 3 أسابيع، أو نشيل حاجة تانية من الخطة. يختار وهو فاهم التمن.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">2. الـ ADRs: اكتب ليه اخترت</h3>
+            <div class="tip-box">
+                <strong>💡 ADR = Architecture Decision Record:</strong>
+                مستند قصير لكل قرار تقني مهم، متخزّن جوه الـ repo. بعد 6 شهور محدش هيفتكر ليه اخترنا Riverpod أو cursor pagination. بيمنع الفريق يعيد نفس النقاش، وبيفهّم أي حد جديد بسرعة.
+            </div>
+            <div class="code-block" data-file="docs/adr/0007-cursor-pagination.md">
+                <span class="lang-tag">md</span>
+<span class="kw"># ADR-0007: Cursor pagination للـ feed</span>
+
+<span class="kw">## الحالة</span>
+مقبول
+
+<span class="kw">## السياق</span>
+الـ feed بيتحدث باستمرار، والـ offset pagination بيكرر عناصر في الـ infinite scroll.
+
+<span class="kw">## القرار</span>
+هنستخدم CursorPagination مترتبة بـ -created_at.
+
+<span class="kw">## البدائل اللي اترفضت</span>
+- Offset pagination: أبسط، بس بيكرر عناصر وبيبطأ في الصفحات البعيدة.
+
+<span class="kw">## العواقب</span>
+- (+) الـ scroll ثابت وسريع.
+- (−) مفيش «روح لصفحة 10».
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                أهم جزء في الـ ADR هو <strong>«البدائل»</strong> و<strong>«العواقب»</strong> لأنهم بيجبروني أفكر في الـ trade-offs. وما أكتبش ADR لكل تفصيلة صغيرة؛ بس للقرارات الصعب الرجوع فيها أو اللي هتأثر على الفريق فترة طويلة (state management، شكل الـ pagination، طريقة الـ auth).
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>إيه أهم جزء في الـ ADR، وليه؟</summary>
+                    <p>البدائل اللي اترفضت والعواقب. هما اللي بيشرحوا ليه القرار اتاخد وإيه تمنه، فأي حد جديد يفهم من غير ما يعيد نفس النقاش.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">3. الـ Incidents: لما production يقع</h3>
+            <div class="cards-grid">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧯</span>
+                    <div class="card-title">رجّع الخدمة الأول</div>
+                    <div class="card-body">
+                        rollback، أو اقفل الـ feature بـ feature flag، أو زوّد السيرفرات. فهم السبب ييجي بعدين وبهدوء.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧭</span>
+                    <div class="card-title">شخص واحد بيقود</div>
+                    <div class="card-body">
+                        بيوزع والباقي بينفذوا. من غير كده 5 أشخاص بيجربوا 5 حاجات في نفس الوقت ويلخبطوا بعض.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📢</span>
+                    <div class="card-title">طمّن الناس بانتظام</div>
+                    <div class="card-body">
+                        «شغالين عليها، والتحديث الجاي بعد 30 دقيقة» — حتى لو مفيش جديد. وسجّل <strong>timeline</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📝</span>
+                    <div class="card-title">Postmortem من غير لوم</div>
+                    <div class="card-body">
+                        إيه اللي حصل، أثره، السبب الجذري (اسأل «ليه؟» كذا مرة)، إيه اللي نفع، ومهام لكل واحدة مسؤول.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>💡 السؤال الصح:</strong>
+                مش «مين غلط؟» — السؤال: «<strong>إيه في النظام سمح إن الغلطة دي توصل production؟</strong>» لأن الناس لو اتلاموا هيخبّوا غلطاتهم والمشكلة هتتكرر.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>السيرفر وقع الساعة 2 بالليل. إيه أول 3 حاجات أعملها؟</summary>
+                    <p>أرجّع الخدمة بأسرع طريقة (rollback أو إيقاف الـ feature)، وأحدد مين بيقود ويوزع الشغل، وأطمّن الناس المتأثرين بتحديثات منتظمة. البحث عن السبب الجذري بعد ما الخدمة ترجع.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">4. الكلام مع ناس مش تقنيين</h3>
+            <div class="tip-box">
+                <strong>💡 ترجم التقني لأثر على البيزنس:</strong>
+                بدل «محتاجين نعمل refactor للـ auth module» ← «أي تعديل في تسجيل الدخول بياخد 3 أضعاف وقته. أسبوعين تنضيف هيقللوا وقت التعديلات الجاية للنص، ويقللوا المخاطر الأمنية.»
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>اعرض <strong>اختيارات</strong>، لكل واحد وقته وتكلفته ومخاطره، ومعاهم ترشيحك.</li>
+                    <li>ابدأ بالخلاصة، والتفاصيل لو اتسألت.</li>
+                    <li>«مش عارف لسه، هرد عليك الخميس» أحسن ألف مرة من رقم بتخمّنه.</li>
+                </ul>
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>حوّل الجملة دي لكلام بيزنس: «الداتابيز محتاجة indexes».</summary>
+                    <p>مثلًا: «صفحة التقارير بتاخد 10 ثواني والمستخدمين بيشتكوا. يومين شغل هيخلوها أقل من ثانية.» الأثر والتكلفة والنتيجة، من غير مصطلحات.</p>
+                </details>
+            </div>
+
+            <h3 class="subsection-title lesson-title">5. تعليم الـ juniors</h3>
+            <div class="tip-box">
+                <strong>💡 شغلتي:</strong>
+                إن الـ junior يبقى قادر يحل المشكلة الجاية <strong>لوحده</strong>، مش إني أحلها انا أسرع.
+                <ul style="margin-top:8px; padding-right:20px;">
+                    <li>ما آخدش منهم الكيبورد. أسأل أسئلة توجّههم وأسيبهم يوصلوا.</li>
+                    <li>وقت للزنقة: اللي واقف في مشكلة أكتر من ساعتين يسأل، ما يفضلش يومين لوحده.</li>
+                    <li>أزوّد الصعوبة بالتدريج: مهمة أصعب شوية كل مرة، مع دعم.</li>
+                    <li>الـ code review فرصة تعليم: أشرح «ليه»، مش بس «غيّر ده».</li>
+                    <li>السؤال والغلط لازم يبقوا آمنين: الفريق اللي بيخاف يسأل بيعمل غلطات أكبر.</li>
+                    <li>في زمن الـ AI: أعلّمهم يفهموا الكود اللي الـ AI بيكتبه، مش بس يعملوله paste.</li>
+                </ul>
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ Trade-off:</strong>
+                إني أصلّح المشكلة بنفسي أسرع النهارده، بس بيخلّي الفريق معتمد عليّا بكرة. التعليم أبطأ في الأول وأوفر بكتير بعد كده.
+            </div>
+            <div class="qa-list">
+                <div class="qa-head">🧪 اختبر نفسك — جاوب في دماغك الأول، وبعدين دوس على السؤال</div>
+                <details class="qa-item">
+                    <summary>junior واقف في bug بقاله ساعة. أعمل إيه؟</summary>
+                    <p>ما أصلّحهوش بنفسي. أسأله جرّب إيه ووصل لحد فين، وأوجّهه بسؤال يقرّبه من المكان الصح. ولو واقف فعلًا، أديله خطوة واحدة يقف عليها وأسيبه يكمل.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- ===== Senior / Lead Roadmap notes (end) ===== -->
+
         <footer class="footer">
             <div style="margin-bottom:8px;"><span style="font-size:22px;">📘</span></div>
             <div>Flutter & Dart — <span>ملخص دراستي الشامل</span></div>
             <div style="margin-top:8px; font-size:11px; opacity:0.5;">
                 Basics → State Management → Architecture → API Integration → Local DB → Performance → Testing → Release
+            </div>
+            <div style="margin-top:4px; font-size:11px; opacity:0.5;">
+                Senior / Lead Roadmap: Architecture → Offline-first & Sync → Performance → Publishing → Code Quality → Lead Skills
             </div>
             <div style="margin-top:14px; font-size:12px; color:var(--text-muted);">Focused on Production Flutter Engineering</div>
         </footer>
@@ -1221,6 +2511,8 @@ flutter build web --release
                 dart: 'main.dart',
                 bash: 'terminal',
                 txt: 'project-structure.txt',
+                yaml: 'pubspec.yaml',
+                md: 'README.md',
             };
 
             document.querySelectorAll('.code-block').forEach((block) => {
@@ -1235,7 +2527,7 @@ flutter build web --release
                     rawHtml = rawHtml.replace(langEl.outerHTML, '');
                 }
 
-                rawHtml = rawHtml.replace(/^\n+/, '').replace(/\n+\s*$/, '');
+                rawHtml = rawHtml.replace(/^\s*\n/, '').replace(/\n+\s*$/, '');
                 const lines = rawHtml.split('\n');
                 const renderedLines = lines.map((line, index) => {
                     const content = line.length ? line : '&nbsp;';
@@ -1279,7 +2571,7 @@ flutter build web --release
             observer.observe(el);
         });
 
-        const sections = ['hero', 'basics', 'state', 'architecture', 'network', 'storage', 'performance', 'testing', 'release'];
+        const sections = ['hero', 'basics', 'state', 'architecture', 'network', 'storage', 'performance', 'testing', 'release', 'roadmap', 'arch-deep', 'offline-sync', 'perf-deep', 'publishing', 'quality', 'lead'];
         const dots = document.querySelectorAll('.nav-dot');
 
         const sectionObserver = new IntersectionObserver((entries) => {
@@ -1290,7 +2582,7 @@ flutter build web --release
                     if (idx >= 0) dots[idx].classList.add('active');
                 }
             });
-        }, { threshold: 0.4 });
+        }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
 
         sections.forEach(id => {
             const el = document.getElementById(id);

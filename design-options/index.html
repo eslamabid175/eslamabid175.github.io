@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اختار الديزاين</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f5f2; --fg:#16161a; --muted:#6b6b76; --card:#fff; --line:#e3e1dc; --accent:#2f5bea; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#111214; --fg:#ececf1; --muted:#9a9aa6; --card:#1a1b1f; --line:#2a2b31; --accent:#7c9bff; }
+  }
+  :root[data-theme="dark"] { --bg:#111214; --fg:#ececf1; --muted:#9a9aa6; --card:#1a1b1f; --line:#2a2b31; --accent:#7c9bff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font-family:"IBM Plex Sans Arabic", system-ui, sans-serif; line-height:1.6; }
+  main { max-width:1200px; margin:0 auto; padding:40px 16px 64px; }
+  h1 { font-size:clamp(1.6rem, 4vw, 2.4rem); margin:0 0 6px; }
+  p.lead { color:var(--muted); margin:0 0 32px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap:24px; }
+  .opt { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+  .frame { direction:ltr; position:relative; aspect-ratio:16/10; overflow:hidden; border-bottom:1px solid var(--line); background:var(--bg); }
+  .frame iframe { position:absolute; top:0; left:0; width:1440px; height:900px; border:0; transform-origin:0 0; pointer-events:none; direction:ltr; }
+  .meta { padding:16px 18px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .meta h2 { font-size:1.1rem; margin:0; }
+  .meta span { color:var(--muted); font-size:.9rem; }
+  a.open { background:var(--accent); color:#fff; text-decoration:none; padding:8px 16px; border-radius:999px; font-weight:600; white-space:nowrap; }
+  a.open:focus-visible { outline:3px solid var(--fg); outline-offset:2px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>اختار الديزاين اللي يعجبك</h1>
+  <p class="lead">٤ اتجاهات مختلفة لنفس المحتوى المحدّث. افتح كل واحد على الموبايل والديسكتوب، وقولي رقم اللي اخترته عشان أنقل الموقع كله عليه.</p>
+  <div class="grid">
+    <article class="opt"><div class="frame"><iframe src="1-terminal.html" title="Midnight Terminal preview" tabindex="-1"></iframe></div>
+      <div class="meta"><div><h2>١ · Midnight Terminal</h2><span>داكن، روح محرر الأكواد</span></div><a class="open" href="1-terminal.html">افتح</a></div></article>
+    <article class="opt"><div class="frame"><iframe src="2-editorial.html" title="Editorial preview" tabindex="-1"></iframe></div>
+      <div class="meta"><div><h2>٢ · Editorial</h2><span>فاتح، شكل مجلة، المشاريع كـ case studies</span></div><a class="open" href="2-editorial.html">افتح</a></div></article>
+    <article class="opt"><div class="frame"><iframe src="3-bento.html" title="Bento Grid preview" tabindex="-1"></iframe></div>
+      <div class="meta"><div><h2>٣ · Bento Grid</h2><span>كروت بأحجام مختلفة، فاتح وداكن</span></div><a class="open" href="3-bento.html">افتح</a></div></article>
+    <article class="opt"><div class="frame"><iframe src="4-bold.html" title="Bold Bilingual preview" tabindex="-1"></iframe></div>
+      <div class="meta"><div><h2>٤ · Bold Bilingual</h2><span>ألوان جريئة، عربي وإنجليزي</span></div><a class="open" href="4-bold.html">افتح</a></div></article>
+  </div>
+</main>
+<script>
+  function fit() {
+    document.querySelectorAll('.frame').forEach(function (f) {
+      f.querySelector('iframe').style.transform = 'scale(' + (f.clientWidth / 1440) + ')';
+    });
+  }
+  addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

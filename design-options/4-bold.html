@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eslam Aped · Bold</title>
+<meta name="description" content="Eslam Aped, Software Engineer (Flutter &amp; Django) in Cairo, Egypt. 16 published apps across Cogens, 3I Vision and freelance work.">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Cairo:wght@500;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#000;
+  --paper:#F3F2EC;
+  --white:#fff;
+  --sun:#FFD400;
+  --cobalt:#2340F5;
+  --rose:#FF5C8A;
+  --mint:#00C27A;
+  --line:3px;
+  --shadow:6px 6px 0 var(--ink);
+  --shadow-lg:10px 10px 0 var(--ink);
+  --en:"Archivo",system-ui,sans-serif;
+  --ar:"Cairo","Archivo",system-ui,sans-serif;
+  --gut:clamp(16px,4vw,48px);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--en);font-size:17px;line-height:1.55;font-stretch:100%;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--cobalt);outline-offset:3px}
+.ar{font-family:var(--ar);font-stretch:normal}
+[lang="ar"]{font-family:var(--ar)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--gut)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--sun);border:var(--line) solid;padding:8px 12px;z-index:100}
+.skip:focus{left:8px}
+
+/* ---------- buttons */
+.btn{display:inline-flex;align-items:center;gap:.5em;color:var(--ink);font:800 1rem/1 var(--en);font-stretch:112%;text-decoration:none;background:var(--white);border:var(--line) solid var(--ink);padding:.9em 1.2em;box-shadow:4px 4px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.btn--sun{background:var(--sun)}
+.btn--ink{background:var(--ink);color:var(--white)}
+.btn--ink:focus-visible{outline-color:var(--sun)}
+.btn--sm{font-size:.86rem;padding:.65em .9em;box-shadow:3px 3px 0 var(--ink)}
+.btn--sm:hover{box-shadow:5px 5px 0 var(--ink)}
+
+/* ---------- top bar */
+.top{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:var(--line) solid}
+.top .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.mark{font:900 1.15rem/1 var(--en);font-stretch:125%;text-decoration:none;background:var(--ink);color:var(--sun);padding:9px 10px;border:var(--line) solid var(--ink)}
+.top nav{display:flex;gap:4px;margin-inline-start:auto}
+.top nav a{font-weight:700;text-decoration:none;padding:8px 12px;border:2px solid transparent}
+.top nav a:hover{border-color:var(--ink);background:var(--white)}
+.top .btn{padding:.6em .9em;font-size:.9rem}
+
+/* ---------- hero */
+.hero{border-bottom:var(--line) solid;background:
+  linear-gradient(var(--paper),var(--paper)) padding-box;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-top:clamp(32px,6vw,72px);padding-bottom:clamp(40px,6vw,80px);align-items:center}
+.hello{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:0 0 18px;font-weight:700}
+.hello .ar{font-size:1.15rem;font-weight:700}
+.loc{display:inline-block;background:var(--white);border:2px solid;padding:3px 10px;font-weight:700}
+.name{margin:0;font:900 clamp(3.6rem,11.5vw,10.5rem)/.84 var(--en);font-stretch:125%;letter-spacing:-.02em}
+.name span{display:block}
+.name .l2{padding-left:clamp(0px,7vw,120px)}
+.slab{display:inline-block;margin:26px 0 0;background:var(--cobalt);color:var(--white);border:var(--line) solid var(--ink);box-shadow:var(--shadow);padding:6px 22px 10px;transform:rotate(-1.5deg);font:900 clamp(1.5rem,3.6vw,2.7rem)/1.35 var(--ar)}
+.role{margin:28px 0 8px;font:800 clamp(1.25rem,2.3vw,1.75rem)/1.25 var(--en);font-stretch:110%;max-width:30ch}
+.lede{margin:0 0 28px;max-width:58ch;font-size:1.06rem}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.photo{position:relative;justify-self:end;width:min(100%,420px)}
+.photo figure{margin:0;border:var(--line) solid;box-shadow:var(--shadow-lg);background:var(--sun);transform:rotate(1.5deg)}
+.photo img{width:100%;height:auto;aspect-ratio:880/1168;object-fit:cover;filter:saturate(1.05)}
+.sticker{position:absolute;left:-28px;bottom:36px;background:var(--sun);border:var(--line) solid;box-shadow:var(--shadow);padding:12px 16px 10px;transform:rotate(-6deg);text-align:center}
+.sticker b{display:block;font:900 3rem/.9 var(--en);font-stretch:125%}
+.sticker span{display:block;font-weight:800;font-size:.95rem}
+.sticker .ar{font-size:1rem}
+
+/* ---------- stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:var(--line) solid}
+.stat{padding:28px var(--gut) 26px;border-right:var(--line) solid}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:900 clamp(2.6rem,5.4vw,4.6rem)/1 var(--en);font-stretch:125%}
+.stat p{margin:8px 0 0;font-weight:700;max-width:22ch}
+.stat .ar{display:block;font-weight:700;margin-top:2px}
+.s1{background:var(--sun)}.s2{background:var(--white)}.s3{background:var(--rose)}.s4{background:var(--cobalt);color:var(--white)}
+
+/* ---------- section scaffolding: the two-way header */
+section.block{padding:clamp(56px,8vw,104px) 0}
+.duo{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;border:var(--line) solid;background:var(--white);box-shadow:var(--shadow);padding:16px 22px 14px;margin-bottom:22px}
+.duo h2{margin:0;font:900 clamp(2.1rem,5.6vw,4.6rem)/.95 var(--en);font-stretch:125%;letter-spacing:-.01em}
+.duo .ar{font:900 clamp(1.8rem,4.6vw,3.8rem)/1.2 var(--ar);margin-left:auto}
+.duo--sun{background:var(--sun)}.duo--cobalt{background:var(--cobalt);color:var(--white)}.duo--rose{background:var(--rose)}.duo--mint{background:var(--mint)}
+.intro{max-width:64ch;margin:0 0 40px;font-size:1.08rem}
+
+/* ---------- about */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:start}
+.about-copy p{margin:0 0 16px;font-size:1.12rem;max-width:62ch}
+.about-copy p:first-child{font:800 clamp(1.3rem,2.2vw,1.65rem)/1.35 var(--en);font-stretch:105%}
+.facts{border:var(--line) solid;background:var(--white);box-shadow:var(--shadow)}
+.facts div{padding:14px 18px;border-bottom:2px solid}
+.facts div:last-child{border-bottom:0}
+.facts dt{font-weight:800;font-size:.9rem}
+.facts dd{margin:2px 0 0}
+.facts dd a{font-weight:700}
+
+/* ---------- experience */
+.jobs{display:grid;gap:28px}
+.job{display:grid;grid-template-columns:minmax(200px,280px) minmax(0,1fr);border:var(--line) solid;background:var(--white);box-shadow:var(--shadow)}
+.job-side{padding:22px;border-right:var(--line) solid;background:var(--sun)}
+.job:nth-child(2) .job-side{background:var(--mint)}
+.job:nth-child(3) .job-side{background:var(--rose)}
+.job-side time{display:inline-block;background:var(--ink);color:var(--white);font-weight:800;padding:4px 10px;font-size:.9rem}
+.job-side h3{margin:14px 0 4px;font:900 clamp(1.7rem,2.6vw,2.2rem)/1 var(--en);font-stretch:125%}
+.job-side p{margin:4px 0 0;font-weight:700}
+.job-side a{font-weight:800}
+.job-body{padding:22px 26px}
+.job-body ul{margin:0;padding-left:1.1em}
+.job-body li{margin:0 0 10px;max-width:72ch}
+.job-body li::marker{content:"■  ";font-size:.7em}
+.job-body b{font-weight:800}
+
+/* ---------- projects */
+.jump{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 48px}
+.feature{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);border:var(--line) solid;background:var(--white);box-shadow:var(--shadow-lg);margin-bottom:72px}
+.feature-text{padding:clamp(20px,3vw,36px)}
+.feature h3{margin:0 0 8px;font:900 clamp(2rem,4vw,3.2rem)/1.1 var(--en);font-stretch:125%}
+.feature h3 .ar{font-size:.85em;margin-left:.25em}
+.feature .icon{width:72px;height:72px}
+.feature-shots{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:clamp(16px,2.4vw,28px);background:var(--sun);border-left:var(--line) solid;align-content:start}
+.feature-shots img{border:var(--line) solid;border-radius:16px;box-shadow:4px 4px 0 var(--ink);background:var(--white);width:100%;height:auto}
+.feature-shots img:nth-child(even){transform:translateY(28px)}
+.eng-h{margin:22px 0 10px;font:800 1.05rem/1.2 var(--en);font-stretch:110%}
+
+.pgroup{margin-top:64px}
+.pgroup:first-of-type{margin-top:0}
+.pgroup-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;border-bottom:var(--line) solid;padding-bottom:10px;margin-bottom:26px}
+.pgroup-head h3{margin:0;font:900 clamp(1.7rem,3.4vw,2.6rem)/1 var(--en);font-stretch:125%}
+.pgroup-head .ar{font:800 clamp(1.3rem,2.4vw,1.8rem)/1.2 var(--ar)}
+.pgroup-head p{margin:0 0 0 auto;font-weight:700}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.proj{display:flex;flex-direction:column;border:var(--line) solid;background:var(--white);box-shadow:var(--shadow);padding:22px;min-width:0}
+.proj--wide{grid-column:1/-1}
+.proj-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.proj-head > div{min-width:0;flex:1}
+.icon{width:56px;height:56px;border:var(--line) solid;background:var(--white);object-fit:contain;flex:none}
+.proj h4{margin:0;font:900 1.55rem/1.1 var(--en);font-stretch:118%}
+.proj h4 .ar{font-weight:800;font-size:.95em;margin-left:.2em}
+.kind{margin:3px 0 0;font-weight:600;font-size:.95rem}
+.status{flex:none;align-self:flex-start;font-weight:800;font-size:.8rem;border:2px solid;padding:3px 8px;background:var(--mint)}
+.credit{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 12px;align-self:flex-start;margin:0 0 12px;border:2px solid;padding:5px 12px;font-weight:800;font-size:.92rem;box-shadow:3px 3px 0 var(--ink)}
+.credit .ar{font-weight:700}
+.credit--solo{background:var(--sun)}
+.credit--perf{background:var(--rose)}
+.credit--team{background:var(--cobalt);color:var(--white)}
+.pitch{margin:0 0 12px;padding:10px 14px;border-right:6px solid var(--cobalt);background:var(--paper);font-weight:600;line-height:1.8}
+.desc{margin:0 0 12px;max-width:70ch}
+.bul{margin:0 0 14px;padding-left:1.1em}
+.bul li{margin-bottom:6px}
+.bul li::marker{content:"■  ";font-size:.7em}
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px;padding:0}
+.tags li{font-size:.82rem;font-weight:700;border:2px solid;padding:2px 8px;background:var(--paper)}
+.stores{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 6px 14px 2px;margin-top:auto;scrollbar-width:thin;scrollbar-color:var(--ink) var(--paper)}
+.shots img{height:300px;width:auto;flex:none;scroll-snap-align:start;border:var(--line) solid;border-radius:14px;background:var(--paper);box-shadow:3px 3px 0 var(--ink)}
+.shots--wide img{height:auto;width:min(560px,86%);border-radius:0;aspect-ratio:auto}
+.banner{margin:auto 0 0;border:var(--line) solid;box-shadow:4px 4px 0 var(--ink)}
+.banner img{width:100%}
+
+/* ---------- skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:22px}
+.skill{border:var(--line) solid;background:var(--white);padding:18px 18px 20px;box-shadow:var(--shadow)}
+.skill h3{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 14px;font:900 1.3rem/1.15 var(--en);font-stretch:118%}
+.skill h3 .ar{font-weight:800;font-size:1.05rem}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:0}
+.chips li{border:2px solid;padding:3px 10px;font-weight:600;font-size:.92rem;background:var(--paper)}
+.skill:nth-child(4n+1) h3{background:var(--sun);margin:-18px -18px 14px;padding:12px 18px;border-bottom:var(--line) solid}
+.skill:nth-child(4n+2) h3{background:var(--mint);margin:-18px -18px 14px;padding:12px 18px;border-bottom:var(--line) solid}
+.skill:nth-child(4n+3) h3{background:var(--rose);margin:-18px -18px 14px;padding:12px 18px;border-bottom:var(--line) solid}
+.skill:nth-child(4n+4) h3{background:var(--cobalt);color:var(--white);margin:-18px -18px 14px;padding:12px 18px;border-bottom:var(--line) solid}
+
+/* ---------- roadmap */
+.roadmap{background:var(--ink);color:var(--white);border-top:var(--line) solid;border-bottom:var(--line) solid}
+.roadmap .duo{border-color:var(--white);box-shadow:6px 6px 0 var(--white);color:var(--ink)}
+.roadmap .intro a{color:var(--sun);font-weight:800}
+.done{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin:0 0 40px}
+.done-bar{flex:1 1 320px;display:grid;grid-template-columns:repeat(30,1fr);gap:4px;min-width:0}
+.done-bar i{height:28px;background:var(--sun);border:2px solid var(--white)}
+.done p{margin:0;font:900 clamp(1.5rem,3vw,2.2rem)/1.1 var(--en);font-stretch:118%}
+.done p .ar{display:block;font-size:.8em;color:var(--sun)}
+.tracks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.track{display:flex;flex-direction:column;border:var(--line) solid var(--white);background:var(--paper);color:var(--ink);padding:0 0 18px;box-shadow:6px 6px 0 var(--white)}
+.track header{padding:16px 18px 14px;border-bottom:var(--line) solid var(--ink)}
+.track--sun header{background:var(--sun)}.track--cobalt header{background:var(--cobalt);color:var(--white)}.track--paper header{background:var(--white)}.track--rose header{background:var(--rose)}.track--mint header{background:var(--mint)}.track--ink header{background:var(--ink);color:var(--white)}
+.track h3{margin:0;font:900 1.4rem/1.1 var(--en);font-stretch:118%}
+.track header .ar{display:block;font-weight:800;font-size:1.05rem;margin-top:2px}
+.track-count{margin:0 0 6px;font-weight:800;font-size:.85rem;display:inline-block;border:2px solid currentColor;padding:1px 8px}
+.track-count .ar{display:inline!important;font-size:.85rem!important;margin:0!important}
+.track-note{margin:14px 18px 6px;font-size:.92rem;line-height:1.5}
+.lessons{list-style:none;margin:6px 0 16px;padding:0 18px}
+.lessons li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:10px;align-items:start;padding:9px 0;border-top:2px solid}
+.lessons li:first-child{border-top:0}
+.lnum{font-weight:900;font-size:.85rem;background:var(--ink);color:var(--white);padding:1px 5px;margin-top:2px}
+.len{font-weight:700;line-height:1.3}
+.lessons .ar{grid-column:2;font-size:.9rem;line-height:1.5;text-align:right}
+.tick{grid-column:3;grid-row:1/3;width:26px;height:26px;display:grid;place-items:center;background:var(--mint);border:2px solid;font-weight:900}
+.track .btn{margin:auto 18px 0;align-self:flex-start}
+
+/* ---------- writing */
+.writing{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.wcard{border:var(--line) solid;background:var(--white);padding:20px;box-shadow:var(--shadow);text-decoration:none;display:flex;flex-direction:column;gap:8px}
+.wcard:hover{background:var(--sun)}
+.wcard small{font-weight:800}
+.wcard strong{font:900 1.2rem/1.2 var(--en);font-stretch:112%}
+.wcard span{font-size:.95rem}
+
+/* ---------- contact */
+.contact{background:var(--cobalt);color:var(--white);border-top:var(--line) solid var(--ink)}
+.contact .duo{background:var(--sun);color:var(--ink)}
+.mail{display:inline-block;margin:10px 0 36px;font:900 clamp(1.5rem,5.6vw,4.6rem)/1 var(--en);font-stretch:118%;color:var(--white);text-decoration:none;border-bottom:6px solid var(--sun);overflow-wrap:anywhere}
+.mail:hover{color:var(--sun)}
+.mail:focus-visible{outline-color:var(--sun)}
+.channels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.channels a,.channels div{display:block;border:var(--line) solid var(--ink);background:var(--white);color:var(--ink);padding:16px;text-decoration:none;box-shadow:6px 6px 0 var(--ink)}
+.channels a:hover{background:var(--sun)}
+.channels small{display:block;font-weight:800}
+.channels strong{display:block;font-size:1.05rem;overflow-wrap:anywhere}
+.contact .cta{margin-top:36px}
+footer{background:var(--ink);color:var(--white);padding:22px 0 80px;font-size:.92rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+footer a{color:var(--sun)}
+
+/* ---------- option pill */
+.option-pill{position:fixed;left:16px;bottom:16px;z-index:60;background:var(--ink);color:var(--sun);text-decoration:none;font:800 .85rem/1 var(--en);padding:11px 16px;border:var(--line) solid var(--sun);border-radius:999px;box-shadow:4px 4px 0 var(--sun)}
+.option-pill:hover{background:var(--sun);color:var(--ink);border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+
+/* ---------- load moment */
+@media (prefers-reduced-motion:no-preference){
+  .name span,.slab,.photo figure,.sticker{animation:drop .6s cubic-bezier(.2,1.4,.4,1) both}
+  .name .l2{animation-delay:.08s}
+  .slab{animation-delay:.18s}
+  .photo figure{animation-delay:.1s}
+  .sticker{animation-delay:.36s}
+  @keyframes drop{from{opacity:0;translate:0 -28px}to{opacity:1;translate:0 0}}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,.btn:hover,.btn:active{transition:none;transform:none}
+}
+
+/* ---------- responsive */
+@media (max-width:1100px){
+  .tracks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:960px){
+  .top nav{display:none}
+  .top .btn{margin-inline-start:auto}
+  .hero .wrap{grid-template-columns:1fr}
+  .photo{justify-self:start;width:min(78%,360px);margin:8px 0 0 28px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:var(--line) solid}
+  .about-grid,.feature{grid-template-columns:1fr}
+  .feature-shots{border-left:0;border-top:var(--line) solid}
+  .pgrid{grid-template-columns:1fr}
+  .job{grid-template-columns:1fr}
+  .job-side{border-right:0;border-bottom:var(--line) solid}
+  .writing{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .tracks,.channels{grid-template-columns:1fr}
+  .stat{padding:20px 16px}
+  .duo{padding:14px 16px 12px}
+  .duo .ar{margin-left:0;width:100%;text-align:right}
+  .pgroup-head p{margin-left:0;width:100%}
+  .proj{padding:16px}
+  .proj-head{flex-wrap:wrap}
+  .shots img{height:250px}
+  .feature-shots{gap:12px}
+  .feature-shots img:nth-child(even){transform:translateY(16px)}
+  .sticker{left:-20px;bottom:20px}
+  .sticker b{font-size:2.3rem}
+  .name .l2{padding-left:0}
+  .name{font-size:21vw}
+  .mail{font-size:8.6vw;border-bottom-width:4px}
+  .done-bar i{height:20px}
+  .option-pill{font-size:.75rem;padding:9px 12px;left:10px;bottom:10px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Eslam Aped, back to top">EA</a>
+    <nav aria-label="Sections">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn--sun" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" target="_blank" rel="noopener">Download CV</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-name">
+    <div class="wrap">
+      <div>
+        <p class="hello"><span class="loc">Cairo, Egypt</span> <span lang="ar" dir="rtl" class="ar">أهلاً، أنا</span></p>
+        <h1 class="name" id="hero-name"><span>Eslam</span><span class="l2">Aped</span></h1>
+        <p class="slab" lang="ar" dir="rtl">من الفكرة لحد المتجر</p>
+        <p class="role">Software Engineer, Flutter &amp; Django</p>
+        <p class="lede">I build cross-platform Flutter apps and the Python backends behind them, then take them all the way to the App Store and Google Play. Clean Architecture, native Android integration and production releases are the day job; Arabic-first, right-to-left products are home ground.</p>
+        <div class="cta">
+          <a class="btn btn--ink" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+          <a class="btn btn--sun" href="mailto:eslamabid175@gmail.com">Email me</a>
+          <a class="btn" href="#projects">See the apps</a>
+        </div>
+      </div>
+      <div class="photo">
+        <figure><img src="../assets/profile.png" alt="Eslam Aped" width="880" height="1168" loading="eager"></figure>
+        <p class="sticker"><b>16</b><span>apps on the stores</span><span lang="ar" dir="rtl" class="ar">تطبيق منشور</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="In numbers">
+    <div class="stat s1"><b>16</b><p>apps published on Google Play &amp; the App Store</p><span lang="ar" dir="rtl" class="ar">تطبيق على المتاجر</span></div>
+    <div class="stat s2"><b>3+</b><p>years building production apps</p><span lang="ar" dir="rtl" class="ar">سنين خبرة</span></div>
+    <div class="stat s3"><b>2+1</b><p>companies, plus freelance clients</p><span lang="ar" dir="rtl" class="ar">شركتين وشغل حر</span></div>
+    <div class="stat s4"><b>30/30</b><p>Senior / Lead roadmap lessons completed</p><span lang="ar" dir="rtl" class="ar">درس خلّصته</span></div>
+  </section>
+
+  <section class="block" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="duo"><h2 id="about-h">About</h2><span lang="ar" dir="rtl" class="ar">نبذة عني</span></div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I build high-performance Flutter apps and Django REST APIs, and I own them end to end: architecture, backend, release pipeline and store listing.</p>
+          <p>At Cogens I work on a school platform used every day by parents, staff, students and bus drivers, plus apps for the Muslim Association of Canada. At 3I Vision I shipped AI-assisted apps for people detection and licence plate recognition. As a freelancer I've delivered a trip platform for Oman, a sports booking app, and Mksaby, a shop accounting app I built entirely on my own.</p>
+          <p>Lately I finished a 30-lesson Senior / Lead roadmap covering Django internals, Flutter performance, system design, DevOps, code quality and leading a team, and I'm applying it to everything I ship.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Education</dt><dd>B.Sc. Computer Science, Cairo University (2017–2022)</dd></div>
+          <div><dt>Languages</dt><dd>Arabic (native), English (fluent)</dd></div>
+          <div><dt>Certifications</dt><dd><a href="https://www.udemy.com/certificate/UC-2932f681-e072-482c-a0e2-37770d6dd0c7/" target="_blank" rel="noopener">The Complete Flutter &amp; Dart</a>, Udemy 2025 · <a href="https://www.udemy.com/certificate/UC-df701db4-7470-4f96-9f32-a72379af93bd/" target="_blank" rel="noopener">Multi-Modular &amp; Clean Architecture in Android</a>, Udemy 2024 · Mastering Mobile App Development, YAT Cairo 2021</dd></div>
+          <div><dt>Based in</dt><dd>Cairo, Egypt. Working remote and hybrid.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience" aria-labelledby="exp-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="duo duo--sun"><h2 id="exp-h">Experience</h2><span lang="ar" dir="rtl" class="ar">الخبرة</span></div>
+      <p class="intro">Three places, newest first. Each one shipped real apps to real stores.</p>
+      <div class="jobs">
+        <article class="job">
+          <div class="job-side">
+            <time datetime="2025-01">Jan 2025 – Present</time>
+            <h3>Cogens</h3>
+            <p>Software Engineer</p>
+            <p>Canada (Remote)</p>
+            <p><a href="https://cogens.com/" target="_blank" rel="noopener">cogens.com</a></p>
+          </div>
+          <div class="job-body">
+            <ul>
+              <li><b>School management platform:</b> built and scaled a multi-app education ecosystem: Parent, Staff, Student, Bus Driver, Admin Dashboard and Vendor Portal.</li>
+              <li><b>MACLINK:</b> delivered a production-grade multi-domain Flutter app covering events, donations, mosque services, prayers, forms and surveys, ticketing, a family module, content and exam workflows.</li>
+              <li><b>MAC Convention &amp; MAC Work:</b> shipped two more Muslim Association of Canada apps as team work with Abdalrhman Reda.</li>
+              <li><b>Modular Flutter architecture:</b> feature-based modules with reusable shared packages across apps.</li>
+              <li><b>Django REST multi-tenant backend:</b> multi-database routing (default + school-specific databases), token/JWT auth and clean API contracts.</li>
+              <li><b>Real-time and notifications:</b> WebSocket channels for live messaging, FCM (direct, batch, topic) with payload-based in-app routing, billing and invoice workflows, report-card PDF pipelines.</li>
+              <li><b>Live tracking and DevOps:</b> real-time bus tracking through Dart Isolates, scheduled jobs with django-crontab, and CI/CD workflows that cut deployment time by 40%.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job">
+          <div class="job-side">
+            <time datetime="2024-01">Jan 2024 – Present</time>
+            <h3>3I Vision</h3>
+            <p>Software Engineer</p>
+            <p>Giza, Egypt (Hybrid)</p>
+            <p><a href="http://3i-vision.com/#/home" target="_blank" rel="noopener">3i-vision.com</a></p>
+          </div>
+          <div class="job-body">
+            <ul>
+              <li><b>AI/ML on device:</b> engineered DataMind and the 3I Vision app, processing ML model responses for people detection and licence plate recognition.</li>
+              <li><b>Performance:</b> refactored legacy codebases to improve memory management, reducing app start-up time by 30%.</li>
+              <li><b>Aramco app (private):</b> a Saudi Aramco data management app with sample registration, camera scanning, SQLite offline support, Excel export and Zebra integration.</li>
+              <li><b>Adahi:</b> a smart Eid al-Adha companion that helps users check Udhiyah suitability against Islamic guidelines.</li>
+              <li><b>Security:</b> built the Permit Management flow with strict authentication.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job">
+          <div class="job-side">
+            <time datetime="2023-01">Jan 2023 – Present</time>
+            <h3>Freelance</h3>
+            <p>Software Engineer</p>
+            <p>Remote, project-based</p>
+          </div>
+          <div class="job-body">
+            <ul>
+              <li><b>Mksaby <bdi lang="ar">(مكسبي)</bdi>:</b> designed and built solo an offline-first, Arabic-first shop accounting app with real-time multi-device sync, from the first screen to the Play Store.</li>
+              <li><b>Snippet:</b> performance work on a social media app: media compression, video thumbnails, lazy feed video playback and better image caching.</li>
+              <li><b>Alarmiq &amp; Yusr:</b> co-developed with Abdalrhman Reda: a smart alarm suite and an Islamic companion app.</li>
+              <li><b>Aman:</b> a trip platform for Oman (Admin/Driver/Passenger) with live tracking, booking, wallet and hybrid payments, on a FastAPI + PostgreSQL backend deployed with Docker Compose, Gunicorn/Uvicorn and Nginx.</li>
+              <li><b>Yalla L3b:</b> a sports court booking app with ratings, analytics and nearby courts.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects" aria-labelledby="proj-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="duo duo--rose"><h2 id="proj-h">Projects</h2><span lang="ar" dir="rtl" class="ar">المشاريع</span></div>
+      <p class="intro">Every app below is real and most are live. Each card says who built what: <b>built solo</b>, <b>performance work</b>, or <b>co-developed with Abdalrhman Reda</b>, my teammate on several of these.</p>
+      <nav class="jump" aria-label="Project groups">
+        <a class="btn btn--sm btn--sun" href="#mksaby">Mksaby</a>
+        <a class="btn btn--sm" href="#p-cogens">Cogens</a>
+        <a class="btn btn--sm" href="#p-3i">3I Vision</a>
+        <a class="btn btn--sm" href="#p-free">Freelance</a>
+      </nav>
+      
+    <article class="feature" id="mksaby" aria-labelledby="mksaby-h">
+      <div class="feature-text">
+        <div class="proj-head">
+          <img class="icon" src="../assets/icons/mksaby.webp" alt="Mksaby app icon" width="72" height="72" loading="lazy">
+          <div>
+            <h3 id="mksaby-h">Mksaby <span lang="ar" dir="rtl" class="ar">مكسبي</span></h3>
+            <p class="kind">Sales, purchases &amp; inventory for small shops</p>
+          </div>
+        </div>
+        <p class="credit credit--solo"><span>Built solo, end to end</span> <span lang="ar" dir="rtl" class="ar">شغل فردي بالكامل</span></p>
+        <p class="desc">An Arabic-first (RTL) accounting and shop management app for small Egyptian merchants: clothing, shoes, mobiles, electronics, wholesale and grocery. It works offline first and syncs in real time across devices. I designed, built, tested and shipped every part of it myself.</p>
+        <ul class="bul"><li>Quick sales with barcode scanning, PDF invoices shared on WhatsApp, and cash, wallet, InstaPay or credit payments</li><li>Purchases, returns, stocktaking and products with weighted-average costing</li><li>Customers and suppliers with debt statements (كشف حساب), expenses and a treasury ledger (الخزنة)</li><li>Real profit, gross vs net, with chart reports and global search</li><li>Employees with granular permissions and PIN user switching, signing in from their own phones and syncing live to the owner</li><li>Arabic + English, dark theme, guest browse mode, a 7-day trial with operator-verified activation and a forced-update gate</li></ul>
+        <h4 class="eng-h">Under the hood</h4>
+        <ul class="tags"><li>Flutter</li><li>Feature-first Clean Architecture</li><li>BLoC/Cubit</li><li>freezed</li><li>get_it + injectable</li><li>go_router</li><li>Drift (SQLite), 22 synced tables</li><li>Offline outbox sync to Cloud Firestore</li><li>Firebase phone OTP + WhatsApp OTP fallback</li><li>flutter_secure_storage</li><li>fpdart</li><li>fl_chart</li><li>mobile_scanner</li><li>PDF invoices</li><li>Sentry</li><li>Patrol on-device E2E</li><li>~229 unit/widget test files</li><li>CI gates: ARB parity, theme tokens</li><li>Design-token design system</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.mksaby.app" target="_blank" rel="noopener">Google Play</a></div>
+      </div>
+      <div class="feature-shots" tabindex="0" role="group" aria-label="Mksaby screenshots, scroll sideways"><img src="../assets/screenshots/freelance/mksaby/1.webp" alt="Mksaby screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/mksaby/2.webp" alt="Mksaby screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/mksaby/3.webp" alt="Mksaby screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/mksaby/4.webp" alt="Mksaby screenshot 4" loading="lazy" decoding="async"></div>
+    </article>
+      
+    <section class="pgroup" id="p-cogens" aria-labelledby="p-cogens-h">
+      <div class="pgroup-head">
+        <h3 id="p-cogens-h">Cogens</h3>
+        <span lang="ar" dir="rtl" class="ar">كوجنز</span>
+        <p>School platform + Muslim Association of Canada</p>
+      </div>
+      <div class="pgrid">
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Cogens Parent</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">Lets parents track student attendance, receive announcements, make payments and manage daily school interactions.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>BLoC</li><li>Firebase</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/cogens-parent/id1607885469" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.parents" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Cogens Parent screenshots, scroll sideways"><img src="../assets/screenshots/cogens/parent/1.webp" alt="Cogens Parent screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/parent/2.webp" alt="Cogens Parent screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/parent/3.webp" alt="Cogens Parent screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/parent/4.webp" alt="Cogens Parent screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/parent/5.webp" alt="Cogens Parent screenshot 5" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/parent/6.webp" alt="Cogens Parent screenshot 6" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Cogens Student</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">Students view schedules, grades and attendance, and receive school updates in real time.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>Real-time</li><li>REST APIs</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/cogens-student/id6476619759" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.students" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Cogens Student screenshots, scroll sideways"><img src="../assets/screenshots/cogens/student/1.webp" alt="Cogens Student screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/student/2.webp" alt="Cogens Student screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/student/3.webp" alt="Cogens Student screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/student/4.webp" alt="Cogens Student screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/student/5.webp" alt="Cogens Student screenshot 5" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/student/6.webp" alt="Cogens Student screenshot 6" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Cogens Staff</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">Used by teachers and school staff to record attendance, communicate with parents and manage schedules.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>BLoC</li><li>Notifications</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/cogens-staff/id1607885245" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.management" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Cogens Staff screenshots, scroll sideways"><img src="../assets/screenshots/cogens/staff/1.webp" alt="Cogens Staff screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/staff/2.webp" alt="Cogens Staff screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/staff/3.webp" alt="Cogens Staff screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/staff/4.webp" alt="Cogens Staff screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/staff/5.webp" alt="Cogens Staff screenshot 5" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/staff/6.webp" alt="Cogens Staff screenshot 6" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Cogens Bus Driver</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">Real-time GPS tracking using Dart Isolates and platform channels to keep persistent socket connections alive.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>Isolates</li><li>GPS</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/cogens-bus-driver/id6479618217" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.bus.driver" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Cogens Bus Driver screenshots, scroll sideways"><img src="../assets/screenshots/cogens/bus/1.webp" alt="Cogens Bus Driver screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/bus/2.webp" alt="Cogens Bus Driver screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/bus/3.webp" alt="Cogens Bus Driver screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/bus/4.webp" alt="Cogens Bus Driver screenshot 4" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj proj--wide">
+        <header class="proj-head">
+          <img class="icon" src="../assets/icons/maclink.webp" alt="MACLINK app icon" width="56" height="56" loading="lazy">
+          <div>
+            <h4>MACLINK</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">Feature-rich cross-platform app for the Muslim Association of Canada that unifies events, donations, mosque services, prayers, employee collaboration, forms and surveys, bookings and tickets, a family module, content, conventions and exam workflows. Built with a modular Data/Logic/UI architecture and production-grade API integrations.</p>
+        
+        <ul class="tags"><li>Flutter + Dart 3</li><li>BLoC/Cubit</li><li>Dio + Retrofit</li><li>GetIt + Freezed</li><li>WebSocket + FCM</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/us/app/maclink/id6502847350" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.mac.maclink" target="_blank" rel="noopener">Google Play</a></div>
+        <figure class="banner"><img src="../assets/screenshots/cogens/maclink/image.png" alt="MACLINK store screenshots: community, conventions, mosques and prayer times" loading="lazy" decoding="async"></figure>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          <img class="icon" src="../assets/icons/mac-convention.webp" alt="MAC Convention app icon" width="56" height="56" loading="lazy">
+          <div>
+            <h4>MAC Convention</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        <p class="credit credit--team"><span>Co-developed with Abdalrhman Reda</span> <span lang="ar" dir="rtl" class="ar">شغل فريق</span></p>
+        
+        <p class="desc">The official Muslim Association of Canada app for booking and registering for its conferences and gatherings.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>Event registration</li><li>Team build</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/mac-convention/id6778484730" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.convention" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="MAC Convention screenshots, scroll sideways"><img src="../assets/screenshots/cogens/mac-convention/1.webp" alt="MAC Convention screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/mac-convention/2.webp" alt="MAC Convention screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/mac-convention/3.webp" alt="MAC Convention screenshot 3" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          <img class="icon" src="../assets/icons/mac-work.webp" alt="MAC Work app icon" width="56" height="56" loading="lazy">
+          <div>
+            <h4>MAC Work</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        <p class="credit credit--team"><span>Co-developed with Abdalrhman Reda</span> <span lang="ar" dir="rtl" class="ar">شغل فريق</span></p>
+        
+        <p class="desc">The Muslim Association of Canada&#x27;s internal app for its staff and day-to-day work.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>Internal tools</li><li>Team build</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/mac-work/id6783499971" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.work" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="MAC Work screenshots, scroll sideways"><img src="../assets/screenshots/cogens/mac-work/1.webp" alt="MAC Work screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/mac-work/2.webp" alt="MAC Work screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/mac-work/3.webp" alt="MAC Work screenshot 3" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Admin Panel</h4>
+            <p class="kind">Django backend</p>
+          </div>
+          <span class="status">Web panel</span>
+        </header>
+        
+        
+        <p class="desc">Full control for school administrators to manage students, staff, payments, attendance records, notifications and settings. Built with Django REST Framework.</p>
+        
+        <ul class="tags"><li>Django</li><li>DRF</li><li>Admin</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://school.cogens.com/#/login" target="_blank" rel="noopener">Open panel</a></div>
+        <div class="shots shots--wide" tabindex="0" role="group" aria-label="Admin Panel screenshots, scroll sideways"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-24-12.png" alt="Cogens admin panel screen 1" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-36-41.png" alt="Cogens admin panel screen 2" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-37-01.png" alt="Cogens admin panel screen 3" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-37-16.png" alt="Cogens admin panel screen 4" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-37-39.png" alt="Cogens admin panel screen 5" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-37-58.png" alt="Cogens admin panel screen 6" loading="lazy" decoding="async"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-38-26.png" alt="Cogens admin panel screen 7" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Vendor Panel (Hot Lunch)</h4>
+            <p class="kind">Django backend</p>
+          </div>
+          <span class="status">Web panel</span>
+        </header>
+        
+        
+        <p class="desc">A web portal for food vendors to manage student meal orders, payments and daily delivery reports, with integrated payment handling.</p>
+        
+        <ul class="tags"><li>Django</li><li>Payments</li><li>Reports</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://vendor.cogens.com/#/loginScreen" target="_blank" rel="noopener">Open panel</a></div>
+        <div class="shots shots--wide" tabindex="0" role="group" aria-label="Vendor Panel (Hot Lunch) screenshots, scroll sideways"><img src="../assets/screenshots/cogens/vendor/Screenshot_2025-12-28_14-46-51.png" alt="Hot Lunch vendor panel" loading="lazy" decoding="async"></div>
+      </article>
+      </div>
+    </section>
+      
+    <section class="pgroup" id="p-3i" aria-labelledby="p-3i-h">
+      <div class="pgroup-head">
+        <h3 id="p-3i-h">3I Vision</h3>
+        <span lang="ar" dir="rtl" class="ar">ثري آي فيجن</span>
+        <p>AI-assisted apps</p>
+      </div>
+      <div class="pgrid">
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>3I Vision</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">AI-powered app using machine learning and computer vision for people detection and vehicle licence plate recognition, with real-time data processing through Django REST APIs.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>AI/ML</li><li>Django</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/3i-vision/id6670479729" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="3I Vision screenshots, scroll sideways"><img src="../assets/screenshots/3i-vision/3i-vision%20app/1.webp" alt="3I Vision screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/3i-vision%20app/2.webp" alt="3I Vision screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/3i-vision%20app/3.webp" alt="3I Vision screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/3i-vision%20app/4.webp" alt="3I Vision screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/3i-vision%20app/5.webp" alt="3I Vision screenshot 5" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>DataMind Agent</h4>
+            
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">An intelligent mobile file manager that scans the device to identify, classify and organise files using smart keyword analysis, tuned through an optimised Flutter architecture.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>File management</li><li>AI</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://apps.apple.com/eg/app/datamind-agent/id6754242027" target="_blank" rel="noopener">App Store</a><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.datamind.agent" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="DataMind Agent screenshots, scroll sideways"><img src="../assets/screenshots/3i-vision/datamind%20app/1.webp" alt="DataMind Agent screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/datamind%20app/2.webp" alt="DataMind Agent screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/datamind%20app/3.webp" alt="DataMind Agent screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/datamind%20app/4.webp" alt="DataMind Agent screenshot 4" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj proj--wide">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Aramco App &amp; Adahi</h4>
+            
+          </div>
+          <span class="status">Private + Live</span>
+        </header>
+        
+        
+        <p class="desc">A private Saudi Aramco app for data management: sample registration, camera scanning, SQLite offline storage, Excel export and Zebra integration. Adahi is a smart Eid al-Adha companion that helps verify Udhiyah suitability by spotting illness and disqualification signs according to Islamic guidelines.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>Camera scanning</li><li>SQLite</li><li>Excel export</li><li>Zebra</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.adahi.sa" target="_blank" rel="noopener">Adahi on Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Aramco App &amp; Adahi screenshots, scroll sideways"><img src="../assets/screenshots/3i-vision/adahi%20app/1.webp" alt="Adahi screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/adahi%20app/2.webp" alt="Adahi screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/3i-vision/adahi%20app/3.webp" alt="Adahi screenshot 3" loading="lazy" decoding="async"></div>
+      </article>
+      </div>
+    </section>
+      
+    <section class="pgroup" id="p-free" aria-labelledby="p-free-h">
+      <div class="pgroup-head">
+        <h3 id="p-free-h">Freelance</h3>
+        <span lang="ar" dir="rtl" class="ar">شغل حر</span>
+        <p>Client and team products</p>
+      </div>
+      <div class="pgrid">
+      <article class="proj">
+        <header class="proj-head">
+          <img class="icon" src="../assets/icons/snippet.webp" alt="Snippet app icon" width="56" height="56" loading="lazy">
+          <div>
+            <h4>Snippet</h4>
+            <p class="kind">Social media app</p>
+          </div>
+          <span class="status">Live</span>
+        </header>
+        <p class="credit credit--perf"><span>Performance work</span> <span lang="ar" dir="rtl" class="ar">تحسين الأداء</span></p>
+        
+        <p class="desc">A social app where people post, share videos, read and publish articles, create groups, chat with friends and follow stories and feeds. My scope was performance: I shipped the release that made media fast.</p>
+        <ul class="bul"><li>Faster image uploads through compression</li><li>Video uploads with compression and generated thumbnails</li><li>Feed videos initialise lazily and start only when opened</li><li>Better image caching across feeds and stories</li><li>Smoother large categories and media-heavy screens</li></ul>
+        <ul class="tags"><li>Flutter</li><li>Media compression</li><li>Video thumbnails</li><li>Image caching</li><li>Lazy video playback</li><li>Profiling</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.stackmassage.stackmassage" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Snippet screenshots, scroll sideways"><img src="../assets/screenshots/freelance/snippet/1.webp" alt="Snippet screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/snippet/2.webp" alt="Snippet screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/snippet/3.webp" alt="Snippet screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/snippet/4.webp" alt="Snippet screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/snippet/5.webp" alt="Snippet screenshot 5" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/snippet/6.webp" alt="Snippet screenshot 6" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          <img class="icon" src="../assets/icons/alarmiq.webp" alt="Alarmiq app icon" width="56" height="56" loading="lazy">
+          <div>
+            <h4>Alarmiq</h4>
+            <p class="kind">Smart alarm &amp; time suite</p>
+          </div>
+          <span class="status">Live</span>
+        </header>
+        <p class="credit credit--team"><span>Co-developed with Abdalrhman Reda</span> <span lang="ar" dir="rtl" class="ar">شغل فريق</span></p>
+        <p class="pitch" lang="ar" dir="rtl">تحكّم بشكل كامل في روتينك اليومي مع Alarmiq: مدير منبهات متقطعة، ومنبه رحلات GPS، وساعة عالمية مباشرة، وساعة توقيت ثنائية الوضع، ومؤقت عد تنازلي في الخلفية، كل ذلك في تطبيق واحد.</p>
+        <p class="desc">Interval batch alarms spread evenly across a time window, a GPS trip alarm that wakes you before your stop, a live world clock, a dual-mode stopwatch, a background countdown timer, anti-snooze wake-up challenges, sleep insights and a game timer / chess clock.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>BLoC/Cubit</li><li>get_it</li><li>alarm</li><li>Local notifications</li><li>timezone</li><li>easy_localization</li><li>Lottie</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.alarmiq.app" target="_blank" rel="noopener">Google Play</a><a class="btn btn--sm" href="https://apps.apple.com/us/app/alarmiq/id6797606606" target="_blank" rel="noopener">App Store</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Alarmiq screenshots, scroll sideways"><img src="../assets/screenshots/freelance/alarmiq/1.webp" alt="Alarmiq screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/alarmiq/2.webp" alt="Alarmiq screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/alarmiq/3.webp" alt="Alarmiq screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/alarmiq/4.webp" alt="Alarmiq screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/alarmiq/5.webp" alt="Alarmiq screenshot 5" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/alarmiq/6.webp" alt="Alarmiq screenshot 6" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          <img class="icon" src="../assets/icons/yusr.webp" alt="Yusr app icon" width="56" height="56" loading="lazy">
+          <div>
+            <h4>Yusr <span lang="ar" dir="rtl" class="ar">يُسْر</span></h4>
+            <p class="kind">Islamic companion, formerly NooN</p>
+          </div>
+          <span class="status">Live</span>
+        </header>
+        <p class="credit credit--team"><span>Co-developed with Abdalrhman Reda</span> <span lang="ar" dir="rtl" class="ar">شغل فريق</span></p>
+        <p class="pitch" lang="ar" dir="rtl">شاركت في تطوير تطبيق إسلامي متكامل باسم «NooN» (اسمه الآن يُسْر) باستخدام Flutter، مع تركيز كامل على تجربة عربية RTL: قراءة القرآن، الأذكار، الأحاديث، مواقيت الصلاة، القبلة، التقويم الهجري، والتفسير.</p>
+        <p class="desc">Quran with tafsir, prayer times, Qibla, azkar, a digital tasbeeh, Hijri calendar, Zakat calculator and the Names of Allah. The latest update added the full Prophet&#x27;s biography (السيرة النبوية). Feature-based architecture with Cubit/BLoC, local JSON + SQLite data alongside external APIs, plus stability work on audio playback, search, notifications and system permissions.</p>
+        
+        <ul class="tags"><li>Flutter + Dart</li><li>BLoC/Cubit + get_it</li><li>dio + sqflite + hive</li><li>easy_localization + RTL</li><li>Qibla + Hijri + Prayer</li><li>audioplayers</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.nooralhuda.noor" target="_blank" rel="noopener">Google Play</a><a class="btn btn--sm" href="https://apps.apple.com/eg/app/%D9%86-noon-%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D9%88%D8%A7%D9%84%D8%A3%D8%B0%D9%83%D8%A7%D8%B1/id6759193445" target="_blank" rel="noopener">App Store</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Yusr screenshots, scroll sideways"><img src="../assets/screenshots/freelance/yusr/1.webp" alt="Yusr screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yusr/2.webp" alt="Yusr screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yusr/3.webp" alt="Yusr screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yusr/4.webp" alt="Yusr screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yusr/5.webp" alt="Yusr screenshot 5" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Aman</h4>
+            <p class="kind">Trip platform for Oman</p>
+          </div>
+          <span class="status">Completed &amp; published</span>
+        </header>
+        
+        
+        <p class="desc">A Flutter trip management platform for the Omani market with Admin, Driver and Passenger roles: trip templates, seat booking, live trip tracking, instant notifications and hybrid payment/wallet flows with clear financial rules. The FastAPI backend runs on PostgreSQL + SQLAlchemy with Firebase social auth/OTP, deployed with Docker Compose, Gunicorn/Uvicorn and Nginx. Booking state is kept separate from payment state with idempotent transaction handling.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>BLoC/Cubit + get_it</li><li>Google Maps + Geolocator</li><li>Firebase Auth/FCM</li><li>FastAPI + PostgreSQL</li><li>Docker Compose + Nginx</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.omanaman.aman" target="_blank" rel="noopener">Google Play</a><a class="btn btn--sm" href="https://apps.apple.com/eg/app/aman-oman/id6759229386" target="_blank" rel="noopener">App Store</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Aman screenshots, scroll sideways"><img src="../assets/screenshots/freelance/aman%20app/1.jpeg" alt="Aman screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/2.jpeg" alt="Aman screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/3.jpeg" alt="Aman screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/4.jpeg" alt="Aman screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/5.jpeg" alt="Aman screenshot 5" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/6.jpeg" alt="Aman screenshot 6" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/7.jpeg" alt="Aman screenshot 7" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/8.jpeg" alt="Aman screenshot 8" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/aman%20app/9.jpeg" alt="Aman screenshot 9" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="proj proj--wide">
+        <header class="proj-head">
+          
+          <div>
+            <h4>Yalla L3b</h4>
+            <p class="kind">Sports court booking</p>
+          </div>
+          <span class="status">Live</span>
+        </header>
+        
+        
+        <p class="desc">Simplifies court reservations for players and management for court owners: player ratings, booking analytics, venue ratings and nearby courts.</p>
+        
+        <ul class="tags"><li>Flutter</li><li>Firebase</li><li>Maps</li></ul>
+        <div class="stores"><a class="btn btn--sm" href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" rel="noopener">Google Play</a></div>
+        <div class="shots" tabindex="0" role="group" aria-label="Yalla L3b screenshots, scroll sideways"><img src="../assets/screenshots/freelance/yalla-l3b/1.webp" alt="Yalla L3b screenshot 1" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yalla-l3b/2.webp" alt="Yalla L3b screenshot 2" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yalla-l3b/3.webp" alt="Yalla L3b screenshot 3" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yalla-l3b/4.webp" alt="Yalla L3b screenshot 4" loading="lazy" decoding="async"><img src="../assets/screenshots/freelance/yalla-l3b/5.webp" alt="Yalla L3b screenshot 5" loading="lazy" decoding="async"></div>
+      </article>
+      </div>
+    </section>
+    </div>
+  </section>
+
+  <section class="block" id="skills" aria-labelledby="skills-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="duo duo--mint"><h2 id="skills-h">Skills</h2><span lang="ar" dir="rtl" class="ar">المهارات</span></div>
+      <p class="intro">The tools behind the apps above, grouped by where they sit in a product.</p>
+      <div class="skills"><div class="skill"><h3>Mobile <span lang="ar" dir="rtl" class="ar">موبايل</span></h3><ul class="chips"><li>Flutter (Dart)</li><li>Android</li><li>iOS</li><li>Cross-platform</li><li>Responsive UI</li><li>Native integration (Kotlin/Swift)</li><li>KMP</li><li>CMP</li><li>Isolates &amp; concurrency</li><li>Background services</li><li>Memory optimization</li></ul></div><div class="skill"><h3>Architecture <span lang="ar" dir="rtl" class="ar">المعمارية</span></h3><ul class="chips"><li>Feature-first Clean Architecture</li><li>MVVM</li><li>SOLID</li><li>Modular architecture</li><li>Repository pattern</li><li>Design patterns</li><li>get_it + injectable</li><li>freezed</li><li>go_router</li></ul></div><div class="skill"><h3>State management <span lang="ar" dir="rtl" class="ar">إدارة الحالة</span></h3><ul class="chips"><li>BLoC/Cubit</li><li>Riverpod</li><li>Provider</li><li>GetX</li><li>Event Bus</li></ul></div><div class="skill"><h3>Backend <span lang="ar" dir="rtl" class="ar">الباك إند</span></h3><ul class="chips"><li>Python</li><li>Django / DRF</li><li>FastAPI</li><li>Node.js / Express</li><li>REST API design</li><li>GraphQL</li><li>JWT / token auth</li><li>Multi-database routing</li><li>Celery + Redis</li><li>WebSockets / Channels</li></ul></div><div class="skill"><h3>Data <span lang="ar" dir="rtl" class="ar">البيانات</span></h3><ul class="chips"><li>PostgreSQL</li><li>MySQL</li><li>SQLite / sqflite</li><li>Drift</li><li>Hive</li><li>Cloud Firestore</li><li>Firebase</li><li>MongoDB</li><li>Offline-first sync</li></ul></div><div class="skill"><h3>Platform features <span lang="ar" dir="rtl" class="ar">خدمات المنصة</span></h3><ul class="chips"><li>FCM push</li><li>Google Maps SDK</li><li>Geolocation</li><li>In-app purchases</li><li>HLS video streaming</li><li>Media compression</li><li>Image caching</li><li>PDF generation</li><li>Barcode scanning</li></ul></div><div class="skill"><h3>Testing <span lang="ar" dir="rtl" class="ar">الاختبارات</span></h3><ul class="chips"><li>Unit tests</li><li>Widget tests</li><li>Integration tests</li><li>Patrol E2E</li><li>mocktail</li></ul></div><div class="skill"><h3>DevOps &amp; release <span lang="ar" dir="rtl" class="ar">النشر</span></h3><ul class="chips"><li>CI/CD (GitHub Actions, Codemagic)</li><li>Fastlane</li><li>TestFlight</li><li>Play Store / App Store</li><li>Flavors</li><li>Shorebird code push</li><li>Docker / Compose</li><li>Nginx</li><li>Gunicorn / Uvicorn</li><li>VPS deployment</li><li>Sentry</li></ul></div><div class="skill"><h3>Languages <span lang="ar" dir="rtl" class="ar">لغات البرمجة</span></h3><ul class="chips"><li>Dart</li><li>Python</li><li>Kotlin</li><li>Swift</li><li>C++</li><li>C#</li><li>PHP</li><li>JavaScript</li><li>R</li><li>GDScript</li></ul></div><div class="skill"><h3>Design &amp; games <span lang="ar" dir="rtl" class="ar">تصميم وألعاب</span></h3><ul class="chips"><li>Figma</li><li>Material Design</li><li>Motion &amp; animation</li><li>Localization (RTL)</li><li>Godot</li><li>Unity</li></ul></div><div class="skill"><h3>Way of working <span lang="ar" dir="rtl" class="ar">طريقة الشغل</span></h3><ul class="chips"><li>Agile / Scrum</li><li>JIRA</li><li>Git Flow</li><li>Code reviews</li><li>ADRs</li><li>Technical documentation</li></ul></div><div class="skill"><h3>Senior / Lead toolkit <span lang="ar" dir="rtl" class="ar">أدوات السنيور والليد</span></h3><ul class="chips"><li>Database design &amp; indexing</li><li>Query tuning (EXPLAIN)</li><li>ORM performance (N+1)</li><li>Transactions &amp; concurrency</li><li>Caching &amp; background jobs</li><li>API design &amp; idempotency</li><li>Application security</li><li>System design &amp; scaling</li><li>Queues &amp; rate limiting</li><li>Zero-downtime migrations</li><li>Observability</li><li>Incident handling &amp; postmortems</li><li>Work breakdown &amp; estimation</li><li>Mentoring juniors</li></ul></div></div>
+    </div>
+  </section>
+
+  <section class="block roadmap" id="roadmap" aria-labelledby="road-h">
+    <div class="wrap">
+      <div class="duo duo--sun"><h2 id="road-h">Senior / Lead roadmap</h2><span lang="ar" dir="rtl" class="ar">الطريق لـ Senior / Lead</span></div>
+      <p class="intro">A 30-lesson path through six tracks, from database design to leading a team. Every lesson pairs the idea with a Django or Flutter example, the trade-off, and self-test questions. I've completed all of it. My running notes live in the <a href="../backend.html">backend learning page</a> and the <a href="../flutter.html">Flutter learning page</a>.</p>
+      <div class="done">
+        <div class="done-bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p>30 of 30 lessons done <span lang="ar" dir="rtl" class="ar">خلّصت ٣٠ من ٣٠ درس</span></p>
+      </div>
+      <div class="tracks">
+        <article class="track track--sun">
+          <header>
+            <p class="track-count">6/6 <span lang="ar" dir="rtl" class="ar">خلصان</span></p>
+            <h3>Backend (Django) in depth</h3>
+            <span lang="ar" dir="rtl" class="ar">Backend (Django) بعمق</span>
+          </header>
+          <p class="track-note">Normalization, composite indexes and the leftmost-prefix rule, EXPLAIN; N+1 with select_related/prefetch_related; select_for_update and F() updates; Celery with idempotent tasks and cache stampedes; cursor pagination; SQL injection, XSS, JWT and object-level permissions.</p>
+          <ol class="lessons"><li><span class="lnum" aria-hidden="true">01</span><span class="len">Database design</span><span lang="ar" dir="rtl" class="ar">تصميم قاعدة البيانات</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">02</span><span class="len">ORM performance</span><span lang="ar" dir="rtl" class="ar">أداء الـ ORM</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">03</span><span class="len">Transactions &amp; concurrency</span><span lang="ar" dir="rtl" class="ar">الـ Transactions والـ Concurrency</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">04</span><span class="len">Background jobs &amp; caching</span><span lang="ar" dir="rtl" class="ar">الـ Background jobs والـ Caching</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">05</span><span class="len">API design</span><span lang="ar" dir="rtl" class="ar">تصميم الـ API</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">06</span><span class="len">Security</span><span lang="ar" dir="rtl" class="ar">الـ Security</span><span class="tick" aria-label="completed">✓</span></li></ol>
+          <a class="btn btn--sm" href="../backend.html">Backend learning notes</a>
+        </article>
+        <article class="track track--cobalt">
+          <header>
+            <p class="track-count">4/4 <span lang="ar" dir="rtl" class="ar">خلصان</span></p>
+            <h3>Flutter in depth</h3>
+            <span lang="ar" dir="rtl" class="ar">Flutter بعمق</span>
+          </header>
+          <p class="track-note">Layered architecture with repositories and Cubits; the local database as source of truth with an outbox and conflict handling; const, keys, isolates and DevTools; flavors, signing, Fastlane, staged rollout and forced updates.</p>
+          <ol class="lessons"><li><span class="lnum" aria-hidden="true">07</span><span class="len">Flutter app architecture</span><span lang="ar" dir="rtl" class="ar">معمارية تطبيق Flutter</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">08</span><span class="len">Offline-first &amp; sync</span><span lang="ar" dir="rtl" class="ar">الـ Offline-first والـ Sync</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">09</span><span class="len">Flutter performance</span><span lang="ar" dir="rtl" class="ar">أداء Flutter</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">10</span><span class="len">Release &amp; publishing</span><span lang="ar" dir="rtl" class="ar">الـ Release والنشر</span><span class="tick" aria-label="completed">✓</span></li></ol>
+          <a class="btn btn--sm" href="../flutter.html">Flutter learning notes</a>
+        </article>
+        <article class="track track--paper">
+          <header>
+            <p class="track-count">5/5 <span lang="ar" dir="rtl" class="ar">خلصان</span></p>
+            <h3>System design</h3>
+            <span lang="ar" dir="rtl" class="ar">System Design</span>
+          </header>
+          <p class="track-note">Start from the numbers; load balancers with health checks and CDNs; read replicas, sharding and connection pooling with PgBouncer; queues and token-bucket rate limiting; CAP, eventual consistency and idempotency.</p>
+          <ol class="lessons"><li><span class="lnum" aria-hidden="true">11</span><span class="len">Start with numbers, then scaling</span><span lang="ar" dir="rtl" class="ar">ابدأ بالأرقام، وبعدين الـ Scaling</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">12</span><span class="len">The database as bottleneck</span><span lang="ar" dir="rtl" class="ar">الداتابيز: عنق الزجاجة</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">13</span><span class="len">Queues &amp; rate limiting</span><span lang="ar" dir="rtl" class="ar">الطوابير والـ Rate limiting</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">14</span><span class="len">CAP &amp; consistency</span><span lang="ar" dir="rtl" class="ar">الـ CAP والـ Consistency</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">15</span><span class="len">Answering a system design question</span><span lang="ar" dir="rtl" class="ar">إزاي تجاوب على سؤال system design</span><span class="tick" aria-label="completed">✓</span></li></ol>
+          
+        </article>
+        <article class="track track--rose">
+          <header>
+            <p class="track-count">5/5 <span lang="ar" dir="rtl" class="ar">خلصان</span></p>
+            <h3>DevOps &amp; production</h3>
+            <span lang="ar" dir="rtl" class="ar">DevOps و Production</span>
+          </header>
+          <p class="track-note">Multi-stage, slim images that don&#x27;t run as root; CI/CD pipelines; expand/contract migrations; private networks and least-privilege IAM; structured logs with request IDs, metrics and Sentry.</p>
+          <ol class="lessons"><li><span class="lnum" aria-hidden="true">16</span><span class="len">Docker for production</span><span lang="ar" dir="rtl" class="ar">Docker للـ production</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">17</span><span class="len">CI/CD</span><span lang="ar" dir="rtl" class="ar">الـ CI/CD</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">18</span><span class="len">Zero-downtime migrations</span><span lang="ar" dir="rtl" class="ar">Migrations من غير ما production يقع</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">19</span><span class="len">Cloud concepts, not vendors</span><span lang="ar" dir="rtl" class="ar">الـ Cloud: افهم المفاهيم، مش الشركة</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">20</span><span class="len">Observability</span><span lang="ar" dir="rtl" class="ar">الـ Observability: تعرف المشكلة قبل العميل</span><span class="tick" aria-label="completed">✓</span></li></ol>
+          
+        </article>
+        <article class="track track--mint">
+          <header>
+            <p class="track-count">5/5 <span lang="ar" dir="rtl" class="ar">خلصان</span></p>
+            <h3>Code quality</h3>
+            <span lang="ar" dir="rtl" class="ar">جودة الكود</span>
+          </header>
+          <p class="track-note">The testing pyramid from unit to E2E; SOLID in plain terms; Repository, Strategy, Adapter and Observer in real code; refactoring safely; reviewing code, including code written by AI.</p>
+          <ol class="lessons"><li><span class="lnum" aria-hidden="true">21</span><span class="len">Testing strategy</span><span lang="ar" dir="rtl" class="ar">استراتيجية الـ Testing</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">22</span><span class="len">SOLID, practically</span><span lang="ar" dir="rtl" class="ar">SOLID بالبلدي</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">23</span><span class="len">Design patterns that matter</span><span lang="ar" dir="rtl" class="ar">Patterns ليها لازمة في شغلك</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">24</span><span class="len">Refactoring safely</span><span lang="ar" dir="rtl" class="ar">الـ Refactoring</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">25</span><span class="len">Code review, incl. AI-generated code</span><span lang="ar" dir="rtl" class="ar">الـ Code review ومراجعة كود الـ AI</span><span class="tick" aria-label="completed">✓</span></li></ol>
+          
+        </article>
+        <article class="track track--ink">
+          <header>
+            <p class="track-count">5/5 <span lang="ar" dir="rtl" class="ar">خلصان</span></p>
+            <h3>Lead skills</h3>
+            <span lang="ar" dir="rtl" class="ar">مهارات الـ Lead</span>
+          </header>
+          <p class="track-note">Splitting work so every piece ships something that runs, and estimating it; Architecture Decision Records; postmortems after incidents; explaining trade-offs to non-technical people; teaching juniors.</p>
+          <ol class="lessons"><li><span class="lnum" aria-hidden="true">26</span><span class="len">Breaking down work &amp; estimation</span><span lang="ar" dir="rtl" class="ar">تقسيم الشغل والتقدير</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">27</span><span class="len">ADRs: write down why</span><span lang="ar" dir="rtl" class="ar">الـ ADRs: اكتب ليه اخترت</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">28</span><span class="len">Incidents: when production goes down</span><span lang="ar" dir="rtl" class="ar">الـ Incidents: لما production يقع</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">29</span><span class="len">Talking to non-technical people</span><span lang="ar" dir="rtl" class="ar">الكلام مع ناس مش تقنيين</span><span class="tick" aria-label="completed">✓</span></li><li><span class="lnum" aria-hidden="true">30</span><span class="len">Teaching juniors</span><span lang="ar" dir="rtl" class="ar">تعليم الـ juniors</span><span class="tick" aria-label="completed">✓</span></li></ol>
+          
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="writing" aria-labelledby="write-h">
+    <div class="wrap">
+      <div class="duo"><h2 id="write-h">Writing &amp; open source</h2><span lang="ar" dir="rtl" class="ar">كتابة وأوبن سورس</span></div>
+      <div class="writing">
+        <a class="wcard" href="https://medium.com/@eslamabid175/dart-isolates-explained-true-concurrency-in-flutter-d68e5069869c" target="_blank" rel="noopener"><small>Article on Medium</small><strong>Dart Isolates Explained: True Concurrency in Flutter</strong><span>Why isolates exist, when to use them, and how they differ from async/await for CPU-heavy work.</span></a>
+        <a class="wcard" href="https://github.com/eslamabid175/flutter_start_point" target="_blank" rel="noopener"><small>GitHub · Dart</small><strong>flutter_start_point</strong><span>A Flutter boilerplate with Clean Architecture, BLoC, dependency injection and sensible defaults.</span></a>
+        <a class="wcard" href="https://github.com/eslamabid175/eslamabid175.github.io" target="_blank" rel="noopener"><small>GitHub · HTML/CSS/JS</small><strong>eslamabid175.github.io</strong><span>The source of this portfolio. Open for contributions.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div class="duo"><h2 id="contact-h">Contact</h2><span lang="ar" dir="rtl" class="ar">تواصل معايا</span></div>
+      <p class="intro">Need a Flutter engineer who can also own the API and the release? Write to me.</p>
+      <a class="mail" href="mailto:eslamabid175@gmail.com">eslamabid175<wbr>@gmail.com</a>
+      <div class="channels">
+        <a href="tel:+201023332583"><small>Phone</small><strong>+20 102 333 2583</strong></a>
+        <a href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener"><small>LinkedIn</small><strong>in/eslamaped</strong></a>
+        <a href="https://github.com/eslamabid175" target="_blank" rel="noopener"><small>GitHub</small><strong>eslamabid175</strong></a>
+        <div><small>Location</small><strong>Cairo, Egypt</strong></div>
+      </div>
+      <div class="cta">
+        <a class="btn btn--sun" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Eslam Aped</span>
+    <span><a href="https://github.com/eslamabid175">GitHub</a> · <a href="https://www.linkedin.com/in/eslamaped/">LinkedIn</a> · <a href="mailto:eslamabid175@gmail.com">Email</a></span>
+  </div>
+</footer>
+
+<a class="option-pill" href="./index.html">Design option 4 · Bold Bilingual</a>
+</body>
+</html>

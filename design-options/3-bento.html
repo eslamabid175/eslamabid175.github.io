@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eslam Aped · Bento</title>
+<meta name="description" content="Eslam Aped, Software Engineer (Flutter & Django) in Cairo. 16 apps published on Google Play and the App Store. Design option 3: bento grid.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Geist:wght@400;500;600&family=Readex+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  /* apply a saved theme before first paint */
+  try { var t = localStorage.getItem('bento-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
+<style>
+  /* ---------- tokens ---------- */
+  :root {
+    --bg: #e6e8ec;
+    --tile: #fbfbfc;
+    --tile-2: #f0f1f4;
+    --ink: #17181c;
+    --ink-2: #4a4e59;
+    --line: #d6d9df;
+    --accent: #5b3df5;
+    --accent-ink: #ffffff;
+    --accent-text: #4527e0;
+    --accent-soft: #e9e4ff;
+    --phone: #1d1e23;
+    --shadow: 0 1px 2px rgba(23, 24, 28, .05), 0 10px 28px -16px rgba(23, 24, 28, .28);
+    --shadow-lift: 0 2px 4px rgba(23, 24, 28, .06), 0 22px 40px -18px rgba(23, 24, 28, .38);
+    --r-xl: 30px;
+    --r-lg: 22px;
+    --r-md: 14px;
+    --gap: 14px;
+    --display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
+    --body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --arabic: "Readex Pro", "Geist", system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121317;
+      --tile: #1b1c21;
+      --tile-2: #24262d;
+      --ink: #eceef2;
+      --ink-2: #a7abb6;
+      --line: #30323a;
+      --accent-text: #ab9cff;
+      --accent-soft: #2a2350;
+      --phone: #050506;
+      --shadow: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 12px 30px -18px rgba(0, 0, 0, .7);
+      --shadow-lift: 0 1px 0 rgba(255, 255, 255, .06) inset, 0 26px 44px -20px rgba(0, 0, 0, .85);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121317;
+    --tile: #1b1c21;
+    --tile-2: #24262d;
+    --ink: #eceef2;
+    --ink-2: #a7abb6;
+    --line: #30323a;
+    --accent-text: #ab9cff;
+    --accent-soft: #2a2350;
+    --phone: #050506;
+    --shadow: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 12px 30px -18px rgba(0, 0, 0, .7);
+    --shadow-lift: 0 1px 0 rgba(255, 255, 255, .06) inset, 0 26px 44px -20px rgba(0, 0, 0, .85);
+    color-scheme: dark;
+  }
+
+  /* ---------- base ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.55 var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  p { margin: 0; }
+  h1, h2, h3, h4 { margin: 0; font-family: var(--display); font-weight: 700; letter-spacing: -.02em; line-height: 1.08; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+  .ar { font-family: var(--arabic); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip:focus { position: fixed; left: 16px; top: 16px; width: auto; height: auto; clip: auto; z-index: 50; padding: 10px 16px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; }
+
+  .wrap { width: min(1280px, 100% - 32px); margin-inline: auto; }
+
+  /* ---------- top bar ---------- */
+  .bar {
+    position: sticky; top: 12px; z-index: 20;
+    display: flex; align-items: center; gap: 10px;
+    margin: 12px auto 0; padding: 8px 8px 8px 16px;
+    width: min(1280px, 100% - 32px);
+    background: color-mix(in oklab, var(--tile) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+  }
+  .mark { font: 800 18px/1 var(--display); letter-spacing: -.04em; text-decoration: none; margin-right: auto; }
+  .mark span { color: var(--accent-text); }
+  .nav { display: flex; gap: 2px; }
+  .nav a {
+    text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink-2);
+    padding: 8px 12px; border-radius: 999px;
+  }
+  .nav a:hover { background: var(--tile-2); color: var(--ink); }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center;
+    border: 1px solid var(--line); background: var(--tile-2); color: var(--ink);
+    cursor: pointer;
+  }
+  .icon-btn svg { width: 18px; height: 18px; }
+  .icon-btn .moon { display: none; }
+  :root[data-theme="dark"] .icon-btn .sun { display: none; }
+  :root[data-theme="dark"] .icon-btn .moon { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .icon-btn .sun { display: none; }
+    :root:not([data-theme="light"]) .icon-btn .moon { display: block; }
+  }
+
+  /* ---------- buttons & chips ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px; padding: 10px 18px; border-radius: 999px;
+    font: 600 15px/1 var(--body); text-decoration: none;
+    border: 1px solid var(--line); background: var(--tile); color: var(--ink);
+    transition: transform .2s ease, background .2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: var(--tile-2); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { background: color-mix(in oklab, var(--accent) 88%, black); }
+  .btn svg { width: 16px; height: 16px; flex: none; }
+  .btn.sm { min-height: 36px; padding: 8px 14px; font-size: 13.5px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-size: 13px; line-height: 1; padding: 7px 10px; border-radius: 999px;
+    background: var(--tile-2); color: var(--ink-2); border: 1px solid transparent;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12.5px; font-weight: 600; line-height: 1.2;
+    padding: 6px 10px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent-text);
+  }
+  .badge.neutral { background: var(--tile-2); color: var(--ink-2); }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  /* ---------- grid ---------- */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+  }
+  .tile {
+    position: relative;
+    background: var(--tile);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    min-width: 0;
+  }
+  .tile.big { border-radius: var(--r-xl); padding: 32px; }
+  .lift { transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s ease; }
+  .lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  .s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s5 { grid-column: span 5; }
+  .s6 { grid-column: span 6; } .s7 { grid-column: span 7; } .s8 { grid-column: span 8; }
+  .s12 { grid-column: span 12; }
+  .r2 { grid-row: span 2; }
+
+  .label { font-size: 13.5px; color: var(--ink-2); font-weight: 500; }
+  .muted { color: var(--ink-2); }
+
+  /* ---------- section heads ---------- */
+  section { scroll-margin-top: 90px; }
+  .sec { margin-top: 72px; }
+  .sec-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 18px; padding-inline: 4px; }
+  .sec-head h2 { font-size: clamp(30px, 4vw, 46px); font-variation-settings: "wdth" 85; letter-spacing: -.03em; }
+  .sec-head p { max-width: 52ch; color: var(--ink-2); }
+  .group-title { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 26px 4px 2px; }
+  .group-title h3 { font-size: 22px; }
+  .group-title p { color: var(--ink-2); font-size: 14.5px; }
+
+  /* ---------- hero ---------- */
+  .hero-grid { margin-top: 18px; }
+  .hero { display: flex; flex-direction: column; gap: 22px; justify-content: space-between; overflow: hidden; }
+  .hero h1 {
+    font-size: clamp(54px, 9.4vw, 136px);
+    font-variation-settings: "wdth" 78, "opsz" 96;
+    font-weight: 800;
+    letter-spacing: -.045em;
+    line-height: .86;
+  }
+  .hero .role { font: 600 clamp(19px, 2vw, 25px)/1.25 var(--display); letter-spacing: -.01em; }
+  .hero .lede { max-width: 58ch; color: var(--ink-2); font-size: 17px; }
+  .hero-top { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .photo { padding: 0; overflow: hidden; background: var(--tile-2); min-height: 360px; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; position: absolute; inset: 0; }
+  .photo figcaption {
+    position: absolute; left: 14px; bottom: 14px; right: 14px;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    padding: 10px 14px; border-radius: 16px;
+    background: color-mix(in oklab, var(--tile) 84%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: 14px; font-weight: 500;
+  }
+
+  /* home-screen tile: the 16 published apps */
+  .dock { display: flex; flex-direction: column; gap: 18px; }
+  .dock-head { display: flex; justify-content: space-between; align-items: start; gap: 16px; }
+  .dock-num { font: 800 clamp(56px, 6vw, 84px)/.8 var(--display); font-variation-settings: "wdth" 80; letter-spacing: -.05em; color: var(--accent-text); }
+  .dock-head h3 { font-size: 20px; max-width: 20ch; text-align: right; }
+  .apps { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 14px 10px; }
+  .app { text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+  .app .ico {
+    width: 100%; max-width: 60px; aspect-ratio: 1; border-radius: 26%;
+    display: grid; place-items: center; overflow: hidden;
+    font: 700 17px/1 var(--display); letter-spacing: -.02em; color: #fff;
+    background: var(--c, #444);
+    box-shadow: 0 1px 2px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.06);
+    transition: transform .2s ease;
+  }
+  .app .ico img { width: 100%; height: 100%; object-fit: cover; }
+  .app .ico.light { background: #fff; }
+  .app:hover .ico { transform: scale(1.07); }
+  .app span { font-size: 11.5px; line-height: 1.2; color: var(--ink-2); text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .stat { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+  .stat b { font: 800 clamp(46px, 4.6vw, 64px)/.85 var(--display); font-variation-settings: "wdth" 80; letter-spacing: -.05em; }
+  .stat p { font-size: 15px; color: var(--ink-2); }
+  .trio { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 18px 32px; }
+
+  .accent-tile { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .accent-tile .muted, .accent-tile p { color: rgba(255,255,255,.86); }
+  .accent-tile a { color: #fff; }
+  .meter { height: 10px; border-radius: 999px; background: rgba(255,255,255,.25); overflow: hidden; }
+  .meter i { display: block; height: 100%; width: 100%; background: #fff; border-radius: inherit; }
+
+  .about p + p { margin-top: 10px; }
+  .about p { max-width: 64ch; }
+
+  .linklist a { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; text-decoration: none; border-top: 1px solid var(--line); font-weight: 500; }
+  .linklist a:first-child { border-top: 0; padding-top: 0; }
+  .linklist a span { color: var(--ink-2); font-weight: 400; overflow-wrap: anywhere; text-align: right; }
+  .linklist a:hover span { color: var(--accent-text); }
+
+  /* ---------- experience ---------- */
+  .job { display: flex; flex-direction: column; gap: 14px; }
+  .job-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; }
+  .job h3 { font-size: 30px; font-variation-settings: "wdth" 85; }
+  .job h3 a { text-decoration: none; }
+  .job h3 a:hover { color: var(--accent-text); }
+  .when { font-size: 14px; font-weight: 600; white-space: nowrap; }
+  .bul li { position: relative; padding-left: 18px; font-size: 15px; color: var(--ink-2); }
+  .bul li + li { margin-top: 8px; }
+  .bul li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
+  .bul strong { color: var(--ink); font-weight: 600; }
+  .cols-2 { columns: 2 260px; column-gap: 28px; }
+  .cols-2 li { break-inside: avoid; }
+
+  .edu dl { margin: 0; display: grid; gap: 14px; }
+  .edu dt { font-weight: 600; }
+  .edu dd { margin: 2px 0 0; color: var(--ink-2); font-size: 14.5px; }
+
+  /* ---------- project tiles ---------- */
+  .proj { display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+  .proj-head { display: flex; align-items: center; gap: 12px; }
+  .proj-head .ico { width: 48px; height: 48px; border-radius: 26%; flex: none; overflow: hidden; display: grid; place-items: center; font: 700 15px/1 var(--display); color: #fff; background: var(--c, #444); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+  .proj-head .ico img { width: 100%; height: 100%; object-fit: cover; }
+  .proj-head .ico.light { background: #fff; }
+  .proj h4 { font-size: 22px; letter-spacing: -.02em; }
+  .proj h4 small { display: block; font: 400 13.5px/1.3 var(--body); color: var(--ink-2); letter-spacing: 0; margin-top: 3px; }
+  .proj .desc { font-size: 15px; color: var(--ink-2); }
+  .proj .desc strong { color: var(--ink); font-weight: 600; }
+  .proj .stores { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+
+  .stage {
+    --tint: var(--accent);
+    position: relative;
+    height: 290px;
+    margin: 4px -8px 0;
+    border-radius: 18px;
+    background: color-mix(in oklab, var(--tint) 16%, var(--tile-2));
+    display: flex; justify-content: center; align-items: flex-start; gap: 14px;
+    padding: 26px 16px 0;
+    overflow: hidden;
+  }
+  .stage.tall { height: 380px; }
+  .phone {
+    flex: 0 0 auto;
+    width: 150px;
+    padding: 5px;
+    border-radius: 26px;
+    background: var(--phone);
+    box-shadow: 0 18px 34px -16px rgba(0,0,0,.55);
+  }
+  .phone img { width: 100%; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top; border-radius: 21px; background: #222; }
+  .stage.tall .phone { width: 172px; }
+  .stage .phone:nth-child(2) { margin-top: 26px; }
+  .stage .phone:nth-child(3) { margin-top: 10px; }
+
+  .browser { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--tile-2); }
+  .browser .chrome { display: flex; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  .browser .chrome i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+  .browser img { width: 100%; aspect-ratio: 16 / 7.4; object-fit: cover; object-position: top left; }
+
+  .feature { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 28px; align-items: stretch; }
+  .feature .stage { margin: 0; height: auto; min-height: 460px; max-height: 560px; }
+  .feature .stage { gap: 12px; padding: 24px 14px; align-items: center; }
+  .feature .stage .phone { width: calc((100% - 24px) / 3); max-width: 210px; }
+  .feature-body { display: flex; flex-direction: column; gap: 14px; }
+  .feature h4 { font-size: 34px; font-variation-settings: "wdth" 85; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .split h5 { margin: 0 0 8px; font: 600 14px/1.3 var(--body); color: var(--ink); }
+  .bul.small li { font-size: 14px; }
+  .bul.small li + li { margin-top: 5px; }
+  [dir="rtl"] { text-align: right; }
+
+  /* ---------- skills ---------- */
+  .skill h3 { font-size: 19px; margin-bottom: 14px; }
+  .skill .chip { background: var(--tile-2); }
+  .skill.new-tag h3::after { content: ""; }
+
+  /* ---------- roadmap ---------- */
+  .road-hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+  .road-hero h2 { font-size: clamp(32px, 4.2vw, 54px); font-variation-settings: "wdth" 82; letter-spacing: -.035em; }
+  .road-count { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+  .road-count b { font: 800 clamp(64px, 7vw, 96px)/.8 var(--display); font-variation-settings: "wdth" 78; letter-spacing: -.05em; }
+  .road-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .accent-tile .btn { background: #fff; color: #2a1b8f; border-color: #fff; }
+  .accent-tile .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.55); }
+  .track { display: flex; flex-direction: column; gap: 12px; }
+  .track-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .track-n { font: 800 15px/1 var(--display); width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); }
+  .track h3 { font-size: 21px; }
+  .lessons { counter-reset: l; }
+  .lessons li { counter-increment: l; display: grid; grid-template-columns: 22px 1fr 18px; gap: 8px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14.5px; }
+  .lessons li::before { content: counter(l); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .lessons li::after { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.8' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; margin-top: 2px; }
+  .lessons span { color: var(--ink-2); display: block; font-size: 13px; margin-top: 2px; }
+  .track .more { margin-top: auto; font-size: 14px; font-weight: 600; color: var(--accent-text); text-decoration: none; }
+  .track .more:hover { text-decoration: underline; }
+
+  /* ---------- writing / oss ---------- */
+  .card-link { text-decoration: none; display: flex; flex-direction: column; gap: 12px; }
+  .card-link h3 { font-size: 23px; }
+  .card-link:hover h3 { color: var(--accent-text); }
+
+  /* ---------- contact ---------- */
+  .contact-main h2 { font-size: clamp(36px, 5.6vw, 76px); font-variation-settings: "wdth" 80; letter-spacing: -.045em; line-height: .95; max-width: 14ch; }
+  .contact-main .mail { display: inline-block; margin-top: 22px; font: 600 clamp(20px, 2.6vw, 32px)/1.15 var(--display); letter-spacing: -.02em; text-decoration: none; border-bottom: 3px solid currentColor; overflow-wrap: anywhere; }
+  footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 40px 4px 90px; color: var(--ink-2); font-size: 14px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  /* ---------- option pill ---------- */
+  .option-pill {
+    position: fixed; left: 16px; bottom: 16px; z-index: 30;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 14px; border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font: 600 13px/1 var(--body); text-decoration: none;
+    box-shadow: 0 10px 24px -10px rgba(0,0,0,.5);
+  }
+  .option-pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 35%, transparent); }
+
+  /* ---------- load sequence (one orchestrated moment) ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-grid > .tile { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+    @keyframes rise { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: none; } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1100px) {
+    .s3 { grid-column: span 6; } .s4 { grid-column: span 6; } .s5 { grid-column: span 6; }
+    .s7, .s8 { grid-column: span 12; } .s6 { grid-column: span 6; }
+    .hero-grid .hero { grid-column: span 12; }
+    .hero-grid .photo { grid-column: span 6; min-height: 420px; }
+    .hero-grid .dock { grid-column: span 12; }
+    .apps { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .feature { grid-template-columns: 1fr; }
+    .road-hero { grid-template-columns: 1fr; }
+    .nav a { padding: 8px 9px; }
+  }
+  @media (max-width: 860px) {
+    .nav { display: none; }
+    .s3, .s4, .s5, .s6 { grid-column: span 12; }
+    .stat.s3 { grid-column: span 6; }
+    .hero-grid .photo { grid-column: span 12; min-height: 420px; }
+    .apps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .r2 { grid-row: auto; }
+    .split { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    :root { --gap: 10px; }
+    .wrap, .bar { width: calc(100% - 32px); }
+    .tile { padding: 20px; }
+    .tile.big { padding: 22px; border-radius: 24px; }
+    .hero h1 { font-size: clamp(52px, 17vw, 78px); }
+    .hero .lede { font-size: 16px; }
+    .stage { height: 250px; }
+    .stage .phone { width: 128px; }
+    .stage.tall { height: 330px; }
+    .stage.tall .phone { width: 136px; }
+    .feature .stage { min-height: 330px; }
+    .stage .phone:nth-child(3) { display: none; }
+    .sec { margin-top: 56px; }
+    .dock-head { flex-direction: column; gap: 10px; }
+    .dock-head h3 { font-size: 18px; text-align: left; max-width: none; }
+    .trio { grid-template-columns: 1fr; gap: 14px; }
+    .trio > div { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 12px; }
+    .trio > div p { margin-top: 0 !important; }
+    .trio br { display: none; }
+    .stat p { font-size: 14px; }
+    .stat b { font-size: 44px; }
+    .job h3 { font-size: 26px; }
+    .photo { min-height: 380px; }
+  }
+  @media (max-width: 380px) {
+    .stat.s3 { grid-column: span 12; }
+    .stage .phone:nth-child(2) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="sr-only skip" href="#main">Skip to content</a>
+
+<header class="bar" role="banner">
+  <a class="mark" href="#top" aria-label="Eslam Aped, back to top">EA<span>.</span></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#work">Experience</a>
+    <a href="#apps">Apps</a>
+    <a href="#skills">Skills</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="btn sm primary" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download>CV (PDF)</a>
+  <button class="icon-btn" id="theme" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
+  </button>
+</header>
+
+<main id="main" class="wrap">
+
+  <!-- ===================== OVERVIEW ===================== -->
+  <section id="top" class="bento hero-grid" aria-label="Overview">
+
+    <div class="tile big hero s8" style="--i:0">
+      <div class="hero-top">
+        <span class="badge"><span class="dot"></span>Software Engineer at Cogens</span>
+        <span class="badge neutral">Cairo, Egypt · open to relocation</span>
+      </div>
+      <div>
+        <h1>Eslam<br>Aped</h1>
+        <p class="role" style="margin-top:18px">Software Engineer, Flutter &amp; Django</p>
+      </div>
+      <p class="lede">I build cross-platform Flutter apps and the Django REST APIs behind them, then take them all the way to Google Play and the App Store. Most of my time goes into Clean Architecture, native integrations and production releases that hold up.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          Download CV
+        </a>
+        <a class="btn" href="mailto:eslamabid175@gmail.com">Email me</a>
+        <a class="btn" href="#apps">See the apps</a>
+      </div>
+    </div>
+
+    <figure class="tile big photo s4" style="--i:1; margin:0">
+      <img src="../assets/profile.png" alt="Portrait of Eslam Aped" fetchpriority="high" width="880" height="1168">
+      <figcaption><span>Eslam Aped</span><span class="muted">Cairo, Egypt</span></figcaption>
+    </figure>
+
+    <div class="tile big dock s7 r2" style="--i:2">
+      <div class="dock-head">
+        <div>
+          <div class="dock-num">16</div>
+          <p class="label" style="margin-top:10px">apps on the stores</p>
+        </div>
+        <h3>Apps I’ve worked on that are live on Google Play and the App Store</h3>
+      </div>
+      <div class="apps" role="list">
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.trispects.school.parents" target="_blank" rel="noopener"><span class="ico" style="--c:#2c5bd6">Pa</span><span>Cogens Parent</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.trispects.school.students" target="_blank" rel="noopener"><span class="ico" style="--c:#3a49b8">St</span><span>Cogens Student</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.trispects.school.management" target="_blank" rel="noopener"><span class="ico" style="--c:#4a3db0">Sf</span><span>Cogens Staff</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.trispects.school.bus.driver" target="_blank" rel="noopener"><span class="ico" style="--c:#1d8f9e">Bu</span><span>Bus Driver</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.mac.maclink" target="_blank" rel="noopener"><span class="ico light"><img src="../assets/icons/maclink.webp" alt="" loading="lazy" width="256" height="256"></span><span>MACLINK</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.convention" target="_blank" rel="noopener"><span class="ico light"><img src="../assets/icons/mac-convention.webp" alt="" loading="lazy" width="256" height="256"></span><span>MAC Convention</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.work" target="_blank" rel="noopener"><span class="ico light"><img src="../assets/icons/mac-work.webp" alt="" loading="lazy" width="256" height="256"></span><span>MAC Work</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" rel="noopener"><span class="ico" style="--c:#7b2f9a">3i</span><span>3I Vision</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.datamind.agent" target="_blank" rel="noopener"><span class="ico" style="--c:#183a7a">DM</span><span>DataMind</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.adahi.sa" target="_blank" rel="noopener"><span class="ico ar" style="--c:#1f7a44">أ</span><span>Adahi</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.omanaman.aman" target="_blank" rel="noopener"><span class="ico" style="--c:#6f2b8c">Am</span><span>Aman</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" rel="noopener"><span class="ico" style="--c:#1d2b64">YL</span><span>Yalla L3b</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.nooralhuda.noor" target="_blank" rel="noopener"><span class="ico light"><img src="../assets/icons/yusr.webp" alt="" loading="lazy" width="256" height="256"></span><span>Yusr</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.stackmassage.stackmassage" target="_blank" rel="noopener"><span class="ico"><img src="../assets/icons/snippet.webp" alt="" loading="lazy" width="256" height="256"></span><span>Snippet</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.mksaby.app" target="_blank" rel="noopener"><span class="ico"><img src="../assets/icons/mksaby.webp" alt="" loading="lazy" width="256" height="256"></span><span>Mksaby</span></a>
+        <a role="listitem" class="app" href="https://play.google.com/store/apps/details?id=com.alarmiq.app" target="_blank" rel="noopener"><span class="ico"><img src="../assets/icons/alarmiq.webp" alt="" loading="lazy" width="256" height="256"></span><span>Alarmiq</span></a>
+      </div>
+    </div>
+
+    <div class="tile stat s5" style="--i:3">
+      <div class="trio">
+        <div><b>3+</b><p style="margin-top:12px">years shipping <br>production apps</p></div>
+        <div><b>15+</b><p style="margin-top:12px">apps delivered, <br>16 published</p></div>
+        <div><b>3</b><p style="margin-top:12px">roles: Cogens, <br>3I Vision, freelance</p></div>
+      </div>
+    </div>
+
+    <a class="tile accent-tile stat lift s5" href="#roadmap" style="--i:4; text-decoration:none">
+      <div style="display:flex; justify-content:space-between; align-items:start; gap:12px">
+        <b>30/30</b>
+        <span class="badge" style="background:rgba(255,255,255,.18); color:#fff">Completed</span>
+      </div>
+      <div>
+        <div class="meter" aria-hidden="true"><i></i></div>
+        <p style="margin-top:12px">Lessons finished on my Senior / Lead roadmap, across 6 tracks from database design to leading a team.</p>
+      </div>
+    </a>
+
+    <div class="tile about s12" style="--i:5">
+      <div class="bento" style="gap:24px; align-items:start">
+        <div class="s7">
+          <h2 style="font-size:26px; margin-bottom:12px">About</h2>
+          <p>I’m a software engineer who works across mobile and backend. Flutter is where I build cross-platform apps; Python (Django, FastAPI, Flask) is where I build the backends that serve them. I like owning the whole path: architecture, API contracts, offline storage, CI/CD and the store release itself.</p>
+          <p>Right now I’m at Cogens, working on a school management platform and the Muslim Association of Canada’s apps. Alongside that I build AI-assisted apps at 3I Vision, and I keep taking freelance products from idea to launch. I studied Computer Science at Cairo University and I’m open to relocation.</p>
+        </div>
+        <div class="s5 linklist" style="align-self:center">
+          <a href="mailto:eslamabid175@gmail.com">Email <span>eslamabid175@gmail.com</span></a>
+          <a href="tel:+201023332583">Phone <span>+20 102 333 2583</span></a>
+          <a href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener">LinkedIn <span>in/eslamaped</span></a>
+          <a href="https://github.com/eslamabid175" target="_blank" rel="noopener">GitHub <span>eslamabid175</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section id="work" class="sec" aria-labelledby="work-h">
+    <div class="sec-head">
+      <h2 id="work-h">Experience</h2>
+      <p>Three places, one habit: owning the app from the first screen to the store listing.</p>
+    </div>
+    <div class="bento">
+
+      <article class="tile big job s7">
+        <div class="job-top">
+          <div>
+            <h3><a href="https://cogens.com/" target="_blank" rel="noopener">Cogens</a></h3>
+            <p class="label">Software Engineer · Canada (Remote)</p>
+          </div>
+          <span class="badge"><span class="dot"></span><span class="when">Jan 2025 – Present</span></span>
+        </div>
+        <ul class="bul">
+          <li><strong>School management platform:</strong> built and scaled a multi-app education ecosystem: Parent, Staff, Student, Bus Driver, Admin Dashboard and Vendor Portal.</li>
+          <li><strong>MACLINK:</strong> delivered a production multi-domain Flutter app for events, donations, mosque services, prayers, forms and surveys, ticketing, family and exam workflows.</li>
+          <li><strong>MAC Convention and MAC Work:</strong> shipped both Muslim Association of Canada apps as team work with Abdalrhman Reda.</li>
+          <li><strong>Django REST, multi-tenant:</strong> multi-database routing (default plus per-school databases), token/JWT auth and clean API contracts.</li>
+          <li><strong>Real-time:</strong> WebSocket channels for live messaging, FCM (direct, batch, topic) with payload-based in-app routing, live bus tracking with Dart isolates.</li>
+          <li><strong>Release:</strong> billing and invoice workflows, report-card PDF pipelines, django-crontab jobs, and CI/CD workflows that reduced deployment time by 40%.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Flutter</span><span class="chip">Dart 3</span><span class="chip">BLoC/Cubit</span><span class="chip">Dio + Retrofit</span><span class="chip">GetIt</span><span class="chip">Freezed</span><span class="chip">WebSocket</span><span class="chip">FCM</span><span class="chip">Django/DRF</span><span class="chip">MySQL</span><span class="chip">Docker</span>
+        </div>
+      </article>
+
+      <article class="tile big job s5">
+        <div class="job-top">
+          <div>
+            <h3><a href="http://3i-vision.com/#/home" target="_blank" rel="noopener">3I Vision</a></h3>
+            <p class="label">Software Engineer · Giza, Egypt (Hybrid)</p>
+          </div>
+          <span class="badge neutral"><span class="when">Jan 2024 – Present</span></span>
+        </div>
+        <ul class="bul">
+          <li><strong>AI/ML apps:</strong> processed ML model responses for people detection and license plate recognition, with Django REST APIs for real-time data.</li>
+          <li><strong>Performance:</strong> refactored legacy code to improve memory management, cutting app start-up time by 30%.</li>
+          <li><strong>Aramco (private):</strong> sample registration, camera scanning, SQLite offline storage, Excel export and Zebra integration.</li>
+          <li><strong>Adahi:</strong> an Eid al-Adha companion that helps verify Udhiyah suitability.</li>
+          <li><strong>Security:</strong> built the permit management flow with strict authentication.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Flutter</span><span class="chip">AI/ML integration</span><span class="chip">Hive</span><span class="chip">SQLite</span><span class="chip">BLoC</span>
+        </div>
+      </article>
+
+      <article class="tile big job s7">
+        <div class="job-top">
+          <div>
+            <h3>Freelance</h3>
+            <p class="label">Software Engineer, project-based · Remote</p>
+          </div>
+          <span class="badge neutral"><span class="when">Jan 2023 – Present</span></span>
+        </div>
+        <ul class="bul cols-2">
+          <li><strong>Mksaby:</strong> designed and built the whole product myself, from data model and sync engine to the store listing.</li>
+          <li><strong>Aman (Oman):</strong> trip platform for admins, drivers and passengers with live tracking, booking, wallet and hybrid payments.</li>
+          <li><strong>FastAPI backend:</strong> PostgreSQL, SQLAlchemy, Firebase Auth (Google, Apple, OTP) and role-based APIs, deployed with Docker Compose, Gunicorn/Uvicorn and Nginx.</li>
+          <li><strong>Snippet:</strong> performance work on media uploads, video playback and image caching.</li>
+          <li><strong>Alarmiq and Yusr:</strong> co-developed with Abdalrhman Reda.</li>
+          <li><strong>Yalla L3b:</strong> court booking with player ratings, venue management and booking analytics.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Flutter</span><span class="chip">Firebase</span><span class="chip">Google Maps</span><span class="chip">FastAPI</span><span class="chip">PostgreSQL</span><span class="chip">Drift</span><span class="chip">Docker</span>
+        </div>
+      </article>
+
+      <aside class="tile big edu s5" aria-label="Education, certifications and languages">
+        <h3 style="font-size:22px; margin-bottom:16px">Education &amp; certifications</h3>
+        <dl>
+          <div><dt>B.Sc. Computer Science, Cairo University</dt><dd>Sep 2017 – Jun 2022</dd></div>
+          <div><dt><a href="https://www.udemy.com/certificate/UC-2932f681-e072-482c-a0e2-37770d6dd0c7/" target="_blank" rel="noopener">The Complete Flutter &amp; Dart, Basics to Advanced</a></dt><dd>Udemy · 55 hours · 2025</dd></div>
+          <div><dt><a href="https://www.udemy.com/certificate/UC-df701db4-7470-4f96-9f32-a72379af93bd/" target="_blank" rel="noopener">Mastering Multi-Module &amp; Clean Architecture in Android</a></dt><dd>Udemy · 23 hours · Dec 2024</dd></div>
+          <div><dt>Flutter Advanced: Clean Architecture with MVVM</dt><dd>Udemy · Apr 2024</dd></div>
+          <div><dt>Mastering Mobile App Development</dt><dd>YAT, Cairo · Dec 2021</dd></div>
+        </dl>
+        <p class="label" style="margin-top:18px">Arabic (native) · English (fluent) · French (intermediate)</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================== APPS ===================== -->
+  <section id="apps" class="sec" aria-labelledby="apps-h">
+    <div class="sec-head">
+      <h2 id="apps-h">Apps &amp; products</h2>
+      <p>Each tile says what I actually did on that project: built solo, scoped performance work, or team work.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- ---------- Freelance & own products ---------- -->
+      <div class="group-title"><h3>Freelance &amp; own products</h3><p>2023 – present</p></div>
+
+      <article class="tile big proj s12" style="gap:0">
+        <div class="feature">
+          <div class="stage tall" style="--tint:#0f7a55">
+            <div class="phone"><img src="../assets/screenshots/freelance/mksaby/1.webp" alt="Mksaby home dashboard in Arabic with today’s sales and quick actions" loading="lazy" width="540" height="1200"></div>
+            <div class="phone"><img src="../assets/screenshots/freelance/mksaby/3.webp" alt="Mksaby treasury screen showing cash in and cash out" loading="lazy" width="540" height="1200"></div>
+            <div class="phone"><img src="../assets/screenshots/freelance/mksaby/4.webp" alt="Mksaby more menu with customers, suppliers, reports and settings" loading="lazy" width="540" height="1200"></div>
+          </div>
+          <div class="feature-body">
+            <div class="proj-head">
+              <span class="ico"><img src="../assets/icons/mksaby.webp" alt="" loading="lazy" width="256" height="256"></span>
+              <div><span class="badge"><span class="dot"></span>Built solo, end to end</span></div>
+            </div>
+            <h4>Mksaby <span class="ar" lang="ar">مكسبي</span></h4>
+            <p class="desc">Sales, purchases and inventory for small Egyptian shops: clothing, shoes, mobiles, electronics, wholesale and grocery. Arabic-first (RTL), works offline, and syncs live across the owner’s and employees’ phones. <strong>I designed, built and shipped all of it myself.</strong></p>
+            <div class="split">
+              <div>
+                <h5>What shop owners get</h5>
+                <ul class="bul small">
+                  <li>Quick sales with barcode scanning; invoice PDFs shared on WhatsApp</li>
+                  <li>Cash, wallet, InstaPay and credit payments</li>
+                  <li>Inventory with weighted-average costing, stocktaking and returns</li>
+                  <li>Customer and supplier debt statements, expenses, treasury ledger</li>
+                  <li>Real profit (gross vs net) and reports with charts</li>
+                  <li>Employees with granular permissions and PIN switch-user</li>
+                </ul>
+              </div>
+              <div>
+                <h5>How it’s built</h5>
+                <ul class="bul small">
+                  <li>Feature-first Clean Architecture, BLoC/Cubit, freezed, get_it + injectable, go_router</li>
+                  <li>Drift (SQLite) with 22 synced tables and an offline outbox to Cloud Firestore</li>
+                  <li>Firebase phone OTP with a WhatsApp OTP fallback, secure storage</li>
+                  <li>Sentry, Patrol on-device E2E tests, ~229 unit and widget test files</li>
+                  <li>CI gates for ARB parity and theme-token usage; a design-token system</li>
+                  <li>7-day trial with operator-verified activation; forced-update gate</li>
+                </ul>
+              </div>
+            </div>
+            <div class="stores">
+              <a class="btn sm primary" href="https://play.google.com/store/apps/details?id=com.mksaby.app" target="_blank" rel="noopener">Google Play</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tile proj lift s6">
+        <div class="proj-head">
+          <span class="ico"><img src="../assets/icons/alarmiq.webp" alt="" loading="lazy" width="256" height="256"></span>
+          <h4>Alarmiq<small>Smart alarm &amp; time suite</small></h4>
+        </div>
+        <span class="badge" style="align-self:flex-start">Co-developed with Abdalrhman Reda</span>
+        <p class="desc">Interval batch alarms (for example 4 to 12 alarms spread evenly across a window), a GPS trip alarm that wakes you before your stop, live world clock, dual-mode stopwatch, background countdown timer, anti-snooze wake-up challenges, sleep insights and a chess-style game timer.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">BLoC/Cubit</span><span class="chip">get_it</span><span class="chip">alarm</span><span class="chip">local notifications</span><span class="chip">timezone</span><span class="chip">easy_localization</span><span class="chip">Lottie</span></div>
+        <div class="stage" style="--tint:#6b7280">
+          <div class="phone"><img src="../assets/screenshots/freelance/alarmiq/1.webp" alt="Alarmiq alarms list with quick power nap presets" loading="lazy" width="589" height="1280"></div>
+          <div class="phone"><img src="../assets/screenshots/freelance/alarmiq/2.webp" alt="Alarmiq trip alarm with a map destination" loading="lazy" width="589" height="1280"></div>
+          <div class="phone"><img src="../assets/screenshots/freelance/alarmiq/6.webp" alt="Alarmiq world clock showing several cities" loading="lazy" width="589" height="1280"></div>
+        </div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.alarmiq.app" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn sm" href="https://apps.apple.com/us/app/alarmiq/id6797606606" target="_blank" rel="noopener">App Store</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s6">
+        <div class="proj-head">
+          <span class="ico"><img src="../assets/icons/snippet.webp" alt="" loading="lazy" width="256" height="256"></span>
+          <h4>Snippet<small>Social app: posts, videos, articles, groups, chat, stories</small></h4>
+        </div>
+        <span class="badge" style="align-self:flex-start">Freelance · performance optimization</span>
+        <p class="desc">I didn’t build Snippet itself; my part was making it fast. <strong>My scope was media and feed performance:</strong></p>
+        <ul class="bul small">
+          <li>Faster image uploads with compression</li>
+          <li>Video uploads with compression and generated thumbnails</li>
+          <li>Feed videos initialise lazily and only play when opened</li>
+          <li>Better image caching across feeds and stories</li>
+          <li>Smoother large categories and media-heavy screens</li>
+        </ul>
+        <div class="stage" style="--tint:#ff3d6e">
+          <div class="phone"><img src="../assets/screenshots/freelance/snippet/3.webp" alt="Snippet welcome screen" loading="lazy" width="576" height="1280"></div>
+          <div class="phone"><img src="../assets/screenshots/freelance/snippet/5.webp" alt="Snippet trending feed with video posts" loading="lazy" width="576" height="1280"></div>
+          <div class="phone"><img src="../assets/screenshots/freelance/snippet/6.webp" alt="Snippet explore screen with categories" loading="lazy" width="576" height="1280"></div>
+        </div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.stackmassage.stackmassage" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s6">
+        <div class="proj-head">
+          <span class="ico light"><img src="../assets/icons/yusr.webp" alt="" loading="lazy" width="256" height="256"></span>
+          <h4>Yusr <span class="ar" lang="ar">يُسْر</span><small>Islamic companion, formerly NooN</small></h4>
+        </div>
+        <span class="badge" style="align-self:flex-start">Co-developed with Abdalrhman Reda</span>
+        <p class="desc">Quran with tafsir, prayer times, Qibla, azkar, digital tasbeeh, Hijri calendar, Zakat calculator and the Names of Allah, more than 20 features in an Arabic-first RTL app. The latest update added the full Prophet’s biography (السيرة النبوية).</p>
+        <p class="desc ar" lang="ar" dir="rtl">اعتمدت على هيكلية Feature-based Architecture مع إدارة حالة باستخدام Cubit/BLoC، ودمج بين بيانات محلية (JSON + SQLite) وواجهات API خارجية، وحل مشاكل تشغيل الصوت، البحث، الإشعارات، وصلاحيات النظام.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">BLoC/Cubit + get_it</span><span class="chip">dio + sqflite + hive</span><span class="chip">easy_localization + RTL</span><span class="chip">audioplayers</span></div>
+        <div class="stage" style="--tint:#1f6b4f">
+          <div class="phone"><img src="../assets/screenshots/freelance/yusr/1.webp" alt="Yusr home with the next prayer time" loading="lazy" width="576" height="1280"></div>
+          <div class="phone"><img src="../assets/screenshots/freelance/yusr/5.webp" alt="Yusr Prophet’s biography timeline" loading="lazy" width="576" height="1280"></div>
+          <div class="phone"><img src="../assets/screenshots/freelance/yusr/2.webp" alt="Yusr Quran surah index" loading="lazy" width="576" height="1280"></div>
+        </div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.nooralhuda.noor" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn sm" href="https://apps.apple.com/eg/app/%D9%86-noon-%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D9%88%D8%A7%D9%84%D8%A3%D8%B0%D9%83%D8%A7%D8%B1/id6759193445" target="_blank" rel="noopener">App Store</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s3">
+        <div class="proj-head">
+          <span class="ico" style="--c:#6f2b8c">Am</span>
+          <h4>Aman<small>Trip management for Oman</small></h4>
+        </div>
+        <p class="desc">Admin, driver and passenger roles with trip templates, seat booking, live trip tracking, instant notifications and hybrid payment/wallet rules. Backed by FastAPI, PostgreSQL and SQLAlchemy, with booking state kept apart from payment state and idempotent transactions.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">hydrated_bloc</span><span class="chip">Google Maps</span><span class="chip">Firebase Auth/FCM</span><span class="chip">FastAPI</span><span class="chip">Docker Compose</span><span class="chip">Nginx</span></div>
+        <div class="stage" style="--tint:#7a2c9a">
+          <div class="phone"><img src="../assets/screenshots/freelance/aman%20app/3.jpeg" alt="Aman trips list in Arabic" loading="lazy" width="720" height="1600"></div>
+        </div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.omanaman.aman" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn sm" href="https://apps.apple.com/eg/app/aman-oman/id6759229386" target="_blank" rel="noopener">App Store</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s3">
+        <div class="proj-head">
+          <span class="ico" style="--c:#1d2b64">YL</span>
+          <h4>Yalla L3b<small>Sports court booking</small></h4>
+        </div>
+        <p class="desc">Simplifies court reservations for players and day-to-day management for court owners: player and venue ratings, booking analytics and nearby courts.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">Firebase</span><span class="chip">Maps</span></div>
+        <div class="stage" style="--tint:#2747b8">
+          <div class="phone"><img src="../assets/screenshots/freelance/yalla-l3b/1.webp" alt="Yalla L3b home with featured courts" loading="lazy" width="133" height="296"></div>
+        </div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <!-- ---------- Cogens ---------- -->
+      <div class="group-title"><h3>Cogens</h3><p>School management platform and Muslim Association of Canada apps · 2025 – present</p></div>
+
+      <article class="tile proj lift s3">
+        <h4>Cogens Parent<small>Attendance, announcements, payments</small></h4>
+        <div class="stage" style="--tint:#2c5bd6">
+          <div class="phone"><img src="../assets/screenshots/cogens/parent/1.webp" alt="Cogens Parent home" loading="lazy" width="230" height="498"></div>
+        </div>
+        <p class="desc">Parents track attendance, get announcements, make payments and handle daily school interactions.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">BLoC</span><span class="chip">Firebase</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://apps.apple.com/eg/app/cogens-parent/id1607885469" target="_blank" rel="noopener">App Store</a>
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.parents" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s3">
+        <h4>Cogens Student<small>Schedules, grades, updates</small></h4>
+        <div class="stage" style="--tint:#3a49b8">
+          <div class="phone"><img src="../assets/screenshots/cogens/student/1.webp" alt="Cogens Student start screen" loading="lazy" width="230" height="499"></div>
+        </div>
+        <p class="desc">Students see schedules, grades and attendance and get school updates in real time.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">Real-time</span><span class="chip">REST APIs</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://apps.apple.com/eg/app/cogens-student/id6476619759" target="_blank" rel="noopener">App Store</a>
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.students" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s3">
+        <h4>Cogens Staff<small>Attendance and parent messaging</small></h4>
+        <div class="stage" style="--tint:#4a3db0">
+          <div class="phone"><img src="../assets/screenshots/cogens/staff/1.webp" alt="Cogens Staff welcome screen" loading="lazy" width="230" height="498"></div>
+        </div>
+        <p class="desc">Teachers and staff record attendance, message parents and manage schedules.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">BLoC</span><span class="chip">Notifications</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://apps.apple.com/eg/app/cogens-staff/id1607885245" target="_blank" rel="noopener">App Store</a>
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.management" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s3">
+        <h4>Cogens Bus Driver<small>Live GPS tracking</small></h4>
+        <div class="stage" style="--tint:#1d8f9e">
+          <div class="phone"><img src="../assets/screenshots/cogens/bus/1.webp" alt="Cogens Bus Driver route with onboard students" loading="lazy" width="230" height="498"></div>
+        </div>
+        <p class="desc">Real-time GPS tracking using Dart isolates and platform channels for persistent socket connections.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">Isolates</span><span class="chip">GPS</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://apps.apple.com/eg/app/cogens-bus-driver/id6479618217" target="_blank" rel="noopener">App Store</a>
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.trispects.school.bus.driver" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s6">
+        <div class="proj-head">
+          <span class="ico light"><img src="../assets/icons/maclink.webp" alt="" loading="lazy" width="256" height="256"></span>
+          <h4>MACLINK<small>Muslim Association of Canada community app</small></h4>
+        </div>
+        <div class="browser"><div class="chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../assets/screenshots/cogens/maclink/image.png" alt="MACLINK app screens" loading="lazy" width="1040" height="537" style="aspect-ratio:1040/537">
+        </div>
+        <p class="desc">Events, donations, mosque services, prayers, employee collaboration, forms and surveys, bookings and tickets, family module, content, conventions and exam workflows, built on a modular data/logic/UI architecture.</p>
+        <div class="chips"><span class="chip">Flutter + Dart 3</span><span class="chip">BLoC/Cubit</span><span class="chip">Dio + Retrofit</span><span class="chip">GetIt + Freezed</span><span class="chip">WebSocket + FCM</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://apps.apple.com/us/app/maclink/id6502847350" target="_blank" rel="noopener">App Store</a>
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.mac.maclink" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s3">
+        <div class="proj-head">
+          <span class="ico light"><img src="../assets/icons/mac-convention.webp" alt="" loading="lazy" width="256" height="256"></span>
+          <h4>MAC Convention</h4>
+        </div>
+        <span class="badge" style="align-self:flex-start">Team work with Abdalrhman Reda</span>
+        <p class="desc">The Muslim Association of Canada’s official app for booking and registering for its conferences and gatherings.</p>
+        <div class="stage" style="--tint:#0f7a55">
+          <div class="phone"><img src="../assets/screenshots/cogens/mac-convention/1.webp" alt="MAC Convention featured speakers" loading="lazy" width="576" height="1280"></div>
+        </div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.convention" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn sm" href="https://apps.apple.com/eg/app/mac-convention/id6778484730" target="_blank" rel="noopener">App Store</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s3">
+        <div class="proj-head">
+          <span class="ico light"><img src="../assets/icons/mac-work.webp" alt="" loading="lazy" width="256" height="256"></span>
+          <h4>MAC Work</h4>
+        </div>
+        <span class="badge" style="align-self:flex-start">Team work with Abdalrhman Reda</span>
+        <p class="desc">MAC’s internal app for staff: meetings, discussions, surveys and account settings in one place.</p>
+        <div class="stage" style="--tint:#0f7a55">
+          <div class="phone"><img src="../assets/screenshots/cogens/mac-work/1.webp" alt="MAC Work home with an upcoming group meeting" loading="lazy" width="576" height="1280"></div>
+        </div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.work" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn sm" href="https://apps.apple.com/eg/app/mac-work/id6783499971" target="_blank" rel="noopener">App Store</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s6">
+        <h4>Admin Panel<small>Django web panel for school administrators</small></h4>
+        <div class="browser"><div class="chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-24-12.png" alt="Cogens admin panel dashboard" loading="lazy">
+        </div>
+        <p class="desc">Full control for administrators over students, staff, payments, attendance records, notifications and settings. Built on Django REST Framework.</p>
+        <div class="stores"><a class="btn sm" href="https://school.cogens.com/#/login" target="_blank" rel="noopener">Visit panel</a></div>
+      </article>
+
+      <article class="tile proj lift s6">
+        <h4>Vendor Panel<small>Hot lunch ordering for food vendors</small></h4>
+        <div class="browser"><div class="chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../assets/screenshots/cogens/vendor/Screenshot_2025-12-28_14-46-51.png" alt="Cogens vendor panel" loading="lazy">
+        </div>
+        <p class="desc">A web portal where food vendors manage student meal orders, payments and daily delivery reports, with integrated payment handling.</p>
+        <div class="chips"><span class="chip">Django</span><span class="chip">Payments</span></div>
+        <div class="stores"><a class="btn sm" href="https://vendor.cogens.com/#/loginScreen" target="_blank" rel="noopener">Visit panel</a></div>
+      </article>
+
+      <!-- ---------- 3I Vision ---------- -->
+      <div class="group-title"><h3>3I Vision</h3><p>AI-assisted apps · 2024 – present</p></div>
+
+      <article class="tile proj lift s4">
+        <h4>3I Vision<small>People detection &amp; license plate recognition</small></h4>
+        <div class="stage" style="--tint:#7b2f9a">
+          <div class="phone"><img src="../assets/screenshots/3i-vision/3i-vision%20app/1.webp" alt="3I Vision detection summary dashboard" loading="lazy" width="230" height="499"></div>
+          <div class="phone"><img src="../assets/screenshots/3i-vision/3i-vision%20app/2.webp" alt="3I Vision detections list" loading="lazy" width="230" height="499"></div>
+        </div>
+        <p class="desc">Machine learning and computer vision for people detection and vehicle (license plate) recognition, with real-time data through Django REST APIs.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">AI/ML</span><span class="chip">Django</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://apps.apple.com/eg/app/3i-vision/id6670479729" target="_blank" rel="noopener">App Store</a>
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s4">
+        <h4>DataMind Agent<small>Smart file manager</small></h4>
+        <div class="stage" style="--tint:#183a7a">
+          <div class="phone"><img src="../assets/screenshots/3i-vision/datamind%20app/1.webp" alt="DataMind Agent splash screen" loading="lazy" width="230" height="498"></div>
+          <div class="phone"><img src="../assets/screenshots/3i-vision/datamind%20app/2.webp" alt="DataMind Agent file categories" loading="lazy" width="230" height="498"></div>
+        </div>
+        <p class="desc">Scans the device to identify, classify and organise files with keyword analysis, on an optimised Flutter architecture.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">File management</span><span class="chip">AI</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://apps.apple.com/eg/app/datamind-agent/id6754242027" target="_blank" rel="noopener">App Store</a>
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.datamind.agent" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="tile proj lift s4">
+        <h4>Aramco (private) &amp; Adahi<small>Field data and an Eid al-Adha companion</small></h4>
+        <div class="stage" style="--tint:#1f7a44">
+          <div class="phone"><img src="../assets/screenshots/3i-vision/adahi%20app/1.webp" alt="Adahi inspection form in Arabic" loading="lazy" width="411" height="886"></div>
+          <div class="phone"><img src="../assets/screenshots/3i-vision/adahi%20app/2.webp" alt="Adahi app screen" loading="lazy" width="137" height="296"></div>
+        </div>
+        <p class="desc">A private Saudi Aramco app for sample registration, camera scanning, SQLite offline storage, Excel export and Zebra integration. Adahi helps verify Udhiyah suitability by spotting illness and disqualification signs according to Islamic guidelines.</p>
+        <div class="chips"><span class="chip">Camera scanning</span><span class="chip">SQLite</span><span class="chip">Excel export</span><span class="chip">Zebra</span></div>
+        <div class="stores">
+          <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.adahi.sa" target="_blank" rel="noopener">Adahi on Google Play</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section id="skills" class="sec" aria-labelledby="skills-h">
+    <div class="sec-head">
+      <h2 id="skills-h">Skills</h2>
+      <p>What I use day to day, grouped by where it sits in an app.</p>
+    </div>
+    <div class="bento">
+      <div class="tile skill s4">
+        <h3>Mobile</h3>
+        <div class="chips"><span class="chip">Flutter (Dart)</span><span class="chip">Android</span><span class="chip">iOS</span><span class="chip">Native integration (Kotlin/Swift)</span><span class="chip">KMP</span><span class="chip">CMP</span><span class="chip">Isolates &amp; concurrency</span><span class="chip">Background services</span><span class="chip">Memory optimisation</span><span class="chip">Responsive UI</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>State &amp; architecture</h3>
+        <div class="chips"><span class="chip">BLoC/Cubit</span><span class="chip">Riverpod</span><span class="chip">Provider</span><span class="chip">GetX</span><span class="chip">Event Bus</span><span class="chip">Clean Architecture</span><span class="chip">MVVM</span><span class="chip">SOLID</span><span class="chip">Modular architecture</span><span class="chip">Repository pattern</span><span class="chip">Design patterns</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>Backend &amp; APIs</h3>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Django REST Framework</span><span class="chip">FastAPI</span><span class="chip">Node.js/Express</span><span class="chip">REST API design</span><span class="chip">GraphQL</span><span class="chip">JWT/auth tokens</span><span class="chip">Multi-database router</span><span class="chip">django-filter</span><span class="chip">Firebase</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>Data &amp; storage</h3>
+        <div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Firestore</span><span class="chip">SQLite / Sqflite</span><span class="chip">Drift</span><span class="chip">Hive</span><span class="chip">Offline-first caching</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>DevOps &amp; release</h3>
+        <div class="chips"><span class="chip">CI/CD</span><span class="chip">GitHub Actions</span><span class="chip">Codemagic</span><span class="chip">Fastlane</span><span class="chip">Docker &amp; Compose</span><span class="chip">Nginx</span><span class="chip">Gunicorn / uWSGI</span><span class="chip">VPS deployment</span><span class="chip">TestFlight</span><span class="chip">Play Store / App Store</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>Platform features</h3>
+        <div class="chips"><span class="chip">FCM push</span><span class="chip">WebSocket</span><span class="chip">Google Maps SDK</span><span class="chip">Geolocation</span><span class="chip">In-app purchases</span><span class="chip">HLS video streaming</span><span class="chip">Media compression</span><span class="chip">Localization &amp; RTL</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>Testing &amp; process</h3>
+        <div class="chips"><span class="chip">Unit tests</span><span class="chip">Widget tests</span><span class="chip">Integration (Patrol E2E)</span><span class="chip">Code reviews</span><span class="chip">Agile/Scrum</span><span class="chip">JIRA</span><span class="chip">Git Flow</span><span class="chip">Technical docs</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>Languages</h3>
+        <div class="chips"><span class="chip">Dart</span><span class="chip">Python</span><span class="chip">Kotlin</span><span class="chip">Swift</span><span class="chip">JavaScript</span><span class="chip">C++</span><span class="chip">C#</span><span class="chip">PHP</span><span class="chip">R</span><span class="chip">GDScript</span></div>
+      </div>
+      <div class="tile skill s4">
+        <h3>Design &amp; games</h3>
+        <div class="chips"><span class="chip">Figma</span><span class="chip">Material Design</span><span class="chip">Motion &amp; animation</span><span class="chip">Godot</span><span class="chip">Unity</span><span class="chip">Game logic</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ROADMAP ===================== -->
+  <section id="roadmap" class="sec" aria-labelledby="road-h">
+    <div class="bento">
+      <div class="tile big accent-tile s12">
+        <div class="road-hero">
+          <div>
+            <h2 id="road-h">Senior / Lead roadmap, completed</h2>
+            <p style="margin-top:14px; max-width:56ch">A 30-lesson study path I worked through end to end, aimed at a Flutter and Django engineer moving toward senior and lead roles: database design, performance, system design, production operations, code quality and leading people.</p>
+            <div class="road-links">
+              <a class="btn" href="../backend.html">Backend learning notes</a>
+              <a class="btn ghost" href="../flutter.html">Flutter learning notes</a>
+            </div>
+          </div>
+          <div>
+            <div class="road-count"><b>30</b><span>of 30 lessons · 6 tracks</span></div>
+            <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="30" aria-valuenow="30" aria-label="Lessons completed"><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <article class="tile track s4">
+        <div class="track-top"><h3>Backend (Django) in depth</h3><span class="track-n" aria-label="Track 1">1</span></div>
+        <ol class="lessons">
+          <li><div>Database design<span>Normalization, composite indexes, constraints, reading EXPLAIN ANALYZE</span></div></li>
+          <li><div>ORM performance<span>N+1, select_related / prefetch_related, only, bulk ops</span></div></li>
+          <li><div>Transactions &amp; concurrency<span>atomic, select_for_update, F() updates, on_commit</span></div></li>
+          <li><div>Background jobs &amp; caching<span>Celery/Redis, idempotent tasks, cache invalidation</span></div></li>
+          <li><div>API design<span>Pagination, versioning, idempotency keys, errors</span></div></li>
+          <li><div>Security<span>AuthN/AuthZ, object-level permissions, CSRF/XSS/SQLi</span></div></li>
+        </ol>
+        <a class="more" href="../backend.html">Open the backend notes</a>
+      </article>
+
+      <article class="tile track s4">
+        <div class="track-top"><h3>Flutter in depth</h3><span class="track-n" aria-label="Track 2">2</span></div>
+        <ol class="lessons">
+          <li><div>App architecture<span>Feature-first Clean Architecture, layers, DI</span></div></li>
+          <li><div>Offline-first &amp; sync<span>Local DB as source of truth, outbox, conflicts, retries</span></div></li>
+          <li><div>Flutter performance<span>Rebuilds, const, lists, isolates, image caching, DevTools</span></div></li>
+          <li><div>Release &amp; publishing<span>Flavors, signing, CI/CD, staged rollout, force update</span></div></li>
+        </ol>
+        <a class="more" href="../flutter.html">Open the Flutter notes</a>
+      </article>
+
+      <article class="tile track s4">
+        <div class="track-top"><h3>System design</h3><span class="track-n" aria-label="Track 3">3</span></div>
+        <ol class="lessons">
+          <li><div>Start with numbers, then scale<span>Back-of-envelope, stateless services, load balancers, CDN</span></div></li>
+          <li><div>The database as bottleneck<span>Read replicas, caching, partitioning, pooling</span></div></li>
+          <li><div>Queues &amp; rate limiting<span>Message queues, backpressure, token bucket</span></div></li>
+          <li><div>CAP &amp; consistency<span>Eventual consistency, idempotency</span></div></li>
+          <li><div>Answering a system design question</div></li>
+        </ol>
+      </article>
+
+      <article class="tile track s4">
+        <div class="track-top"><h3>DevOps &amp; production</h3><span class="track-n" aria-label="Track 4">4</span></div>
+        <ol class="lessons">
+          <li><div>Docker for production<span>Multi-stage builds, slim images, non-root, healthchecks</span></div></li>
+          <li><div>CI/CD pipelines</div></li>
+          <li><div>Zero-downtime migrations<span>Expand / contract</span></div></li>
+          <li><div>Cloud concepts, not vendors<span>Compute, storage, networking, managed DB, IAM</span></div></li>
+          <li><div>Observability<span>Logs, metrics, tracing, alerts: find it before the customer does</span></div></li>
+        </ol>
+      </article>
+
+      <article class="tile track s4">
+        <div class="track-top"><h3>Code quality</h3><span class="track-n" aria-label="Track 5">5</span></div>
+        <ol class="lessons">
+          <li><div>Testing strategy<span>The test pyramid, unit vs widget vs integration, fakes</span></div></li>
+          <li><div>SOLID, explained practically</div></li>
+          <li><div>Design patterns that matter<span>Repository, Strategy, Factory, Adapter, Observer</span></div></li>
+          <li><div>Refactoring safely</div></li>
+          <li><div>Code review, including AI-generated code</div></li>
+        </ol>
+      </article>
+
+      <article class="tile track s4">
+        <div class="track-top"><h3>Lead skills</h3><span class="track-n" aria-label="Track 6">6</span></div>
+        <ol class="lessons">
+          <li><div>Breaking down work &amp; estimation</div></li>
+          <li><div>ADRs: write down why you chose</div></li>
+          <li><div>Incidents: when production goes down<span>Blameless postmortems</span></div></li>
+          <li><div>Talking with non-technical stakeholders</div></li>
+          <li><div>Mentoring juniors</div></li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== WRITING & OPEN SOURCE ===================== -->
+  <section class="sec" aria-labelledby="oss-h">
+    <div class="sec-head">
+      <h2 id="oss-h">Writing &amp; open source</h2>
+    </div>
+    <div class="bento">
+      <a class="tile card-link lift s6" href="https://medium.com/@eslamabid175/dart-isolates-explained-true-concurrency-in-flutter-d68e5069869c" target="_blank" rel="noopener">
+        <span class="label">Article on Medium</span>
+        <h3>Dart Isolates Explained: True Concurrency in Flutter</h3>
+        <p class="muted">Why isolates exist, when to reach for them, and practical examples for CPU-heavy work, including the difference between async/await and real parallelism.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Concurrency</span></div>
+      </a>
+      <a class="tile card-link lift s3" href="https://github.com/eslamabid175/flutter_start_point" target="_blank" rel="noopener">
+        <span class="label">GitHub · Dart</span>
+        <h3>flutter_start_point</h3>
+        <p class="muted">A Flutter boilerplate with Clean Architecture, BLoC, dependency injection and sensible defaults for new projects.</p>
+      </a>
+      <a class="tile card-link lift s3" href="https://github.com/eslamabid175/eslamabid175.github.io" target="_blank" rel="noopener">
+        <span class="label">GitHub · HTML/CSS/JS</span>
+        <h3>eslamabid175.github.io</h3>
+        <p class="muted">The source of this portfolio. Open for contributions.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" class="sec" aria-labelledby="contact-h">
+    <div class="bento">
+      <div class="tile big contact-main s8">
+        <h2 id="contact-h">Have an app that needs to ship?</h2>
+        <p class="muted" style="margin-top:16px; max-width:52ch">Mobile UI, the API behind it, or the release pipeline: tell me what you’re building and I’ll reply by email.</p>
+        <a class="mail" href="mailto:eslamabid175@gmail.com">eslamabid175@gmail.com</a>
+      </div>
+      <div class="tile big s4 linklist" style="display:flex; flex-direction:column; justify-content:center">
+        <a href="tel:+201023332583">Phone <span>+20 102 333 2583</span></a>
+        <a href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener">LinkedIn <span>in/eslamaped</span></a>
+        <a href="https://github.com/eslamabid175" target="_blank" rel="noopener">GitHub <span>eslamabid175</span></a>
+        <a href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download>CV <span>PDF download</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Eslam Aped · Cairo, Egypt</span>
+    <span><a href="https://github.com/eslamabid175" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:eslamabid175@gmail.com">Email</a></span>
+  </footer>
+</main>
+
+<a class="option-pill" href="./index.html"><i aria-hidden="true"></i>Design option 3 · Bento Grid</a>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('theme');
+    function current() {
+      var t = root.getAttribute('data-theme');
+      if (t) return t;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    function sync() {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      btn.setAttribute('aria-label', 'Switch to ' + next + ' theme');
+      btn.title = 'Switch to ' + next + ' theme';
+    }
+    btn.addEventListener('click', function () {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('bento-theme', next); } catch (e) {}
+      sync();
+    });
+    sync();
+  })();
+</script>
+</body>
+</html>

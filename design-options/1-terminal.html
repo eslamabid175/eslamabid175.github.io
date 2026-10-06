@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eslam Aped — Midnight Terminal</title>
+<meta name="description" content="Eslam Aped, Software Engineer (Flutter & Django) in Cairo, Egypt. 16 published apps, 3+ years shipping production mobile apps and Django REST backends.">
+<meta name="theme-color" content="#0b0f15">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ---------- tokens ---------- */
+  :root {
+    color-scheme: dark;
+    --bg: #0b0f15;
+    --bg-2: #0e131b;
+    --panel: #111822;
+    --panel-2: #16202c;
+    --line: #1f2a37;
+    --line-2: #2a3747;
+    --fg: #dce3ec;
+    --fg-2: #b4bfcc;
+    --muted: #8b97a6;
+    --comment: #7d8a9a;
+    /* syntax palette: each hue means one thing on this page */
+    --type: #5cc8ff;     /* classes, Flutter, active state */
+    --keyword: #c3a6ff;  /* keywords, performance scope */
+    --string: #a6d99a;   /* strings, solo scope, live status */
+    --number: #f5b971;   /* numbers, co-developed scope */
+    --fn: #ff9eb0;       /* functions, private status */
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --arabic: "IBM Plex Sans Arabic", "Schibsted Grotesk", sans-serif;
+    --gutter: clamp(16px, 4vw, 48px);
+    --max: 1240px;
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-phone: 18px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  /* faint editor grid behind everything, fading out below the fold */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(to right, rgba(92, 200, 255, .045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(92, 200, 255, .045) 1px, transparent 1px);
+    background-size: 40px 40px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 70% 0%, #000 0%, transparent 75%);
+            mask-image: radial-gradient(ellipse 90% 70% at 70% 0%, #000 0%, transparent 75%);
+  }
+  body > * { position: relative; z-index: 1; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--type); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: rgba(92, 200, 255, .3); }
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  .mono { font-family: var(--mono); }
+  .ar { font-family: var(--arabic); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--type); color: #04121c; padding: 8px 14px; border-radius: var(--r-sm); font-family: var(--mono); font-size: 14px; text-decoration: none; }
+  .skip:focus { top: 12px; }
+
+  /* ---------- window chrome / nav ---------- */
+  .chrome {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11, 15, 21, .86);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .chrome .wrap { display: flex; align-items: stretch; gap: 16px; height: 52px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--mono); font-size: 14px; color: var(--fg-2); flex-shrink: 0; }
+  .lights { display: flex; gap: 6px; }
+  .lights i { width: 11px; height: 11px; border-radius: 50%; background: var(--line-2); }
+  .lights i:nth-child(1) { background: #ff6b6b; } .lights i:nth-child(2) { background: #f5b971; } .lights i:nth-child(3) { background: #6fd08c; }
+  .files { display: flex; align-items: stretch; gap: 2px; margin: 0; padding: 0; list-style: none; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+  .files::-webkit-scrollbar { display: none; }
+  .files a {
+    display: flex; align-items: center; gap: 8px; height: 100%;
+    padding: 0 14px;
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+    text-decoration: none; white-space: nowrap;
+    border-top: 2px solid transparent;
+  }
+  .files a:hover { color: var(--fg); background: rgba(255,255,255,.03); }
+  .files a[aria-current="true"] { color: var(--fg); background: var(--panel); border-top-color: var(--type); }
+  .glyph { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; background: currentColor; }
+  .g-dart { color: var(--type); } .g-md { color: var(--keyword); } .g-log { color: var(--number); }
+  .g-dir { color: var(--fg-2); border-radius: 1px 3px 3px 3px; } .g-yaml { color: var(--fn); } .g-sh { color: var(--string); }
+  .cv-btn {
+    align-self: center; flex-shrink: 0;
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    color: #04121c; background: var(--type);
+    padding: 7px 12px; border-radius: var(--r-sm); text-decoration: none;
+  }
+  .cv-btn:hover { background: #8bd8ff; }
+
+  /* ---------- section frame: editor tab headers ---------- */
+  section { padding: clamp(56px, 8vw, 104px) 0 0; }
+  .tabstrip {
+    display: flex; align-items: flex-end; gap: 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: clamp(24px, 4vw, 40px);
+    overflow: hidden;
+  }
+  .tabstrip h2 {
+    margin: 0;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 18px 11px;
+    font-family: var(--mono); font-weight: 500; font-size: 15px; letter-spacing: 0;
+    color: var(--fg);
+    background: var(--panel);
+    border: 1px solid var(--line); border-bottom: 0;
+    border-top: 2px solid var(--type);
+    border-radius: var(--r-sm) var(--r-sm) 0 0;
+    margin-bottom: -1px;
+    white-space: nowrap;
+  }
+  .tabstrip .path {
+    margin-left: auto; padding: 0 0 10px 16px;
+    font-family: var(--mono); font-size: 12.5px; color: var(--comment);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+  }
+  .lede {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(26px, 3.4vw, 40px); line-height: 1.15; letter-spacing: -0.02em;
+    max-width: 24ch; margin: 0 0 clamp(28px, 4vw, 48px);
+    color: var(--fg);
+  }
+
+  /* ---------- hero ---------- */
+  .hero { padding-top: clamp(40px, 7vw, 88px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .prompt { font-family: var(--mono); font-size: 14px; color: var(--muted); margin: 0 0 18px; }
+  .prompt .u { color: var(--string); } .prompt .p { color: var(--type); }
+  .hero h1 {
+    font-family: var(--sans); font-weight: 800;
+    font-size: clamp(60px, 17vw, 128px);
+    line-height: .9; letter-spacing: -0.045em;
+    margin: 0 0 22px;
+  }
+  .hero h1 span { display: block; }
+  .hero h1 span + span { color: transparent; -webkit-text-stroke: 1.5px var(--fg-2); }
+  .role { font-family: var(--mono); font-size: clamp(14px, 1.4vw, 16px); color: var(--fg); margin: 0 0 6px; }
+  .role b { color: var(--type); font-weight: 500; }
+  .loc { font-family: var(--mono); font-size: 14px; color: var(--muted); margin: 0 0 24px; }
+  .hero .intro { font-size: 18px; color: var(--fg-2); max-width: 46ch; margin: 0 0 30px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 14px; font-weight: 500;
+    padding: 12px 18px; border-radius: var(--r-sm);
+    text-decoration: none; border: 1px solid var(--line-2); color: var(--fg);
+    background: var(--panel);
+  }
+  .btn:hover { border-color: var(--type); }
+  .btn.primary { background: var(--type); color: #04121c; border-color: var(--type); }
+  .btn.primary:hover { background: #8bd8ff; }
+  .btn .k { color: var(--muted); font-size: 12px; }
+  .btn.primary .k { color: #0f3a52; }
+
+  /* editor pane */
+  .editor {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .8), 0 0 0 1px rgba(92, 200, 255, .04);
+    position: relative;
+  }
+  .editor::after { /* scanlines */
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,.018) 0 1px, transparent 1px 3px);
+  }
+  .editor-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 14px 0 0; background: var(--bg-2); border-bottom: 1px solid var(--line); }
+  .editor-bar .t { display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-family: var(--mono); font-size: 13px; color: var(--fg); background: var(--panel); border-right: 1px solid var(--line); border-top: 2px solid var(--type); }
+  .editor-bar .meta { font-family: var(--mono); font-size: 12px; color: var(--comment); white-space: nowrap; }
+  .code {
+    margin: 0; padding: 18px 0;
+    font-family: var(--mono); font-size: clamp(12.5px, 0.98vw, 14px); line-height: 1.75;
+    overflow-x: auto; counter-reset: ln;
+    tab-size: 2;
+  }
+  .code .l { display: block; padding: 0 22px 0 0; white-space: pre; min-height: 1.75em; }
+  .code .l::before {
+    counter-increment: ln; content: counter(ln);
+    display: inline-block; width: 3.2em; padding-right: 1.4em; text-align: right;
+    color: #4a5768; user-select: none;
+  }
+  .tk-k { color: var(--keyword); } .tk-t { color: var(--type); } .tk-s { color: var(--string); }
+  .tk-n { color: var(--number); } .tk-f { color: var(--fn); } .tk-c { color: var(--comment); font-style: italic; }
+  .tk-a { color: var(--number); } .tk-p { color: var(--fg-2); }
+  .caret { display: inline-block; width: .6em; height: 1.15em; vertical-align: -.2em; background: var(--type); margin-left: 2px; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .js .code.typing .l { visibility: hidden; }
+  .js .code.typing .l.on { visibility: visible; }
+
+  /* ---------- readme + stats ---------- */
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+  .readme p { color: var(--fg-2); font-size: 18px; max-width: 60ch; margin: 0 0 18px; }
+  .readme p:first-child { color: var(--fg); }
+  .readme strong { color: var(--fg); font-weight: 600; }
+  .readme .langs { font-family: var(--mono); font-size: 14px; color: var(--muted); margin-top: 26px; }
+  .readme .langs span { color: var(--fg-2); }
+  .term { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .term-bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--comment); }
+  .term-body { padding: 18px 20px 22px; font-family: var(--mono); font-size: 14px; }
+  .term-body .cmd { color: var(--fg); margin: 0 0 14px; }
+  .term-body .cmd::before { content: "$ "; color: var(--string); }
+  .stats { margin: 0; display: grid; gap: 0; }
+  .stats div { display: grid; grid-template-columns: minmax(0, 8.5em) auto; column-gap: 18px; align-items: baseline; padding: 12px 0; border-top: 1px dashed var(--line-2); }
+  .stats dt { color: var(--muted); font-size: 13px; }
+  .stats dd { margin: 0; }
+  .stats .v { font-size: clamp(30px, 3.2vw, 40px); font-weight: 700; color: var(--number); letter-spacing: -0.03em; line-height: 1; margin-right: 10px; }
+  .stats .d { color: var(--fg-2); font-family: var(--sans); font-size: 15px; }
+
+  /* ---------- experience: git graph ---------- */
+  .log { list-style: none; margin: 0; padding: 0; position: relative; }
+  .log::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(var(--type), var(--keyword) 55%, var(--number)); opacity: .55; }
+  .commit { position: relative; padding: 0 0 clamp(36px, 5vw, 56px) 44px; display: grid; grid-template-columns: minmax(0, 15em) minmax(0, 1fr); gap: 8px 40px; }
+  .commit::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 2px solid var(--c, var(--type)); }
+  .commit .when { font-family: var(--mono); font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+  .commit .when b { display: block; color: var(--c, var(--type)); font-weight: 500; font-size: 14px; margin-bottom: 4px; }
+  .commit h3 { margin: 0 0 4px; font-family: var(--sans); font-weight: 700; font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.02em; line-height: 1.2; }
+  .commit h3 a { text-decoration: none; }
+  .commit h3 a:hover { text-decoration: underline; text-decoration-color: var(--c); text-underline-offset: 4px; }
+  .commit .sub { font-family: var(--mono); font-size: 13.5px; color: var(--muted); margin: 0 0 14px; }
+  .commit ul.diff { list-style: none; margin: 0 0 14px; padding: 0; max-width: 72ch; }
+  .commit ul.diff li { position: relative; padding-left: 22px; margin-bottom: 8px; color: var(--fg-2); font-size: 16px; }
+  .commit ul.diff li::before { content: "+"; position: absolute; left: 0; top: 0; font-family: var(--mono); color: var(--string); }
+  .commit ul.diff b { color: var(--fg); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .chips li { font-family: var(--mono); font-size: 12px; color: var(--fg-2); background: var(--panel); border: 1px solid var(--line); padding: 3px 9px; border-radius: 4px; }
+
+  /* ---------- repos ---------- */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+  .filters button {
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+    background: transparent; border: 1px solid var(--line-2); border-radius: 999px;
+    padding: 7px 14px; cursor: pointer;
+  }
+  .filters button:hover { color: var(--fg); }
+  .filters button[aria-pressed="true"] { color: #04121c; background: var(--fg); border-color: var(--fg); }
+  .filters button .n { opacity: .6; margin-left: 6px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0 0 clamp(28px, 4vw, 44px); padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+  .legend li { display: flex; align-items: center; gap: 8px; }
+  .org { margin-bottom: clamp(48px, 6vw, 80px); }
+  .org-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 0 0 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .org-head h3 { margin: 0; font-family: var(--mono); font-weight: 500; font-size: 20px; color: var(--fg); }
+  .org-head h3 .slash { color: var(--comment); }
+  .org-head p { margin: 0; color: var(--muted); font-size: 15px; flex: 1 1 280px; }
+  .org-head a { font-family: var(--mono); font-size: 13px; color: var(--type); text-underline-offset: 3px; }
+  .repos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .repo {
+    background: linear-gradient(180deg, var(--panel) 0%, rgba(17, 24, 34, .6) 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: clamp(18px, 2.4vw, 28px);
+    display: grid; gap: 22px; align-content: start;
+    min-width: 0;
+  }
+  .repo.wide { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(22px, 3.5vw, 48px); }
+  .repo-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+  .icon { width: 52px; height: 52px; border-radius: 13px; background: #fff; overflow: hidden; flex-shrink: 0; border: 1px solid rgba(255,255,255,.08); }
+  .icon img { width: 100%; height: 100%; object-fit: cover; }
+  .icon.txt { display: grid; place-items: center; background: var(--panel-2); color: var(--type); font-family: var(--mono); font-weight: 700; font-size: 15px; border-color: var(--line-2); }
+  .repo h4 { margin: 0; font-family: var(--mono); font-weight: 700; font-size: 18px; line-height: 1.3; color: var(--fg); word-break: break-word; }
+  .repo h4 .o { color: var(--comment); font-weight: 400; }
+  .repo .aka { display: block; font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+  .repo .aka .ar { color: var(--fg-2); }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; padding: 0; list-style: none; }
+  .badge { font-family: var(--mono); font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid currentColor; line-height: 1.4; }
+  .b-live { color: var(--string); } .b-private { color: var(--fn); }
+  .b-solo { color: #04121c; background: var(--string); border-color: var(--string); }
+  .b-collab { color: #1d1203; background: var(--number); border-color: var(--number); }
+  .b-perf { color: #160b2e; background: var(--keyword); border-color: var(--keyword); }
+  .b-team { color: var(--type); }
+  .repo p { margin: 0 0 12px; color: var(--fg-2); font-size: 16px; max-width: 64ch; }
+  .repo p[dir="rtl"] { font-family: var(--arabic); font-size: 16px; line-height: 1.85; }
+  .repo .points { margin: 4px 0 16px; padding: 0; list-style: none; }
+  .repo .points li { position: relative; padding-left: 20px; margin-bottom: 6px; font-size: 15px; color: var(--fg-2); }
+  .repo .points li::before { content: "›"; position: absolute; left: 2px; top: -1px; font-family: var(--mono); color: var(--type); }
+  .repo .eng { font-family: var(--mono); font-size: 13px; color: var(--muted); line-height: 1.7; margin: 0 0 14px; }
+  .repo .eng b { color: var(--fg-2); font-weight: 500; }
+  .repo .chips { margin-bottom: 16px; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .links a {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 13px; text-decoration: none;
+    color: var(--fg); padding: 7px 12px; border-radius: var(--r-sm);
+    border: 1px solid var(--line-2); background: var(--bg-2);
+  }
+  .links a:hover { border-color: var(--type); color: var(--type); }
+  .links svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .note { font-family: var(--mono); font-size: 12.5px; color: var(--comment); margin: 12px 0 0; }
+
+  /* screenshot rail */
+  .rail {
+    display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; padding: 4px 2px 14px; margin: 0; list-style: none;
+    scrollbar-width: thin; scrollbar-color: var(--line-2) transparent;
+    align-self: center; min-width: 0;
+  }
+  .rail::-webkit-scrollbar { height: 6px; } .rail::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 3px; }
+  .rail li { scroll-snap-align: start; flex-shrink: 0; }
+  .phone {
+    width: var(--pw, 132px); aspect-ratio: 9 / 19.5;
+    border-radius: var(--r-phone); padding: 4px;
+    background: #05080c; border: 1px solid var(--line-2);
+    box-shadow: 0 18px 30px -18px rgba(0,0,0,.9);
+  }
+  .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: calc(var(--r-phone) - 5px); background: var(--panel-2); }
+  .repo.wide .phone { --pw: 148px; }
+  .browser { width: var(--bw, 420px); border-radius: var(--r-sm); border: 1px solid var(--line-2); background: #05080c; overflow: hidden; }
+  .browser::before { content: ""; display: block; height: 18px; border-bottom: 1px solid var(--line); background: radial-gradient(circle at 10px 9px, #3a4757 3px, transparent 3.5px), radial-gradient(circle at 22px 9px, #3a4757 3px, transparent 3.5px), radial-gradient(circle at 34px 9px, #3a4757 3px, transparent 3.5px); }
+  .browser img { width: 100%; height: auto; }
+  .rail.single { display: block; overflow: visible; }
+  .rail.single .browser { --bw: 100%; }
+  .org[hidden] { display: none; }
+
+  /* ---------- skills.yaml ---------- */
+  .yaml { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .yaml dl { margin: 0; padding: 14px 0; font-family: var(--mono); font-size: 14px; counter-reset: yl; }
+  .yaml .row { display: grid; grid-template-columns: 3.4em minmax(0, 11em) minmax(0, 1fr); align-items: baseline; padding: 7px 22px 7px 0; }
+  .yaml .row:hover { background: rgba(255,255,255,.02); }
+  .yaml .row::before { counter-increment: yl; content: counter(yl); color: #4a5768; text-align: right; padding-right: 1.4em; user-select: none; }
+  .yaml .row.c dt { grid-column: 2 / -1; color: var(--comment); font-style: italic; }
+  .yaml dt { color: var(--fn); }
+  .yaml dt::after { content: ":"; color: var(--fg-2); }
+  .yaml .row.c dt::after { content: none; }
+  .yaml dd { margin: 0; color: var(--fg-2); line-height: 1.75; }
+  .yaml dd .s { color: var(--string); }
+  .yaml dd .sep { color: var(--comment); }
+  .yaml dd .new { color: var(--number); }
+
+  /* ---------- roadmap ---------- */
+  .roadmap-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px 40px; align-items: end; margin-bottom: clamp(28px, 4vw, 44px); }
+  .roadmap-top .lede { margin: 0; max-width: 22ch; }
+  .roadmap-top p { margin: 14px 0 0; color: var(--fg-2); max-width: 58ch; }
+  .progress { font-family: var(--mono); font-size: 14px; color: var(--muted); text-align: right; }
+  .progress .bar { display: block; font-size: clamp(15px, 1.6vw, 18px); color: var(--string); letter-spacing: -1px; margin-bottom: 6px; white-space: nowrap; }
+  .progress b { color: var(--fg); font-weight: 500; }
+  .tracks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; margin: 0; padding: 0; list-style: none; }
+  .track { background: var(--panel); padding: 22px 22px 24px; }
+  .track h3 { margin: 0 0 4px; font-family: var(--sans); font-weight: 700; font-size: 19px; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 10px; }
+  .track h3 .i { font-family: var(--mono); font-weight: 400; font-size: 13px; color: var(--comment); }
+  .track .cnt { font-family: var(--mono); font-size: 12.5px; color: var(--string); margin: 0 0 14px; }
+  .track ul { list-style: none; margin: 0; padding: 0; }
+  .track li { font-size: 15px; color: var(--fg-2); padding: 5px 0 5px 30px; position: relative; line-height: 1.45; }
+  .track li::before { content: "[x]"; position: absolute; left: 0; top: 6px; font-family: var(--mono); font-size: 12px; color: var(--string); }
+  .roadmap-top .lede, .contact-grid .lede { color: var(--fg); }
+  .notes-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: clamp(40px, 5vw, 64px); }
+  .more article { border-top: 1px solid var(--line-2); padding-top: 16px; }
+  .more h3 { margin: 0 0 12px; font-family: var(--mono); font-weight: 500; font-size: 14px; color: var(--muted); }
+  .more ul { list-style: none; margin: 0; padding: 0; }
+  .more li { margin-bottom: 14px; color: var(--fg-2); font-size: 15px; line-height: 1.5; }
+  .more li b { display: block; color: var(--fg); font-weight: 600; font-size: 16px; }
+  .more li span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .more a { text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+  .more a:hover { text-decoration-color: var(--type); }
+
+  /* ---------- contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+  .contact-grid .lede { max-width: 18ch; }
+  .contact-grid p { color: var(--fg-2); max-width: 46ch; margin: 0 0 26px; }
+  .who { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .who img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: 50% 14%; border: 2px solid var(--line-2); }
+  .who span { font-family: var(--mono); font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .who b { display: block; color: var(--fg); font-family: var(--sans); font-size: 17px; font-weight: 600; }
+  .kv { margin: 0; }
+  .kv div { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 14px; padding: 10px 0; border-top: 1px dashed var(--line-2); align-items: baseline; }
+  .kv div:first-child { border-top: 0; }
+  .kv dt { color: var(--muted); font-size: 13px; }
+  .kv dd { margin: 0; overflow-wrap: anywhere; }
+  .kv a { color: var(--type); text-decoration: none; }
+  .kv a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ---------- status bar footer ---------- */
+  .status { margin-top: clamp(72px, 10vw, 120px); background: #0a2233; border-top: 1px solid #12405e; font-family: var(--mono); font-size: 12.5px; color: #a9d9f5; }
+  .status .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 22px; padding-top: 9px; padding-bottom: 9px; }
+  .status .grp { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+  .status a { text-decoration: none; } .status a:hover { color: #fff; text-decoration: underline; }
+
+  /* design option pill */
+  .option-pill {
+    position: fixed; right: 16px; bottom: 16px; z-index: 60;
+    font-family: var(--mono); font-size: 12px; color: var(--fg);
+    background: rgba(17, 24, 34, .92); border: 1px solid var(--line-2);
+    padding: 8px 14px; border-radius: 999px; text-decoration: none;
+    box-shadow: 0 10px 24px -10px rgba(0,0,0,.8);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  .option-pill:hover { border-color: var(--type); color: var(--type); }
+  .option-pill::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--type); margin-right: 8px; vertical-align: 1px; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1080px) {
+    .tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .repo.wide { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .about-grid, .contact-grid { grid-template-columns: minmax(0, 1fr); }
+    .commit { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+    .repos { grid-template-columns: minmax(0, 1fr); }
+    .more { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .roadmap-top { grid-template-columns: minmax(0, 1fr); }
+    .progress { text-align: left; }
+    .brand .name { display: none; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .chrome .wrap { gap: 10px; }
+    .files a { padding: 0 10px; font-size: 12.5px; }
+    .cv-btn { padding: 6px 10px; }
+    .tabstrip .path { display: none; }
+    .tracks { grid-template-columns: minmax(0, 1fr); }
+    .yaml .row { grid-template-columns: 2.6em minmax(0, 1fr); padding-right: 14px; }
+    .yaml .row::before { grid-row: 1 / 3; }
+    .yaml dt, .yaml dd { grid-column: 2; }
+    .yaml dd { padding-left: 1.2em; }
+    .stats div { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+    .phone, .repo.wide .phone { --pw: 118px; }
+    .browser { --bw: 290px; }
+    .commit { padding-left: 34px; }
+    .hero .intro, .readme p { font-size: 16.5px; }
+    .option-pill { right: 10px; bottom: 10px; font-size: 11px; padding: 7px 12px; }
+    .status { padding-bottom: 44px; }
+    .code { font-size: 12px; overflow-x: visible; }
+    .code .l { white-space: pre-wrap; overflow-wrap: anywhere; padding-left: 2.6em; text-indent: -2.6em; padding-right: 14px; }
+    .code .l::before { width: 2.6em; padding-right: 1em; text-indent: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .caret { animation: none; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="chrome">
+  <nav class="wrap" aria-label="Sections">
+    <a class="brand" href="#whoami" aria-label="Eslam Aped, back to top">
+      <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="name">~/eslam-aped</span>
+    </a>
+    <ul class="files">
+      <li><a href="#whoami"><span class="glyph g-dart" aria-hidden="true"></span>whoami.dart</a></li>
+      <li><a href="#readme"><span class="glyph g-md" aria-hidden="true"></span>README.md</a></li>
+      <li><a href="#experience"><span class="glyph g-log" aria-hidden="true"></span>experience.log</a></li>
+      <li><a href="#repos"><span class="glyph g-dir" aria-hidden="true"></span>repos/</a></li>
+      <li><a href="#skills"><span class="glyph g-yaml" aria-hidden="true"></span>skills.yaml</a></li>
+      <li><a href="#roadmap"><span class="glyph g-md" aria-hidden="true"></span>roadmap.md</a></li>
+      <li><a href="#contact"><span class="glyph g-sh" aria-hidden="true"></span>contact.sh</a></li>
+    </ul>
+    <a class="cv-btn" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download>CV.pdf</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ===== hero ===== -->
+  <section class="hero" id="whoami" aria-labelledby="name">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="prompt"><span class="u">eslam@cairo</span>:<span class="p">~</span>$ whoami</p>
+        <h1 id="name"><span>Eslam</span><span>Aped</span></h1>
+        <p class="role">Software Engineer <b>Flutter &amp; Django</b></p>
+        <p class="loc">Cairo, Egypt. Open to remote work and relocation.</p>
+        <p class="intro">I build cross-platform mobile apps in Flutter and the Django REST backends behind them, then take them through CI/CD to the App Store and Google Play. Sixteen apps I built or helped build are live today.</p>
+        <div class="actions">
+          <a class="btn primary" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download>Download CV <span class="k">PDF</span></a>
+          <a class="btn" href="mailto:eslamabid175@gmail.com">Email me</a>
+          <a class="btn" href="#repos">See the apps</a>
+        </div>
+      </div>
+
+      <figure class="editor" style="margin:0" aria-label="whoami.dart: a Dart class describing Eslam">
+        <div class="editor-bar">
+          <span class="t"><span class="glyph g-dart" aria-hidden="true"></span>whoami.dart</span>
+          <span class="meta">Dart 3</span>
+        </div>
+<pre class="code" id="whoami-code"><code><span class="l"><span class="tk-c">/// Ships apps from the widget tree to the database.</span></span><span class="l"><span class="tk-k">class</span> <span class="tk-t">EslamAped</span> <span class="tk-k">extends</span> <span class="tk-t">SoftwareEngineer</span> <span class="tk-p">{</span></span><span class="l">  <span class="tk-k">final</span> role = <span class="tk-s">'Flutter &amp; Django'</span>;</span><span class="l">  <span class="tk-k">final</span> base = <span class="tk-s">'Cairo, Egypt'</span>;</span><span class="l">  <span class="tk-k">final</span> years = <span class="tk-s">'3+'</span>;</span><span class="l">  <span class="tk-k">final</span> publishedApps = <span class="tk-n">16</span>;</span><span class="l"> </span><span class="l">  <span class="tk-k">final</span> mobile = [<span class="tk-s">'Flutter'</span>, <span class="tk-s">'BLoC'</span>, <span class="tk-s">'Drift'</span>];</span><span class="l">  <span class="tk-k">final</span> backend = [<span class="tk-s">'Django REST'</span>, <span class="tk-s">'PostgreSQL'</span>, <span class="tk-s">'Docker'</span>];</span><span class="l">  <span class="tk-k">final</span> roadmap = <span class="tk-s">'Senior / Lead'</span>; <span class="tk-c">// 30 of 30 lessons</span></span><span class="l"> </span><span class="l">  <span class="tk-a">@override</span></span><span class="l">  <span class="tk-t">Future</span>&lt;<span class="tk-t">App</span>&gt; <span class="tk-f">ship</span>(<span class="tk-t">Idea</span> idea) =&gt; idea</span><span class="l">      .<span class="tk-f">design</span>()</span><span class="l">      .<span class="tk-f">build</span>(offlineFirst: <span class="tk-k">true</span>)</span><span class="l">      .<span class="tk-f">test</span>()</span><span class="l">      .<span class="tk-f">release</span>(to: [<span class="tk-t">Store</span>.appStore, <span class="tk-t">Store</span>.googlePlay]);</span><span class="l"><span class="tk-p">}</span><span class="caret" aria-hidden="true"></span></span></code></pre>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== about + stats ===== -->
+  <section id="readme" aria-labelledby="h-readme">
+    <div class="wrap">
+      <div class="tabstrip"><h2 id="h-readme"><span class="glyph g-md" aria-hidden="true"></span>README.md</h2><span class="path">~/eslam-aped/README.md</span></div>
+      <div class="about-grid">
+        <div class="readme">
+          <p>I'm a software engineer who owns features end to end: the Flutter screens, the state and offline layer under them, the <strong>Django REST</strong> or <strong>FastAPI</strong> service they talk to, and the pipeline that ships them.</p>
+          <p>Since 2023 that has meant a school-management ecosystem and the Muslim Association of Canada apps at <strong>Cogens</strong>, AI-powered vision apps at <strong>3I Vision</strong>, and freelance products like <strong>Mksaby</strong>, an offline-first shop accounting app I built alone from the first commit to the store listing.</p>
+          <p>I care about Clean Architecture, apps that keep working without a connection, and performance you can feel: fast uploads, smooth feeds, no jank. I recently finished a 30-lesson Senior / Lead roadmap covering system design, production DevOps and leading a team.</p>
+          <p class="langs">B.Sc. Computer Science, Cairo University. Speaks <span>Arabic</span> (native), <span>English</span> (fluent), <span>French</span> (intermediate).</p>
+        </div>
+        <div class="term" role="group" aria-label="Stats">
+          <div class="term-bar"><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>zsh</div>
+          <div class="term-body">
+            <p class="cmd">eslam --stats</p>
+            <dl class="stats">
+              <div><dt>published_apps</dt><dd><span class="v">16</span><span class="d">live on the App Store and Google Play</span></dd></div>
+              <div><dt>experience</dt><dd><span class="v">3+</span><span class="d">years shipping production apps</span></dd></div>
+              <div><dt>teams</dt><dd><span class="v">3</span><span class="d">Cogens, 3I Vision and freelance clients</span></dd></div>
+              <div><dt>roadmap</dt><dd><span class="v">30/30</span><span class="d">Senior / Lead lessons completed</span></dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== experience ===== -->
+  <section id="experience" aria-labelledby="h-exp">
+    <div class="wrap">
+      <div class="tabstrip"><h2 id="h-exp"><span class="glyph g-log" aria-hidden="true"></span>experience.log</h2><span class="path">git log --graph --first-parent</span></div>
+      <p class="lede">Three teams, one habit: ship it, then make it faster.</p>
+      <ol class="log" reversed>
+        <li class="commit" style="--c: var(--type)">
+          <p class="when"><b>Jan 2025 – Present</b>Canada, remote</p>
+          <div>
+            <h3><a href="https://cogens.com/" target="_blank" rel="noopener">Cogens</a></h3>
+            <p class="sub">Software Engineer</p>
+            <ul class="diff">
+              <li><b>School management platform:</b> built and scaled a multi-app education ecosystem: Parent, Staff, Student and Bus Driver apps, plus the Admin Dashboard and Vendor Portal.</li>
+              <li><b>MACLINK:</b> delivered a production multi-domain Flutter app for the Muslim Association of Canada: events, donations, mosque services, prayers, forms and surveys, ticketing, family module and exams.</li>
+              <li><b>MAC Convention and MAC Work:</b> co-developed with Abdalrhman Reda, the conference booking app and MAC's internal staff app.</li>
+              <li><b>Django REST multi-tenant backend:</b> multi-database routing (default plus per-school databases), token/JWT auth and clean API contracts.</li>
+              <li><b>Real time:</b> WebSocket channels for live messaging, FCM with payload-based in-app routing, and live bus tracking with Dart Isolates.</li>
+              <li><b>Delivery:</b> billing and invoice workflows, report-card PDF pipelines, scheduled jobs with django-crontab, and CI/CD workflows that cut deployment time by 40%.</li>
+            </ul>
+            <ul class="chips"><li>Flutter</li><li>Dart 3</li><li>BLoC/Cubit</li><li>Dio + Retrofit</li><li>Freezed</li><li>WebSocket</li><li>FCM</li><li>Django/DRF</li><li>MySQL</li><li>Docker</li><li>CI/CD</li></ul>
+          </div>
+        </li>
+        <li class="commit" style="--c: var(--keyword)">
+          <p class="when"><b>Jan 2024 – Present</b>Giza, Egypt, hybrid</p>
+          <div>
+            <h3><a href="http://3i-vision.com/#/home" target="_blank" rel="noopener">3I Vision</a></h3>
+            <p class="sub">Software Engineer</p>
+            <ul class="diff">
+              <li><b>AI apps:</b> built the 3I Vision and DataMind apps, handling ML model responses for People Detection and License Plate Recognition.</li>
+              <li><b>Performance:</b> refactored legacy code for better memory management and cut app start-up time by 30%.</li>
+              <li><b>Aramco app (private):</b> sample registration, camera scanning, SQLite offline storage, Excel export and Zebra device integration.</li>
+              <li><b>Adahi:</b> a smart Eid al-Adha companion that helps check Udhiyah suitability against Islamic guidelines.</li>
+              <li><b>Security:</b> built the Permit Management flow with strict authentication.</li>
+            </ul>
+            <ul class="chips"><li>Flutter</li><li>AI/ML integration</li><li>BLoC</li><li>Hive</li><li>SQLite</li><li>Django REST</li></ul>
+          </div>
+        </li>
+        <li class="commit" style="--c: var(--number)">
+          <p class="when"><b>Jan 2023 – Present</b>Remote</p>
+          <div>
+            <h3>Freelance</h3>
+            <p class="sub">Software Engineer, project-based</p>
+            <ul class="diff">
+              <li><b>Mksaby (مكسبي):</b> designed and built the whole product alone: offline-first Flutter with Drift, real-time multi-device sync over Firestore, subscriptions, and around 229 unit and widget test files.</li>
+              <li><b>Snippet:</b> owned performance: image and video compression, video thumbnails, play-on-open feed videos and better image caching.</li>
+              <li><b>Alarmiq and Yusr:</b> co-developed with Abdalrhman Reda.</li>
+              <li><b>Aman (Oman):</b> trip platform for admins, drivers and passengers with live tracking, booking, wallet payments and a FastAPI + PostgreSQL backend on Docker Compose and Nginx.</li>
+              <li><b>Yalla L3b:</b> sports court booking with player ratings, booking analytics and nearby courts.</li>
+            </ul>
+            <ul class="chips"><li>Flutter</li><li>Drift</li><li>Firestore</li><li>FastAPI</li><li>PostgreSQL</li><li>Google Maps</li><li>Docker Compose</li></ul>
+          </div>
+        </li>
+        <li class="commit" style="--c: var(--comment)">
+          <p class="when"><b>2017 – 2022</b>Cairo, Egypt</p>
+          <div>
+            <h3>Cairo University</h3>
+            <p class="sub">B.Sc. Computer Science</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== repos ===== -->
+  <section id="repos" aria-labelledby="h-repos">
+    <div class="wrap">
+      <div class="tabstrip"><h2 id="h-repos"><span class="glyph g-dir" aria-hidden="true"></span>repos/</h2><span class="path">ls ~/eslam-aped/repos</span></div>
+      <p class="lede">Apps in production, with honest credits.</p>
+      <div class="filters" role="group" aria-label="Filter projects by team">
+        <button type="button" aria-pressed="true" data-filter="all">all<span class="n">17</span></button>
+        <button type="button" aria-pressed="false" data-filter="cogens">cogens<span class="n">8</span></button>
+        <button type="button" aria-pressed="false" data-filter="3i-vision">3i-vision<span class="n">3</span></button>
+        <button type="button" aria-pressed="false" data-filter="freelance">freelance<span class="n">6</span></button>
+      </div>
+      <ul class="legend" aria-label="What the scope labels mean">
+        <li><span class="badge b-solo">solo</span> built entirely by me</li>
+        <li><span class="badge b-collab">co-developed</span> team work with Abdalrhman Reda</li>
+        <li><span class="badge b-perf">performance</span> I owned the performance work</li>
+      </ul>
+
+      <div class="org" data-org="cogens">
+        <div class="org-head"><h3><span class="slash">~/repos/</span>cogens</h3><p>Software Engineer, Jan 2025 – Present. A school-management platform with six apps and panels, plus the Muslim Association of Canada apps.</p> <a href="https://cogens.com/" target="_blank" rel="noopener">cogens.com</a></div>
+        <div class="repos">
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">CP</span><div><h4><span class="o">cogens/</span>cogens-parent</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>Lets parents track attendance, receive announcements, make payments and handle day-to-day school interactions.</p><ul class="chips"><li>Flutter</li><li>BLoC</li><li>Firebase</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/cogens-parent/id1607885469" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=com.trispects.school.parents" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Cogens Parent screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/cogens/parent/1.webp" alt="Cogens Parent screenshot 1" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/parent/2.webp" alt="Cogens Parent screenshot 2" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/parent/3.webp" alt="Cogens Parent screenshot 3" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/parent/4.webp" alt="Cogens Parent screenshot 4" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/parent/5.webp" alt="Cogens Parent screenshot 5" width="230" height="498" loading="lazy"></li></ul>
+        </article>
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">CS</span><div><h4><span class="o">cogens/</span>cogens-student</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>Students see schedules, grades and attendance, and get school updates in real time.</p><ul class="chips"><li>Flutter</li><li>Real-time</li><li>REST APIs</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/cogens-student/id6476619759" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=com.trispects.school.students" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Cogens Student screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/cogens/student/1.webp" alt="Cogens Student screenshot 1" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/student/2.webp" alt="Cogens Student screenshot 2" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/student/3.webp" alt="Cogens Student screenshot 3" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/student/4.webp" alt="Cogens Student screenshot 4" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/student/5.webp" alt="Cogens Student screenshot 5" width="230" height="499" loading="lazy"></li></ul>
+        </article>
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">BD</span><div><h4><span class="o">cogens/</span>cogens-bus-driver</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>Real-time GPS tracking for school buses, using Dart Isolates and platform channels to keep socket connections alive.</p><ul class="chips"><li>Flutter</li><li>Isolates</li><li>GPS</li><li>Platform channels</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/cogens-bus-driver/id6479618217" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=com.trispects.school.bus.driver" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Cogens Bus Driver screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/cogens/bus/1.webp" alt="Cogens Bus Driver screenshot 1" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/bus/2.webp" alt="Cogens Bus Driver screenshot 2" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/bus/3.webp" alt="Cogens Bus Driver screenshot 3" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/bus/4.webp" alt="Cogens Bus Driver screenshot 4" width="230" height="498" loading="lazy"></li></ul>
+        </article>
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">ST</span><div><h4><span class="o">cogens/</span>cogens-staff</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>Teachers and school staff record attendance, message parents and manage schedules.</p><ul class="chips"><li>Flutter</li><li>BLoC</li><li>Notifications</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/cogens-staff/id1607885245" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=com.trispects.school.management" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Cogens Staff screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/cogens/staff/1.webp" alt="Cogens Staff screenshot 1" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/staff/2.webp" alt="Cogens Staff screenshot 2" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/staff/3.webp" alt="Cogens Staff screenshot 3" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/staff/4.webp" alt="Cogens Staff screenshot 4" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/staff/5.webp" alt="Cogens Staff screenshot 5" width="230" height="498" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon"><img src="../assets/icons/maclink.webp" alt="" width="256" height="256" loading="lazy"></span><div><h4><span class="o">cogens/</span>maclink</h4><span class="aka">Muslim Association of Canada</span></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>A cross-platform community app that brings events, donations, mosque services, prayers, employee collaboration, forms and surveys, bookings and tickets, a family module, content, conventions and exam workflows into one place.</p><p>Built with a modular Data / Logic / UI architecture and production-grade API integrations.</p><ul class="chips"><li>Flutter + Dart 3</li><li>BLoC/Cubit</li><li>Dio + Retrofit</li><li>GetIt + Freezed</li><li>WebSocket + FCM</li><li>Flavors</li></ul><div class="links"><a href="https://apps.apple.com/us/app/maclink/id6502847350" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=com.mac.maclink" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail single"><li class="browser"><img src="../assets/screenshots/cogens/maclink/image.png" alt="MACLINK screenshot 1" width="1040" height="537" loading="lazy"></li></ul>
+        </article>
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon"><img src="../assets/icons/mac-convention.webp" alt="" width="256" height="256" loading="lazy"></span><div><h4><span class="o">cogens/</span>mac-convention</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li><li class="badge b-collab">co-developed with Abdalrhman Reda</li></ul>
+            <p>The Muslim Association of Canada's official app for booking and registering for its conferences and gatherings, with speakers and session schedules.</p><ul class="chips"><li>Flutter</li><li>Team project</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/mac-convention/id6778484730" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.convention" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="MAC Convention screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/cogens/mac-convention/1.webp" alt="MAC Convention screenshot 1" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/mac-convention/2.webp" alt="MAC Convention screenshot 2" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/mac-convention/3.webp" alt="MAC Convention screenshot 3" width="576" height="1280" loading="lazy"></li></ul>
+        </article>
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon"><img src="../assets/icons/mac-work.webp" alt="" width="256" height="256" loading="lazy"></span><div><h4><span class="o">cogens/</span>mac-work</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li><li class="badge b-collab">co-developed with Abdalrhman Reda</li></ul>
+            <p>The Muslim Association of Canada's internal app for its staff and day-to-day work.</p><ul class="chips"><li>Flutter</li><li>Team project</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/mac-work/id6783499971" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=ca.macnet.maclink.work" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="MAC Work screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/cogens/mac-work/1.webp" alt="MAC Work screenshot 1" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/mac-work/2.webp" alt="MAC Work screenshot 2" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/cogens/mac-work/3.webp" alt="MAC Work screenshot 3" width="576" height="1280" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">DJ</span><div><h4><span class="o">cogens/</span>school-web-panels</h4><span class="aka">Django backend</span></div></div>
+            <ul class="badges"><li class="badge b-team">web panel</li></ul>
+            <p><b>Admin Panel:</b> full control for school administrators over students, staff, payments, attendance records, notifications and settings, built on Django REST Framework.</p><p><b>Vendor Panel (Hot Lunch):</b> a portal for food vendors to manage student meal orders, payments and daily delivery reports, with integrated payment handling.</p><ul class="chips"><li>Django</li><li>Django REST Framework</li><li>Payments</li></ul><div class="links"><a href="https://school.cogens.com/#/login" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Admin panel</a><a href="https://vendor.cogens.com/#/loginScreen" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Vendor panel</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Cogens web panels screenshots, scroll sideways for more"><li class="browser"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-24-12.png" alt="Cogens web panels screenshot 1" width="1363" height="597" loading="lazy"></li><li class="browser"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-37-01.png" alt="Cogens web panels screenshot 2" width="1348" height="567" loading="lazy"></li><li class="browser"><img src="../assets/screenshots/cogens/vendor/Screenshot_2025-12-28_14-46-51.png" alt="Cogens web panels screenshot 3" width="1356" height="576" loading="lazy"></li><li class="browser"><img src="../assets/screenshots/cogens/admin%20panal/Screenshot_2025-12-28_14-37-39.png" alt="Cogens web panels screenshot 4" width="1358" height="577" loading="lazy"></li></ul>
+        </article>
+        </div>
+      </div>
+      <div class="org" data-org="3i-vision">
+        <div class="org-head"><h3><span class="slash">~/repos/</span>3i-vision</h3><p>Software Engineer, Jan 2024 – Present. AI-powered vision apps, a private Aramco app and Adahi.</p> <a href="http://3i-vision.com/#/home" target="_blank" rel="noopener">3i-vision.com</a></div>
+        <div class="repos">
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">3I</span><div><h4><span class="o">3i-vision/</span>3i-vision</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>Uses machine learning and computer vision for People Detection and vehicle License Plate Recognition, with real-time data processing over Django REST APIs.</p><ul class="chips"><li>Flutter</li><li>AI/ML</li><li>Django</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/3i-vision/id6670479729" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=com.vision.watcharea" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="3I Vision screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/3i-vision/3i-vision%20app/1.webp" alt="3I Vision screenshot 1" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/3i-vision%20app/2.webp" alt="3I Vision screenshot 2" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/3i-vision%20app/3.webp" alt="3I Vision screenshot 3" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/3i-vision%20app/4.webp" alt="3I Vision screenshot 4" width="230" height="499" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/3i-vision%20app/5.webp" alt="3I Vision screenshot 5" width="230" height="499" loading="lazy"></li></ul>
+        </article>
+        <article class="repo">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">DM</span><div><h4><span class="o">3i-vision/</span>datamind-agent</h4></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>A mobile file manager that scans the device, then identifies, classifies and organizes files with smart keyword analysis. Tuned for performance through an optimized Flutter architecture.</p><ul class="chips"><li>Flutter</li><li>File management</li><li>AI</li></ul><div class="links"><a href="https://apps.apple.com/eg/app/datamind-agent/id6754242027" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a><a href="https://play.google.com/store/apps/details?id=com.datamind.agent" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="DataMind Agent screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/3i-vision/datamind%20app/1.webp" alt="DataMind Agent screenshot 1" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/datamind%20app/2.webp" alt="DataMind Agent screenshot 2" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/datamind%20app/3.webp" alt="DataMind Agent screenshot 3" width="230" height="498" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/datamind%20app/4.webp" alt="DataMind Agent screenshot 4" width="230" height="498" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">AD</span><div><h4><span class="o">3i-vision/</span>aramco-and-adahi</h4><span class="aka">Aramco app (private) and Adahi (live)</span></div></div>
+            <ul class="badges"><li class="badge b-private">private</li><li class="badge b-live">live</li></ul>
+            <p><b>Aramco app:</b> a private Saudi Aramco data-management app with sample registration, camera scanning, SQLite offline storage, Excel export and Zebra integration.</p><p><b>Adahi:</b> a smart Eid al-Adha companion that helps verify Udhiyah suitability by spotting illness and disqualification signs according to Islamic guidelines. Screenshots below are from Adahi.</p><ul class="chips"><li>Flutter</li><li>Camera scanning</li><li>SQLite</li><li>Excel export</li><li>Zebra integration</li></ul><div class="links"><a href="https://play.google.com/store/apps/details?id=com.adahi.sa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Adahi on Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Adahi screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/3i-vision/adahi%20app/1.webp" alt="Adahi screenshot 1" width="411" height="886" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/adahi%20app/2.webp" alt="Adahi screenshot 2" width="137" height="296" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/3i-vision/adahi%20app/3.webp" alt="Adahi screenshot 3" width="137" height="296" loading="lazy"></li></ul>
+        </article>
+        </div>
+      </div>
+      <div class="org" data-org="freelance">
+        <div class="org-head"><h3><span class="slash">~/repos/</span>freelance</h3><p>Software Engineer, Jan 2023 – Present. Products for clients in Egypt and Oman, from solo builds to team work.</p></div>
+        <div class="repos">
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon"><img src="../assets/icons/mksaby.webp" alt="" width="256" height="256" loading="lazy"></span><div><h4><span class="o">freelance/</span>mksaby</h4><span class="aka"><span class="ar" lang="ar">مكسبي</span>, shop sales, purchases and inventory</span></div></div>
+            <ul class="badges"><li class="badge b-live">live</li><li class="badge b-solo">solo</li></ul>
+            <p>An Arabic-first (RTL) accounting and shop-management app for small Egyptian merchants: clothing, shoes, mobiles, electronics, wholesale and grocery. It works offline and syncs in real time across the owner's and employees' phones. <b>I built it entirely myself</b>, from architecture to store release.</p><ul class="points"><li>Quick sales with barcode scanning, PDF invoices shared on WhatsApp, and cash, wallet, InstaPay or credit payments</li><li>Purchases, inventory with weighted-average costing, stocktaking and returns</li><li>Customer and supplier debt statements, expenses, a treasury ledger, and real gross-vs-net profit reports with charts</li><li>Employees with granular permissions and PIN user switching, logging in from their own phones and syncing live to the owner</li><li>7-day free trial with operator-verified activation, forced-update gate, dark theme, Arabic and English</li></ul><p class="eng"><b>Under the hood:</b> feature-first Clean Architecture, BLoC/Cubit, freezed, get_it + injectable, go_router, Drift (SQLite) with 22 synced tables and an offline outbox syncing to Cloud Firestore, Firebase phone OTP with WhatsApp OTP fallback, Sentry, Patrol on-device E2E tests, around 229 unit and widget test files, and CI gate scripts for ARB parity and theme tokens.</p><ul class="chips"><li>Flutter</li><li>Drift</li><li>Firestore sync</li><li>Offline-first</li><li>Clean Architecture</li><li>Patrol</li></ul><div class="links"><a href="https://play.google.com/store/apps/details?id=com.mksaby.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Mksaby screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/freelance/mksaby/1.webp" alt="Mksaby screenshot 1" width="540" height="1200" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/mksaby/2.webp" alt="Mksaby screenshot 2" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/mksaby/3.webp" alt="Mksaby screenshot 3" width="540" height="1200" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/mksaby/4.webp" alt="Mksaby screenshot 4" width="540" height="1200" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon"><img src="../assets/icons/snippet.webp" alt="" width="256" height="256" loading="lazy"></span><div><h4><span class="o">freelance/</span>snippet</h4><span class="aka">Social media app</span></div></div>
+            <ul class="badges"><li class="badge b-live">live</li><li class="badge b-perf">performance optimization</li></ul>
+            <p>A social app where people post, share videos, read and publish articles, create groups, chat with friends and follow stories and feeds. <b>My scope was performance optimization</b>, shipped in the release notes below.</p><ul class="points"><li>Faster media uploads with image compression</li><li>Video uploads with compression and thumbnail generation</li><li>Feed videos that load smoothly and only start when opened</li><li>Better image caching across feeds and stories</li><li>Smoother large categories and media-heavy screens</li></ul><ul class="chips"><li>Flutter</li><li>Media compression</li><li>Video thumbnails</li><li>Image caching</li><li>Lazy video playback</li><li>Profiling</li></ul><div class="links"><a href="https://play.google.com/store/apps/details?id=com.stackmassage.stackmassage" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Snippet screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/freelance/snippet/5.webp" alt="Snippet screenshot 1" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/snippet/6.webp" alt="Snippet screenshot 2" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/snippet/1.webp" alt="Snippet screenshot 3" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/snippet/4.webp" alt="Snippet screenshot 4" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/snippet/7.webp" alt="Snippet screenshot 5" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/snippet/8.webp" alt="Snippet screenshot 6" width="576" height="1280" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon"><img src="../assets/icons/alarmiq.webp" alt="" width="256" height="256" loading="lazy"></span><div><h4><span class="o">freelance/</span>alarmiq</h4><span class="aka">Smart alarm and time suite</span></div></div>
+            <ul class="badges"><li class="badge b-live">live</li><li class="badge b-collab">co-developed with Abdalrhman Reda</li></ul>
+            <p>One app for the daily routine: an interval batch alarm manager (say, 4 to 12 alarms spread evenly across a time window), a GPS trip alarm that wakes you before your bus stop, a live world clock, a dual-mode stopwatch and a background countdown timer. Also wake-up challenges against snoozing, sleep insights and a game timer / chess clock.</p><p dir="rtl" lang="ar">تحكّم بشكل كامل في روتينك اليومي مع Alarmiq: مدير منبهات متقطعة، ومنبه رحلات GPS، وساعة عالمية مباشرة، وساعة توقيت ثنائية الوضع، ومؤقت عد تنازلي في الخلفية، كل ذلك في تطبيق واحد.</p><ul class="chips"><li>Flutter</li><li>BLoC/Cubit</li><li>get_it</li><li>alarm</li><li>flutter_local_notifications</li><li>timezone</li><li>easy_localization</li><li>Lottie</li></ul><div class="links"><a href="https://play.google.com/store/apps/details?id=com.alarmiq.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a><a href="https://apps.apple.com/us/app/alarmiq/id6797606606" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Alarmiq screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/freelance/alarmiq/1.webp" alt="Alarmiq screenshot 1" width="589" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/alarmiq/2.webp" alt="Alarmiq screenshot 2" width="589" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/alarmiq/3.webp" alt="Alarmiq screenshot 3" width="589" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/alarmiq/4.webp" alt="Alarmiq screenshot 4" width="589" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/alarmiq/5.webp" alt="Alarmiq screenshot 5" width="589" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/alarmiq/6.webp" alt="Alarmiq screenshot 6" width="589" height="1280" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon"><img src="../assets/icons/yusr.webp" alt="" width="256" height="256" loading="lazy"></span><div><h4><span class="o">freelance/</span>yusr</h4><span class="aka"><span class="ar" lang="ar">يُسْر</span>, Islamic companion, formerly NooN</span></div></div>
+            <ul class="badges"><li class="badge b-live">live</li><li class="badge b-collab">co-developed with Abdalrhman Reda</li></ul>
+            <p>A daily Islamic companion: the Quran with tafsir, location-based prayer times, Qibla, azkar, a digital tasbeeh, the Hijri calendar, a Zakat calculator and the Names of Allah. The latest update added the full Prophet's biography (السيرة النبوية).</p><p dir="rtl" lang="ar">تطبيق إسلامي متكامل بـ Flutter مع تجربة عربية RTL كاملة وأكثر من 20 ميزة. هيكلية Feature-based مع Cubit/BLoC، ودمج بين بيانات محلية <bdi dir="ltr" style="white-space:nowrap">(JSON + SQLite)</bdi> وواجهات <bdi>API</bdi> خارجية، مع حل مشاكل تشغيل الصوت والبحث والإشعارات وصلاحيات النظام.</p><ul class="chips"><li>Flutter + Dart</li><li>BLoC/Cubit + get_it</li><li>dio + sqflite + hive</li><li>easy_localization + RTL</li><li>audioplayers</li></ul><div class="links"><a href="https://play.google.com/store/apps/details?id=com.nooralhuda.noor" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a><a href="https://apps.apple.com/eg/app/%D9%86-noon-%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D9%88%D8%A7%D9%84%D8%A3%D8%B0%D9%83%D8%A7%D8%B1/id6759193445" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Yusr screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/freelance/yusr/1.webp" alt="Yusr screenshot 1" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yusr/2.webp" alt="Yusr screenshot 2" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yusr/3.webp" alt="Yusr screenshot 3" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yusr/4.webp" alt="Yusr screenshot 4" width="576" height="1280" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yusr/5.webp" alt="Yusr screenshot 5" width="576" height="1280" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">AM</span><div><h4><span class="o">freelance/</span>aman</h4><span class="aka">Trip management platform, Oman</span></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>A Flutter trip platform for admins, drivers and passengers: trip templates, seat booking, live trip tracking, instant notifications and hybrid payment and wallet flows with clear financial rules.</p><p>The backend is FastAPI with PostgreSQL and SQLAlchemy, Firebase social auth and OTP, and push notifications, deployed with Docker Compose, Gunicorn/Uvicorn and Nginx. Booking state is kept separate from payment state, with idempotent transaction handling.</p><ul class="chips"><li>Flutter</li><li>BLoC/Cubit + get_it</li><li>Google Maps + Geolocator</li><li>Firebase Auth/FCM</li><li>FastAPI + PostgreSQL</li><li>Docker Compose + Nginx</li></ul><div class="links"><a href="https://play.google.com/store/apps/details?id=com.omanaman.aman" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a><a href="https://apps.apple.com/eg/app/aman-oman/id6759229386" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>App Store</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Aman screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/freelance/aman%20app/1.jpeg" alt="Aman screenshot 1" width="540" height="1200" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/aman%20app/2.jpeg" alt="Aman screenshot 2" width="540" height="1200" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/aman%20app/3.jpeg" alt="Aman screenshot 3" width="720" height="1600" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/aman%20app/4.jpeg" alt="Aman screenshot 4" width="720" height="1600" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/aman%20app/5.jpeg" alt="Aman screenshot 5" width="720" height="1600" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/aman%20app/6.jpeg" alt="Aman screenshot 6" width="720" height="1600" loading="lazy"></li></ul>
+        </article>
+        <article class="repo wide">
+          <div>
+            <div class="repo-head"><span class="icon txt" aria-hidden="true">YL</span><div><h4><span class="o">freelance/</span>yalla-l3b</h4><span class="aka">Sports court booking</span></div></div>
+            <ul class="badges"><li class="badge b-live">live</li></ul>
+            <p>Makes court reservations simple for players and management easy for court owners, with player ratings, booking analytics, venue ratings and nearby courts.</p><ul class="chips"><li>Flutter</li><li>Firebase</li><li>Maps</li></ul><div class="links"><a href="https://play.google.com/store/apps/details?id=com.yallaL3b.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.6v18.8c0 .5.5.8.9.6l16.3-9.4c.4-.2.4-.9 0-1.1L4.9 2.1c-.4-.3-.9 0-.9.5z" opacity=".9"/></svg>Google Play</a></div>
+          </div>
+          <ul class="rail" tabindex="0" aria-label="Yalla L3b screenshots, scroll sideways for more"><li class="phone"><img src="../assets/screenshots/freelance/yalla-l3b/1.webp" alt="Yalla L3b screenshot 1" width="133" height="296" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yalla-l3b/2.webp" alt="Yalla L3b screenshot 2" width="133" height="296" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yalla-l3b/3.webp" alt="Yalla L3b screenshot 3" width="133" height="296" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yalla-l3b/4.webp" alt="Yalla L3b screenshot 4" width="133" height="296" loading="lazy"></li><li class="phone"><img src="../assets/screenshots/freelance/yalla-l3b/5.webp" alt="Yalla L3b screenshot 5" width="133" height="296" loading="lazy"></li></ul>
+        </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== skills ===== -->
+  <section id="skills" aria-labelledby="h-skills">
+    <div class="wrap">
+      <div class="tabstrip"><h2 id="h-skills"><span class="glyph g-yaml" aria-hidden="true"></span>skills.yaml</h2><span class="path">~/eslam-aped/skills.yaml</span></div>
+      <p class="lede">The stack, grouped by where it gets used.</p>
+      <div class="yaml">
+        <dl>
+          <div class="row c"><dt># languages and platforms</dt></div>
+          <div class="row"><dt>languages</dt><dd><span class="sep">[</span><span class="s">Dart</span><span class="sep">, </span><span class="s">Python</span><span class="sep">, </span><span class="s">Kotlin</span><span class="sep">, </span><span class="s">Swift</span><span class="sep">, </span><span class="s">JavaScript</span><span class="sep">, </span><span class="s">C++</span><span class="sep">, </span><span class="s">C#</span><span class="sep">, </span><span class="s">PHP</span><span class="sep">, </span><span class="s">R</span><span class="sep">, </span><span class="s">GDScript</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>mobile</dt><dd><span class="sep">[</span><span class="s">Flutter</span><span class="sep">, </span><span class="s">Android</span><span class="sep">, </span><span class="s">iOS</span><span class="sep">, </span><span class="s">cross-platform</span><span class="sep">, </span><span class="s">responsive UI</span><span class="sep">, </span><span class="s">native integration (Kotlin/Swift)</span><span class="sep">, </span><span class="s">KMP</span><span class="sep">, </span><span class="s">CMP</span><span class="sep">, </span><span class="s">isolates &amp; concurrency</span><span class="sep">, </span><span class="s">background services</span><span class="sep">, </span><span class="s">memory optimization</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>state</dt><dd><span class="sep">[</span><span class="s">BLoC/Cubit</span><span class="sep">, </span><span class="s">Riverpod</span><span class="sep">, </span><span class="s">Provider</span><span class="sep">, </span><span class="s">GetX</span><span class="sep">, </span><span class="s">Event Bus</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>architecture</dt><dd><span class="sep">[</span><span class="s">Clean Architecture (feature-first)</span><span class="sep">, </span><span class="s">MVVM</span><span class="sep">, </span><span class="s">SOLID</span><span class="sep">, </span><span class="s">modular architecture</span><span class="sep">, </span><span class="s">Repository pattern</span><span class="sep">, </span><span class="s">design patterns</span><span class="sep">, </span><span class="s">offline-first &amp; sync</span><span class="sep">]</span></dd></div>
+          <div class="row c"><dt># backend and data</dt></div>
+          <div class="row"><dt>backend</dt><dd><span class="sep">[</span><span class="s">Django REST Framework</span><span class="sep">, </span><span class="s">FastAPI</span><span class="sep">, </span><span class="s">Node.js/Express</span><span class="sep">, </span><span class="s">REST API design</span><span class="sep">, </span><span class="s">GraphQL</span><span class="sep">, </span><span class="s">JWT / auth tokens</span><span class="sep">, </span><span class="s">multi-database routing</span><span class="sep">, </span><span class="s">Celery</span><span class="sep">, </span><span class="s">Redis</span><span class="sep">, </span><span class="s">WebSockets / Channels</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>data</dt><dd><span class="sep">[</span><span class="s">PostgreSQL</span><span class="sep">, </span><span class="s">MySQL</span><span class="sep">, </span><span class="s">SQLite/Sqflite</span><span class="sep">, </span><span class="s">Hive</span><span class="sep">, </span><span class="s">Drift</span><span class="sep">, </span><span class="s">Firestore</span><span class="sep">, </span><span class="s">Firebase</span><span class="sep">, </span><span class="s">MongoDB</span><span class="sep">, </span><span class="s">offline-first caching</span><span class="sep">]</span></dd></div>
+          <div class="row c"><dt># shipping it</dt></div>
+          <div class="row"><dt>testing</dt><dd><span class="sep">[</span><span class="s">unit</span><span class="sep">, </span><span class="s">widget</span><span class="sep">, </span><span class="s">integration</span><span class="sep">, </span><span class="s">Patrol E2E</span><span class="sep">, </span><span class="s">code reviews</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>devops</dt><dd><span class="sep">[</span><span class="s">GitHub Actions</span><span class="sep">, </span><span class="s">Codemagic</span><span class="sep">, </span><span class="s">Fastlane</span><span class="sep">, </span><span class="s">Docker</span><span class="sep">, </span><span class="s">docker-compose</span><span class="sep">, </span><span class="s">Nginx</span><span class="sep">, </span><span class="s">Gunicorn/Uvicorn</span><span class="sep">, </span><span class="s">VPS deployment</span><span class="sep">, </span><span class="s">TestFlight</span><span class="sep">, </span><span class="s">App Store / Play Store releases</span><span class="sep">, </span><span class="s">Sentry</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>platform</dt><dd><span class="sep">[</span><span class="s">FCM push</span><span class="sep">, </span><span class="s">Google Maps SDK</span><span class="sep">, </span><span class="s">In-App Purchases</span><span class="sep">, </span><span class="s">HLS video streaming</span><span class="sep">, </span><span class="s">media compression</span><span class="sep">, </span><span class="s">Zebra integration</span><span class="sep">]</span></dd></div>
+          <div class="row c"><dt># from the senior / lead roadmap</dt></div>
+          <div class="row"><dt>system_design</dt><dd><span class="sep">[</span><span class="s">load estimation before design</span><span class="sep">, </span><span class="s">load balancers &amp; CDN</span><span class="sep">, </span><span class="s">cache-aside caching</span><span class="sep">, </span><span class="s">read replicas</span><span class="sep">, </span><span class="s">sharding</span><span class="sep">, </span><span class="s">message queues</span><span class="sep">, </span><span class="s">rate limiting (token bucket)</span><span class="sep">, </span><span class="s">CAP &amp; eventual consistency</span><span class="sep">, </span><span class="s">idempotency</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>production</dt><dd><span class="sep">[</span><span class="s">Docker multi-stage builds</span><span class="sep">, </span><span class="s">CI/CD pipelines</span><span class="sep">, </span><span class="s">zero-downtime migrations (expand/contract)</span><span class="sep">, </span><span class="s">observability: logs, metrics, alerts</span><span class="sep">, </span><span class="s">staged rollouts &amp; forced updates</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>leadership</dt><dd><span class="sep">[</span><span class="s">breaking down work &amp; estimating</span><span class="sep">, </span><span class="s">ADRs</span><span class="sep">, </span><span class="s">incident handling &amp; blameless postmortems</span><span class="sep">, </span><span class="s">talking with non-technical stakeholders</span><span class="sep">, </span><span class="s">teaching juniors</span><span class="sep">, </span><span class="s">reviewing AI-written code</span><span class="sep">]</span></dd></div>
+          <div class="row c"><dt># everything around the code</dt></div>
+          <div class="row"><dt>game_dev</dt><dd><span class="sep">[</span><span class="s">Godot</span><span class="sep">, </span><span class="s">Unity</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>design</dt><dd><span class="sep">[</span><span class="s">Figma</span><span class="sep">, </span><span class="s">Material Design</span><span class="sep">, </span><span class="s">motion &amp; animations</span><span class="sep">, </span><span class="s">localization (RTL)</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>process</dt><dd><span class="sep">[</span><span class="s">Agile/Scrum</span><span class="sep">, </span><span class="s">JIRA</span><span class="sep">, </span><span class="s">Git Flow</span><span class="sep">, </span><span class="s">technical documentation</span><span class="sep">]</span></dd></div>
+          <div class="row"><dt>spoken</dt><dd><span class="sep">[</span><span class="s">Arabic (native)</span><span class="sep">, </span><span class="s">English (fluent)</span><span class="sep">, </span><span class="s">French (intermediate)</span><span class="sep">]</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== roadmap ===== -->
+  <section id="roadmap" aria-labelledby="h-roadmap">
+    <div class="wrap">
+      <div class="tabstrip"><h2 id="h-roadmap"><span class="glyph g-md" aria-hidden="true"></span>roadmap.md</h2><span class="path">~/eslam-aped/learning/senior-lead</span></div>
+      <div class="roadmap-top">
+        <div>
+          <p class="lede">The Senior / Lead roadmap, completed.</p>
+          <p>Thirty lessons in six tracks, from database design to leading a team. Each lesson pairs the idea with a Django or Flutter example, the trade-off behind it, and self-check questions.</p>
+        </div>
+        <p class="progress" aria-label="30 of 30 lessons completed"><span class="bar" aria-hidden="true">[■■■■■■■■■■■■■■■■■■■■]</span><b>30 / 30</b> lessons, 6 / 6 tracks</p>
+      </div>
+      <ol class="tracks">
+        <li class="track"><h3><span class="i">01</span>Backend (Django) in depth</h3><p class="cnt">6 / 6 done</p><ul><li>Database design</li><li>ORM performance</li><li>Transactions and concurrency</li><li>Background jobs and caching</li><li>API design</li><li>Security</li></ul></li>
+        <li class="track"><h3><span class="i">02</span>Flutter in depth</h3><p class="cnt">4 / 4 done</p><ul><li>App architecture</li><li>Offline-first and sync</li><li>Flutter performance</li><li>Release and publishing</li></ul></li>
+        <li class="track"><h3><span class="i">03</span>System design</h3><p class="cnt">5 / 5 done</p><ul><li>Start with the numbers, then scale</li><li>The database as the bottleneck</li><li>Queues and rate limiting</li><li>CAP and consistency</li><li>Answering a system-design question</li></ul></li>
+        <li class="track"><h3><span class="i">04</span>DevOps and production</h3><p class="cnt">5 / 5 done</p><ul><li>Docker for production</li><li>CI/CD</li><li>Migrations without downtime</li><li>Cloud concepts, not vendors</li><li>Observability: know before the customer does</li></ul></li>
+        <li class="track"><h3><span class="i">05</span>Code quality</h3><p class="cnt">5 / 5 done</p><ul><li>Testing strategy</li><li>SOLID in plain words</li><li>Patterns that earn their place</li><li>Refactoring</li><li>Code review, including AI-written code</li></ul></li>
+        <li class="track"><h3><span class="i">06</span>Lead skills</h3><p class="cnt">5 / 5 done</p><ul><li>Breaking down work and estimating</li><li>ADRs: write down why</li><li>Incidents: when production goes down</li><li>Talking with non-technical people</li><li>Teaching juniors</li></ul></li>
+      </ol>
+      <div class="notes-links">
+        <a class="btn" href="../backend.html">Backend learning notes</a>
+        <a class="btn" href="../flutter.html">Flutter learning notes</a>
+      </div>
+
+      <div class="more">
+        <article>
+          <h3>certifications</h3>
+          <ul>
+            <li><a href="https://www.udemy.com/certificate/UC-2932f681-e072-482c-a0e2-37770d6dd0c7/" target="_blank" rel="noopener"><b>The Complete Flutter &amp; Dart, Basics to Advanced</b></a><span>Udemy, 55 hours, 2025</span></li>
+            <li><a href="https://www.udemy.com/certificate/UC-df701db4-7470-4f96-9f32-a72379af93bd/" target="_blank" rel="noopener"><b>Multi-Modular &amp; Clean Architecture in Android</b></a><span>Udemy, 23 hours, 2024</span></li>
+            <li><b>Flutter Advanced: Clean Architecture with MVVM</b><span>Udemy, Apr 2024</span></li>
+            <li><b>Mastering Mobile App Development</b><span>YAT Cairo, Dec 2021</span></li>
+          </ul>
+        </article>
+        <article>
+          <h3>writing</h3>
+          <ul>
+            <li><a href="https://medium.com/@eslamabid175/dart-isolates-explained-true-concurrency-in-flutter-d68e5069869c" target="_blank" rel="noopener"><b>Dart Isolates Explained: True Concurrency in Flutter</b></a>Why isolates exist, when to use them, and how they differ from async/await for CPU-heavy work.<br><span>Medium</span></li>
+          </ul>
+        </article>
+        <article>
+          <h3>open source</h3>
+          <ul>
+            <li><a href="https://github.com/eslamabid175/flutter_start_point" target="_blank" rel="noopener"><b>flutter_start_point</b></a>Flutter boilerplate with Clean Architecture, BLoC and dependency injection.<br><span>Dart</span></li>
+            <li><a href="https://github.com/eslamabid175/eslamabid175.github.io" target="_blank" rel="noopener"><b>eslamabid175.github.io</b></a>This portfolio. Open for contributions.<br><span>HTML / CSS / JS</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== contact ===== -->
+  <section id="contact" aria-labelledby="h-contact">
+    <div class="wrap">
+      <div class="tabstrip"><h2 id="h-contact"><span class="glyph g-sh" aria-hidden="true"></span>contact.sh</h2><span class="path">./contact.sh</span></div>
+      <div class="contact-grid">
+        <div>
+          <p class="lede">Need a Flutter app or a Django API shipped? Let's talk.</p>
+          <p>I'm open to full-time roles and freelance projects, remote or with relocation. Email is the fastest way to reach me.</p>
+          <div class="who">
+            <img src="../assets/profile.png" alt="Portrait of Eslam Aped" width="880" height="1168" loading="lazy">
+            <span><b>Eslam Aped</b>Software Engineer, Flutter &amp; Django</span>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="mailto:eslamabid175@gmail.com">Email me</a>
+            <a class="btn" href="../assets/resume/Eslam-Abed-Flutter-Developer-Resume.pdf" download>Download CV <span class="k">PDF</span></a>
+          </div>
+        </div>
+        <div class="term">
+          <div class="term-bar"><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>zsh</div>
+          <div class="term-body">
+            <p class="cmd">./contact.sh --all</p>
+            <dl class="kv">
+              <div><dt>email</dt><dd><a href="mailto:eslamabid175@gmail.com">eslamabid175@gmail.com</a></dd></div>
+              <div><dt>phone</dt><dd><a href="tel:+201023332583">+20 102 333 2583</a></dd></div>
+              <div><dt>linkedin</dt><dd><a href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener">linkedin.com/in/eslamaped</a></dd></div>
+              <div><dt>github</dt><dd><a href="https://github.com/eslamabid175" target="_blank" rel="noopener">github.com/eslamabid175</a></dd></div>
+              <div><dt>location</dt><dd>Cairo, Egypt (UTC+2/+3)</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="status">
+  <div class="wrap">
+    <div class="grp"><span>main</span><span>16 apps live</span><span>30/30 lessons</span></div>
+    <div class="grp"><a href="https://github.com/eslamabid175" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/eslamaped/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:eslamabid175@gmail.com">Email</a><span>© 2026 Eslam Aped</span></div>
+  </div>
+</footer>
+
+<a class="option-pill" href="./index.html">Design option 1 · Midnight Terminal</a>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* one load moment: whoami.dart types itself in, line by line */
+  var code = document.getElementById('whoami-code');
+  if (code && !reduce) {
+    var lines = code.querySelectorAll('.l');
+    code.classList.add('typing');
+    var i = 0;
+    (function next() {
+      if (i >= lines.length) { code.classList.remove('typing'); return; }
+      lines[i++].classList.add('on');
+      setTimeout(next, 55);
+    })();
+  }
+
+  /* repo filter */
+  var buttons = document.querySelectorAll('.filters button');
+  var orgs = document.querySelectorAll('.org');
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-filter');
+      buttons.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      orgs.forEach(function (o) { o.hidden = !(f === 'all' || o.getAttribute('data-org') === f); });
+    });
+  });
+
+  /* highlight the open "file" in the tab bar */
+  var links = {};
+  document.querySelectorAll('.files a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].removeAttribute('aria-current'); });
+        var a = links[e.target.id];
+        if (a) {
+          a.setAttribute('aria-current', 'true');
+          var bar = a.closest('.files');
+          if (bar && bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: bar.scrollLeft + a.getBoundingClientRect().left - bar.getBoundingClientRect().left - 8, behavior: reduce ? 'auto' : 'smooth' });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

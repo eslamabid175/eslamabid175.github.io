@@ -595,6 +595,9 @@
             font-size: 12px;
             color: var(--border);
             letter-spacing: 8px;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 100%;
         }
 
         /* Tabs */
@@ -654,14 +657,14 @@
         /* Two Column Layout */
         .two-col {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
             gap: 32px;
             align-items: start;
         }
 
         @media (max-width: 768px) {
             .nav-dots { display: none; }
-            .two-col { grid-template-columns: 1fr; }
+            .two-col { grid-template-columns: minmax(0, 1fr); }
             .hero h1 { font-size: 48px; }
             .portfolio-links {
                 top: 12px;
@@ -726,7 +729,117 @@
             border-right: 5px solid transparent;
             border-top: 6px solid var(--border);
         }
+
+        /* Roadmap lessons */
+        .lesson-lead {
+            font-size: 17px;
+            color: var(--text-muted);
+            margin: -8px 0 24px;
+            line-height: 1.8;
+        }
+
+        .mini-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text);
+            margin: 32px 0 16px;
+        }
+
+        .roadmap-quote {
+            margin: 24px 0 8px;
+            padding: 20px 24px;
+            border-right: 4px solid var(--accent);
+            background: var(--surface);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tip-box code, .card-body code, .qa code, .note-list code, .lesson-lead code, .table-wrap code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85em;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1px 6px;
+            direction: ltr;
+            unicode-bidi: isolate;
+            overflow-wrap: anywhere;
+        }
+
+        .tip-box a, .arch-desc a { color: var(--accent); font-weight: 700; }
+
+        .tip-box.tradeoff {
+            background: #FFFBEB;
+            border-color: rgba(217, 119, 6, 0.25);
+        }
+
+        .tip-box.tradeoff strong { color: var(--warning); }
+
+        .note-list {
+            margin: 16px 0;
+            padding-right: 22px;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        .note-list strong { color: var(--text); }
+
+        .table-wrap {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 16px 0 24px;
+        }
+
+        .table-wrap .orm-table { direction: rtl; }
+        .table-wrap .orm-table th { text-align: right; }
+        .table-wrap .orm-table td { min-width: 140px; }
+        .table-wrap .orm-table td.code { direction: ltr; text-align: right; }
+
+        .qa-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .qa {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.3s ease;
+        }
+
+        .qa:hover, .qa[open] { border-color: var(--accent); }
+
+        .qa summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 16px 20px;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            gap: 10px;
+        }
+
+        .qa summary::-webkit-details-marker { display: none; }
+        .qa summary::before { content: '؟'; color: var(--accent); font-weight: 900; }
+        .qa[open] summary { border-bottom: 1px solid var(--border); }
+
+        .qa-answer {
+            padding: 16px 20px;
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/notes-editorial.css">
 </head>
 
 <body>
@@ -735,7 +848,7 @@
 
     <div class="portfolio-links">
         <a class="portfolio-link" href="index.html">Portfolio</a>
-        <a class="portfolio-link" href="projects.html">Projects</a>
+        <a class="portfolio-link" href="index.html#work">Projects</a>
         <a class="portfolio-link" href="backend.html">Backend Learning</a>
         <a class="portfolio-link" href="flutter.html">Flutter Learning</a>
     </div>
@@ -752,6 +865,10 @@
         <div class="nav-dot" data-label="Authentication" onclick="scrollToSection('auth')"></div>
         <div class="nav-dot" data-label="System Design" onclick="scrollToSection('system')"></div>
         <div class="nav-dot" data-label="API Design" onclick="scrollToSection('api')"></div>
+        <div class="nav-dot" data-label="Senior Roadmap ✓" onclick="scrollToSection('roadmap')"></div>
+        <div class="nav-dot" data-label="Django بعمق" onclick="scrollToSection('deep-django')"></div>
+        <div class="nav-dot" data-label="Scaling" onclick="scrollToSection('scaling')"></div>
+        <div class="nav-dot" data-label="DevOps" onclick="scrollToSection('devops')"></div>
     </nav>
 
     <div class="content">
@@ -764,12 +881,13 @@
                 <span class="drf">& DRF</span>
             </h1>
             <p class="hero-subtitle">
-                ملخص شامل لـ <span>Django REST Framework</span> — Serializers, ViewSets, Models, Authentication, Database Lifecycle, Celery, Redis, Channels, System Design & API Design
+                ملخص شامل لـ <span>Django REST Framework</span> — Serializers, ViewSets, Models, Authentication, Database Lifecycle, Celery, Redis, Channels, System Design & API Design — وملخص الـ <span>Senior / Lead Roadmap</span> اللي خلصته
             </p>
 
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
                 <a class="portfolio-link" href="index.html">الرجوع للـ Portfolio</a>
                 <a class="portfolio-link" href="flutter.html">الانتقال لملخص Flutter</a>
+                <a class="portfolio-link" href="#roadmap">Senior / Lead Roadmap ✓</a>
             </div>
 
             <div class="hero-flow">
@@ -2292,6 +2410,1174 @@ gender = models.<span class="fn">CharField</span>(max_length=<span class="num">2
             </div>
         </section>
 
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- SENIOR / LEAD ROADMAP (COMPLETED) -->
+        <section class="section" id="roadmap">
+            <div class="section-header">
+                <span class="section-tag">// 09 — Senior / Lead Roadmap ✓</span>
+                <h2 class="section-title">Senior / Lead <span class="highlight">Roadmap</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>✅ خلّصت الـ Roadmap بالكامل:</strong>
+                ٣٠ درس في ٦ مواضيع لمطوّر Flutter و Django، من تصميم الداتابيز لحد قيادة الفريق.
+                الصفحة دي فيها ملخص الجزء الخاص بالـ backend: <strong>Backend (Django) بعمق</strong> و <strong>System Design</strong> و <strong>DevOps و Production</strong>.
+                وجزء Flutter موجود في <a href="flutter.html">ملخص Flutter</a>.
+            </div>
+
+            <blockquote class="roadmap-quote">
+                «السنيور مش اللي حافظ أكتر؛ هو اللي فاهم الحاجة شغالة إزاي، وإمتى يستخدمها، وإيه تمن كل اختيار.»
+            </blockquote>
+
+            <h3 class="subsection-title">الـ ٦ مواضيع اللي خلصتها</h3>
+            <div class="arch-grid" style="margin-bottom: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));">
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">01</div>
+                    <div class="arch-name">Backend (Django) بعمق</div>
+                    <div class="arch-desc">٦ دروس: قاعدة البيانات، أداء الـ ORM، Transactions، Jobs و Caching، تصميم الـ API، الـ Security. <a href="#deep-django">الملخص تحت ↓</a></div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">02</div>
+                    <div class="arch-name">Flutter بعمق</div>
+                    <div class="arch-desc">٤ دروس: المعمارية، الـ Offline-first والـ Sync، الأداء، الـ Release والنشر. <a href="flutter.html">في ملخص Flutter</a></div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">03</div>
+                    <div class="arch-name">System Design</div>
+                    <div class="arch-desc">٥ دروس: الأرقام والـ Scaling، الداتابيز، الطوابير والـ Rate limiting، الـ CAP، سؤال الإنترفيو. <a href="#scaling">الملخص تحت ↓</a></div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">04</div>
+                    <div class="arch-name">DevOps و Production</div>
+                    <div class="arch-desc">٥ دروس: Docker، CI/CD، Migrations من غير downtime، الـ Cloud، الـ Observability. <a href="#devops">الملخص تحت ↓</a></div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">05</div>
+                    <div class="arch-name">جودة الكود</div>
+                    <div class="arch-desc">٥ دروس: استراتيجية الـ Testing، SOLID، الـ Patterns، الـ Refactoring، الـ Code review ومراجعة كود الـ AI.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">06</div>
+                    <div class="arch-name">مهارات الـ Lead</div>
+                    <div class="arch-desc">٥ دروس: تقسيم الشغل والتقدير، الـ ADRs، الـ Incidents، الكلام مع ناس مش تقنيين، تعليم الـ juniors.</div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>💡 شكل كل درس في الملخص:</strong>
+                الفكرة → مثال من Django → الـ <strong>trade-off</strong> (تمن الاختيار) → أسئلة <strong>«اختبر نفسك»</strong>. جاوب في دماغك الأول، وبعدين افتح الإجابة.
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ROADMAP TRACK 1 — BACKEND (DJANGO) IN DEPTH -->
+        <section class="section" id="deep-django">
+            <div class="section-header">
+                <span class="section-tag">// 10 — Roadmap · Django in depth</span>
+                <h2 class="section-title">Django <span class="highlight">بعمق</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 الهدف من الموضوع دا:</strong>
+                الداتابيز والـ ORM والـ concurrency والشغل في الخلفية والـ API والأمان: الحاجات اللي بتفرّق backend بيستحمل عن backend بيقع.
+            </div>
+
+            <h3 class="subsection-title">1. تصميم قاعدة البيانات</h3>
+            <p class="lesson-lead">قاعدة البيانات أصعب حاجة تتغير بعد ما المشروع يكبر، فتصميمها صح من الأول أهم من أي كود فوقها.</p>
+            <div class="cards-grid" style="margin: 24px 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));">
+                <div class="card" data-animate>
+                    <span class="card-icon">🧩</span>
+                    <div class="card-title">Normalization</div>
+                    <div class="card-body">
+                        كل معلومة تتخزن <strong>مرة واحدة</strong>، والباقي يشاور عليها بـ foreign key. لو اسم العميل متخزن جوه جدول الطلبات وغيّره، هتعدّل آلاف الصفوف، ولو نسيت صف هيبقى عندك اسمين لنفس الشخص.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📋</span>
+                    <div class="card-title">Denormalization</div>
+                    <div class="card-body">
+                        العكس <strong>عن قصد</strong>: تكرر معلومة عشان القراية تبقى أسرع، زي عمود <code>comments_count</code> على البوست بدل ما تعدّ التعليقات كل مرة. التمن إنك تحافظ على التزامن بنفسك.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📖</span>
+                    <div class="card-title">Indexes (B-tree)</div>
+                    <div class="card-body">
+                        من غير index الداتابيز بتقرا كل الصفوف (<strong>Seq Scan</strong>). الـ index نسخة مترتبة من العمود. اعمله على الأعمدة اللي بتتكرر في WHERE و JOIN و ORDER BY، مش على كل عمود.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">↔️</span>
+                    <div class="card-title">Composite index — leftmost prefix</div>
+                    <div class="card-body">
+                        index على <code>(status, created_at)</code> بيخدم فلتر بـ status لوحده، أو status مع ترتيب بـ created_at، لكن <strong>مش</strong> بيخدم فلتر بـ created_at لوحده.
+                    </div>
+                </div>
+            </div>
+            <div class="code-block" data-file="models.py">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">Order</span>(models.<span class="cls">Model</span>):
+    customer = models.<span class="cls">ForeignKey</span>(<span class="cls">Customer</span>, on_delete=models.CASCADE)  <span class="cm"># Django بيعمل له index لوحده</span>
+    status = models.<span class="cls">CharField</span>(max_length=<span class="num">20</span>)
+    total = models.<span class="cls">DecimalField</span>(max_digits=<span class="num">10</span>, decimal_places=<span class="num">2</span>)
+    created_at = models.<span class="cls">DateTimeField</span>(auto_now_add=<span class="kw">True</span>)
+
+    <span class="kw">class</span> <span class="cls">Meta</span>:
+        indexes = [models.<span class="cls">Index</span>(fields=[<span class="str">'status'</span>, <span class="str">'created_at'</span>])]
+        constraints = [
+            models.<span class="cls">CheckConstraint</span>(condition=models.<span class="fn">Q</span>(total__gte=<span class="num">0</span>), name=<span class="str">'order_total_not_negative'</span>),
+        ]
+            </div>
+            <div class="tip-box">
+                <strong>🛡️ الـ constraints:</strong>
+                زي <code>unique</code> و <code>CheckConstraint</code> هي خط الدفاع الأخير: حتى لو فيه bug في الكود، الداتابيز هترفض البيانات الغلط.
+            </div>
+            <h4 class="mini-title">قراية EXPLAIN ANALYZE</h4>
+            <div class="code-block" data-file="EXPLAIN ANALYZE">
+                <span class="lang-tag">txt</span>
+# Order.objects.filter(status='pending').explain(analyze=True)
+Seq Scan on orders  (cost=0.00..18334.00 rows=5 width=64) (actual time=0.031..95.214 rows=4 loops=1)
+  Filter: ((status)::text = 'pending'::text)
+  Rows Removed by Filter: 999996
+            </div>
+            <ul class="note-list">
+                <li>السطر الأخير هو الإنذار: قرا مليون صف عشان يرجّع ٤. بعد الـ index هتلاقي <strong>Index Scan</strong> مكان Seq Scan.</li>
+                <li>دوّر دايمًا على ٣ حاجات: <strong>Seq Scan</strong> على جدول كبير، وفرق كبير بين الـ rows المتوقعة (جوه cost) والفعلية (جوه actual) — معناه إحصائيات قديمة وخطة غلط — و <strong>Rows Removed by Filter</strong> بأرقام ضخمة.</li>
+            </ul>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ normalization بتديك بيانات سليمة مقابل joins أكتر. والـ indexes بتديك قراية أسرع مقابل كتابة أبطأ ومساحة أكبر.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه index على (status, created_at) مش هيساعد query بتفلتر بـ created_at بس؟</summary>
+                    <div class="qa-answer">لأن الـ index مترتب بـ status الأول، وجوه كل status مترتب بـ created_at. من غير status الداتابيز مش عارفة تنط لمكان معين، فهتلف على الـ index كله أو تعمل Seq Scan. لو الـ query دي مهمة، اعمل لها index لوحدها على created_at.</div>
+                </details>
+                <details class="qa">
+                    <summary>إمتى تكرر معلومة في جدول تاني عن قصد، وإيه اللي لازم تعمله بعدها؟</summary>
+                    <div class="qa-answer">لما القراية أهم بكتير من الكتابة وحسابها كل مرة مكلّف، زي عدد التعليقات على بوست. بعدها لازم تضمن إن النسخة المكررة تتحدث مع كل تغيير: في نفس الـ transaction، أو بـ F() update، أو بمهمة دورية بتصلّح أي اختلاف.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">2. أداء الـ ORM</h3>
+            <p class="lesson-lead">الـ ORM بيخبّي الـ SQL عنك، ودي ميزة لحد ما تنسى إن سطر Python واحد ممكن يبقى query.</p>
+            <h4 class="mini-title">مشكلة N+1 وحلها</h4>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+orders = <span class="cls">Order</span>.objects.<span class="fn">all</span>()[:<span class="num">100</span>]      <span class="cm"># query واحدة</span>
+<span class="kw">for</span> order <span class="kw">in</span> orders:
+    <span class="fn">print</span>(order.customer.name)          <span class="cm"># query جديدة في كل لفة</span>
+<span class="cm"># المجموع: 101 query لصفحة واحدة</span>
+
+<span class="cm"># الحل</span>
+<span class="cls">Order</span>.objects.<span class="fn">select_related</span>(<span class="str">'customer'</span>)[:<span class="num">100</span>]    <span class="cm"># 1 query بـ JOIN</span>
+<span class="cls">Customer</span>.objects.<span class="fn">prefetch_related</span>(<span class="str">'orders'</span>)        <span class="cm"># 2 queries بس مهما كان العدد</span>
+            </div>
+            <div class="cards-grid" style="margin: 24px 0;">
+                <div class="card" data-animate>
+                    <span class="card-icon">🔗</span>
+                    <div class="card-title">select_related</div>
+                    <div class="card-body">
+                        بيعمل <strong>JOIN</strong> ويجيب كله في query واحدة. للعلاقات اللي في آخرها عنصر واحد: ForeignKey و OneToOne.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📚</span>
+                    <div class="card-title">prefetch_related</div>
+                    <div class="card-body">
+                        بيعمل <strong>query تانية منفصلة</strong> ويربط النتايج في Python. للعلاقات اللي في آخرها قايمة: ManyToMany والـ reverse FK. (الـ JOIN هنا هيكرر صف العميل مع كل عنصر والنتيجة تنفجر في الحجم.)
+                    </div>
+                </div>
+            </div>
+            <h4 class="mini-title">امنع المشكلة ترجع</h4>
+            <div class="code-block" data-file="tests.py">
+                <span class="lang-tag">python</span>
+<span class="kw">def</span> <span class="fn">test_orders_list_is_not_n_plus_one</span>(self):
+    <span class="kw">with</span> self.<span class="fn">assertNumQueries</span>(<span class="num">2</span>):
+        self.client.<span class="fn">get</span>(<span class="str">'/api/orders/'</span>)
+            </div>
+            <div class="tip-box">
+                <strong>🔍 في الـ development:</strong>
+                استخدم <strong>django-debug-toolbar</strong> عشان تشوف عدد الـ queries في كل صفحة. ولو حد ضاف field بيعمل query زيادة، الـ test اللي فوق هيقع في الـ CI.
+            </div>
+            <h4 class="mini-title">عادات صغيرة بتفرق</h4>
+            <div class="table-wrap">
+                <table class="orm-table">
+                    <thead>
+                        <tr><th>استخدم</th><th>بدل</th><th>ليه</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="code">exists()</td><td><code>if queryset:</code></td><td>التانية بتحمّل كل الصفوف لو مش هتستخدم النتايج</td></tr>
+                        <tr><td class="code">only() / values_list()</td><td>كل الأعمدة</td><td>لما تحتاج أعمدة قليلة من جدول عريض</td></tr>
+                        <tr><td class="code">bulk_create() / update()</td><td>loop فيه <code>save()</code></td><td>query واحدة بدل query لكل صف</td></tr>
+                        <tr><td class="code">annotate() / aggregate()</td><td>الحسبة في Python</td><td>الداتابيز هي اللي تحسب</td></tr>
+                        <tr><td class="code">iterator()</td><td>تحميل كل الصفوف</td><td>مئات الآلاف من الصفوف من غير ما تملى الذاكرة</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="mini-title">إمتى تنزل لـ raw SQL</h4>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">with</span> connection.<span class="fn">cursor</span>() <span class="kw">as</span> cursor:
+    cursor.<span class="fn">execute</span>(<span class="str">'SELECT ... WHERE school_id = %s'</span>, [school_id])  <span class="cm"># params دايمًا</span>
+    <span class="cm"># أبدًا: f'... WHERE school_id = {school_id}'  ← دي SQL injection</span>
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ raw SQL بينفع لما الـ ORM يطلّع SQL مش كويس أو محتاج recursive CTE أو feature خاصة بـ PostgreSQL، بس بتخسر سهولة القراية والنقل لداتابيز تانية، والأمان بقى مسؤوليتك.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>اشرح الفرق بين select_related و prefetch_related من غير ما تبص.</summary>
+                    <div class="qa-answer">select_related بيعمل JOIN في query واحدة، وبينفع مع العلاقات اللي في آخرها عنصر واحد (ForeignKey و OneToOne). prefetch_related بيعمل query منفصلة لكل علاقة ويربط النتايج في Python، وبينفع مع القوايم (ManyToMany والـ reverse FK).</div>
+                </details>
+                <details class="qa">
+                    <summary>إزاي تضمن إن حد في الفريق ما يرجّعش N+1 من غير ما تراجع كل PR بعينك؟</summary>
+                    <div class="qa-answer">تكتب test فيه <code>assertNumQueries</code> على الـ endpoints المهمة. أي تعديل يزوّد عدد الـ queries هيوقع الـ test في الـ CI قبل الـ merge.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">3. الـ Transactions والـ Concurrency</h3>
+            <p class="lesson-lead">أخطر الـ bugs مش اللي بتظهر وانت بتجرب؛ هي اللي بتظهر لما اتنين يعملوا نفس الحاجة في نفس اللحظة.</p>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> django.db <span class="kw">import</span> transaction
+
+<span class="cm"># يا كله يا بلاش</span>
+<span class="kw">with</span> transaction.<span class="fn">atomic</span>():
+    order = <span class="cls">Order</span>.objects.<span class="fn">create</span>(customer=customer, total=total)
+    <span class="cls">Payment</span>.objects.<span class="fn">create</span>(order=order, amount=total)
+    <span class="cm"># أي exception هنا بترجّع السطرين</span>
+
+<span class="cm"># Race condition: مقعد واحد وطالبين</span>
+course = <span class="cls">Course</span>.objects.<span class="fn">get</span>(id=course_id)
+<span class="kw">if</span> course.seats_left &gt; <span class="num">0</span>:        <span class="cm"># الطلبين قروا 1 في نفس اللحظة</span>
+    course.seats_left -= <span class="num">1</span>
+    course.<span class="fn">save</span>()                <span class="cm"># الاتنين كتبوا 0، واتنين حجزوا نفس المقعد</span>
+            </div>
+            <div class="tip-box">
+                <strong>⚠️ خلي بالك:</strong>
+                الكود دا غلط حتى لو جوه <code>atomic()</code>، لأن atomic لوحدها ما بتقفلش الصف وانت بتقراه. عندك ٣ حلول:
+            </div>
+            <div class="code-block" style="margin-top:16px;">
+                <span class="lang-tag">python</span>
+<span class="cm"># ١. خلي الداتابيز تعمل الحسبة في خطوة واحدة (F expression)</span>
+updated = <span class="cls">Course</span>.objects.<span class="fn">filter</span>(id=course_id, seats_left__gt=<span class="num">0</span>).<span class="fn">update</span>(
+    seats_left=<span class="fn">F</span>(<span class="str">'seats_left'</span>) - <span class="num">1</span>
+)
+<span class="kw">if</span> updated == <span class="num">0</span>:
+    <span class="kw">raise</span> <span class="cls">NoSeatsLeft</span>()
+
+<span class="cm"># ٢. اقفل الصف لحد ما تخلص (pessimistic locking)</span>
+<span class="kw">with</span> transaction.<span class="fn">atomic</span>():
+    course = <span class="cls">Course</span>.objects.<span class="fn">select_for_update</span>().<span class="fn">get</span>(id=course_id)  <span class="cm"># أي طلب تاني بيستنى هنا</span>
+    <span class="kw">if</span> course.seats_left &lt;= <span class="num">0</span>:
+        <span class="kw">raise</span> <span class="cls">NoSeatsLeft</span>()
+    course.seats_left -= <span class="num">1</span>
+    course.<span class="fn">save</span>()
+    <span class="cls">Enrollment</span>.objects.<span class="fn">create</span>(course=course, student=student)
+
+<span class="cm"># ٣. افترض إن مفيش تعارض، واتأكد وقت الحفظ (optimistic locking)</span>
+updated = <span class="cls">Document</span>.objects.<span class="fn">filter</span>(id=doc.id, version=doc.version).<span class="fn">update</span>(
+    body=new_body, version=<span class="fn">F</span>(<span class="str">'version'</span>) + <span class="num">1</span>
+)
+<span class="kw">if</span> <span class="kw">not</span> updated:
+    <span class="kw">raise</span> <span class="cls">ConflictError</span>(<span class="str">'حد عدّل المستند قبلك'</span>)
+            </div>
+            <div class="table-wrap">
+                <table class="orm-table">
+                    <thead>
+                        <tr><th>الطريقة</th><th>إمتى تستخدمها</th><th>التمن</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="code">F() + update مشروط</td><td>عملية بسيطة على عمود واحد</td><td>ما تنفعش مع منطق معقد</td></tr>
+                        <tr><td class="code">select_for_update</td><td>تنافس عالي ومنطق من كذا خطوة</td><td>الطلبات بتستنى بعض، وممكن deadlock</td></tr>
+                        <tr><td class="code">Optimistic (version)</td><td>تنافس قليل، زي تعديل مستند</td><td>لازم تتعامل مع الفشل: تعيد أو تبلغ المستخدم</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tip-box">
+                <strong>🧱 والـ unique constraint يحميك كمان:</strong>
+                لو طلبين حاولوا يسجلوا نفس الطالب في نفس الكورس، الداتابيز هترفض التاني بـ <strong>IntegrityError</strong> مهما كان الكود.
+            </div>
+            <h4 class="mini-title">أخطر غلطة: شغل خارجي جوه الـ transaction</h4>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="cm"># الـ task تتبعت بس بعد ما الـ commit يتم فعلًا</span>
+transaction.<span class="fn">on_commit</span>(<span class="kw">lambda</span>: send_welcome_email.<span class="fn">delay</span>(user.id))
+            </div>
+            <ul class="note-list">
+                <li>لو بعتّ Celery task جوه <code>atomic()</code>، الـ worker ممكن يشتغل قبل الـ commit وما يلاقيش الصف. ولو الـ transaction اترجعت، الإيميل يكون اتبعت خلاص.</li>
+                <li>ما تكلّمش API خارجي (زي بوابة دفع) وانت فاتح transaction؛ الـ locks هتفضل ماسكة طول ما انت مستني الرد.</li>
+            </ul>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الجدول اللي فوق هو الـ trade-off نفسه: الـ pessimistic locking بيضمن الصحة بس بيخلي الناس تستنى وممكن يعمل deadlock، والـ optimistic بيسيبهم يشتغلوا ويكتشف التعارض وقت الحفظ بس، فلازم تتعامل مع الفشل.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه <code>course.seats_left -= 1</code> وبعدها <code>save()</code> غلط حتى جوه <code>atomic()</code>؟</summary>
+                    <div class="qa-answer">لأن atomic بتضمن إن الخطوات تتنفذ كلها أو لا، لكن ما بتمنعش طلب تاني يقرا نفس القيمة في نفس اللحظة. الطلبين بيقروا 1 ويكتبوا 0. محتاج select_for_update أو update مشروط بـ F().</div>
+                </details>
+                <details class="qa">
+                    <summary>إمتى تختار optimistic locking بدل select_for_update؟</summary>
+                    <div class="qa-answer">لما التعارض نادر والتعديل بياخد وقت، زي مستخدم بيعدّل مستند. الـ locking المتشائم هيخلي الناس تستنى على الفاضي، والـ optimistic بيسيبهم يشتغلوا ويكتشف التعارض وقت الحفظ بس.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">4. الـ Background jobs والـ Caching</h3>
+            <p class="lesson-lead">القاعدة: المستخدم ما يستناش على حاجة مش محتاج نتيجتها دلوقتي، وما تحسبش نفس الحاجة مرتين لو تقدر تفتكرها.</p>
+            <div class="code-block" data-file="tasks.py">
+                <span class="lang-tag">python</span>
+<span class="dec">@shared_task</span>(bind=<span class="kw">True</span>, autoretry_for=(<span class="cls">ConnectionError</span>,), retry_backoff=<span class="kw">True</span>, max_retries=<span class="num">5</span>)
+<span class="kw">def</span> <span class="fn">generate_report</span>(self, school_id):
+    school = <span class="cls">School</span>.objects.<span class="fn">get</span>(id=school_id)
+    ...
+
+<span class="cm"># في الـ view</span>
+generate_report.<span class="fn">delay</span>(school.id)
+<span class="kw">return</span> <span class="cls">Response</span>({<span class="str">'status'</span>: <span class="str">'processing'</span>}, status=<span class="num">202</span>)
+            </div>
+            <div class="cards-grid" style="margin: 24px 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));">
+                <div class="card" data-animate>
+                    <span class="card-icon">🆔</span>
+                    <div class="card-title">ابعت الـ id مش الـ object</div>
+                    <div class="card-body">
+                        الـ object ممكن يتغير قبل ما المهمة تشتغل، وتحويله لـ JSON بيعمل مشاكل.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔁</span>
+                    <div class="card-title">Idempotent tasks</div>
+                    <div class="card-body">
+                        اعتبر إن أي مهمة ممكن تتنفذ <strong>مرتين</strong> (retries أو موت الـ worker في النص). لو اتنفذت تاني ما تعملش ضرر.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⏳</span>
+                    <div class="card-title">Retries بـ backoff</div>
+                    <div class="card-body">
+                        لو الخدمة الخارجية واقعة، ما تضربهاش كل ثانية؛ استنى وقت بيزيد كل مرة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⏰</span>
+                    <div class="card-title">Beat + Flower</div>
+                    <div class="card-body">
+                        المهام الدورية (زي تقرير كل يوم الصبح) بـ <strong>Celery Beat</strong>، ومراقبة الـ workers بـ <strong>Flower</strong>.
+                    </div>
+                </div>
+            </div>
+            <h4 class="mini-title">الـ Caching: نمط cache-aside</h4>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">def</span> <span class="fn">get_school_stats</span>(school_id):
+    key = <span class="str">f'school:{school_id}:stats:v1'</span>
+    stats = cache.<span class="fn">get</span>(key)
+    <span class="kw">if</span> stats <span class="kw">is</span> <span class="kw">None</span>:                          <span class="cm"># cache miss</span>
+        stats = <span class="fn">compute_stats</span>(school_id)       <span class="cm"># الحسبة التقيلة</span>
+        cache.<span class="fn">set</span>(key, stats, timeout=<span class="num">300</span>)     <span class="cm"># 5 دقايق</span>
+    <span class="kw">return</span> stats
+            </div>
+            <ul class="note-list">
+                <li>الـ cache ممكن يبقى في Redis (مشترك بين كل السيرفرات)، أو HTTP caching في التطبيق والمتصفح، أو CDN للصور والملفات.</li>
+                <li>الـ <strong>v1</strong> في المفتاح بيخليك تغيّر شكل البيانات المتخزنة من غير ما تتلخبط مع القديمة.</li>
+                <li><strong>Cache stampede:</strong> مفتاح عليه ضغط عالي انتهى، فـ ١٠٠٠ طلب راحوا للداتابيز في نفس اللحظة. الحل: lock بحيث طلب واحد بس يعيد الحسبة، أو ترجّع القيمة القديمة لحد ما الجديدة تجهز، أو عشوائية بسيطة في الـ TTL.</li>
+                <li>ما تعملش cache لبيانات حساسة من غير ما الـ user يبقى جزء من المفتاح، ولا لحاجة زي رصيد الحساب.</li>
+            </ul>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الجزء الصعب هو الـ invalidation: <strong>TTL</strong> بسيطة بس المستخدم ممكن يشوف بيانات قديمة لحد ما تنتهي، و <strong>المسح الصريح</strong> أدق بس لو نسيت مكان بيعدّل البيانات، الـ cache هيكذب.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>مهمة بتبعت SMS اتنفذت مرتين بسبب retry. إزاي تخليها idempotent؟</summary>
+                    <div class="qa-answer">خزّن سجل لكل رسالة بمفتاح ثابت (مثلًا id الطلب ونوع الرسالة) عليه unique constraint. في أول المهمة، لو السجل موجود ومتعلّم إنه اتبعت، اخرج من غير ما تبعت.</div>
+                </details>
+                <details class="qa">
+                    <summary>إيه هو الـ cache stampede، وإزاي تمنعه؟</summary>
+                    <div class="qa-answer">مفتاح عليه ضغط عالي بينتهي، فطلبات كتير تلاقيه فاضي وتروح كلها للداتابيز في نفس اللحظة. تمنعه بـ lock يخلي طلب واحد بس يعيد الحسبة، أو ترجّع القيمة القديمة لحد ما الجديدة تجهز، أو تضيف عشوائية للـ TTL.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">5. تصميم الـ API</h3>
+            <p class="lesson-lead">الـ API عقد بينك وبين التطبيق: الويب بيتحدّث مع كل deploy، لكن نسخ الموبايل القديمة بتفضل شغالة شهور، ومش هتقدر تجبرهم يحدّثوا بكرة.</p>
+            <h4 class="mini-title">الـ Pagination</h4>
+            <div class="table-wrap">
+                <table class="orm-table">
+                    <thead>
+                        <tr><th>النوع</th><th>بيشتغل إزاي</th><th>مناسب لـ</th><th>عيبه</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="code">Offset</td><td><code>?page=5</code> أو <code>?offset=80&amp;limit=20</code></td><td>جداول الـ admin اللي فيها أرقام صفحات</td><td>بيبطأ في الصفحات البعيدة، وبيكرر أو يفوّت عناصر لو البيانات اتغيرت</td></tr>
+                        <tr><td class="code">Cursor</td><td><code>?cursor=</code> ومعاه مؤشر لآخر عنصر</td><td>الـ infinite scroll في Flutter</td><td>ما تقدرش تنط لصفحة ٥٠</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">FeedPagination</span>(<span class="cls">CursorPagination</span>):
+    page_size = <span class="num">20</span>
+    ordering = <span class="str">'-created_at'</span>
+            </div>
+            <h4 class="mini-title">الـ Versioning: إيه اللي بيكسر؟</h4>
+            <div class="cards-grid" style="margin: 24px 0;">
+                <div class="card" data-animate>
+                    <span class="card-icon">✅</span>
+                    <div class="card-title">Non-breaking (آمن)</div>
+                    <div class="card-body">
+                        إضافة field جديد، أو endpoint جديد، أو parameter اختياري.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">💥</span>
+                    <div class="card-title">Breaking (بيكسر)</div>
+                    <div class="card-body">
+                        مسح field أو تغيير اسمه، تغيير نوعه، تحويل field اختياري لإجباري. الأبسط تحط النسخة في الـ URL: <strong>/api/v1/</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📲</span>
+                    <div class="card-title">Force update</div>
+                    <div class="card-body">
+                        السيرفر يرجّع أقل نسخة مدعومة، والتطبيق يقارنها بنسخته ويطلب من المستخدم يحدّث. من غيرها هتفضل تدعم كود قديم للأبد.
+                    </div>
+                </div>
+            </div>
+            <h4 class="mini-title">شكل موحد للأخطاء</h4>
+            <div class="code-block" data-file="error.json">
+                <span class="lang-tag">json</span>
+{
+  <span class="var">"error"</span>: {
+    <span class="var">"code"</span>: <span class="str">"SEAT_UNAVAILABLE"</span>,
+    <span class="var">"message"</span>: <span class="str">"No seats left in this course"</span>,
+    <span class="var">"details"</span>: {<span class="var">"course_id"</span>: <span class="num">42</span>}
+  }
+}
+            </div>
+            <div class="tip-box">
+                <strong>📌 الـ status codes صح:</strong>
+                الـ <code>code</code> ثابت ومعمول للكود، فالتطبيق يترجمه لرسالة عربي أو إنجليزي. و: <strong>400</strong> بيانات غلط، <strong>401</strong> مش مسجّل دخول، <strong>403</strong> مالكش صلاحية، <strong>404</strong> مش موجود، <strong>409</strong> تعارض، <strong>429</strong> طلبات كتير. في DRF بتعمل دا مرة واحدة بـ custom exception handler.
+            </div>
+            <h4 class="mini-title">الـ Idempotency: الدفع مرتين</h4>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+key = request.headers.<span class="fn">get</span>(<span class="str">'Idempotency-Key'</span>)
+record = <span class="cls">IdempotencyRecord</span>.objects.<span class="fn">filter</span>(user=request.user, key=key).<span class="fn">first</span>()
+<span class="kw">if</span> record:
+    <span class="kw">return</span> <span class="cls">Response</span>(record.response_body, status=record.status_code)
+<span class="cm"># نفّذ العملية، وبعدين خزّن المفتاح والرد</span>
+            </div>
+            <ul class="note-list">
+                <li>التطبيق يولّد <strong>Idempotency-Key</strong> (UUID) مرة واحدة لكل عملية، ويبعته مع كل محاولة. السيرفر يخزن المفتاح والرد، ولو اتكرر يرجّع نفس الرد من غير ما ينفذ تاني.</li>
+                <li>حط على <code>(user, key)</code> unique constraint، عشان لو المحاولتين وصلوا في نفس اللحظة الداتابيز ترفض التانية.</li>
+                <li>وثّق الـ API بـ OpenAPI (مثلًا <strong>drf-spectacular</strong>)، وولّد منه كود الـ client في Dart بدل ما تكتب الـ models بإيدك.</li>
+            </ul>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ offset بيديك أرقام صفحات وتنط لأي صفحة، مقابل بطء في الصفحات البعيدة وتكرار لو البيانات اتغيرت. الـ cursor ثابت السرعة ومش بيكرر، مقابل إنك ما تقدرش تنط لصفحة معينة.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>اديني مثالين لتغيير breaking ومثالين لتغيير آمن.</summary>
+                    <div class="qa-answer">Breaking: تغيير اسم name لـ full_name، أو تحويل price من رقم لـ string. آمن: إضافة field جديد زي avatar_url، أو إضافة parameter اختياري للفلترة.</div>
+                </details>
+                <details class="qa">
+                    <summary>المستخدم داس «ادفع» والنت فصل. إزاي تضمن إنه ما يدفعش مرتين؟</summary>
+                    <div class="qa-answer">التطبيق يولّد Idempotency-Key مرة واحدة للعملية ويبعته مع كل محاولة. السيرفر يخزّن المفتاح والرد وعليهم unique constraint، ولو المفتاح اتكرر يرجّع الرد القديم من غير ما يخصم تاني.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">6. الـ Security</h3>
+            <p class="lesson-lead">أغلب الثغرات بتيجي من افتراض واحد غلط: إن الـ client هيبعت اللي انت متوقعه. أي حاجة جاية من التطبيق ممكن تكون متعدّلة.</p>
+            <div class="cards-grid" style="margin: 24px 0;">
+                <div class="card" data-animate>
+                    <span class="card-icon">🪪</span>
+                    <div class="card-title">AuthN ولا AuthZ؟</div>
+                    <div class="card-body">
+                        الـ <strong>authentication</strong>: انت مين؟ والـ <strong>authorization</strong>: مسموح لك تعمل إيه؟ أغلب المشاكل الخطيرة بتبقى في التانية.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🎟️</span>
+                    <div class="card-title">JWT</div>
+                    <div class="card-body">
+                        <code>header.payload.signature</code>: الـ payload <strong>مش متشفّر</strong> وأي حد يقدر يقراه؛ الـ signature بس بتضمن إنه ما اتعدلش. فما تحطش فيه أي معلومة سرية.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔄</span>
+                    <div class="card-title">Access + Refresh</div>
+                    <div class="card-body">
+                        Access قصير (دقايق) مع كل طلب، و Refresh أطول بيتغير مع كل استخدام (<strong>rotation</strong>) وتقدر تحطه في blacklist لو اتسرق. simplejwt بتدعم الاتنين.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📱</span>
+                    <div class="card-title">في Flutter</div>
+                    <div class="card-body">
+                        التوكنات في <strong>flutter_secure_storage</strong> (Keychain/Keystore) مش SharedPreferences. و interceptor في dio يعمل refresh واحد بس لو ٥ طلبات رجعوا 401 مع بعض، والباقي يستنوه.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔑</span>
+                    <div class="card-title">OAuth2 / OIDC</div>
+                    <div class="card-body">
+                        صلاحية من خدمة تانية من غير الباسورد (زي «سجّل دخول بجوجل»)، و OpenID Connect بيديك الهوية. في الموبايل: <strong>Authorization Code + PKCE</strong>، وعمرك ما تحط client secret جوه التطبيق.
+                    </div>
+                </div>
+            </div>
+            <h4 class="mini-title">الصلاحيات: الثغرة الأشهر (IDOR)</h4>
+            <div class="code-block">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">OrderViewSet</span>(viewsets.<span class="cls">ModelViewSet</span>):
+    permission_classes = [<span class="cls">IsAuthenticated</span>]
+
+    <span class="kw">def</span> <span class="fn">get_queryset</span>(self):
+        <span class="cm"># المستخدم يغيّر /api/orders/123 لـ 124 فيشوف طلب حد تاني لو رجّعت Order.objects.all()</span>
+        <span class="kw">return</span> <span class="cls">Order</span>.objects.<span class="fn">filter</span>(customer__user=self.request.user)
+            </div>
+            <ul class="note-list">
+                <li><strong>Mass assignment:</strong> serializer بـ <code>fields = '__all__'</code> ممكن يخلي المستخدم يبعت <code>is_staff: true</code> أو يغيّر السعر. حدد الـ fields صراحة، واستخدم <code>read_only_fields</code>.</li>
+                <li><strong>Injection:</strong> f-string جوه raw SQL. <strong>XSS:</strong> الـ templates بتعمل escape لوحدها، والخطر في <code>mark_safe</code> و <code>|safe</code>.</li>
+                <li><strong>إعدادات غلط:</strong> DEBUG=True في production، أو SECRET_KEY جوه الـ repo، أو <code>ALLOWED_HOSTS = ['*']</code>. شغّل <code>python manage.py check --deploy</code> قبل كل deploy.</li>
+                <li><strong>مكتبات فيها ثغرات:</strong> pip-audit و Dependabot. <strong>Logs:</strong> ما تسجّلش باسوردات ولا توكنات. <strong>SSRF:</strong> لو السيرفر بيفتح URL المستخدم بعته.</li>
+                <li><strong>الموبايل:</strong> أي حاجة جوه التطبيق اعتبرها عامة (الـ APK بيتفك بسهولة)، فأي API key سري يفضل على السيرفر. الـ obfuscation بيصعّب بس مش بيمنع، والـ certificate pinning لازم تحدّث التطبيق لما الشهادة تتغير.</li>
+            </ul>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ JWT <strong>stateless</strong>: السيرفر بيتأكد منه من غير ما يسأل الداتابيز فتقدر تزوّد السيرفرات بسهولة، بس ما تقدرش تلغيه قبل ما مدته تخلص. عشان كدا access قصير + refresh بيتغير وتقدر تلغيه.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>إيه هو IDOR، وهل Django بيحميك منه لوحده؟</summary>
+                    <div class="qa-answer">IDOR إن المستخدم يغيّر الـ id في الرابط فيوصل لبيانات حد تاني. Django مش بيحميك لوحده؛ لازم تفلتر الـ queryset بالمستخدم الحالي أو تستخدم object-level permissions.</div>
+                </details>
+                <details class="qa">
+                    <summary>ليه access قصير مع refresh أحسن من token واحد عمره شهر؟</summary>
+                    <div class="qa-answer">لو الـ access اتسرق، بيبقى صالح دقايق بس. والـ refresh بيتغير مع كل استخدام وتقدر تلغيه، فتقدر تطرد الجهاز المسروق. أما token عمره شهر فمش هتقدر توقفه.</div>
+                </details>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ROADMAP TRACK 3 — SYSTEM DESIGN -->
+        <section class="section" id="scaling">
+            <div class="section-header">
+                <span class="section-tag">// 11 — Roadmap · System Design</span>
+                <h2 class="section-title">Scaling & <span class="highlight">System Design</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 الهدف من الموضوع دا:</strong>
+                إزاي توزّع الشغل على أجزاء، بحيث النظام يستحمل الضغط ويفضل شغال لو جزء فيه وقع.
+            </div>
+
+            <h3 class="subsection-title">1. ابدأ بالأرقام، وبعدين الـ Scaling</h3>
+            <p class="lesson-lead">قبل أي تصميم، احسب الحمل؛ الأرقام هي اللي بتقولك محتاج تعقّد ولا لأ.</p>
+            <div class="code-block" data-file="back_of_envelope.py">
+                <span class="lang-tag">python</span>
+daily_users = <span class="num">100_000</span> * <span class="num">0.10</span>           <span class="cm"># 10% من الـ 100 ألف بيفتحوه يوميًا</span>
+requests_per_day = daily_users * <span class="num">50</span>    <span class="cm"># = 500,000 طلب في اليوم</span>
+avg_rps = requests_per_day / <span class="num">86_400</span>    <span class="cm"># ≈ 6 طلبات في الثانية (متوسط)</span>
+peak_rps = avg_rps * <span class="num">10</span>                <span class="cm"># الذروة ممكن توصل 10 أضعاف ≈ 60 طلب/ثانية</span>
+            </div>
+            <div class="tip-box">
+                <strong>🧮 الخلاصة:</strong>
+                سيرفر Django واحد متظبط كويس غالبًا يستحمل دا. قبل ما تفكر في Kubernetes و microservices، الحسبة دي ممكن توفر عليك شهور. <strong>السنيور بيعرف إمتى ما يعقّدش.</strong>
+            </div>
+            <div class="cards-grid" style="margin: 24px 0;">
+                <div class="card" data-animate>
+                    <span class="card-icon">⬆️</span>
+                    <div class="card-title">Vertical scaling</div>
+                    <div class="card-body">
+                        سيرفر أكبر. سهل، بس ليه سقف، وبيفضل <strong>نقطة فشل واحدة</strong>.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">↔️</span>
+                    <div class="card-title">Horizontal scaling</div>
+                    <div class="card-body">
+                        سيرفرات أكتر ورا load balancer. بيشترط إن السيرفرات تبقى <strong>stateless</strong>: الـ sessions في Redis أو JWT، والملفات في object storage زي S3، مش على ديسك السيرفر.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⚖️</span>
+                    <div class="card-title">Load balancer</div>
+                    <div class="card-body">
+                        Nginx أو load balancer من الـ cloud: بيوزع الطلبات، وبيعمل <strong>health checks</strong> يشيل بيها السيرفر الواقع من التوزيع.
+                    </div>
+                </div>
+            </div>
+            <div class="flow-vertical" style="margin: 24px 0;">
+                <div class="flow-box">Flutter app</div>
+                <div class="flow-arrow-down"></div>
+                <div class="flow-box">CDN (static files &amp; images)</div>
+                <div class="flow-arrow-down"></div>
+                <div class="flow-box">Load balancer</div>
+                <div class="flow-arrow-down"></div>
+                <div class="flow-box">Django × N (stateless)</div>
+                <div class="flow-arrow-down"></div>
+                <div class="flow-box">Redis (cache + task queue)</div>
+                <div class="flow-arrow-down"></div>
+                <div class="flow-box">PostgreSQL primary + read replica</div>
+                <div class="flow-arrow-down"></div>
+                <div class="flow-box">Celery workers (tasks from Redis &rarr; results to PostgreSQL)</div>
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ vertical أسهل بكتير بس ليه سقف ونقطة فشل واحدة. الـ horizontal مالوش سقف تقريبًا، مقابل إنك لازم تطلّع الحالة برّه السيرفر (sessions وملفات) وتدير load balancer.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه لازم سيرفرات Django تبقى stateless قبل ما تحط load balancer؟</summary>
+                    <div class="qa-answer">لأن الـ load balancer ممكن يبعت كل طلب لسيرفر مختلف. لو الـ session أو الملف المرفوع على ديسك سيرفر واحد، الطلب اللي بعده ممكن يروح لسيرفر تاني وما يلاقيهمش.</div>
+                </details>
+                <details class="qa">
+                    <summary>تطبيقك فيه ٥٠ ألف مستخدم يومي، وكل واحد بيعمل ٤٠ طلب. احسب المتوسط في الثانية، وقدّر الذروة.</summary>
+                    <div class="qa-answer">50,000 × 40 = 2,000,000 طلب في اليوم. ÷ 86,400 ≈ 23 طلب في الثانية في المتوسط، والذروة على ١٠ أضعاف حوالي 230. رقم زي دا بيتخدم من كام سيرفر Django ورا load balancer من غير أي تعقيد زيادة.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">2. الداتابيز: عنق الزجاجة</h3>
+            <p class="lesson-lead">لما الضغط يزيد، الداتابيز غالبًا أول حاجة تتعب، وحلولها ليها ترتيب: ما تنطش لخطوة قبل اللي قبلها.</p>
+            <div class="arch-grid" style="margin-bottom: 24px;">
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">01</div>
+                    <div class="arch-name">Indexes + Queries</div>
+                    <div class="arch-desc">تحسين الـ queries والـ indexes (درس تصميم قاعدة البيانات وأداء الـ ORM).</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">02</div>
+                    <div class="arch-name">Connection pooling</div>
+                    <div class="arch-desc"><strong>PgBouncer</strong>: كل worker بيفتح connection، و PostgreSQL بيتعب من كترها.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">03</div>
+                    <div class="arch-name">Caching</div>
+                    <div class="arch-desc">Redis و cache-aside زي درس الـ Jobs والـ Caching.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">04</div>
+                    <div class="arch-name">Read replicas</div>
+                    <div class="arch-desc">القراية لنسخة والكتابة للأساسية. خلي بالك من الـ <strong>replication lag</strong>.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">05</div>
+                    <div class="arch-name">Sharding</div>
+                    <div class="arch-desc">تقسيم البيانات على أكتر من داتابيز. آخر حل، ومعقد جدًا.</div>
+                </div>
+            </div>
+            <div class="code-block" data-file="routers.py">
+                <span class="lang-tag">python</span>
+<span class="kw">class</span> <span class="cls">PrimaryReplicaRouter</span>:
+    <span class="kw">def</span> <span class="fn">db_for_read</span>(self, model, **hints):
+        <span class="kw">return</span> <span class="str">'replica'</span>
+
+    <span class="kw">def</span> <span class="fn">db_for_write</span>(self, model, **hints):
+        <span class="kw">return</span> <span class="str">'default'</span>
+
+    <span class="kw">def</span> <span class="fn">allow_relation</span>(self, obj1, obj2, **hints):
+        <span class="kw">return</span> <span class="kw">True</span>  <span class="cm"># same data on both, so a FK between a replica read and a primary write is OK</span>
+
+<span class="cm"># DATABASE_ROUTERS = ['config.routers.PrimaryReplicaRouter']  in settings.py</span>
+<span class="cm"># قراية حاجة لسه مكتوبة حالًا؟ اطلبها صراحة من الأساسية</span>
+profile = <span class="cls">Profile</span>.objects.<span class="fn">using</span>(<span class="str">'default'</span>).<span class="fn">get</span>(user=request.user)
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ read replica بتشيل ضغط القراية عن الأساسية، مقابل إن البيانات فيها ممكن تتأخر شوية (replication lag). عشان كدا القراية بعد الكتابة مباشرة تروح للأساسية.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>مستخدم عدّل بروفايله والصفحة عرضت البيانات القديمة. إيه السبب المحتمل؟</summary>
+                    <div class="qa-answer">الـ replication lag: الكتابة راحت للداتابيز الأساسية، والقراية جت من replica لسه ما وصلهاش التعديل. الحل إن القراية بعد الكتابة مباشرة تروح للأساسية.</div>
+                </details>
+                <details class="qa">
+                    <summary>ليه PgBouncer بيفرق مع Django و Celery؟</summary>
+                    <div class="qa-answer">كل process ممكن تفتح connection خاص بيها، ومع سيرفرات و workers كتير العدد بيكبر جدًا. وكل connection في PostgreSQL ليها process وذاكرة، فالـ pooler بيخلي عدد قليل من الـ connections الحقيقية يخدم الكل.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">3. الطوابير والـ Rate limiting</h3>
+            <p class="lesson-lead">الطابور بيحمي النظام من الذروة، والـ rate limiting بيحميه من الاستغلال.</p>
+            <div class="cards-grid" style="margin: 24px 0;">
+                <div class="card" data-animate>
+                    <span class="card-icon">📨</span>
+                    <div class="card-title">Message queues</div>
+                    <div class="card-body">
+                        بتفصل اللي بيطلب الشغل عن اللي بينفذه، بتمتص الذروة (١٠٠٠ مهمة دخلوا مرة واحدة والـ workers بيخلصوهم على مهلهم)، وبتسمح بإعادة المحاولة. <strong>Celery + Redis</strong> كفاية لأغلب المشاريع، و <strong>Kafka</strong> لما يبقى عندك events كتير لازم كذا خدمة تسمعها.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🪣</span>
+                    <div class="card-title">Token bucket</div>
+                    <div class="card-body">
+                        كل مستخدم عنده دلو فيه عدد tokens، كل طلب بياخد token، والدلو بيتملى بمعدل ثابت. فبيسمح بـ <strong>burst صغير</strong>، لكن ما يسمحش بضغط مستمر.
+                    </div>
+                </div>
+            </div>
+            <div class="code-block" data-file="settings.py">
+                <span class="lang-tag">python</span>
+REST_FRAMEWORK = {
+    <span class="str">'DEFAULT_THROTTLE_CLASSES'</span>: [
+        <span class="str">'rest_framework.throttling.AnonRateThrottle'</span>,
+        <span class="str">'rest_framework.throttling.UserRateThrottle'</span>,
+    ],
+    <span class="str">'DEFAULT_THROTTLE_RATES'</span>: {<span class="str">'anon'</span>: <span class="str">'20/min'</span>, <span class="str">'user'</span>: <span class="str">'120/min'</span>},
+}
+
+<span class="cm"># الـ throttling بيعدّ جوه الـ cache، فلازم cache مشترك بين السيرفرات</span>
+CACHES = {
+    <span class="str">'default'</span>: {
+        <span class="str">'BACKEND'</span>: <span class="str">'django.core.cache.backends.redis.RedisCache'</span>,
+        <span class="str">'LOCATION'</span>: <span class="str">'redis://redis:6379/1'</span>,
+    }
+}
+            </div>
+            <div class="tip-box">
+                <strong>🚦 لما المستخدم يعدّي الحد:</strong>
+                رجّع <strong>429</strong> ومعاه <strong>Retry-After</strong>.
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ token bucket بيسمح بـ burst طبيعي (شاشة بتعمل كذا طلب مرة واحدة) ويمنع الضغط المستمر، أما العد في دقيقة ثابتة فأبسط بس بيسمح بضعف الحد لو الطلبات اتجمعت على آخر دقيقة وأول اللي بعدها.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>الـ throttling شغال تمام على سيرفر واحد، ولما بقوا ٣ الحد بقى ٣ أضعاف. ليه؟</summary>
+                    <div class="qa-answer">لأن DRF بيعدّ الطلبات في الـ cache، ولو كل سيرفر بـ cache محلي، كل واحد بيعدّ لوحده. الحل cache مشترك زي Redis.</div>
+                </details>
+                <details class="qa">
+                    <summary>إيه ميزة الـ token bucket عن إنك تعدّ الطلبات في كل دقيقة ثابتة؟</summary>
+                    <div class="qa-answer">بيسمح بـ burst صغير طبيعي وفي نفس الوقت بيمنع الضغط المستمر. أما العد في دقيقة ثابتة فبيسمح بضعف الحد لو الطلبات اتجمعت على حدود الدقيقتين.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">4. الـ CAP والـ Consistency</h3>
+            <p class="lesson-lead">في أي نظام موزّع لازم تقرر: الأهم إن البيانات تبقى دقيقة دايمًا، ولا إن النظام يرد دايمًا؟</p>
+            <div class="cards-grid" style="margin: 24px 0;">
+                <div class="card" data-animate>
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">Consistency</div>
+                    <div class="card-body">
+                        كل قراية بتشوف آخر كتابة، حتى لو اضطريت <strong>ترفض الطلب</strong>. زي رصيد البنك.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🟢</span>
+                    <div class="card-title">Availability</div>
+                    <div class="card-body">
+                        كل طلب ياخد رد، حتى لو البيانات مش آخر نسخة. زي عدد الـ likes.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">⏱️</span>
+                    <div class="card-title">Eventual consistency</div>
+                    <div class="card-body">
+                        النسخ هتتطابق، بس مش في نفس اللحظة. الـ read replica مثال، وتطبيق Flutter الـ offline اللي بيتزامن لما النت يرجع مثال تاني.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>🧠 القرار مش للنظام كله:</strong>
+                لو الشبكة اتقطعت بين أجزاء النظام (Partition) لازم تختار واحدة. وفي نفس التطبيق، الدفع ممكن يبقى consistent، والـ feed يبقى eventually consistent.
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                حتى من غير انقطاع، فيه trade-off دايم بين السرعة والدقة: الـ read replica أسرع، بس ممكن تكون متأخرة.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>عدد الـ likes على بوست ورصيد محفظة: أنهي واحد تختار فيه Consistency، وأنهي Availability؟</summary>
+                    <div class="qa-answer">الرصيد Consistency: الأحسن ترفض العملية من إنك تصرف فلوس مش موجودة. الـ likes Availability: لو العدد اتأخر ثواني محدش هيتضرر.</div>
+                </details>
+                <details class="qa">
+                    <summary>يعني إيه eventual consistency؟ اديني مثال من مشروع Flutter + Django.</summary>
+                    <div class="qa-answer">إن النسخ المختلفة من البيانات هتتطابق، بس بعد شوية. أمثلة: الـ read replica، أو تطبيق Flutter الـ offline اللي بيتزامن مع السيرفر لما النت يرجع.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">5. إزاي تجاوب على سؤال system design</h3>
+            <p class="lesson-lead">سؤال الـ system design مش امتحان حفظ؛ هو اختبار لطريقة تفكيرك في الـ trade-offs.</p>
+            <div class="arch-grid" style="margin-bottom: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));">
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">01</div>
+                    <div class="arch-name">المتطلبات</div>
+                    <div class="arch-desc">النظام هيعمل إيه، وكام مستخدم، وإيه الـ latency المقبولة.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">02</div>
+                    <div class="arch-name">الأرقام</div>
+                    <div class="arch-desc">احسب الحمل زي درس الأرقام.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">03</div>
+                    <div class="arch-name">الصناديق</div>
+                    <div class="arch-desc">التطبيق، والـ API، والداتابيز، والطابور.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">04</div>
+                    <div class="arch-name">البيانات</div>
+                    <div class="arch-desc">الجداول والعلاقات، ومين بيقرا ومين بيكتب.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">05</div>
+                    <div class="arch-name">عنق الزجاجة</div>
+                    <div class="arch-desc">أنهي جزء هيقع الأول لما الحمل يتضاعف؟</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">06</div>
+                    <div class="arch-name">الفشل</div>
+                    <div class="arch-desc">لو Redis وقع؟ لو الداتابيز وقعت؟ إيه اللي هيحصل للمستخدم؟</div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>🗣️ اتكلم بصوت عالي:</strong>
+                قول ليه اخترت كل حاجة، وإيه البديل، وإيه تمنه. اللي بيقيّمك بيدوّر على الـ trade-offs، مش على رسمة مثالية.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه تبدأ بالمتطلبات والأرقام قبل ما ترسم؟</summary>
+                    <div class="qa-answer">لأن نفس النظام بيتصمم مختلف تمامًا لـ ١٠٠ مستخدم ولـ ١٠ مليون. من غير أرقام، ممكن تصمم حاجة معقدة مش محتاجها، أو حاجة بسيطة مش هتستحمل.</div>
+                </details>
+                <details class="qa">
+                    <summary>صمّم بسرعة: نظام حضور وغياب لـ ٥٠ مدرسة، والمدرسين بياخدوا الحضور من Flutter. إيه أول ٣ أسئلة تسألها؟</summary>
+                    <div class="qa-answer">هل المدرس محتاج يشتغل offline في الفصل؟ كام مدرس بياخدوا الحضور في نفس الوقت أول الحصة؟ ومين بيشوف التقارير، ومحتاجها لحظية ولا عادي تتأخر شوية؟</div>
+                </details>
+            </div>
+        </section>
+
+        <div class="sep-deco">/* ———————————————————————— */</div>
+
+        <!-- ROADMAP TRACK 4 — DEVOPS & PRODUCTION -->
+        <section class="section" id="devops">
+            <div class="section-header">
+                <span class="section-tag">// 12 — Roadmap · DevOps &amp; Production</span>
+                <h2 class="section-title">DevOps & <span class="highlight">Production</span></h2>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 الهدف من الموضوع دا:</strong>
+                الكود اللي مش في production مالوش قيمة، والكود اللي في production من غير مراقبة انت أصلًا مش عارف إذا كان شغال.
+            </div>
+
+            <h3 class="subsection-title">1. Docker للـ production</h3>
+            <p class="lesson-lead">الـ image اللي بتروح production لازم تبقى صغيرة وآمنة، وبتتبني بنفس الطريقة كل مرة.</p>
+            <div class="cards-grid" style="margin: 24px 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));">
+                <div class="card" data-animate>
+                    <span class="card-icon">🏗️</span>
+                    <div class="card-title">Multi-stage build</div>
+                    <div class="card-body">
+                        مرحلة بتبني فيها المكتبات بأدوات الـ compile، ومرحلة نهائية خفيفة فيها اللي محتاجه بس.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">👤</span>
+                    <div class="card-title">Non-root</div>
+                    <div class="card-body">
+                        لو حد اخترق الـ container، ما ياخدش صلاحيات كاملة.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🙈</span>
+                    <div class="card-title"><bdi>.dockerignore</bdi></div>
+                    <div class="card-body">
+                        عشان <code>.git</code> و <code>.env</code> والـ media ما يدخلوش الـ image.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧬</span>
+                    <div class="card-title">Image واحدة وأوامر مختلفة</div>
+                    <div class="card-body">
+                        نفس الـ image تشغّل gunicorn للـ web، و celery worker، و celery beat. والإعدادات من <strong>environment variables</strong> مش مكتوبة في الكود.
+                    </div>
+                </div>
+            </div>
+            <div class="code-block" data-file="Dockerfile">
+                <span class="lang-tag">dockerfile</span>
+<span class="kw">FROM</span> python:3.12-slim <span class="kw">AS</span> builder
+<span class="kw">WORKDIR</span> /app
+<span class="kw">RUN</span> apt-get update &amp;&amp; apt-get install -y --no-install-recommends build-essential
+<span class="kw">COPY</span> requirements.txt .
+<span class="kw">RUN</span> pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
+
+<span class="kw">FROM</span> python:3.12-slim
+<span class="kw">WORKDIR</span> /app
+<span class="kw">RUN</span> useradd --create-home appuser
+<span class="kw">COPY</span> --from=builder /wheels /wheels
+<span class="kw">RUN</span> pip install --no-cache-dir /wheels/* &amp;&amp; rm -rf /wheels
+<span class="kw">COPY</span> . .
+<span class="kw">USER</span> appuser
+<span class="kw">CMD</span> [<span class="str">"gunicorn"</span>, <span class="str">"config.wsgi:application"</span>, <span class="str">"--bind"</span>, <span class="str">"0.0.0.0:8000"</span>]
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                build-essential موجود في مرحلة الـ builder بس، فالـ image النهائية أصغر وفيها أدوات أقل ممكن تتستغل، مقابل Dockerfile أطول شوية بمرحلتين.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه الـ multi-stage build بيخلي الـ image أصغر وأأمن؟</summary>
+                    <div class="qa-answer">لأن أدوات الـ compile زي build-essential بتفضل في مرحلة الـ builder وما بتدخلش الـ image النهائية. image أصغر يعني تنزيل و deploy أسرع، وأدوات أقل ممكن حد يستغلها لو اخترق الـ container.</div>
+                </details>
+                <details class="qa">
+                    <summary>ليه تشغّل الـ web والـ worker والـ beat من نفس الـ image؟</summary>
+                    <div class="qa-answer">عشان الكود والمكتبات يبقوا نفس النسخة بالظبط في التلاتة. بتبني مرة واحدة، وكل container بيختلف في الأمر اللي بيشغّله بس.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">2. الـ CI/CD</h3>
+            <p class="lesson-lead">الـ CI بيمنع الكود البايظ يدخل، والـ CD بيخلي الـ deploy حاجة مملة ومتكررة، ودا بالظبط المطلوب.</p>
+            <div class="arch-grid" style="margin-bottom: 24px;">
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">01</div>
+                    <div class="arch-name">CI مع كل PR</div>
+                    <div class="arch-desc">lint (ruff)، و tests، و build. الـ merge ممنوع لو فيه حاجة حمرا.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">02</div>
+                    <div class="arch-name">CD بعد الـ merge</div>
+                    <div class="arch-desc">build للـ image بـ tag هو الـ <strong>git SHA</strong>، و deploy على staging، و smoke tests، وبعدين production.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">03</div>
+                    <div class="arch-name">Rollback</div>
+                    <div class="arch-desc">كل image ليها tag، فالرجوع معناه deploy للـ tag اللي قبله.</div>
+                </div>
+            </div>
+            <div class="code-block" data-file=".github/workflows/ci.yml">
+                <span class="lang-tag">yaml</span>
+<span class="var">name</span>: CI
+<span class="var">on</span>: [pull_request]
+<span class="var">jobs</span>:
+  <span class="var">test</span>:
+    <span class="var">runs-on</span>: ubuntu-latest
+    <span class="var">services</span>:
+      <span class="var">postgres</span>:
+        <span class="var">image</span>: postgres:16
+        <span class="var">env</span>:
+          <span class="var">POSTGRES_PASSWORD</span>: postgres
+        <span class="var">ports</span>: [<span class="str">'5432:5432'</span>]
+        <span class="var">options</span>: &gt;-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
+    <span class="var">steps</span>:
+      - <span class="var">uses</span>: actions/checkout@v4
+      - <span class="var">uses</span>: actions/setup-python@v5
+        <span class="var">with</span>:
+          <span class="var">python-version</span>: <span class="str">'3.12'</span>
+      - <span class="var">run</span>: pip install -r requirements.txt
+      - <span class="var">run</span>: ruff check .
+      - <span class="var">run</span>: python manage.py test
+        <span class="var">env</span>:
+          <span class="var">DATABASE_URL</span>: postgres://postgres:postgres@localhost:5432/postgres
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                postgres service في الـ CI أبطأ وأتقل من SQLite، بس الـ tests بتشتغل على نفس الداتابيز اللي في production، فما تخبّيش bugs في الـ constraints والـ locking والـ JSON fields.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه الـ image بتاخد tag هو الـ git SHA مش latest؟</summary>
+                    <div class="qa-answer">عشان كل image تبقى مربوطة بـ commit معين. تعرف بالظبط إيه اللي شغال في production، والـ rollback يبقى deploy للـ SHA اللي قبله.</div>
+                </details>
+                <details class="qa">
+                    <summary>ليه الـ CI فيه postgres service بدل SQLite في الـ tests؟</summary>
+                    <div class="qa-answer">عشان الـ tests تشتغل على نفس الداتابيز اللي في production. فيه سلوك مختلف بينهم، زي الـ constraints والـ locking والـ JSON fields، و SQLite ممكن تخبّي bugs.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">3. Migrations من غير ما production يقع</h3>
+            <p class="lesson-lead">أثناء الـ deploy، النسخة القديمة والجديدة من الكود بيشتغلوا في نفس الوقت لدقايق. لو migration مسحت عمود، الكود القديم اللي لسه شغال هيقع.</p>
+            <h4 class="mini-title">نمط expand / contract</h4>
+            <div class="arch-grid" style="margin-bottom: 24px;">
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">01</div>
+                    <div class="arch-name">Expand</div>
+                    <div class="arch-desc">ضيف العمود الجديد <strong>nullable</strong>.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">02</div>
+                    <div class="arch-name">Dual write</div>
+                    <div class="arch-desc">deploy لكود بيكتب في القديم والجديد.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">03</div>
+                    <div class="arch-name">Backfill</div>
+                    <div class="arch-desc">انقل البيانات القديمة للعمود الجديد.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">04</div>
+                    <div class="arch-name">Read new</div>
+                    <div class="arch-desc">deploy لكود بيقرا من الجديد بس.</div>
+                </div>
+                <div class="arch-step" data-animate>
+                    <div class="arch-number">05</div>
+                    <div class="arch-name">Contract</div>
+                    <div class="arch-desc">في deploy بعدها، امسح العمود القديم.</div>
+                </div>
+            </div>
+            <div class="code-block" data-file="migrations/0008_order_status_idx.py">
+                <span class="lang-tag">python</span>
+<span class="kw">from</span> django.contrib.postgres.operations <span class="kw">import</span> <span class="cls">AddIndexConcurrently</span>
+<span class="kw">from</span> django.db <span class="kw">import</span> migrations, models
+
+
+<span class="kw">class</span> <span class="cls">Migration</span>(migrations.<span class="cls">Migration</span>):
+    atomic = <span class="kw">False</span>  <span class="cm"># لازم مع CONCURRENTLY</span>
+
+    dependencies = [(<span class="str">'orders'</span>, <span class="str">'0007_order_full_name'</span>)]
+
+    operations = [
+        <span class="cls">AddIndexConcurrently</span>(
+            model_name=<span class="str">'order'</span>,
+            index=models.<span class="cls">Index</span>(fields=[<span class="str">'status'</span>, <span class="str">'created_at'</span>], name=<span class="str">'order_status_created_idx'</span>),
+        ),
+    ]
+            </div>
+            <div class="tip-box">
+                <strong>🔒 خلي بالك من الـ locks:</strong>
+                إضافة index عادي على جدول كبير بتقفله وقت طويل. في PostgreSQL استخدم <code>AddIndexConcurrently</code>، والـ migration دي لازم يبقى فيها <code>atomic = False</code>.
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ expand/contract بياخد كذا deploy بدل migration واحدة، بس مفيش لحظة الكود القديم فيها بيدوّر على عمود مش موجود.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه migration بتمسح عمود ممكن توقع production حتى لو الكود الجديد مش بيستخدمه؟</summary>
+                    <div class="qa-answer">لأن أثناء الـ deploy الكود القديم لسه شغال على بعض السيرفرات وبيقرا العمود دا. أول ما الـ migration تمسحه، الطلبات اللي رايحة للكود القديم بتقع.</div>
+                </details>
+                <details class="qa">
+                    <summary>عايز تغيّر اسم عمود من name لـ full_name. اكتب الخطوات.</summary>
+                    <div class="qa-answer">ضيف full_name nullable، و deploy كود بيكتب في الاتنين، وانقل البيانات القديمة، و deploy كود بيقرا من full_name بس. وبعد ما تتأكد، امسح name في deploy لوحده.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">4. الـ Cloud: افهم المفاهيم، مش الشركة</h3>
+            <p class="lesson-lead">أسامي الخدمات بتختلف من شركة للتانية، لكن المفاهيم واحدة؛ لو فهمتها هتعرف تشتغل على أي cloud.</p>
+            <div class="cards-grid" style="margin: 24px 0;">
+                <div class="card" data-animate>
+                    <span class="card-icon">🖥️</span>
+                    <div class="card-title">Compute</div>
+                    <div class="card-body">
+                        VMs، أو containers مُدارة زي Cloud Run و ECS.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🗄️</span>
+                    <div class="card-title">Managed database</div>
+                    <div class="card-body">
+                        الـ backups والـ failover والتحديثات عليهم. أغلى، بس لفريق صغير تقريبًا دايمًا تستاهل.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🪣</span>
+                    <div class="card-title">Object storage + CDN</div>
+                    <div class="card-body">
+                        للصور والملفات.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🌐</span>
+                    <div class="card-title">Networking</div>
+                    <div class="card-body">
+                        الداتابيز في <strong>private network</strong>، مش مكشوفة على الإنترنت.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🔐</span>
+                    <div class="card-title">IAM</div>
+                    <div class="card-body">
+                        كل خدمة تاخد <strong>أقل صلاحية</strong> محتاجاها.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                Kubernetes قوي جدًا، بس تمنه في التعقيد كبير، وأغلب المشاريع الصغيرة والمتوسطة مش محتاجاه. ونفس الفكرة مع الـ managed database: بتدفع أكتر مقابل إنك ما تديرش الـ backups والـ failover بإيدك.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>فريق من ٣ مطورين: تشغّل PostgreSQL بنفسك على VM ولا managed database؟</summary>
+                    <div class="qa-answer">غالبًا managed. فرق الفلوس أقل بكتير من تمن الـ backups والتحديثات والـ failover لو عملتهم بإيدك، وغلطة واحدة فيهم ممكن تضيّع بيانات.</div>
+                </details>
+                <details class="qa">
+                    <summary>ليه الداتابيز تبقى في private network؟</summary>
+                    <div class="qa-answer">عشان محدش من الإنترنت يقدر يوصل لها مباشرة، حتى لو الباسورد اتسرب. السيرفرات اللي جوه نفس الشبكة بس هي اللي تكلمها.</div>
+                </details>
+            </div>
+
+            <h3 class="subsection-title">5. الـ Observability: تعرف المشكلة قبل العميل</h3>
+            <p class="lesson-lead">الهدف إنك تعرف المشكلة قبل العميل، وتلاقي سببها بسرعة.</p>
+            <div class="cards-grid" style="margin: 24px 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));">
+                <div class="card" data-animate>
+                    <span class="card-icon">📝</span>
+                    <div class="card-title">Logs — إيه اللي حصل</div>
+                    <div class="card-body">
+                        خليها <strong>structured (JSON)</strong>، وفيها <strong>request_id</strong> يمشي مع الطلب من الـ web لحد الـ Celery task، فتتبع طلب واحد وسط ملايين.
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">📈</span>
+                    <div class="card-title">Metrics — كام ومرة قد إيه</div>
+                    <div class="card-body">
+                        راقب ٤ حاجات: الـ latency، وعدد الطلبات، ونسبة الأخطاء، ومدى امتلاء الموارد (CPU والذاكرة والـ connections).
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🧵</span>
+                    <div class="card-title">Traces — الوقت راح فين</div>
+                    <div class="card-body">
+                        الطلب قضّى وقته فين بالظبط: في الداتابيز؟ ولا في API خارجي؟
+                    </div>
+                </div>
+                <div class="card" data-animate>
+                    <span class="card-icon">🐞</span>
+                    <div class="card-title">Error tracking</div>
+                    <div class="card-body">
+                        <strong>Sentry</strong> في Django و Flutter، مربوط برقم الـ release.
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>📊 اقرا p95 وp99 مش المتوسط:</strong>
+                متوسط 200ms ممكن يخبّي إن ٥٪ من المستخدمين بيستنوا ٣ ثواني.
+            </div>
+            <div class="tip-box tradeoff">
+                <strong>⚖️ الـ trade-off:</strong>
+                الـ alerts على كل حاجة بتطمّنك على الورق بس بتعلّم الفريق يتجاهلها. حطها على الأعراض اللي المستخدم بيحس بيها (الأخطاء زادت، الـ latency علي) بس.
+            </div>
+            <h4 class="mini-title">🧪 اختبر نفسك</h4>
+            <div class="qa-list">
+                <details class="qa">
+                    <summary>ليه p95 أهم من المتوسط؟</summary>
+                    <div class="qa-answer">المتوسط بيخبّي الطلبات البطيئة وسط الكتير السريع. الـ p95 بيقولك إن ٥٪ من الطلبات أبطأ من الرقم دا، ودول مستخدمين حقيقيين بيحسوا بالبطء.</div>
+                </details>
+                <details class="qa">
+                    <summary>إيه فايدة الـ request_id في الـ logs؟</summary>
+                    <div class="qa-answer">بيربط كل سطور الـ log الخاصة بطلب واحد، حتى لو اتوزعت على سيرفر الـ web والـ Celery worker. فتقدر تتبع مشكلة مستخدم معين من أولها لآخرها.</div>
+                </details>
+            </div>
+        </section>
+
         <!-- FOOTER -->
         <footer class="footer">
             <div style="margin-bottom:8px;">
@@ -2299,7 +3585,7 @@ gender = models.<span class="fn">CharField</span>(max_length=<span class="num">2
             </div>
             <div>Django & DRF — <span>ملخص دراستي الشامل</span></div>
             <div style="margin-top:8px; font-size:11px; opacity:0.5;">
-                Journey → Serializers → ViewSets → Models → Database → Auth → System Design → API Design
+                Journey → Serializers → ViewSets → Models → Database → Auth → System Design → API Design → Senior / Lead Roadmap
             </div>
             <div style="margin-top:16px; font-size:12px; color:var(--text-muted);">
                 Based on real Django, DRF, Celery, Redis, and Channels patterns
@@ -2328,7 +3614,7 @@ gender = models.<span class="fn">CharField</span>(max_length=<span class="num">2
                     rawHtml = rawHtml.replace(langEl.outerHTML, '');
                 }
 
-                rawHtml = rawHtml.replace(/^\n+/, '').replace(/\n+\s*$/, '');
+                rawHtml = rawHtml.replace(/^(?:[ \t]*\n)+/, '').replace(/\n+\s*$/, '');
                 const lines = rawHtml.split('\n');
                 const renderedLines = lines.map((line, index) => {
                     const content = line.length ? line : '&nbsp;';
@@ -2373,13 +3659,14 @@ gender = models.<span class="fn">CharField</span>(max_length=<span class="num">2
             observer.observe(el);
         });
 
-        document.querySelectorAll('.arch-step').forEach((el, i) => {
-            el.dataset.delay = i * 150;
+        document.querySelectorAll('.arch-step').forEach((el) => {
+            // stagger within each grid (a page-wide index made later grids wait several seconds before appearing)
+            el.dataset.delay = Array.prototype.indexOf.call(el.parentElement.children, el) * 150;
             observer.observe(el);
         });
 
         // Nav dots active state
-        const sections = ['hero', 'journey', 'http', 'serializers', 'viewsets', 'models', 'database', 'auth', 'system', 'api'];
+        const sections = ['hero', 'journey', 'http', 'serializers', 'viewsets', 'models', 'database', 'auth', 'system', 'api', 'roadmap', 'deep-django', 'scaling', 'devops'];
         const dots = document.querySelectorAll('.nav-dot');
 
         const sectionObserver = new IntersectionObserver((entries) => {
@@ -2390,7 +3677,7 @@ gender = models.<span class="fn">CharField</span>(max_length=<span class="num">2
                     if (idx >= 0) dots[idx].classList.add('active');
                 }
             });
-        }, { threshold: 0.4 });
+        }, { threshold: 0, rootMargin: '-45% 0px -54% 0px' }); // a thin band in the middle of the viewport, so long sections (taller than the screen) still activate their dot
 
         sections.forEach(id => {
             const el = document.getElementById(id);
