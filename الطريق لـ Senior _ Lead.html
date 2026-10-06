@@ -1,0 +1,1481 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الطريق لـ Senior / Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap">
+<style>
+:root {
+  --font-body: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, system-ui, sans-serif;
+  --font-display: 'Readex Pro', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --paper: #F1F4F7;
+  --surface: #FFFFFF;
+  --ink: #15202B;
+  --muted: #536070;
+  --rule: #D2D9E1;
+  --track-neutral: #B7C1CC;
+  --code-bg: #FFFFFF;
+  --code-border: #D2D9E1;
+  --inline-code-bg: #E3E9EF;
+  --dia-edge: #8A96A5;
+  --dia-grid: #BCC6D1;
+  --on-c: #FFFFFF;
+
+  --c-home: #15202B;
+  --c-backend: #0B7A4B;
+  --c-flutter: #0A6BC0;
+  --c-system: #6B3FD0;
+  --c-devops: #A66300;
+  --c-quality: #B3306F;
+  --c-lead: #BD3326;
+
+  --tk-kw: #6B3FD0;
+  --tk-str: #0B7A4B;
+  --tk-com: #6A7686;
+  --tk-num: #A66300;
+  --tk-fn: #0A6BC0;
+  --tk-cls: #B3306F;
+  --tk-dec: #BD3326;
+  --tk-attr: #0F7285;
+
+  --sticky: 0px;
+  color-scheme: light;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { 
+  --paper: #0E141B; --surface: #151D26; --ink: #E3E8EE; --muted: #97A3B1; --rule: #253140;
+  --track-neutral: #3A4757; --code-bg: #111922; --code-border: #253140; --inline-code-bg: #1F2A36;
+  --dia-edge: #6D7A8B; --dia-grid: #354354; --on-c: #0E141B;
+  --c-home: #E3E8EE; --c-backend: #3CC98B; --c-flutter: #5CB2FF; --c-system: #A98BFF;
+  --c-devops: #F0B64A; --c-quality: #F486BD; --c-lead: #FF7B6F;
+  --tk-kw: #B39CFF; --tk-str: #7CD6A6; --tk-com: #7F8B9A; --tk-num: #F0B64A;
+  --tk-fn: #7DC3FF; --tk-cls: #F486BD; --tk-dec: #FF8E84; --tk-attr: #6BD3E3;
+  color-scheme: dark;
+ }
+}
+:root[data-theme="dark"] { 
+  --paper: #0E141B; --surface: #151D26; --ink: #E3E8EE; --muted: #97A3B1; --rule: #253140;
+  --track-neutral: #3A4757; --code-bg: #111922; --code-border: #253140; --inline-code-bg: #1F2A36;
+  --dia-edge: #6D7A8B; --dia-grid: #354354; --on-c: #0E141B;
+  --c-home: #E3E8EE; --c-backend: #3CC98B; --c-flutter: #5CB2FF; --c-system: #A98BFF;
+  --c-devops: #F0B64A; --c-quality: #F486BD; --c-lead: #FF7B6F;
+  --tk-kw: #B39CFF; --tk-str: #7CD6A6; --tk-com: #7F8B9A; --tk-num: #F0B64A;
+  --tk-fn: #7DC3FF; --tk-cls: #F486BD; --tk-dec: #FF8E84; --tk-attr: #6BD3E3;
+  color-scheme: dark;
+ }
+
+*, *::before, *::after { box-sizing: inherit; }
+[hidden] { display: none !important; }
+
+html { scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--paper); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.85;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap { width: 100%; max-width: 72rem; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+
+:focus-visible { outline: 2px solid var(--c, var(--ink)); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- masthead ---------- */
+.masthead { padding-block: clamp(28px, 5vw, 56px) 22px; }
+.masthead h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+  line-height: 1.15;
+}
+.nowrap { white-space: nowrap; }
+.dek { margin: 10px 0 0; max-width: 38rem; color: var(--muted); font-size: 1.06rem; line-height: 1.7; }
+.progress { margin-top: 24px; max-width: 38rem; }
+.ticks { display: flex; gap: 10px; }
+.tick-group { display: flex; gap: 3px; flex: var(--n) 1 0; min-width: 0; }
+.tick {
+  flex: 1 1 0;
+  height: 10px;
+  border-radius: 3px;
+  border: 1.5px solid var(--c);
+  background: transparent;
+  transition: background-color .3s ease;
+}
+.tick.is-done { background: var(--c); }
+.progress-label { margin: 8px 0 0; color: var(--muted); font-size: .95rem; }
+.progress-label b { color: var(--ink); font-weight: 600; }
+
+/* ---------- route (tabs drawn as a transit line) ---------- */
+.topic-nav { background: var(--paper); border-block: 1px solid var(--rule); }
+@media (min-width: 760px) {
+  :root { --sticky: 104px; }
+  .topic-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; }
+}
+.route-scroll { overflow-x: auto; scrollbar-width: thin; }
+.route { display: flex; width: max-content; min-width: 100%; padding: 14px 0 12px; }
+.route--topics { --track: var(--track-neutral); }
+.route--lessons { --track: var(--c); padding-top: 22px; }
+
+.stop {
+  position: relative;
+  flex: 1 0 auto;
+  min-width: 7.25rem;
+  max-width: 11rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0 10px 4px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: .95rem;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+}
+.stop + .stop::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  inset-inline-end: 50%;
+  width: 100%;
+  height: 4px;
+  background: var(--track);
+}
+.dot {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 4px solid var(--c);
+  background: var(--paper);
+  transition: background-color .3s ease, transform .2s ease;
+}
+.route--topics .dot { background: conic-gradient(var(--c) calc(var(--p, 0) * 360deg), var(--paper) 0); }
+.stop.is-done .dot { background: var(--c); }
+.stop[aria-selected="true"] { color: var(--ink); font-weight: 600; }
+.stop[aria-selected="true"] .dot { transform: scale(1.28); box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--c); }
+.stop:hover .stop-label { color: var(--ink); }
+.stop-meta { color: var(--muted); font-size: .8rem; font-weight: 400; }
+
+/* ---------- panels ---------- */
+main { padding-bottom: 80px; }
+.panel { padding-top: 30px; }
+.topic-head { max-width: 44rem; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + var(--sticky) + 12px); }
+.topic-head h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.3;
+}
+.topic-head h2::before { content: ""; flex: none; width: 30px; height: 8px; border-radius: 4px; background: var(--c); }
+.topic-head p { margin: 6px 0 0; color: var(--muted); }
+
+.lesson-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; margin-top: 16px; }
+@media (min-width: 1120px) {
+  .lesson-layout { grid-template-columns: minmax(0, 44rem) 13rem; justify-content: space-between; }
+}
+.lesson { max-width: 44rem; }
+.lesson h3 {
+  margin: 14px 0 16px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.4vw, 2.35rem);
+  line-height: 1.3;
+}
+.lesson-body > p:first-child { font-size: 1.2rem; line-height: 1.8; }
+.lesson-body h4 {
+  margin: 2.2em 0 .5em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  scroll-margin-top: calc(env(safe-area-inset-top, 0px) + var(--sticky) + 16px);
+}
+.lesson-body p { margin: 0 0 1em; }
+.lesson-body ul, .lesson-body ol { margin: 0 0 1.2em; padding-inline-start: 1.5em; }
+.lesson-body ol { list-style-type: arabic-indic; }
+.lesson-body li { margin: .35em 0; }
+.lesson-body li::marker { color: var(--c); font-weight: 600; }
+.lesson-body strong, .quiz strong { font-weight: 600; }
+.lesson-body a, .quiz a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--c);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+.lesson-body a:hover, .quiz a:hover { color: var(--c); }
+
+code { font-family: var(--font-mono); font-size: .86em; direction: ltr; unicode-bidi: isolate; }
+:not(pre) > code { background: var(--inline-code-bg); padding: .08em .38em; border-radius: 5px; overflow-wrap: anywhere; }
+
+/* ---------- code blocks ---------- */
+.code { margin: 1.4em 0; border: 1px solid var(--code-border); border-radius: 10px; background: var(--code-bg); overflow: hidden; }
+.code-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 6px;
+  padding-inline: 14px 8px;
+  border-bottom: 1px solid var(--code-border);
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.5;
+}
+.code-lang { font-weight: 500; unicode-bidi: plaintext; }
+.copy {
+  font: inherit;
+  font-size: .8rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--code-border);
+  border-radius: 6px;
+  padding: 2px 12px;
+  cursor: pointer;
+}
+.copy:hover { border-color: var(--c); }
+.code pre {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  direction: ltr;
+  text-align: left;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: .86rem;
+  line-height: 1.7;
+  tab-size: 4;
+}
+.code pre[dir="rtl"] { direction: rtl; text-align: right; font-family: var(--font-body); font-size: .94rem; line-height: 1.8; }
+.code pre code { font-size: inherit; direction: inherit; unicode-bidi: normal; background: none; padding: 0; }
+
+.code .k, .code .kc, .code .kd, .code .kn, .code .kp, .code .kr, .code .kt, .code .ow { color: var(--tk-kw); }
+.code .s, .code .sa, .code .sb, .code .sc, .code .dl, .code .sd, .code .s2, .code .se,
+.code .sh, .code .si, .code .sx, .code .sr, .code .s1, .code .ss { color: var(--tk-str); }
+.code .c, .code .ch, .code .cm, .code .cp, .code .cpf, .code .c1, .code .cs { color: var(--tk-com); }
+.code .m, .code .mb, .code .mf, .code .mh, .code .mi, .code .il, .code .mo { color: var(--tk-num); }
+.code .nf, .code .fm { color: var(--tk-fn); }
+.code .nc, .code .nn { color: var(--tk-cls); }
+.code .nd { color: var(--tk-dec); }
+.code .nb, .code .bp, .code .na, .code .nt, .code .no { color: var(--tk-attr); }
+.code .gh, .code .gu { color: var(--tk-kw); font-weight: 600; }
+.code .gs { font-weight: 600; }
+.code .ar { font-family: var(--font-body); font-size: 1.04em; }
+.code .err { color: inherit; background: none; border: 0; }
+
+/* ---------- tables, figures, formula ---------- */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.table-wrap table { width: 100%; border-collapse: collapse; font-size: .95rem; line-height: 1.65; }
+.table-wrap th, .table-wrap td { padding: 10px 12px; text-align: start; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.table-wrap thead th { font-weight: 600; white-space: nowrap; border-bottom: 2px solid var(--c); }
+.table-wrap tbody tr:last-child td { border-bottom: 0; }
+
+.figure { margin: 1.8em 0; }
+.figure-scroll { overflow-x: auto; }
+.dia { display: block; width: 100%; min-width: 620px; height: auto; font-family: var(--font-body); direction: ltr; }
+.dia text { fill: var(--ink); }
+.dia .dia-name { font-size: 13px; font-weight: 600; fill: var(--ink); }
+.dia .dia-line { font-size: 11.5px; fill: var(--muted); }
+.dia .dia-line.ink { fill: var(--ink); }
+.dia .dia-q { font-size: 11.5px; fill: var(--muted); }
+.dia .dia-edge { fill: none; stroke: var(--dia-edge); stroke-width: 1.25; }
+.dia .dia-head { fill: var(--dia-edge); }
+.dia .dia-box { fill: none; stroke: var(--dia-edge); stroke-width: 1.25; }
+.dia .dia-box.is-main { fill: var(--c); fill-opacity: .12; stroke: var(--c); stroke-width: 2; }
+.dia .dia-frame { fill: none; stroke: var(--dia-grid); stroke-width: 1.25; stroke-dasharray: 4 4; }
+.figure figcaption { margin-top: 10px; color: var(--muted); font-size: .95rem; line-height: 1.75; }
+.figure figcaption strong { color: var(--ink); font-weight: 600; }
+
+.formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 1.2em 0 1.4em;
+  padding: 18px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+.frac { display: inline-flex; flex-direction: column; align-items: center; }
+.f-num { padding: 0 10px 5px; border-bottom: 2px solid var(--ink); }
+.f-den { padding-top: 5px; }
+
+/* ---------- self-test ---------- */
+.quiz { margin-top: 3em; padding-top: 1.6em; border-top: 1px solid var(--rule); }
+.quiz-title { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; line-height: 1.45; }
+.quiz-hint { margin: 4px 0 14px; color: var(--muted); font-size: .98rem; }
+.quiz details { margin: 10px 0; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+.quiz details[open] { border-color: var(--c); }
+.quiz summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  list-style: none;
+  font-weight: 500;
+  line-height: 1.75;
+  cursor: pointer;
+}
+.quiz summary::-webkit-details-marker { display: none; }
+.quiz summary::after {
+  content: "الإجابة";
+  flex: none;
+  margin-inline-start: auto;
+  margin-top: 2px;
+  padding: 1px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+.quiz details[open] summary::after { content: "إخفاء"; border-color: var(--c); color: var(--ink); }
+.quiz .answer { padding: 0 16px 16px; line-height: 1.85; }
+
+/* ---------- lesson footer ---------- */
+.lesson-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-top: 2.6em;
+  padding-top: 1.4em;
+  border-top: 1px solid var(--rule);
+}
+.done-toggle { display: inline-flex; align-items: center; gap: 10px; font-weight: 500; cursor: pointer; user-select: none; }
+.done-toggle input { width: 22px; height: 22px; margin: 0; accent-color: var(--c); cursor: pointer; }
+.pager { display: flex; flex-wrap: wrap; gap: 10px; }
+.pager button, .resume-btn {
+  display: grid;
+  justify-items: start;
+  padding: 8px 18px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  line-height: 1.45;
+  text-align: start;
+  cursor: pointer;
+}
+.pager-k { color: var(--muted); font-size: .8rem; }
+.pager-t { font-weight: 600; font-size: .98rem; }
+.pager .next, .resume-btn { background: var(--c); border-color: var(--c); color: var(--on-c); }
+.pager .next .pager-k, .resume-btn .pager-k { color: inherit; opacity: .85; }
+
+/* ---------- table of contents ---------- */
+.toc { display: none; }
+@media (min-width: 1120px) {
+  .toc {
+    display: block;
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + var(--sticky) + 24px);
+    align-self: start;
+    margin-top: 24px;
+    font-size: .92rem;
+  }
+}
+.toc-title { margin: 0 0 8px; color: var(--muted); font-weight: 500; }
+.toc ol { list-style: none; margin: 0; padding: 0; border-inline-start: 2px solid var(--rule); }
+.toc button {
+  display: block;
+  width: 100%;
+  margin-inline-start: -2px;
+  padding: 6px 14px;
+  border: 0;
+  border-inline-start: 2px solid transparent;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  line-height: 1.5;
+  text-align: start;
+  cursor: pointer;
+}
+.toc button:hover { color: var(--ink); border-inline-start-color: var(--c); }
+
+/* ---------- home ---------- */
+.home-intro { max-width: 40rem; }
+.home-intro p { margin: 0 0 1em; }
+.home-intro p:first-child { font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; line-height: 1.7; }
+.resume { margin: 6px 0 8px; }
+.map-title { margin: 40px 0 18px; font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; line-height: 1.3; }
+.map { display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr)); gap: 36px 48px; }
+.map-line h3 { margin: 0 0 12px; }
+.map-line h3 button {
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.map-name { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; line-height: 1.4; }
+.map-name::before { content: ""; flex: none; width: 24px; height: 8px; border-radius: 4px; background: var(--c); }
+.map-count { color: var(--muted); font-size: .85rem; font-weight: 400; }
+.map-line ol { position: relative; list-style: none; margin: 0; padding: 0; }
+.map-line ol::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 9px;
+  top: 16px;
+  bottom: 16px;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--c);
+}
+.map-stop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 5px 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: .98rem;
+  line-height: 1.5;
+  text-align: start;
+  cursor: pointer;
+}
+.map-stop.is-done .dot { background: var(--c); }
+.map-stop.is-done .map-label { color: var(--muted); }
+.map-stop:hover .map-label {
+  text-decoration: underline;
+  text-decoration-color: var(--c);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .lesson-body > p:first-child { font-size: 1.12rem; }
+  .stop { min-width: 6.5rem; font-size: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+}
+
+</style>
+</head>
+<body>
+<header class="masthead wrap">
+<h1>الطريق لـ <span class="nowrap">Senior / Lead</span></h1>
+<p class="dek">٣٠ درس في ٦ مواضيع لمطوّر Flutter و Django، من تصميم الداتابيز لحد قيادة الفريق.</p>
+<div class="progress">
+<div class="ticks" aria-hidden="true"><span class="tick-group" style="--c: var(--c-backend); --n: 6"><span class="tick" data-k="backend/db-design"></span><span class="tick" data-k="backend/orm"></span><span class="tick" data-k="backend/transactions"></span><span class="tick" data-k="backend/jobs-cache"></span><span class="tick" data-k="backend/api"></span><span class="tick" data-k="backend/security"></span></span><span class="tick-group" style="--c: var(--c-flutter); --n: 4"><span class="tick" data-k="flutter/architecture"></span><span class="tick" data-k="flutter/offline"></span><span class="tick" data-k="flutter/performance"></span><span class="tick" data-k="flutter/release"></span></span><span class="tick-group" style="--c: var(--c-system); --n: 5"><span class="tick" data-k="system/scaling"></span><span class="tick" data-k="system/database"></span><span class="tick" data-k="system/queues-limits"></span><span class="tick" data-k="system/cap"></span><span class="tick" data-k="system/interview"></span></span><span class="tick-group" style="--c: var(--c-devops); --n: 5"><span class="tick" data-k="devops/docker"></span><span class="tick" data-k="devops/cicd"></span><span class="tick" data-k="devops/migrations"></span><span class="tick" data-k="devops/cloud"></span><span class="tick" data-k="devops/observability"></span></span><span class="tick-group" style="--c: var(--c-quality); --n: 5"><span class="tick" data-k="quality/testing"></span><span class="tick" data-k="quality/solid"></span><span class="tick" data-k="quality/patterns"></span><span class="tick" data-k="quality/refactoring"></span><span class="tick" data-k="quality/review"></span></span><span class="tick-group" style="--c: var(--c-lead); --n: 5"><span class="tick" data-k="lead/planning"></span><span class="tick" data-k="lead/adr"></span><span class="tick" data-k="lead/incidents"></span><span class="tick" data-k="lead/communication"></span><span class="tick" data-k="lead/mentoring"></span></span></div>
+<p class="progress-label" aria-live="polite">خلّصت <b id="done-count">٠</b> من ٣٠ درس</p>
+</div>
+</header>
+<nav class="topic-nav" aria-label="التنقل بين المواضيع">
+<div class="wrap route-scroll"><div class="route route--topics" id="topic-route" role="tablist" aria-label="المواضيع"><button type="button" role="tab" class="stop" id="tab-home" data-topic="home" aria-controls="panel-home" aria-selected="true" tabindex="0" style="--c: var(--c-home)"><span class="dot" aria-hidden="true"></span><span class="stop-label">البداية</span><span class="stop-meta">خريطة الطريق</span></button><button type="button" role="tab" class="stop" id="tab-backend" data-topic="backend" aria-controls="panel-backend" aria-selected="false" tabindex="-1" style="--c: var(--c-backend)"><span class="dot" aria-hidden="true"></span><span class="stop-label">Django</span><span class="stop-meta" data-count="backend">٠ من ٦</span></button><button type="button" role="tab" class="stop" id="tab-flutter" data-topic="flutter" aria-controls="panel-flutter" aria-selected="false" tabindex="-1" style="--c: var(--c-flutter)"><span class="dot" aria-hidden="true"></span><span class="stop-label">Flutter</span><span class="stop-meta" data-count="flutter">٠ من ٤</span></button><button type="button" role="tab" class="stop" id="tab-system" data-topic="system" aria-controls="panel-system" aria-selected="false" tabindex="-1" style="--c: var(--c-system)"><span class="dot" aria-hidden="true"></span><span class="stop-label">System design</span><span class="stop-meta" data-count="system">٠ من ٥</span></button><button type="button" role="tab" class="stop" id="tab-devops" data-topic="devops" aria-controls="panel-devops" aria-selected="false" tabindex="-1" style="--c: var(--c-devops)"><span class="dot" aria-hidden="true"></span><span class="stop-label">DevOps</span><span class="stop-meta" data-count="devops">٠ من ٥</span></button><button type="button" role="tab" class="stop" id="tab-quality" data-topic="quality" aria-controls="panel-quality" aria-selected="false" tabindex="-1" style="--c: var(--c-quality)"><span class="dot" aria-hidden="true"></span><span class="stop-label">جودة الكود</span><span class="stop-meta" data-count="quality">٠ من ٥</span></button><button type="button" role="tab" class="stop" id="tab-lead" data-topic="lead" aria-controls="panel-lead" aria-selected="false" tabindex="-1" style="--c: var(--c-lead)"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Lead</span><span class="stop-meta" data-count="lead">٠ من ٥</span></button></div></div>
+</nav>
+<main class="wrap">
+<section class="panel" id="panel-home" data-topic="home" role="tabpanel" aria-labelledby="tab-home" style="--c: var(--c-home)"><div class="home-intro"><p>السنيور مش اللي حافظ أكتر؛ هو اللي فاهم الحاجة شغالة إزاي، وإمتى يستخدمها، وإيه تمن كل اختيار.</p><p>كل موضوع هنا خط، وكل درس محطة عليه. في كل درس: الفكرة، ومثال من Django أو Flutter، والـ trade-off، وفي آخره أسئلة «اختبر نفسك». جاوب في دماغك الأول، وبعدين افتح الإجابة.</p><p>وأحسن طريقة تثبّت بيها الكلام إنك تطبّق كل درس على مشروع واحد حقيقي (Flutter + Django) بيكبر معاك. علّم على الدرس لما تخلصه؛ التقدّم بيتحفظ على المتصفح دا بس.</p></div><div class="resume" id="resume" hidden><button type="button" class="resume-btn" data-go=""><span class="pager-k">كمّل من حيث وقفت</span><span class="pager-t resume-title"></span></button></div><h2 class="map-title">خريطة الطريق</h2><div class="map"><section class="map-line" style="--c: var(--c-backend)"><h3><button type="button" data-go="backend"><span class="map-name">Backend (Django) بعمق</span><span class="map-count" data-count="backend">٠ من ٦</span></button></h3><ol><li><button type="button" class="map-stop" data-go="backend/db-design" data-k="backend/db-design"><span class="dot" aria-hidden="true"></span><span class="map-label">تصميم قاعدة البيانات</span></button></li><li><button type="button" class="map-stop" data-go="backend/orm" data-k="backend/orm"><span class="dot" aria-hidden="true"></span><span class="map-label">أداء الـ ORM</span></button></li><li><button type="button" class="map-stop" data-go="backend/transactions" data-k="backend/transactions"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Transactions والـ Concurrency</span></button></li><li><button type="button" class="map-stop" data-go="backend/jobs-cache" data-k="backend/jobs-cache"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Background jobs والـ Caching</span></button></li><li><button type="button" class="map-stop" data-go="backend/api" data-k="backend/api"><span class="dot" aria-hidden="true"></span><span class="map-label">تصميم الـ API</span></button></li><li><button type="button" class="map-stop" data-go="backend/security" data-k="backend/security"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Security</span></button></li></ol></section><section class="map-line" style="--c: var(--c-flutter)"><h3><button type="button" data-go="flutter"><span class="map-name">Flutter بعمق</span><span class="map-count" data-count="flutter">٠ من ٤</span></button></h3><ol><li><button type="button" class="map-stop" data-go="flutter/architecture" data-k="flutter/architecture"><span class="dot" aria-hidden="true"></span><span class="map-label">معمارية تطبيق Flutter</span></button></li><li><button type="button" class="map-stop" data-go="flutter/offline" data-k="flutter/offline"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Offline-first والـ Sync</span></button></li><li><button type="button" class="map-stop" data-go="flutter/performance" data-k="flutter/performance"><span class="dot" aria-hidden="true"></span><span class="map-label">أداء Flutter</span></button></li><li><button type="button" class="map-stop" data-go="flutter/release" data-k="flutter/release"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Release والنشر</span></button></li></ol></section><section class="map-line" style="--c: var(--c-system)"><h3><button type="button" data-go="system"><span class="map-name">System Design</span><span class="map-count" data-count="system">٠ من ٥</span></button></h3><ol><li><button type="button" class="map-stop" data-go="system/scaling" data-k="system/scaling"><span class="dot" aria-hidden="true"></span><span class="map-label">ابدأ بالأرقام، وبعدين الـ Scaling</span></button></li><li><button type="button" class="map-stop" data-go="system/database" data-k="system/database"><span class="dot" aria-hidden="true"></span><span class="map-label">الداتابيز: عنق الزجاجة</span></button></li><li><button type="button" class="map-stop" data-go="system/queues-limits" data-k="system/queues-limits"><span class="dot" aria-hidden="true"></span><span class="map-label">الطوابير والـ Rate limiting</span></button></li><li><button type="button" class="map-stop" data-go="system/cap" data-k="system/cap"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ CAP والـ Consistency</span></button></li><li><button type="button" class="map-stop" data-go="system/interview" data-k="system/interview"><span class="dot" aria-hidden="true"></span><span class="map-label">إزاي تجاوب على سؤال system design</span></button></li></ol></section><section class="map-line" style="--c: var(--c-devops)"><h3><button type="button" data-go="devops"><span class="map-name">DevOps و Production</span><span class="map-count" data-count="devops">٠ من ٥</span></button></h3><ol><li><button type="button" class="map-stop" data-go="devops/docker" data-k="devops/docker"><span class="dot" aria-hidden="true"></span><span class="map-label">Docker للـ production</span></button></li><li><button type="button" class="map-stop" data-go="devops/cicd" data-k="devops/cicd"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ CI/CD</span></button></li><li><button type="button" class="map-stop" data-go="devops/migrations" data-k="devops/migrations"><span class="dot" aria-hidden="true"></span><span class="map-label">Migrations من غير ما production يقع</span></button></li><li><button type="button" class="map-stop" data-go="devops/cloud" data-k="devops/cloud"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Cloud: افهم المفاهيم، مش الشركة</span></button></li><li><button type="button" class="map-stop" data-go="devops/observability" data-k="devops/observability"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Observability: تعرف المشكلة قبل العميل</span></button></li></ol></section><section class="map-line" style="--c: var(--c-quality)"><h3><button type="button" data-go="quality"><span class="map-name">جودة الكود</span><span class="map-count" data-count="quality">٠ من ٥</span></button></h3><ol><li><button type="button" class="map-stop" data-go="quality/testing" data-k="quality/testing"><span class="dot" aria-hidden="true"></span><span class="map-label">استراتيجية الـ Testing</span></button></li><li><button type="button" class="map-stop" data-go="quality/solid" data-k="quality/solid"><span class="dot" aria-hidden="true"></span><span class="map-label">SOLID بالبلدي</span></button></li><li><button type="button" class="map-stop" data-go="quality/patterns" data-k="quality/patterns"><span class="dot" aria-hidden="true"></span><span class="map-label">Patterns ليها لازمة في شغلك</span></button></li><li><button type="button" class="map-stop" data-go="quality/refactoring" data-k="quality/refactoring"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Refactoring</span></button></li><li><button type="button" class="map-stop" data-go="quality/review" data-k="quality/review"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Code review ومراجعة كود الـ AI</span></button></li></ol></section><section class="map-line" style="--c: var(--c-lead)"><h3><button type="button" data-go="lead"><span class="map-name">مهارات الـ Lead</span><span class="map-count" data-count="lead">٠ من ٥</span></button></h3><ol><li><button type="button" class="map-stop" data-go="lead/planning" data-k="lead/planning"><span class="dot" aria-hidden="true"></span><span class="map-label">تقسيم الشغل والتقدير</span></button></li><li><button type="button" class="map-stop" data-go="lead/adr" data-k="lead/adr"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ ADRs: اكتب ليه اخترت</span></button></li><li><button type="button" class="map-stop" data-go="lead/incidents" data-k="lead/incidents"><span class="dot" aria-hidden="true"></span><span class="map-label">الـ Incidents: لما production يقع</span></button></li><li><button type="button" class="map-stop" data-go="lead/communication" data-k="lead/communication"><span class="dot" aria-hidden="true"></span><span class="map-label">الكلام مع ناس مش تقنيين</span></button></li><li><button type="button" class="map-stop" data-go="lead/mentoring" data-k="lead/mentoring"><span class="dot" aria-hidden="true"></span><span class="map-label">تعليم الـ juniors</span></button></li></ol></section></div></section>
+<section class="panel" id="panel-backend" data-topic="backend" role="tabpanel" aria-labelledby="tab-backend" hidden style="--c: var(--c-backend)"><div class="topic-head"><h2>Backend (Django) بعمق</h2><p>الداتابيز والـ ORM والـ concurrency والشغل في الخلفية والـ API والأمان: الحاجات اللي بتفرّق backend بيستحمل عن backend بيقع.</p></div><div class="route-scroll"><div class="route route--lessons" role="tablist" aria-label="دروس Backend (Django) بعمق"><button type="button" role="tab" class="stop" id="tab-backend-db-design" data-k="backend/db-design" aria-controls="lesson-backend-db-design" aria-selected="true" tabindex="0"><span class="dot" aria-hidden="true"></span><span class="stop-label">قاعدة البيانات</span></button><button type="button" role="tab" class="stop" id="tab-backend-orm" data-k="backend/orm" aria-controls="lesson-backend-orm" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">أداء الـ ORM</span></button><button type="button" role="tab" class="stop" id="tab-backend-transactions" data-k="backend/transactions" aria-controls="lesson-backend-transactions" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">Transactions</span></button><button type="button" role="tab" class="stop" id="tab-backend-jobs-cache" data-k="backend/jobs-cache" aria-controls="lesson-backend-jobs-cache" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">Jobs و Caching</span></button><button type="button" role="tab" class="stop" id="tab-backend-api" data-k="backend/api" aria-controls="lesson-backend-api" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">تصميم الـ API</span></button><button type="button" role="tab" class="stop" id="tab-backend-security" data-k="backend/security" aria-controls="lesson-backend-security" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Security</span></button></div></div><div class="lesson-layout"><div class="lesson-stack"><article class="lesson" id="lesson-backend-db-design" data-k="backend/db-design" role="tabpanel" aria-labelledby="tab-backend-db-design" tabindex="-1"><h3>تصميم قاعدة البيانات</h3><div class="lesson-body"><p>قاعدة البيانات أصعب حاجة تتغير بعد ما المشروع يكبر، فتصميمها صح من الأول أهم من أي كود فوقها.</p>
+<h4 id="backend-db-design-s1">الـ Normalization: كل معلومة في مكان واحد</h4>
+<p>لو خزّنت اسم العميل جوه جدول الطلبات، وغيّر اسمه، هتضطر تعدّل آلاف الصفوف. ولو نسيت صف، هيبقى عندك اسمين لنفس الشخص. الـ normalization معناها إن كل معلومة تتخزن مرة واحدة، والباقي يشاور عليها بـ foreign key.</p>
+<p>الـ <strong>denormalization</strong> هي العكس عن قصد: تكرر معلومة عشان القراية تبقى أسرع، زي عمود <code>comments_count</code> على البوست بدل ما تعدّ التعليقات كل مرة. التمن إنك لازم تحافظ على التزامن بنفسك.</p>
+<h4 id="backend-db-design-s2">الـ Indexes: فهرس الكتاب</h4>
+<p>من غير index، الداتابيز بتقرا كل الصفوف عشان تلاقي اللي انت عايزه (Seq Scan). الـ index (غالبًا B-tree) نسخة مترتبة من العمود، بتخلي البحث في مليون صف ياخد خطوات قليلة بدل مليون.</p>
+<p>التمن: كل insert أو update لازم يحدّث كل الـ indexes، وكل index بياخد مساحة. عشان كدا ما تعملش index على كل عمود؛ اعمله على الأعمدة اللي بتتكرر في <code>WHERE</code> و<code>JOIN</code> و<code>ORDER BY</code>.</p>
+<p>الـ <strong>composite index</strong> ترتيب أعمدته مهم. index على <code>(status, created_at)</code> بيخدم فلتر بـ <code>status</code> لوحده، أو <code>status</code> مع ترتيب بـ <code>created_at</code>. لكن مش بيخدم فلتر بـ <code>created_at</code> لوحده، ودي قاعدة الـ leftmost prefix.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">models.py</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">class</span><span class="w"> </span><span class="nc">Order</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">customer</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Customer</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>  <span class="c1 ar" dir="rtl"># Django بيعمل له index لوحده</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">indexes</span> <span class="o">=</span> <span class="p">[</span><span class="n">models</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;created_at&#39;</span><span class="p">])]</span>
+        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">CheckConstraint</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">Q</span><span class="p">(</span><span class="n">total__gte</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;order_total_not_negative&#39;</span><span class="p">),</span>
+        <span class="p">]</span></code></pre></figure>
+<p>الـ constraints زي <code>unique</code> و<code>CheckConstraint</code> خط الدفاع الأخير: حتى لو فيه bug في الكود، الداتابيز هترفض البيانات الغلط.</p>
+<h4 id="backend-db-design-s3">قراية EXPLAIN</h4>
+<p><code>EXPLAIN ANALYZE</code> في PostgreSQL بيقولك الداتابيز نفّذت الـ query إزاي فعلًا. في Django تقدر تكتب <code>Order.objects.filter(status='pending').explain(analyze=True)</code>.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">ناتج EXPLAIN ANALYZE</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code>Seq Scan on orders  (cost=0.00..18334.00 rows=5 width=64) (actual time=0.031..95.214 rows=4 loops=1)
+  Filter: ((status)::text = &#39;pending&#39;::text)
+  Rows Removed by Filter: 999996</code></pre></figure>
+<p>السطر الأخير هو الإنذار: قرا مليون صف عشان يرجّع ٤. بعد الـ index هتلاقي <code>Index Scan</code> مكان <code>Seq Scan</code>، والوقت هينزل لجزء من الملّي ثانية. دوّر دايمًا على ٣ حاجات:</p>
+<ul>
+<li><code>Seq Scan</code> على جدول كبير.</li>
+<li>فرق كبير بين الـ rows المتوقعة (جوه <code>cost</code>) والفعلية (جوه <code>actual</code>)؛ معناه إن الإحصائيات قديمة والداتابيز بتختار خطة غلط.</li>
+<li><code>Rows Removed by Filter</code> بأرقام ضخمة.</li>
+</ul>
+<p><strong>الـ trade-off:</strong> الـ normalization بتديك بيانات سليمة مقابل joins أكتر. والـ indexes بتديك قراية أسرع مقابل كتابة أبطأ ومساحة أكبر.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه index على <code>(status, created_at)</code> مش هيساعد query بتفلتر بـ <code>created_at</code> بس؟</span></summary><div class="answer">لأن الـ index مترتب بـ <code>status</code> الأول، وجوه كل <code>status</code> مترتب بـ <code>created_at</code>. فمن غير <code>status</code> الداتابيز مش عارفة تنط لمكان معين، وهتلف على الـ index كله أو تعمل Seq Scan. لو الـ query دي مهمة، اعمل لها index لوحدها على <code>created_at</code>.</div></details><details><summary><span class="q">إمتى تكرر معلومة في جدول تاني عن قصد، وإيه اللي لازم تعمله بعدها؟</span></summary><div class="answer">لما القراية أهم بكتير من الكتابة وحسابها كل مرة مكلّف، زي عدد التعليقات على بوست. بعدها لازم تضمن إن النسخة المكررة تتحدث مع كل تغيير: في نفس الـ transaction، أو بـ <code>F()</code> update، أو بمهمة دورية بتصلّح أي اختلاف.</div></details><details><summary><span class="q">فتحت ناتج <code>EXPLAIN ANALYZE</code>. أول ٣ حاجات تدور عليها إيه؟</span></summary><div class="answer"><code>Seq Scan</code> على جدول كبير، وفرق كبير بين الـ rows المتوقعة والفعلية، و<code>Rows Removed by Filter</code> برقم ضخم. التلاتة معناهم إن الداتابيز بتقرا أكتر بكتير من اللي محتاجاه.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="backend/db-design"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="next" data-go="backend/orm"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">أداء الـ ORM</span></button></div></footer></article><article class="lesson" id="lesson-backend-orm" data-k="backend/orm" role="tabpanel" aria-labelledby="tab-backend-orm" tabindex="-1" hidden><h3>أداء الـ ORM</h3><div class="lesson-body"><p>الـ ORM بيخبّي الـ SQL عنك، ودي ميزة لحد ما تنسى إن سطر Python واحد ممكن يبقى query.</p>
+<h4 id="backend-orm-s1">مشكلة N+1</h4>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">orders</span> <span class="o">=</span> <span class="n">Order</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()[:</span><span class="mi">100</span><span class="p">]</span>      <span class="c1 ar" dir="rtl"># query واحدة</span>
+<span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>          <span class="c1 ar" dir="rtl"># query جديدة في كل لفة</span>
+<span class="c1 ar" dir="rtl"># المجموع: 101 query لصفحة واحدة</span></code></pre></figure>
+<p>دي أشهر مشكلة أداء في Django، وبتبقى مستخبية لأن الكود شكله بريء. مع ١٠ طلبات في الـ development محدش بيلاحظ، ومع ١٠٠٠ في production الصفحة بتقع.</p>
+<h4 id="backend-orm-s2">الحل: select_related وprefetch_related</h4>
+<ul>
+<li><strong><code>select_related</code></strong>: بيعمل <code>JOIN</code> ويجيب كله في query واحدة. للعلاقات اللي في آخرها عنصر واحد: <code>ForeignKey</code> و<code>OneToOne</code>.</li>
+<li><strong><code>prefetch_related</code></strong>: بيعمل query تانية منفصلة ويربط النتايج في Python. للعلاقات اللي في آخرها قايمة: <code>ManyToMany</code> والـ reverse FK.</li>
+</ul>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">Order</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s1">&#39;customer&#39;</span><span class="p">)[:</span><span class="mi">100</span><span class="p">]</span>    <span class="c1 ar" dir="rtl"># 1 query بـ JOIN</span>
+<span class="n">Customer</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s1">&#39;orders&#39;</span><span class="p">)</span>        <span class="c1 ar" dir="rtl"># 2 queries بس مهما كان العدد</span></code></pre></figure>
+<p>ليه <code>select_related</code> ما ينفعش مع ManyToMany؟ لأن الـ JOIN هيكرر صف العميل مع كل عنصر في القايمة، والنتيجة تنفجر في الحجم.</p>
+<h4 id="backend-orm-s3">امنع المشكلة ترجع</h4>
+<p>في الـ code review صعب تشوف N+1 بعينك. الأضمن إنك تثبّت عدد الـ queries في test:</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">tests.py</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">def</span><span class="w"> </span><span class="nf">test_orders_list_is_not_n_plus_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertNumQueries</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/api/orders/&#39;</span><span class="p">)</span></code></pre></figure>
+<p>لو حد ضاف field بيعمل query زيادة، الـ test هيقع. وفي الـ development استخدم django-debug-toolbar عشان تشوف عدد الـ queries في كل صفحة.</p>
+<h4 id="backend-orm-s4">عادات صغيرة بتفرق</h4>
+<ul>
+<li><code>exists()</code> بدل <code>if queryset:</code> لو مش هتستخدم النتايج؛ التانية بتحمّل كل الصفوف.</li>
+<li><code>only()</code> و<code>values_list()</code> لما تحتاج أعمدة قليلة من جدول عريض.</li>
+<li><code>bulk_create()</code> و<code>update()</code> بدل loop بيعمل <code>save()</code> على كل صف.</li>
+<li><code>annotate()</code> و<code>aggregate()</code> عشان الداتابيز هي اللي تحسب بدل Python.</li>
+<li><code>iterator()</code> لما تلف على مئات الآلاف من الصفوف، عشان ما تحمّلهمش كلهم في الذاكرة.</li>
+</ul>
+<h4 id="backend-orm-s5">إمتى تنزل لـ raw SQL</h4>
+<p>لما الـ ORM يطلّع SQL مش كويس ومش عارف تصلحه، أو محتاج حاجة زي recursive CTE أو feature خاصة بـ PostgreSQL. التمن إنك بتخسر سهولة القراية والنقل لداتابيز تانية، والأمان بقى مسؤوليتك:</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT ... WHERE school_id = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">school_id</span><span class="p">])</span>  <span class="c1 ar" dir="rtl"># params دايمًا</span>
+    <span class="c1 ar" dir="rtl"># أبدًا: f&#39;... WHERE school_id = {school_id}&#39;  ← دي SQL injection</span></code></pre></figure></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">اشرح الفرق بين <code>select_related</code> و<code>prefetch_related</code> من غير ما تبص.</span></summary><div class="answer"><code>select_related</code> بيعمل JOIN في query واحدة، وبينفع مع العلاقات اللي في آخرها عنصر واحد (<code>ForeignKey</code> و<code>OneToOne</code>). <code>prefetch_related</code> بيعمل query منفصلة لكل علاقة ويربط النتايج في Python، وبينفع مع القوايم (<code>ManyToMany</code> والـ reverse FK).</div></details><details><summary><span class="q">إزاي تضمن إن حد في الفريق ما يرجّعش N+1 من غير ما تراجع كل PR بعينك؟</span></summary><div class="answer">تكتب test فيه <code>assertNumQueries</code> على الـ endpoints المهمة. أي تعديل يزوّد عدد الـ queries هيوقع الـ test في الـ CI قبل الـ merge.</div></details><details><summary><span class="q">ليه <code>if queryset:</code> ممكن تبقى أغلى من <code>queryset.exists()</code>؟</span></summary><div class="answer"><code>if queryset:</code> بتنفذ الـ query كلها وتحمّل كل الصفوف عشان تعرف هي فاضية ولا لأ، و<code>exists()</code> بتعمل query صغيرة بـ <code>LIMIT 1</code>. لكن لو هتلف على النتايج بعدها على طول، <code>if queryset:</code> مش مشكلة، لأن النتايج بتتحفظ جوه الـ queryset.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="backend/orm"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="backend/db-design"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">تصميم قاعدة البيانات</span></button><button type="button" class="next" data-go="backend/transactions"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Transactions والـ Concurrency</span></button></div></footer></article><article class="lesson" id="lesson-backend-transactions" data-k="backend/transactions" role="tabpanel" aria-labelledby="tab-backend-transactions" tabindex="-1" hidden><h3>الـ Transactions والـ Concurrency</h3><div class="lesson-body"><p>أخطر الـ bugs مش اللي بتظهر وانت بتجرب؛ هي اللي بتظهر لما اتنين يعملوا نفس الحاجة في نفس اللحظة.</p>
+<h4 id="backend-transactions-s1">الـ Transaction: يا كله يا بلاش</h4>
+<p>لو بتسجل طلب وبعدين دفعة، والسيرفر وقع بين الخطوتين، هيبقى عندك طلب من غير دفع. الـ transaction بتضمن إن الخطوات كلها تتنفذ، أو كلها تترجع.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">transaction</span>
+
+<span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">Order</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">customer</span><span class="o">=</span><span class="n">customer</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">)</span>
+    <span class="n">Payment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="n">total</span><span class="p">)</span>
+    <span class="c1 ar" dir="rtl"># أي exception هنا بترجّع السطرين</span></code></pre></figure>
+<h4 id="backend-transactions-s2">الـ Race condition: مقعد واحد وطالبين</h4>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">course</span> <span class="o">=</span> <span class="n">Course</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">course</span><span class="o">.</span><span class="n">seats_left</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>        <span class="c1 ar" dir="rtl"># الطلبين قروا 1 في نفس اللحظة</span>
+    <span class="n">course</span><span class="o">.</span><span class="n">seats_left</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">course</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>                <span class="c1 ar" dir="rtl"># الاتنين كتبوا 0، واتنين حجزوا نفس المقعد</span></code></pre></figure>
+<p>الكود دا غلط حتى لو جوه <code>atomic()</code>، لأن <code>atomic</code> لوحدها ما بتقفلش الصف وانت بتقراه. عندك ٣ حلول:</p>
+<p><strong>١. خلي الداتابيز تعمل الحسبة في خطوة واحدة (F expression)</strong></p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">updated</span> <span class="o">=</span> <span class="n">Course</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">seats_left__gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">seats_left</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s1">&#39;seats_left&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="n">updated</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">NoSeatsLeft</span><span class="p">()</span></code></pre></figure>
+<p><strong>٢. اقفل الصف لحد ما تخلص (pessimistic locking)</strong></p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+    <span class="n">course</span> <span class="o">=</span> <span class="n">Course</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_for_update</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>  <span class="c1 ar" dir="rtl"># أي طلب تاني بيستنى هنا</span>
+    <span class="k">if</span> <span class="n">course</span><span class="o">.</span><span class="n">seats_left</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">NoSeatsLeft</span><span class="p">()</span>
+    <span class="n">course</span><span class="o">.</span><span class="n">seats_left</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">course</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">Enrollment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">course</span><span class="o">=</span><span class="n">course</span><span class="p">,</span> <span class="n">student</span><span class="o">=</span><span class="n">student</span><span class="p">)</span></code></pre></figure>
+<p><strong>٣. افترض إن مفيش تعارض، واتأكد وقت الحفظ (optimistic locking)</strong></p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">updated</span> <span class="o">=</span> <span class="n">Document</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">doc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">doc</span><span class="o">.</span><span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">body</span><span class="o">=</span><span class="n">new_body</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">updated</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">ConflictError</span><span class="p">(</span><span class="s1 ar">&#39;حد عدّل المستند قبلك&#39;</span><span class="p">)</span></code></pre></figure>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>الطريقة</th>
+<th>إمتى تستخدمها</th>
+<th>التمن</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>F()</code> مع update مشروط</td>
+<td>عملية بسيطة على عمود واحد</td>
+<td>ما تنفعش مع منطق معقد</td>
+</tr>
+<tr>
+<td><code>select_for_update</code></td>
+<td>تنافس عالي ومنطق من كذا خطوة</td>
+<td>الطلبات بتستنى بعض، وممكن deadlock</td>
+</tr>
+<tr>
+<td>Optimistic (version)</td>
+<td>تنافس قليل، زي تعديل مستند</td>
+<td>لازم تتعامل مع الفشل: تعيد أو تبلغ المستخدم</td>
+</tr>
+</tbody>
+</table></div>
+<p>وخلي الـ <strong>unique constraint</strong> يحميك كمان: لو طلبين حاولوا يسجلوا نفس الطالب في نفس الكورس، الداتابيز هترفض التاني بـ <code>IntegrityError</code> مهما كان الكود.</p>
+<h4 id="backend-transactions-s3">أخطر غلطة: شغل خارجي جوه الـ transaction</h4>
+<p>لو بعتّ Celery task جوه <code>atomic()</code>، الـ worker ممكن يشتغل قبل الـ commit وما يلاقيش الصف. ولو الـ transaction اترجعت، الإيميل يكون اتبعت خلاص. الحل:</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">transaction</span><span class="o">.</span><span class="n">on_commit</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">send_welcome_email</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">))</span></code></pre></figure>
+<p>وما تكلّمش API خارجي (زي بوابة دفع) وانت فاتح transaction؛ الـ locks هتفضل ماسكة طول ما انت مستني الرد.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه <code>course.seats_left -= 1</code> وبعدها <code>save()</code> غلط حتى جوه <code>atomic()</code>؟</span></summary><div class="answer">لأن <code>atomic</code> بتضمن إن الخطوات تتنفذ كلها أو لا، لكن ما بتمنعش طلب تاني يقرا نفس القيمة في نفس اللحظة. الطلبين بيقروا 1 ويكتبوا 0. محتاج <code>select_for_update</code> أو update مشروط بـ <code>F()</code>.</div></details><details><summary><span class="q">إيه اللي ممكن يحصل لو بعتّ Celery task جوه transaction من غير <code>on_commit</code>؟</span></summary><div class="answer">الـ worker ممكن يبدأ قبل الـ commit فما يلاقيش الصف. أو الـ transaction تترجع بعد ما المهمة اتنفذت، فتبعت إيميل عن حاجة ما حصلتش. <code>on_commit</code> بتأجل البعت لحد ما الـ commit يتم فعلًا.</div></details><details><summary><span class="q">إمتى تختار optimistic locking بدل <code>select_for_update</code>؟</span></summary><div class="answer">لما التعارض نادر والتعديل بياخد وقت، زي مستخدم بيعدّل مستند. الـ locking المتشائم هيخلي الناس تستنى على الفاضي، والـ optimistic بيسيبهم يشتغلوا ويكتشف التعارض وقت الحفظ بس.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="backend/transactions"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="backend/orm"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">أداء الـ ORM</span></button><button type="button" class="next" data-go="backend/jobs-cache"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Background jobs والـ Caching</span></button></div></footer></article><article class="lesson" id="lesson-backend-jobs-cache" data-k="backend/jobs-cache" role="tabpanel" aria-labelledby="tab-backend-jobs-cache" tabindex="-1" hidden><h3>الـ Background jobs والـ Caching</h3><div class="lesson-body"><p>القاعدة: المستخدم ما يستناش على حاجة مش محتاج نتيجتها دلوقتي، وما تحسبش نفس الحاجة مرتين لو تقدر تفتكرها.</p>
+<h4 id="backend-jobs-cache-s1">Celery: الشغل التقيل في الخلفية</h4>
+<p>أمثلة: بعت إيميلات، وتوليد تقرير PDF، ومعالجة صور، واستيراد ملف Excel كبير، واستدعاء API خارجي بطيء. الـ view بيحط المهمة في طابور (broker زي Redis) ويرد فورًا، والـ worker يشتغل عليها لوحده.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="nd">@shared_task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoretry_for</span><span class="o">=</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">,),</span> <span class="n">retry_backoff</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">school_id</span><span class="p">):</span>
+    <span class="n">school</span> <span class="o">=</span> <span class="n">School</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">school_id</span><span class="p">)</span>
+    <span class="o">...</span>
+
+<span class="c1 ar" dir="rtl"># في الـ view</span>
+<span class="n">generate_report</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">school</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;processing&#39;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">202</span><span class="p">)</span></code></pre></figure>
+<p>أربع قواعد تحفظها:</p>
+<ul>
+<li><strong>ابعت الـ id مش الـ object.</strong> الـ object ممكن يتغير قبل ما المهمة تشتغل، وتحويله لـ JSON بيعمل مشاكل.</li>
+<li><strong>اعتبر إن أي مهمة ممكن تتنفذ مرتين.</strong> الـ retries وموت الـ worker في النص بيعملوا كدا. فلازم تكون idempotent: لو اتنفذت تاني ما تعملش ضرر، زي إنك تتأكد إن الـ SMS ما اتبعتش قبل كدا.</li>
+<li><strong>الـ retries بـ backoff.</strong> لو الخدمة الخارجية واقعة، ما تضربهاش كل ثانية؛ استنى وقت بيزيد كل مرة.</li>
+<li><strong>المهام الدورية</strong> (زي تقرير كل يوم الصبح) بتتعمل بـ Celery Beat، ومراقبة الـ workers بـ Flower.</li>
+</ul>
+<h4 id="backend-jobs-cache-s2">الـ Caching</h4>
+<p>الـ cache ممكن يبقى في أماكن كتير: Redis (مشترك بين كل السيرفرات)، أو HTTP caching في التطبيق والمتصفح، أو CDN للصور والملفات. أشهر نمط هو <strong>cache-aside</strong>:</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">def</span><span class="w"> </span><span class="nf">get_school_stats</span><span class="p">(</span><span class="n">school_id</span><span class="p">):</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;school:</span><span class="si">{</span><span class="n">school_id</span><span class="si">}</span><span class="s1">:stats:v1&#39;</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">stats</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                          <span class="c1"># cache miss</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="n">compute_stats</span><span class="p">(</span><span class="n">school_id</span><span class="p">)</span>       <span class="c1 ar" dir="rtl"># الحسبة التقيلة</span>
+        <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>     <span class="c1 ar" dir="rtl"># 5 دقايق</span>
+    <span class="k">return</span> <span class="n">stats</span></code></pre></figure>
+<h4 id="backend-jobs-cache-s3">الجزء الصعب: الـ Invalidation</h4>
+<p>إمتى تمسح القيمة القديمة؟ عندك طريقتين:</p>
+<ul>
+<li><strong>TTL:</strong> القيمة تنتهي لوحدها بعد وقت. بسيطة، بس المستخدم ممكن يشوف بيانات قديمة لحد ما تنتهي.</li>
+<li><strong>مسح صريح:</strong> لما البيانات تتغير، امسح المفتاح. أدق، بس لو نسيت مكان بيعدّل البيانات، الـ cache هيكذب.</li>
+</ul>
+<p>والـ <code>v1</code> في المفتاح بيخليك تغيّر شكل البيانات المتخزنة من غير ما تتلخبط مع القديمة.</p>
+<p><strong>الـ cache stampede:</strong> مفتاح عليه ضغط عالي انتهى، فـ ١٠٠٠ طلب لقوه فاضي وكلهم راحوا للداتابيز في نفس اللحظة. الحل: lock بحيث طلب واحد بس يعيد الحسبة، أو ترجّع القيمة القديمة لحد ما الجديدة تجهز، أو تحط عشوائية بسيطة في الـ TTL عشان المفاتيح ما تنتهيش مع بعض.</p>
+<p><strong>ما تعملش cache</strong> لبيانات حساسة من غير ما الـ user يبقى جزء من المفتاح، ولا لحاجة زي رصيد الحساب، اللي البيانات القديمة فيها بتعمل ضرر.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه بنبعت للـ task الـ id مش الـ object نفسه؟</span></summary><div class="answer">لأن المهمة ممكن تشتغل بعد ثواني أو دقايق، والـ object يكون اتغير. بالـ id الـ worker بيجيب أحدث نسخة من الداتابيز، وكمان الـ id سهل يتحول لـ JSON.</div></details><details><summary><span class="q">مهمة بتبعت SMS اتنفذت مرتين بسبب retry. إزاي تخليها idempotent؟</span></summary><div class="answer">خزّن سجل لكل رسالة بمفتاح ثابت (مثلًا id الطلب ونوع الرسالة) عليه unique constraint. في أول المهمة، لو السجل موجود ومتعلّم إنه اتبعت، اخرج من غير ما تبعت.</div></details><details><summary><span class="q">إيه هو الـ cache stampede، وإزاي تمنعه؟</span></summary><div class="answer">مفتاح عليه ضغط عالي بينتهي، فطلبات كتير تلاقيه فاضي وتروح كلها للداتابيز في نفس اللحظة. تمنعه بـ lock يخلي طلب واحد بس يعيد الحسبة، أو ترجّع القيمة القديمة لحد ما الجديدة تجهز، أو تضيف عشوائية للـ TTL.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="backend/jobs-cache"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="backend/transactions"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ Transactions والـ Concurrency</span></button><button type="button" class="next" data-go="backend/api"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">تصميم الـ API</span></button></div></footer></article><article class="lesson" id="lesson-backend-api" data-k="backend/api" role="tabpanel" aria-labelledby="tab-backend-api" tabindex="-1" hidden><h3>تصميم الـ API</h3><div class="lesson-body"><p>الـ API عقد بينك وبين التطبيق، وأي تغيير فيه بيكسر النسخ اللي عند الناس، ومش هتقدر تجبرهم يحدّثوا بكرة.</p>
+<p>دي أهم نقطة لأي حد شغال Flutter وDjango: الويب بيتحدّث مع كل deploy، لكن نسخ الموبايل القديمة بتفضل شغالة شهور.</p>
+<h4 id="backend-api-s1">الـ Pagination</h4>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>النوع</th>
+<th>بيشتغل إزاي</th>
+<th>مناسب لـ</th>
+<th>عيبه</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Offset</td>
+<td><code>?page=5</code> أو <code>?offset=80&amp;limit=20</code></td>
+<td>جداول الـ admin اللي فيها أرقام صفحات</td>
+<td>بيبطأ في الصفحات البعيدة، وبيكرر أو يفوّت عناصر لو البيانات اتغيرت</td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td><code>?cursor=</code> ومعاه مؤشر لآخر عنصر</td>
+<td>الـ infinite scroll في Flutter</td>
+<td>ما تقدرش تنط لصفحة ٥٠</td>
+</tr>
+</tbody>
+</table></div>
+<p>ليه الـ offset بيكرر؟ لو فتحت الصفحة الأولى، وحد ضاف بوست جديد، هيزق كل العناصر خطوة. فأول عنصر في الصفحة التانية هيبقى آخر عنصر شفته. الـ cursor بيقول «هات اللي بعد العنصر دا»، فمش بيتأثر.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">class</span><span class="w"> </span><span class="nc">FeedPagination</span><span class="p">(</span><span class="n">CursorPagination</span><span class="p">):</span>
+    <span class="n">page_size</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">ordering</span> <span class="o">=</span> <span class="s1">&#39;-created_at&#39;</span></code></pre></figure>
+<h4 id="backend-api-s2">الـ Versioning</h4>
+<p>الأبسط إنك تحط النسخة في الـ URL: <code>/api/v1/</code>. والأهم إنك تعرف إيه اللي بيكسر:</p>
+<ul>
+<li><strong>آمن (non-breaking):</strong> إضافة field جديد، أو endpoint جديد، أو parameter اختياري.</li>
+<li><strong>بيكسر (breaking):</strong> مسح field أو تغيير اسمه، تغيير نوعه، تحويل field اختياري لإجباري.</li>
+</ul>
+<p>ولازم يبقى عندك آلية <strong>force update</strong>: السيرفر يرجّع أقل نسخة مدعومة، والتطبيق يقارنها بنسخته ويطلب من المستخدم يحدّث. من غيرها هتفضل تدعم كود قديم للأبد.</p>
+<h4 id="backend-api-s3">شكل موحد للأخطاء</h4>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">JSON</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SEAT_UNAVAILABLE&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;No seats left in this course&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;course_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+<p>الـ <code>code</code> ثابت ومعمول للكود، فالتطبيق يترجمه لرسالة عربي أو إنجليزي حسب لغة المستخدم، بدل ما يعرض رسالة السيرفر زي ما هي. واستخدم الـ status codes صح: <code>400</code> بيانات غلط، <code>401</code> مش مسجّل دخول، <code>403</code> مالكش صلاحية، <code>404</code> مش موجود، <code>409</code> تعارض، <code>429</code> طلبات كتير. في DRF بتعمل دا مرة واحدة بـ custom exception handler.</p>
+<h4 id="backend-api-s4">الـ Idempotency</h4>
+<p>المستخدم داس «ادفع»، الطلب وصل والسيرفر خصم الفلوس، بس الرد ضاع لأن النت فصل. التطبيق يعيد المحاولة، فيدفع مرتين.</p>
+<p>الحل: التطبيق يولّد <strong>Idempotency-Key</strong> (UUID) مرة واحدة لكل عملية، ويبعته مع كل محاولة. السيرفر يخزن المفتاح والرد، ولو المفتاح اتكرر يرجّع نفس الرد من غير ما ينفذ تاني.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">key</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Idempotency-Key&#39;</span><span class="p">)</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">IdempotencyRecord</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">record</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">response_body</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<span class="c1 ar" dir="rtl"># نفّذ العملية، وبعدين خزّن المفتاح والرد</span></code></pre></figure>
+<p>وحط على <code>(user, key)</code> <strong>unique constraint</strong>، عشان لو المحاولتين وصلوا في نفس اللحظة، الداتابيز ترفض التانية (فاكر <a href="#backend/transactions" data-go="backend/transactions">درس الـ Transactions</a>؟).</p>
+<p>وأخيرًا: وثّق الـ API بـ OpenAPI (مثلًا drf-spectacular)، وولّد منه كود الـ client في Dart بدل ما تكتب الـ models بإيدك.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه الـ cursor pagination أنسب للـ infinite scroll؟</span></summary><div class="answer">لأنه بيقول «هات اللي بعد العنصر دا»، فلو اتضافت بيانات جديدة مش هيحصل تكرار ولا تفويت. وسرعته ثابتة مهما نزلت، على عكس الـ offset اللي بيبطأ في الصفحات البعيدة.</div></details><details><summary><span class="q">اديني مثالين لتغيير breaking ومثالين لتغيير آمن.</span></summary><div class="answer">Breaking: تغيير اسم <code>name</code> لـ <code>full_name</code>، أو تحويل <code>price</code> من رقم لـ string. آمن: إضافة field جديد زي <code>avatar_url</code>، أو إضافة parameter اختياري للفلترة.</div></details><details><summary><span class="q">المستخدم داس «ادفع» والنت فصل. إزاي تضمن إنه ما يدفعش مرتين؟</span></summary><div class="answer">التطبيق يولّد Idempotency-Key مرة واحدة للعملية ويبعته مع كل محاولة. السيرفر يخزّن المفتاح والرد وعليهم unique constraint، ولو المفتاح اتكرر يرجّع الرد القديم من غير ما يخصم تاني.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="backend/api"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="backend/jobs-cache"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ Background jobs والـ Caching</span></button><button type="button" class="next" data-go="backend/security"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Security</span></button></div></footer></article><article class="lesson" id="lesson-backend-security" data-k="backend/security" role="tabpanel" aria-labelledby="tab-backend-security" tabindex="-1" hidden><h3>الـ Security</h3><div class="lesson-body"><p>أغلب الثغرات بتيجي من افتراض واحد غلط: إن الـ client هيبعت اللي انت متوقعه. أي حاجة جاية من التطبيق ممكن تكون متعدّلة.</p>
+<h4 id="backend-security-s1">Authentication ولا Authorization؟</h4>
+<p>الـ authentication: انت مين؟ والـ authorization: مسموح لك تعمل إيه؟ أغلب المشاكل الخطيرة بتبقى في التانية.</p>
+<h4 id="backend-security-s2">الـ JWT</h4>
+<p>الـ token متكون من ٣ أجزاء: <code>header.payload.signature</code>. الـ payload <strong>مش متشفّر</strong>، وأي حد يقدر يقراه؛ الـ signature بس بتضمن إنه ما اتعدلش. فما تحطش فيه أي معلومة سرية.</p>
+<p>ميزته إنه stateless: السيرفر بيتأكد منه من غير ما يسأل الداتابيز، فتقدر تزوّد السيرفرات بسهولة. عيبه إنك ما تقدرش تلغيه قبل ما مدته تخلص. عشان كدا النمط الصح:</p>
+<ul>
+<li><strong>Access token قصير</strong> (دقايق) بيتبعت مع كل طلب.</li>
+<li><strong>Refresh token أطول</strong> بيتستخدم عشان يجيب access جديد، وبيتغير مع كل استخدام (rotation)، وتقدر تحطه في blacklist لو اتسرق. مكتبة simplejwt بتدعم الاتنين.</li>
+</ul>
+<p>في Flutter: خزّن التوكنات في flutter_secure_storage (بيستخدم Keychain وKeystore) مش SharedPreferences. واعمل interceptor في dio، لما يجيله <code>401</code> يعمل refresh ويعيد الطلب. وخلي بالك: لو ٥ طلبات رجعوا <code>401</code> مع بعض، لازم refresh واحد بس يحصل، والباقي يستنوه.</p>
+<h4 id="backend-security-s3">الـ OAuth2</h4>
+<p>بروتوكول بيخلي المستخدم يديك صلاحية من خدمة تانية من غير ما يديك الباسورد، زي «سجّل دخول بجوجل». وفوقه OpenID Connect بيديك هوية المستخدم نفسه. في الموبايل استخدم Authorization Code مع <strong>PKCE</strong>، وعمرك ما تحط client secret جوه التطبيق.</p>
+<h4 id="backend-security-s4">الصلاحيات: الثغرة الأشهر</h4>
+<p><strong>IDOR:</strong> المستخدم يفتح <code>/api/orders/123</code>، يغيّرها لـ <code>124</code>، فيشوف طلب حد تاني. Django مش بيحميك من دا لوحده:</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Python</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">class</span><span class="w"> </span><span class="nc">OrderViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">IsAuthenticated</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Order</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">customer__user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1 ar" dir="rtl"># مش Order.objects.all()</span></code></pre></figure>
+<p><strong>Mass assignment:</strong> serializer بـ <code>fields = '__all__'</code> ممكن يخلي المستخدم يبعت <code>is_staff: true</code> أو يغيّر السعر. حدد الـ fields صراحة، واستخدم <code>read_only_fields</code>.</p>
+<h4 id="backend-security-s5">أشهر الثغرات في مشروع Django + Flutter</h4>
+<ul>
+<li><strong>Injection:</strong> f-string جوه raw SQL (شفناها في <a href="#backend/orm" data-go="backend/orm">درس الـ ORM</a>).</li>
+<li><strong>XSS:</strong> الـ templates بتعمل escape لوحدها، والخطر في <code>mark_safe</code> و<code>|safe</code>.</li>
+<li><strong>إعدادات غلط:</strong> <code>DEBUG=True</code> في production، أو <code>SECRET_KEY</code> جوه الـ repo، أو <code>ALLOWED_HOSTS = ['*']</code>. شغّل <code>python manage.py check --deploy</code> قبل كل deploy.</li>
+<li><strong>مكتبات فيها ثغرات:</strong> شغّل pip-audit، وفعّل Dependabot.</li>
+<li><strong>تسريب بيانات في الـ logs:</strong> ما تسجّلش باسوردات ولا توكنات.</li>
+<li><strong>SSRF:</strong> لو السيرفر بيفتح URL المستخدم بعته، ممكن يستغله يوصل لحاجات داخلية.</li>
+</ul>
+<h4 id="backend-security-s6">الموبايل له قواعده</h4>
+<p>أي حاجة جوه التطبيق اعتبرها عامة؛ الـ APK بيتفك بسهولة. فأي API key سري حطه على السيرفر، والتطبيق يكلم السيرفر. الـ obfuscation بيصعّب الـ reverse engineering بس مش بيمنعه. والـ certificate pinning بيحمي من التجسس على الاتصال، بس لازم تحدّث التطبيق لما الشهادة تتغير.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه ما ينفعش تحط secret key بتاع خدمة خارجية جوه تطبيق Flutter؟</span></summary><div class="answer">لأن أي حد يقدر يفك الـ APK أو الـ IPA ويطلّع المفتاح، حتى مع الـ obfuscation. المفتاح السري يفضل على السيرفر، والتطبيق يطلب من السيرفر يعمل العملية.</div></details><details><summary><span class="q">إيه هو IDOR، وهل Django بيحميك منه لوحده؟</span></summary><div class="answer">IDOR إن المستخدم يغيّر الـ id في الرابط فيوصل لبيانات حد تاني. Django مش بيحميك لوحده؛ لازم تفلتر الـ queryset بالمستخدم الحالي أو تستخدم object-level permissions.</div></details><details><summary><span class="q">ليه access قصير مع refresh أحسن من token واحد عمره شهر؟</span></summary><div class="answer">لو الـ access اتسرق، بيبقى صالح دقايق بس. والـ refresh بيتغير مع كل استخدام وتقدر تلغيه، فتقدر تطرد الجهاز المسروق. أما token عمره شهر فمش هتقدر توقفه.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="backend/security"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="backend/api"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">تصميم الـ API</span></button><button type="button" class="next" data-go="flutter" style="--c: var(--c-flutter)"><span class="pager-k">الموضوع اللي بعده</span><span class="pager-t">Flutter بعمق</span></button></div></footer></article></div><aside class="toc" aria-label="أقسام الدرس" hidden><p class="toc-title">في الدرس دا</p><ol></ol></aside></div></section><section class="panel" id="panel-flutter" data-topic="flutter" role="tabpanel" aria-labelledby="tab-flutter" hidden style="--c: var(--c-flutter)"><div class="topic-head"><h2>Flutter بعمق</h2><p>معمارية تستحمل التغيير، وتطبيق بيشتغل من غير نت، وأداء ناعم، ونشر من غير مفاجآت.</p></div><div class="route-scroll"><div class="route route--lessons" role="tablist" aria-label="دروس Flutter بعمق"><button type="button" role="tab" class="stop" id="tab-flutter-architecture" data-k="flutter/architecture" aria-controls="lesson-flutter-architecture" aria-selected="true" tabindex="0"><span class="dot" aria-hidden="true"></span><span class="stop-label">المعمارية</span></button><button type="button" role="tab" class="stop" id="tab-flutter-offline" data-k="flutter/offline" aria-controls="lesson-flutter-offline" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">Offline-first</span></button><button type="button" role="tab" class="stop" id="tab-flutter-performance" data-k="flutter/performance" aria-controls="lesson-flutter-performance" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الأداء</span></button><button type="button" role="tab" class="stop" id="tab-flutter-release" data-k="flutter/release" aria-controls="lesson-flutter-release" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">النشر</span></button></div></div><div class="lesson-layout"><div class="lesson-stack"><article class="lesson" id="lesson-flutter-architecture" data-k="flutter/architecture" role="tabpanel" aria-labelledby="tab-flutter-architecture" tabindex="-1"><h3>معمارية تطبيق Flutter</h3><div class="lesson-body"><p>المعمارية الكويسة هدفها حاجتين: التغيير في مكان ما يكسرش مكان تاني، وكل حتة تقدر تختبرها لوحدها.</p>
+<h4 id="flutter-architecture-s1">الـ Clean Architecture في ٣ طبقات</h4>
+<ul>
+<li><strong>Presentation:</strong> الشاشات والـ state management. ما تعرفش حاجة عن HTTP ولا JSON.</li>
+<li><strong>Domain:</strong> الـ entities (classes Dart عادية)، والـ use cases، والـ interfaces بتاعة الـ repositories. منطق صافي، من غير Flutter ولا أي package.</li>
+<li><strong>Data:</strong> تنفيذ الـ repositories، ومصادر البيانات (API عن طريق dio، وتخزين محلي عن طريق drift مثلًا)، والـ DTOs اللي فيها <code>fromJson</code>.</li>
+</ul>
+<p><strong>قاعدة الاعتمادية:</strong> الـ Presentation والـ Data الاتنين بيعتمدوا على الـ Domain، والـ Domain ما بيعتمدش على حد. الـ Data بتنفّذ interface الـ Domain هو اللي عرّفه، ودا اسمه dependency inversion.</p>
+<figure class="figure"><div class="figure-scroll" tabindex="0" role="group" aria-label="كل الطبقات بتعتمد على الـ Domain، وهو مش بيعتمد على حد."><svg class="dia" viewBox="0 48 760 124" role="img" aria-label="طبقات Clean Architecture في Flutter" direction="ltr" xmlns="http://www.w3.org/2000/svg"><defs><marker id="m-layers" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dia-head" d="M0 0L10 5L0 10z"/></marker></defs><g class="dia-edge"><path d="M536 110H482" marker-end="url(#m-layers)"/><path d="M224 110H278" marker-end="url(#m-layers)"/></g><text class="dia-q" x="508" y="100" text-anchor="middle">بيستخدم</text><text class="dia-q" x="252" y="100" text-anchor="middle">بينفّذ</text><g><rect class="dia-box" x="24" y="64" width="200" height="92" rx="8"/><text class="dia-name" x="124" y="90" text-anchor="middle">Data</text><text class="dia-line ink" x="124" y="112" text-anchor="middle">Repository impl + DTOs</text><text class="dia-line ink" x="124" y="128" text-anchor="middle">dio / drift</text><text class="dia-line" x="124" y="144" text-anchor="middle">الشبكة والتخزين</text></g><g><rect class="dia-box is-main" x="280" y="64" width="200" height="92" rx="8"/><text class="dia-name" x="380" y="90" text-anchor="middle">Domain</text><text class="dia-line ink" x="380" y="112" text-anchor="middle">Entities + Use cases</text><text class="dia-line ink" x="380" y="128" text-anchor="middle">Repository (abstract)</text><text class="dia-line ink" x="380" y="144" text-anchor="middle">منطق صافي من غير مكتبات</text></g><g><rect class="dia-box" x="536" y="64" width="200" height="92" rx="8"/><text class="dia-name" x="636" y="90" text-anchor="middle">Presentation</text><text class="dia-line ink" x="636" y="112" text-anchor="middle">Widgets + Cubit / Notifier</text><text class="dia-line" x="636" y="128" text-anchor="middle">الشاشات وحالة الواجهة</text></g></svg></div><figcaption><strong>كل الطبقات بتعتمد على الـ Domain، وهو مش بيعتمد على حد.</strong> عشان كدا تقدر تبدّل dio أو drift من غير ما تلمس ولا سطر في الـ Domain أو في الشاشات.</figcaption></figure>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Dart</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="c1 ar" dir="rtl">// domain: بيعرّف إيه المطلوب</span>
+<span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">CourseRepository</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">getCourses</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1 ar" dir="rtl">// data: بتنفّذ إزاي</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">CourseRepositoryImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">CourseRepository</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">CourseRepositoryImpl</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_api</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">_local</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">CourseApi</span><span class="w"> </span><span class="n">_api</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">CourseLocalStore</span><span class="w"> </span><span class="n">_local</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">getCourses</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="n">dtos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">await</span><span class="w"> </span><span class="n">_api</span><span class="p">.</span><span class="n">fetchCourses</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="n">courses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dtos</span><span class="p">.</span><span class="n">map</span><span class="p">((</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">toEntity</span><span class="p">()).</span><span class="n">toList</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">await</span><span class="w"> </span><span class="n">_local</span><span class="p">.</span><span class="n">saveAll</span><span class="p">(</span><span class="n">courses</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">courses</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+<p>الفايدة: في الـ tests بتدي الـ Cubit <code>FakeCourseRepository</code> من غير نت. ولو غيّرت dio بمكتبة تانية، مش هتلمس ولا شاشة.</p>
+<h4 id="flutter-architecture-s2">نظّم بالـ feature مش بالطبقة</h4>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">شكل الفولدرات</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code>lib/
+  core/              network, errors, theme, di
+  features/
+    courses/
+      data/          CourseApi, CourseDto, CourseRepositoryImpl
+      domain/        Course, CourseRepository, EnrollInCourse
+      presentation/  CoursesCubit, CoursesPage
+    auth/</code></pre></figure>
+<p>لما الفريق يكبر، كل واحد بيشتغل في feature مقفولة على نفسها، بدل ما الكل يعدّل في نفس الفولدرات.</p>
+<h4 id="flutter-architecture-s3">إمتى تبقى overkill</h4>
+<p>في MVP صغير أو تطبيق عمره قصير، الـ ٣ طبقات بتضيف كود كتير من غير فايدة. والـ use case اللي كل شغلته إنه ينادي الـ repository ممكن تشيله. الحكم دا نفسه جزء من كونك سنيور: كبّر المعمارية على قد حجم الفريق وعمر التطبيق.</p>
+<h4 id="flutter-architecture-s4">Bloc ولا Riverpod؟</h4>
+<p>السؤال الحقيقي مش «مين أحسن». السؤال: الحالة عايشة فين، ومين يقدر يغيّرها، والشاشة بتتحدث إمتى؟</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th></th>
+<th>Bloc / Cubit</th>
+<th>Riverpod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>الفكرة</td>
+<td>events بتدخل، states بتطلع</td>
+<td>providers بتوفّر قيم وحالة</td>
+</tr>
+<tr>
+<td>الكود المتكرر</td>
+<td>أكتر</td>
+<td>أقل</td>
+</tr>
+<tr>
+<td>تتبّع التغييرات</td>
+<td>واضح جدًا؛ كل تغيير ليه event</td>
+<td>أقل صرامة</td>
+</tr>
+<tr>
+<td>الـ DI</td>
+<td>RepositoryProvider أو get_it</td>
+<td>مدمج فيه</td>
+</tr>
+<tr>
+<td>الـ async</td>
+<td>بتكتب states التحميل والخطأ بنفسك</td>
+<td><code>AsyncValue</code> جاهز</td>
+</tr>
+<tr>
+<td>مناسب لـ</td>
+<td>فرق كبيرة وflows معقدة</td>
+<td>فرق صغيرة ومتوسطة وسرعة في التطوير</td>
+</tr>
+</tbody>
+</table></div>
+<p>الاتنين كويسين. اللي بيبوّظ المشاريع مش الاختيار نفسه؛ هو إن كل شاشة تتكتب بطريقة، أو إن الـ business logic تتسرب جوه الـ widgets.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه طبقة الـ Domain ما ينفعش تعمل import لـ dio أو Flutter؟</span></summary><div class="answer">لأنها لو اعتمدت عليهم، أي تغيير في المكتبة أو في الشاشات هيوصل للمنطق، ومش هتقدر تختبرها بسرعة في Dart عادي. الـ Domain بيعرّف الـ interfaces، والطبقات التانية هي اللي تتكيف معاه.</div></details><details><summary><span class="q">إمتى الـ Clean Architecture تبقى تقيلة على المشروع؟</span></summary><div class="answer">في MVP أو prototype عمره قصير، أو تطبيق صغير فيه شاشات قليلة وشخص واحد بيشتغل عليه. ساعتها الكود الزيادة بيبطّأك من غير فايدة واضحة.</div></details><details><summary><span class="q">فريق ٨ مطورين وتطبيق بنكي: Bloc ولا Riverpod، وليه؟</span></summary><div class="answer">غالبًا Bloc: كل تغيير في الحالة ليه event واضح وسهل تتبعه وتسجله، ودا مهم في تطبيق مالي وفريق كبير محتاج قواعد صارمة. Riverpod ينفع برضه لو الفريق متفق على conventions واضحة؛ المهم إن الكل يمشي بنفس الطريقة.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="flutter/architecture"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="backend/security"><span class="pager-k">الموضوع اللي فات</span><span class="pager-t">الـ Security</span></button><button type="button" class="next" data-go="flutter/offline"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Offline-first والـ Sync</span></button></div></footer></article><article class="lesson" id="lesson-flutter-offline" data-k="flutter/offline" role="tabpanel" aria-labelledby="tab-flutter-offline" tabindex="-1" hidden><h3>الـ Offline-first والـ Sync</h3><div class="lesson-body"><p>في التطبيق الـ offline-first، الداتابيز المحلية هي مصدر الحقيقة للشاشات، والسيرفر بيتزامن معاها في الخلفية.</p>
+<h4 id="flutter-offline-s1">الفكرة الأساسية</h4>
+<p>الشاشة عمرها ما تقرا من الـ API مباشرة. بتسمع على stream من الداتابيز المحلية، والـ repository بيجيب من السيرفر ويحدّث الداتابيز المحلية، فالشاشة تتحدث لوحدها. كدا وجود النت أو غيابه ما بيغيّرش كود الشاشة.</p>
+<figure class="figure"><div class="figure-scroll" tabindex="0" role="group" aria-label="الشاشة بتقرا وتكتب محلي، والمزامنة شغالة في الخلفية."><svg class="dia" viewBox="0 40 760 372" role="img" aria-label="مسار البيانات في تطبيق offline-first" direction="ltr" xmlns="http://www.w3.org/2000/svg"><defs><marker id="m-sync" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dia-head" d="M0 0L10 5L0 10z"/></marker></defs><g><rect class="dia-frame" x="474" y="52" width="252" height="344" rx="8"/><text class="dia-q" x="710" y="72" text-anchor="end">على الموبايل</text></g><g class="dia-edge"><path d="M560 140V202" marker-end="url(#m-sync)"/><path d="M640 204V142" marker-end="url(#m-sync)"/><path d="M600 260V322" marker-end="url(#m-sync)"/><path d="M490 352H350V322" marker-end="url(#m-sync)"/><path d="M260 282H176" marker-end="url(#m-sync)"/><path d="M174 304H258" marker-end="url(#m-sync)"/><path d="M350 264V232H488" marker-end="url(#m-sync)"/></g><g><rect class="dia-box" x="490" y="84" width="220" height="56" rx="8"/><text class="dia-name" x="600" y="108" text-anchor="middle">UI (Flutter)</text><text class="dia-line" x="600" y="126" text-anchor="middle">بتعرض من القاعدة المحلية</text></g><g><rect class="dia-box is-main" x="490" y="204" width="220" height="56" rx="8"/><text class="dia-name" x="600" y="228" text-anchor="middle">Local DB (drift)</text><text class="dia-line ink" x="600" y="246" text-anchor="middle">مصدر الحقيقة للشاشة</text></g><g><rect class="dia-box" x="490" y="324" width="220" height="56" rx="8"/><text class="dia-name" x="600" y="348" text-anchor="middle">Outbox</text><text class="dia-line" x="600" y="366" text-anchor="middle">العمليات اللي لسه ما اتبعتتش</text></g><g><rect class="dia-box" x="260" y="264" width="180" height="56" rx="8"/><text class="dia-name" x="350" y="288" text-anchor="middle">Sync engine</text><text class="dia-line" x="350" y="306" text-anchor="middle">يعيد المحاولة لو فشل</text></g><g><rect class="dia-box" x="24" y="264" width="150" height="56" rx="8"/><text class="dia-name" x="99" y="288" text-anchor="middle">Django API</text><text class="dia-line" x="99" y="306" text-anchor="middle">بيتجاهل المكرر</text></g><text class="dia-q" x="552" y="176" text-anchor="end">كتابة فورية</text><text class="dia-q" x="648" y="176">stream</text><text class="dia-q" x="608" y="296">في نفس العملية</text><text class="dia-q" x="420" y="370" text-anchor="middle">بيقرا المعلّق</text><text class="dia-q" x="217" y="274" text-anchor="middle">رفع العمليات</text><text class="dia-q" x="217" y="322" text-anchor="middle">سحب التغييرات</text><text class="dia-q" x="420" y="224" text-anchor="middle">حدّث المحلي</text></svg></div><figcaption><strong>الشاشة بتقرا وتكتب محلي، والمزامنة شغالة في الخلفية.</strong> الشاشة ما بتكلمش السيرفر خالص؛ كل الكلام مع السيرفر بيعدّي على الـ sync engine.</figcaption></figure>
+<h4 id="flutter-offline-s2">الكتابة: الـ Outbox</h4>
+<p>لما المستخدم يعمل تعديل وهو offline:</p>
+<ol>
+<li>اكتب التعديل في الداتابيز المحلية فورًا، فالشاشة تتحدث على طول (optimistic UI).</li>
+<li>في نفس الـ transaction، ضيف العملية في جدول <strong>outbox</strong>، وهو طابور العمليات اللي لسه ما اتبعتتش.</li>
+<li>الـ sync engine بيبعت العمليات بالترتيب لما النت يرجع، ويعيد المحاولة بـ backoff لو فشلت.</li>
+<li>لما السيرفر يأكد، امسح العملية من الـ outbox.</li>
+</ol>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">جدول الـ outbox في drift</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="kd">class</span><span class="w"> </span><span class="nc">PendingOps</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Table</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">TextColumn</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">text</span><span class="p">()();</span><span class="w">          </span><span class="c1 ar" dir="rtl">// UUID من الموبايل = idempotency key</span>
+<span class="w">  </span><span class="n">TextColumn</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">text</span><span class="p">()();</span><span class="w">      </span><span class="c1">// &#39;attendance&#39;</span>
+<span class="w">  </span><span class="n">TextColumn</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">text</span><span class="p">()();</span><span class="w">   </span><span class="c1">// &#39;create&#39; | &#39;update&#39; | &#39;delete&#39;</span>
+<span class="w">  </span><span class="n">TextColumn</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">text</span><span class="p">()();</span><span class="w">     </span><span class="c1">// JSON</span>
+<span class="w">  </span><span class="n">IntColumn</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">attempts</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">integer</span><span class="p">().</span><span class="n">withDefault</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Constant</span><span class="p">(</span><span class="m">0</span><span class="p">))();</span>
+<span class="w">  </span><span class="n">DateTimeColumn</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">createdAt</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">dateTime</span><span class="p">()();</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Set</span><span class="o">&lt;</span><span class="n">Column</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">primaryKey</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="n">id</span><span class="p">};</span>
+<span class="p">}</span></code></pre></figure>
+<p>الـ <strong>UUID اللي بيتولد على الموبايل</strong> مهم جدًا: السجل ليه id ثابت من أول لحظة حتى لو اتعمل offline، والسيرفر يقدر يتجاهل العملية لو وصلته مرتين. دي نفس فكرة الـ idempotency في <a href="#backend/api" data-go="backend/api">درس تصميم الـ API</a>.</p>
+<h4 id="flutter-offline-s3">القراية: Delta sync</h4>
+<p>بدل ما تحمّل كل البيانات كل مرة، اسأل السيرفر: «إيه اللي اتغير من آخر مزامنة؟» عشان دا يشتغل، الـ backend محتاج:</p>
+<ul>
+<li>عمود <code>updated_at</code> (أو رقم version) على كل جدول بيتزامن.</li>
+<li><strong>Soft delete</strong>: عمود <code>deleted_at</code> بدل المسح الفعلي. لو مسحت الصف من الداتابيز، مش هيبقى عندك حاجة تقول بيها للموبايل إنه اتمسح.</li>
+<li>endpoint زي <code>GET /api/changes?since=&lt;cursor&gt;</code> بيرجّع اللي اتعدّل واللي اتمسح.</li>
+</ul>
+<h4 id="flutter-offline-s4">الـ Conflicts</h4>
+<p>مدرّس عدّل الحضور على موبايلين وهو offline. مين يكسب؟</p>
+<ul>
+<li><strong>Last write wins:</strong> الأحدث يكسب. بسيط، بس ممكن يضيّع بيانات، وساعة الموبايل مش مضمونة، فاعتمد على version من السيرفر.</li>
+<li><strong>Server wins أو client wins:</strong> قاعدة ثابتة حسب نوع البيانات.</li>
+<li><strong>Merge على مستوى الـ field:</strong> لو كل جهاز عدّل field مختلف، خد الاتنين.</li>
+<li><strong>اسأل المستخدم:</strong> للبيانات المهمة، زي الـ conflicts في Git.</li>
+</ul>
+<h4 id="flutter-offline-s5">مش كل تطبيق محتاج كل دا</h4>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>المستوى</th>
+<th>بيعمل إيه</th>
+<th>التعقيد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>١. Cache للقراية</td>
+<td>يعرض آخر بيانات اتحملت لما النت يقطع</td>
+<td>قليل</td>
+</tr>
+<tr>
+<td>٢. قراية offline كاملة</td>
+<td>داتابيز محلية + delta sync</td>
+<td>متوسط</td>
+</tr>
+<tr>
+<td>٣. كتابة offline</td>
+<td>outbox + حل الـ conflicts</td>
+<td>عالي جدًا</td>
+</tr>
+</tbody>
+</table></div>
+<p>اختار المستوى على قد احتياج المستخدم الحقيقي، وقرّر بدري؛ التحويل للمستوى ٣ بعد ما التطبيق يكبر مكلّف جدًا. مدرّس بياخد الحضور في فصل النت فيه ضعيف محتاج المستوى ٣، وتطبيق أخبار كفاية عليه المستوى ١.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه الشاشة تقرا من الداتابيز المحلية مش من الـ API؟</span></summary><div class="answer">عشان يبقى فيه مصدر حقيقة واحد. الشاشة بتشتغل بنفس الكود سواء فيه نت أو لأ، والتعديلات المحلية بتظهر فورًا.</div></details><details><summary><span class="q">ليه الـ soft delete ضروري في الـ delta sync؟</span></summary><div class="answer">لأن الـ delta sync بيسأل «إيه اللي اتغير من آخر مرة»، والصف اللي اتمسح فعليًا مش هيرجع في أي نتيجة. الـ <code>deleted_at</code> بيخلي المسح نفسه تغيير يتبعت للموبايل فيمسح نسخته.</div></details><details><summary><span class="q">ليه الـ id بيتولد على الموبايل مش على السيرفر؟</span></summary><div class="answer">لأن السجل اللي اتعمل offline محتاج id من أول لحظة عشان تربط بيه حاجات تانية. وكمان السيرفر بيستخدمه كـ idempotency key، فلو العملية وصلت مرتين يعرف إنها نفس العملية.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="flutter/offline"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="flutter/architecture"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">معمارية تطبيق Flutter</span></button><button type="button" class="next" data-go="flutter/performance"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">أداء Flutter</span></button></div></footer></article><article class="lesson" id="lesson-flutter-performance" data-k="flutter/performance" role="tabpanel" aria-labelledby="tab-flutter-performance" tabindex="-1" hidden><h3>أداء Flutter</h3><div class="lesson-body"><p>أغلب مشاكل الأداء في Flutter ليها سببين: rebuild لجزء أكبر من اللازم، أو شغل تقيل على الـ main isolate.</p>
+<h4 id="flutter-performance-s1">إزاي Flutter بيرسم</h4>
+<p>عندك ٣ أشجار: <strong>Widgets</strong> (وصف خفيف بيتعمل من جديد كتير)، و<strong>Elements</strong> (بتحفظ الحالة وبتربط الاتنين ببعض)، و<strong>RenderObjects</strong> (الـ layout والرسم، ودي التقيلة). الـ rebuild مش مشكلة في حد ذاته؛ المشكلة إنك تعيد بناء شجرة كبيرة مع كل حرف بيتكتب، أو مع كل frame في animation.</p>
+<p>عندك تقريبًا 16ms لكل frame عشان توصل 60fps، و8ms على شاشات 120Hz. لو الـ frame عدّى الوقت دا، المستخدم بيشوف تقطيع (jank).</p>
+<h4 id="flutter-performance-s2">قلّل الـ rebuild</h4>
+<ul>
+<li><strong><code>const</code>:</strong> الـ widget الـ const بيتعمل مرة واحدة، وFlutter بيتخطاه في الـ rebuild.</li>
+<li><strong>قسّم لـ widgets مش methods:</strong> الـ method اللي بترجع widget بتتبني تاني مع الأب كل مرة، لكن الـ widget المنفصل (خصوصًا لو const) ممكن يتخطى.</li>
+<li><strong>اسمع على اللي محتاجه بس:</strong> <code>BlocSelector</code> أو <code>context.select</code> أو <code>ref.watch(provider.select(...))</code>، فالشاشة تتحدث لما الـ field اللي يهمها يتغير بس.</li>
+<li><strong>القوايم الطويلة:</strong> <code>ListView.builder</code> بيبني اللي ظاهر على الشاشة بس، على عكس <code>ListView(children: [...])</code>.</li>
+<li><strong>الصور:</strong> <code>cacheWidth</code> و<code>cacheHeight</code> بيفكّوا الصورة بحجم العرض مش بحجمها الأصلي، ودا بيوفر ذاكرة كتير.</li>
+<li><strong>الـ animations:</strong> حط <code>RepaintBoundary</code> حوالين الجزء اللي بيتحرك، عشان ما يعيدش رسم الشاشة كلها.</li>
+</ul>
+<h4 id="flutter-performance-s3">الـ Isolates: async مش معناها parallel</h4>
+<p>Dart بيشغّل الكود بتاعك على thread واحد (الـ main isolate) بـ event loop. الـ <code>await</code> بيخليك تستنى الشبكة من غير ما تعطّل الشاشة، لكنه مش بيشغّل الحسبة على thread تاني. فلو فكّيت JSON حجمه ٥ ميجا جوه دالة <code>async</code>، الشاشة هتهنّج برضه.</p>
+<p>الحل إنك تنقل الحسبة التقيلة لـ isolate تاني:</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Dart</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="kd">final</span><span class="w"> </span><span class="n">courses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">await</span><span class="w"> </span><span class="n">Isolate</span><span class="p">.</span><span class="n">run</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">parseCourses</span><span class="p">(</span><span class="n">hugeJsonString</span><span class="p">));</span></code></pre></figure>
+<p>الـ isolates ما بتشاركش الذاكرة؛ البيانات بتتنقل بينهم. فما تنقلش حاجة ضخمة من غير داعي.</p>
+<h4 id="flutter-performance-s4">قيس قبل ما تصلّح</h4>
+<ul>
+<li>شغّل في <strong>profile mode</strong> (<code>flutter run --profile</code>) مش debug؛ الـ debug أبطأ بكتير ومش بيعكس الحقيقة.</li>
+<li>في DevTools، الـ Performance view بيوريك كل frame متقسم على <strong>UI thread</strong> (الـ build والـ layout) و<strong>raster thread</strong> (الرسم الفعلي).</li>
+<li>الـ UI thread بطيء؟ قلّل الـ rebuilds والشغل جوه <code>build</code>. الـ raster thread بطيء؟ دوّر على رسم تقيل: clipping وopacity وshadows كتير، وصور كبيرة.</li>
+</ul></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه <code>async</code> لوحده ما بيمنعش الشاشة تهنّج مع JSON ضخم؟</span></summary><div class="answer">لأن <code>async</code> بيحرر الـ thread وانت مستني I/O بس. فك الـ JSON نفسه حسبة على الـ CPU بتتنفذ على نفس الـ main isolate، فبتعطل رسم الـ frames. الحل <code>Isolate.run</code>.</div></details><details><summary><span class="q">إيه الفرق في الأداء بين widget منفصل وmethod بترجع widget؟</span></summary><div class="answer">الـ method جزء من <code>build</code> بتاع الأب، فأي rebuild للأب بيبني ناتجها من جديد. الـ widget المنفصل ليه element خاص بيه: لو const، Flutter بيتخطاه، ولو عنده state بيعمل rebuild لنفسه بس.</div></details><details><summary><span class="q">في DevTools لقيت الـ raster thread هو اللي بطيء. هتدور على إيه؟</span></summary><div class="answer">على رسم تقيل على الـ GPU: <code>saveLayer</code> بسبب Opacity أو clipping أو ShaderMask، وshadows كتير، وصور كبيرة بتتفك بحجمها الأصلي. الـ rebuilds مش هي المشكلة هنا.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="flutter/performance"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="flutter/offline"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ Offline-first والـ Sync</span></button><button type="button" class="next" data-go="flutter/release"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Release والنشر</span></button></div></footer></article><article class="lesson" id="lesson-flutter-release" data-k="flutter/release" role="tabpanel" aria-labelledby="tab-flutter-release" tabindex="-1" hidden><h3>الـ Release والنشر</h3><div class="lesson-body"><p>الـ release الاحترافي معناه إن أي حد في الفريق يطلّع نسخة صح بخطوة واحدة، من غير ما يحتاج لابتوب شخص معين.</p>
+<h4 id="flutter-release-s1">الـ Signing</h4>
+<ul>
+<li><strong>Android:</strong> بتوقّع الـ app bundle بـ <strong>upload key</strong>، وجوجل بتوقّعه بالمفتاح النهائي عن طريق Play App Signing. لو الـ upload key ضاع، تقدر تطلب reset من Play Console. لكن من غير Play App Signing، ضياع المفتاح معناه إنك مش هتقدر تحدّث التطبيق تاني.</li>
+<li><strong>iOS:</strong> certificates وprovisioning profiles. عشان ما تتلخبطش بين أجهزة الفريق والـ CI، استخدم fastlane match يخزّنهم في مكان واحد.</li>
+<li>الـ keystore والباسوردات عمرهم ما يدخلوا الـ repo؛ مكانهم الـ secrets بتاعة الـ CI.</li>
+</ul>
+<h4 id="flutter-release-s2">الـ Flavors: dev وstaging وprod</h4>
+<p>كل بيئة ليها API URL واسم وأيقونة و<strong>bundle ID مختلف</strong>. الـ bundle ID المختلف بيخليك تنزّل نسخة dev جنب نسخة prod على نفس الموبايل، وما تبعتش بيانات تجربة للسيرفر الحقيقي بالغلط.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Terminal</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code>flutter<span class="w"> </span>build<span class="w"> </span>appbundle<span class="w"> </span>--flavor<span class="w"> </span>prod<span class="w"> </span>-t<span class="w"> </span>lib/main_prod.dart<span class="w"> </span>--dart-define-from-file<span class="o">=</span>config/prod.json</code></pre></figure>
+<p>خلي بالك: أي قيمة في <code>--dart-define</code> بتتحط جوه التطبيق، يعني عامة. تنفع لـ URL، وما تنفعش لـ secret (فاكر <a href="#backend/security" data-go="backend/security">درس الـ Security</a>؟).</p>
+<h4 id="flutter-release-s3">الـ Versioning</h4>
+<p><code>version: 1.4.2+37</code> في <code>pubspec.yaml</code>: الجزء الأول للمستخدم (semantic version)، والرقم بعد <code>+</code> هو الـ build number، ولازم يزيد مع كل رفع للمتجر.</p>
+<h4 id="flutter-release-s4">النشر بالتدريج</h4>
+<ol>
+<li><strong>Internal testing</strong> للفريق.</li>
+<li><strong>Beta:</strong> closed testing على Play، وTestFlight على iOS.</li>
+<li><strong>Staged rollout:</strong> نسبة صغيرة من المستخدمين الأول، وبعدين تزوّد تدريجيًا (على iOS اسمها phased release).</li>
+<li>راقب الـ crash rate في Crashlytics أو Sentry، ولو زاد وقّف الـ rollout.</li>
+</ol>
+<p>الـ staged rollout مهم حتى لو كل الـ tests ناجحة، لأن فيه أجهزة ونسخ أندرويد عمرك ما جربت عليها.</p>
+<h4 id="flutter-release-s5">تفاصيل بتفرق</h4>
+<ul>
+<li><code>--obfuscate --split-debug-info=build/symbols</code>، وارفع الـ symbols لأداة الـ crashes عشان تقدر تقرا الـ stack traces.</li>
+<li>الـ <strong>force update</strong> اللي اتكلمنا عنه في <a href="#backend/api" data-go="backend/api">درس تصميم الـ API</a> لازم يكون موجود من أول نسخة.</li>
+<li><strong>CI للموبايل:</strong> مع كل tag، GitHub Actions أو Codemagic مع fastlane يعملوا test وbuild وsign، ويرفعوا على TestFlight وPlay internal لوحدهم.</li>
+</ul></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه لازم dev وprod يكون ليهم bundle ID مختلف؟</span></summary><div class="answer">عشان تقدر تنزّل الاتنين على نفس الموبايل، وكل واحد ليه بياناته وإعداداته. وكمان بيقلل احتمال إن نسخة التجربة تكلم سيرفر production بالغلط.</div></details><details><summary><span class="q">إيه اللي يحصل لو الـ keystore بتاع أندرويد ضاع، وإزاي Play App Signing بيحميك؟</span></summary><div class="answer">من غير Play App Signing، مش هتقدر ترفع تحديث للتطبيق تاني، وهتضطر تنشر تطبيق جديد. مع Play App Signing، جوجل ماسكة مفتاح التوقيع النهائي، والـ upload key لو ضاع تطلب له reset.</div></details><details><summary><span class="q">ليه الـ staged rollout مهم حتى لو كل الـ tests ناجحة؟</span></summary><div class="answer">الـ tests بتغطي الأجهزة والحالات اللي انت فكرت فيها بس. الـ rollout التدريجي بيكشف الـ crashes على أجهزة ونسخ نظام تانية، وانت لسه على نسبة صغيرة من المستخدمين.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="flutter/release"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="flutter/performance"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">أداء Flutter</span></button><button type="button" class="next" data-go="system" style="--c: var(--c-system)"><span class="pager-k">الموضوع اللي بعده</span><span class="pager-t">System Design</span></button></div></footer></article></div><aside class="toc" aria-label="أقسام الدرس" hidden><p class="toc-title">في الدرس دا</p><ol></ol></aside></div></section><section class="panel" id="panel-system" data-topic="system" role="tabpanel" aria-labelledby="tab-system" hidden style="--c: var(--c-system)"><div class="topic-head"><h2>System Design</h2><p>إزاي توزّع الشغل على أجزاء، بحيث النظام يستحمل الضغط ويفضل شغال لو جزء فيه وقع.</p></div><div class="route-scroll"><div class="route route--lessons" role="tablist" aria-label="دروس System Design"><button type="button" role="tab" class="stop" id="tab-system-scaling" data-k="system/scaling" aria-controls="lesson-system-scaling" aria-selected="true" tabindex="0"><span class="dot" aria-hidden="true"></span><span class="stop-label">الأرقام والـ Scaling</span></button><button type="button" role="tab" class="stop" id="tab-system-database" data-k="system/database" aria-controls="lesson-system-database" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الداتابيز</span></button><button type="button" role="tab" class="stop" id="tab-system-queues-limits" data-k="system/queues-limits" aria-controls="lesson-system-queues-limits" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">Queues و Rate limiting</span></button><button type="button" role="tab" class="stop" id="tab-system-cap" data-k="system/cap" aria-controls="lesson-system-cap" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">CAP</span></button><button type="button" role="tab" class="stop" id="tab-system-interview" data-k="system/interview" aria-controls="lesson-system-interview" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">سؤال الإنترفيو</span></button></div></div><div class="lesson-layout"><div class="lesson-stack"><article class="lesson" id="lesson-system-scaling" data-k="system/scaling" role="tabpanel" aria-labelledby="tab-system-scaling" tabindex="-1"><h3>ابدأ بالأرقام، وبعدين الـ Scaling</h3><div class="lesson-body"><p>قبل أي تصميم، احسب الحمل؛ الأرقام هي اللي بتقولك محتاج تعقّد ولا لأ.</p>
+<h4 id="system-scaling-s1">ابدأ بالأرقام، مش بالرسمة</h4>
+<p>مثال: تطبيق فيه ١٠٠ ألف مستخدم، ١٠٪ منهم بيفتحوه يوميًا، وكل واحد بيعمل ٥٠ طلب في اليوم:</p>
+<ul>
+<li>10,000 مستخدم × 50 طلب = 500,000 طلب في اليوم.</li>
+<li>500,000 ÷ 86,400 ثانية ≈ 6 طلبات في الثانية في المتوسط.</li>
+<li>وقت الذروة ممكن يوصل ١٠ أضعاف، يعني حوالي 60 طلب في الثانية.</li>
+</ul>
+<p>سيرفر Django واحد متظبط كويس غالبًا يستحمل دا. يعني قبل ما تفكر في Kubernetes وmicroservices، الحسبة دي ممكن توفر عليك شهور. السنيور بيعرف إمتى <strong>ما</strong> يعقّدش.</p>
+<h4 id="system-scaling-s2">الـ Scaling</h4>
+<ul>
+<li><strong>Vertical:</strong> سيرفر أكبر. سهل، بس ليه سقف، وبيفضل نقطة فشل واحدة.</li>
+<li><strong>Horizontal:</strong> سيرفرات أكتر ورا load balancer. ودا بيشترط إن السيرفرات تبقى <strong>stateless</strong>: الـ sessions في Redis أو JWT، والملفات المرفوعة في object storage زي S3، مش على ديسك السيرفر.</li>
+</ul>
+<p>الـ <strong>Load balancer</strong> (Nginx، أو load balancer من الـ cloud) بيوزع الطلبات، وبيعمل health checks يشيل بيها السيرفر الواقع من التوزيع.</p>
+<figure class="figure"><div class="figure-scroll" tabindex="0" role="group" aria-label="السيرفرات من غير حالة، فتقدر تزوّد عددها وقت الضغط."><svg class="dia" viewBox="0 44 760 520" role="img" aria-label="معمارية Flutter + Django قابلة للتوسع" direction="ltr" xmlns="http://www.w3.org/2000/svg"><defs><marker id="m-arch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dia-head" d="M0 0L10 5L0 10z"/></marker></defs><g class="dia-edge"><path d="M470 84H528" marker-end="url(#m-arch)"/><path d="M380 108V150" marker-end="url(#m-arch)"/><path d="M380 208V266" marker-end="url(#m-arch)"/><path d="M380 240H260V266" marker-end="url(#m-arch)"/><path d="M380 240H500V266" marker-end="url(#m-arch)"/><path d="M150 352V390" marker-end="url(#m-arch)"/><path d="M420 352V390" marker-end="url(#m-arch)"/><path d="M640 352V390" marker-end="url(#m-arch)"/><path d="M505 420H553" marker-end="url(#m-arch)"/><path d="M150 448V490" marker-end="url(#m-arch)"/><path d="M250 520H420V450" marker-end="url(#m-arch)"/><path d="M260 312V352M380 312V352M500 312V352M150 352H640"/></g><g><rect class="dia-box" x="290" y="60" width="180" height="48" rx="8"/><text class="dia-name" x="380" y="88" text-anchor="middle">Flutter app</text></g><g><rect class="dia-box" x="530" y="56" width="180" height="56" rx="8"/><text class="dia-name" x="620" y="80" text-anchor="middle">CDN</text><text class="dia-line" x="620" y="98" text-anchor="middle">الصور والملفات الثابتة</text></g><g><rect class="dia-box" x="260" y="152" width="240" height="56" rx="8"/><text class="dia-name" x="380" y="176" text-anchor="middle">Load balancer</text><text class="dia-line" x="380" y="194" text-anchor="middle">بيوزّع ويستبعد السيرفر الواقع</text></g><g><rect class="dia-box is-main" x="210" y="268" width="100" height="44" rx="8"/><rect class="dia-box is-main" x="330" y="268" width="100" height="44" rx="8"/><rect class="dia-box is-main" x="450" y="268" width="100" height="44" rx="8"/><text class="dia-name" x="260" y="294" text-anchor="middle">Django</text><text class="dia-name" x="380" y="294" text-anchor="middle">Django</text><text class="dia-name" x="500" y="294" text-anchor="middle">Django</text><text class="dia-q" x="566" y="294">الحالة برّه السيرفر</text></g><g><rect class="dia-box" x="50" y="392" width="200" height="56" rx="8"/><text class="dia-name" x="150" y="416" text-anchor="middle">Redis</text><text class="dia-line" x="150" y="434" text-anchor="middle">كاش وطابور مهام</text></g><g><rect class="dia-box" x="335" y="392" width="170" height="56" rx="8"/><text class="dia-name" x="420" y="416" text-anchor="middle">PostgreSQL</text><text class="dia-line" x="420" y="434" text-anchor="middle">الأساسية: كل الكتابة</text></g><g><rect class="dia-box" x="555" y="392" width="170" height="56" rx="8"/><text class="dia-name" x="640" y="416" text-anchor="middle">Read replica</text><text class="dia-line" x="640" y="434" text-anchor="middle">للقراية، وممكن تتأخر</text></g><g><rect class="dia-box" x="50" y="492" width="200" height="56" rx="8"/><text class="dia-name" x="150" y="516" text-anchor="middle">Celery workers</text><text class="dia-line" x="150" y="534" text-anchor="middle">الشغل التقيل في الخلفية</text></g><text class="dia-q" x="530" y="412" text-anchor="middle">نسخ</text><text class="dia-q" x="158" y="474">مهام</text><text class="dia-q" x="335" y="512" text-anchor="middle">بيكتب النتايج</text></svg></div><figcaption><strong>السيرفرات من غير حالة، فتقدر تزوّد عددها وقت الضغط.</strong> كل صندوق هنا ممكن يتكرر أو يتبدل: تزوّد سيرفرات Django، أو تضيف replica، من غير ما التطبيق يحس.</figcaption></figure></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه لازم سيرفرات Django تبقى stateless قبل ما تحط load balancer؟</span></summary><div class="answer">لأن الـ load balancer ممكن يبعت كل طلب لسيرفر مختلف. لو الـ session أو الملف المرفوع على ديسك سيرفر واحد، الطلب اللي بعده ممكن يروح لسيرفر تاني وما يلاقيهمش.</div></details><details><summary><span class="q">تطبيقك فيه ٥٠ ألف مستخدم يومي، وكل واحد بيعمل ٤٠ طلب. احسب المتوسط في الثانية، وقدّر الذروة.</span></summary><div class="answer">50,000 × 40 = 2,000,000 طلب في اليوم. ÷ 86,400 ≈ 23 طلب في الثانية في المتوسط، والذروة على ١٠ أضعاف حوالي 230. رقم زي دا بيتخدم من كام سيرفر Django ورا load balancer، من غير أي تعقيد زيادة.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="system/scaling"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="flutter/release"><span class="pager-k">الموضوع اللي فات</span><span class="pager-t">الـ Release والنشر</span></button><button type="button" class="next" data-go="system/database"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الداتابيز: عنق الزجاجة</span></button></div></footer></article><article class="lesson" id="lesson-system-database" data-k="system/database" role="tabpanel" aria-labelledby="tab-system-database" tabindex="-1" hidden><h3>الداتابيز: عنق الزجاجة</h3><div class="lesson-body"><p>لما الضغط يزيد، الداتابيز غالبًا أول حاجة تتعب، وحلولها ليها ترتيب: ما تنطش لخطوة قبل اللي قبلها.</p>
+<ol>
+<li><strong>Indexes وتحسين الـ queries:</strong> اللي شرحناه في <a href="#backend/db-design" data-go="backend/db-design">تصميم قاعدة البيانات</a> و<a href="#backend/orm" data-go="backend/orm">أداء الـ ORM</a>.</li>
+<li><strong>Connection pooling</strong> بـ PgBouncer: كل worker بيفتح connection، وPostgreSQL بيتعب من كتر الـ connections.</li>
+<li><strong>Caching:</strong> زي ما شفنا في <a href="#backend/jobs-cache" data-go="backend/jobs-cache">درس الـ Jobs والـ Caching</a>.</li>
+<li><strong>Read replicas:</strong> القراية تروح لنسخة، والكتابة للأساسية. خلي بالك من الـ replication lag: المستخدم يعدّل بروفايله، والصفحة تتقرا من replica لسه ما وصلهاش التعديل، فيشوف القديم. الحل إنك تقرا من الأساسية بعد الكتابة مباشرة.</li>
+<li><strong>Sharding:</strong> تقسيم البيانات على أكتر من داتابيز. آخر حل، ومعقد جدًا.</li>
+</ol>
+<p>في Django بتوجّه القراية للـ replica بـ <strong>database router</strong>: <code>db_for_read</code> يرجّع الـ replica، و<code>db_for_write</code> يرجّع الأساسية. ولما تحتاج تقرا حاجة لسه مكتوبة حالًا، اطلبها صراحة من الأساسية بـ <code>.using('default')</code>.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">مستخدم عدّل بروفايله والصفحة عرضت البيانات القديمة. إيه السبب المحتمل؟</span></summary><div class="answer">الـ replication lag: الكتابة راحت للداتابيز الأساسية، والقراية جت من replica لسه ما وصلهاش التعديل. الحل إن القراية بعد الكتابة مباشرة تروح للأساسية.</div></details><details><summary><span class="q">ليه PgBouncer بيفرق مع Django وCelery؟</span></summary><div class="answer">كل process ممكن تفتح connection خاص بيها، ومع سيرفرات وworkers كتير العدد بيكبر جدًا. وكل connection في PostgreSQL ليها process وذاكرة، فالـ pooler بيخلي عدد قليل من الـ connections الحقيقية يخدم الكل.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="system/database"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="system/scaling"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">ابدأ بالأرقام، وبعدين الـ Scaling</span></button><button type="button" class="next" data-go="system/queues-limits"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الطوابير والـ Rate limiting</span></button></div></footer></article><article class="lesson" id="lesson-system-queues-limits" data-k="system/queues-limits" role="tabpanel" aria-labelledby="tab-system-queues-limits" tabindex="-1" hidden><h3>الطوابير والـ Rate limiting</h3><div class="lesson-body"><p>الطابور بيحمي النظام من الذروة، والـ rate limiting بيحميه من الاستغلال.</p>
+<h4 id="system-queues-limits-s1">الـ Message queues</h4>
+<p>الطابور بيفصل اللي بيطلب الشغل عن اللي بينفذه. بيمتص الذروة (١٠٠٠ مهمة دخلوا مرة واحدة، والـ workers بيخلصوهم على مهلهم)، وبيسمح بإعادة المحاولة. Celery مع Redis كفاية لأغلب المشاريع؛ وKafka لما يبقى عندك events كتير لازم كذا خدمة تسمعها.</p>
+<h4 id="system-queues-limits-s2">الـ Rate limiting</h4>
+<p>بيحميك من الـ abuse ومن تخمين الباسوردات. أشهر خوارزمية هي <strong>token bucket</strong>: كل مستخدم عنده دلو فيه عدد tokens، وكل طلب بياخد token، والدلو بيتملى بمعدل ثابت. فبيسمح بـ burst صغير، لكن ما يسمحش بضغط مستمر.</p>
+<p>في DRF عندك <code>UserRateThrottle</code> و<code>AnonRateThrottle</code>. بس الـ throttling بيعدّ جوه الـ cache، فلو عندك ٣ سيرفرات وكل واحد بـ cache محلي، كل سيرفر هيعدّ لوحده والحد الفعلي هيبقى ٣ أضعاف. لازم cache مشترك زي Redis. ولما المستخدم يعدّي الحد، رجّع <code>429</code> ومعاه <code>Retry-After</code>.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">الـ throttling شغال تمام على سيرفر واحد، ولما بقوا ٣ الحد بقى ٣ أضعاف. ليه؟</span></summary><div class="answer">لأن DRF بيعدّ الطلبات في الـ cache، ولو كل سيرفر بـ cache محلي، كل واحد بيعدّ لوحده. الحل cache مشترك زي Redis.</div></details><details><summary><span class="q">إيه ميزة الـ token bucket عن إنك تعدّ الطلبات في كل دقيقة ثابتة؟</span></summary><div class="answer">بيسمح بـ burst صغير طبيعي، زي شاشة بتعمل كذا طلب مرة واحدة، وفي نفس الوقت بيمنع الضغط المستمر. أما العد في دقيقة ثابتة فبيسمح بضعف الحد لو الطلبات اتجمعت على آخر دقيقة وأول اللي بعدها.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="system/queues-limits"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="system/database"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الداتابيز: عنق الزجاجة</span></button><button type="button" class="next" data-go="system/cap"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ CAP والـ Consistency</span></button></div></footer></article><article class="lesson" id="lesson-system-cap" data-k="system/cap" role="tabpanel" aria-labelledby="tab-system-cap" tabindex="-1" hidden><h3>الـ CAP والـ Consistency</h3><div class="lesson-body"><p>في أي نظام موزّع لازم تقرر: الأهم إن البيانات تبقى دقيقة دايمًا، ولا إن النظام يرد دايمًا؟</p>
+<p>لو الشبكة اتقطعت بين أجزاء النظام (Partition)، لازم تختار واحدة من الاتنين:</p>
+<ul>
+<li><strong>Consistency:</strong> كل قراية بتشوف آخر كتابة، حتى لو اضطريت ترفض الطلب. زي رصيد البنك.</li>
+<li><strong>Availability:</strong> كل طلب ياخد رد، حتى لو البيانات مش آخر نسخة. زي عدد الـ likes.</li>
+</ul>
+<p>وحتى من غير انقطاع، فيه trade-off دايم بين السرعة والدقة؛ والـ read replica نفسها مثال: أسرع، بس ممكن تكون متأخرة. ودا اسمه <strong>eventual consistency</strong>: النسخ هتتطابق، بس مش في نفس اللحظة.</p>
+<p>والقرار دا مش للنظام كله مرة واحدة. في نفس التطبيق، الدفع ممكن يبقى consistent، والـ feed يبقى eventually consistent.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">عدد الـ likes على بوست ورصيد محفظة: أنهي واحد تختار فيه Consistency، وأنهي Availability؟</span></summary><div class="answer">الرصيد Consistency: الأحسن ترفض العملية من إنك تصرف فلوس مش موجودة. الـ likes Availability: لو العدد اتأخر ثواني محدش هيتضرر.</div></details><details><summary><span class="q">يعني إيه eventual consistency؟ اديني مثال من مشروع Flutter + Django.</span></summary><div class="answer">إن النسخ المختلفة من البيانات هتتطابق، بس بعد شوية. أمثلة: الـ read replica، أو تطبيق Flutter الـ offline اللي بيتزامن مع السيرفر لما النت يرجع.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="system/cap"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="system/queues-limits"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الطوابير والـ Rate limiting</span></button><button type="button" class="next" data-go="system/interview"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">إزاي تجاوب على سؤال system design</span></button></div></footer></article><article class="lesson" id="lesson-system-interview" data-k="system/interview" role="tabpanel" aria-labelledby="tab-system-interview" tabindex="-1" hidden><h3>إزاي تجاوب على سؤال system design</h3><div class="lesson-body"><p>سؤال الـ system design مش امتحان حفظ؛ هو اختبار لطريقة تفكيرك في الـ trade-offs.</p>
+<ol>
+<li><strong>وضّح المتطلبات:</strong> النظام هيعمل إيه، وكام مستخدم، وإيه الـ latency المقبولة.</li>
+<li><strong>احسب الحمل</strong> زي ما عملنا في <a href="#system/scaling" data-go="system/scaling">درس الأرقام</a>.</li>
+<li><strong>ارسم الصناديق الأساسية:</strong> التطبيق، والـ API، والداتابيز، والطابور.</li>
+<li><strong>صمّم البيانات:</strong> الجداول والعلاقات، ومين بيقرا ومين بيكتب.</li>
+<li><strong>ادخل في عنق الزجاجة:</strong> أنهي جزء هيقع الأول لما الحمل يتضاعف؟</li>
+<li><strong>اسأل عن الفشل:</strong> لو Redis وقع؟ لو الداتابيز وقعت؟ إيه اللي هيحصل للمستخدم؟</li>
+</ol>
+<p>واتكلم بصوت عالي وانت بتفكر: قول ليه اخترت كل حاجة، وإيه البديل، وإيه تمنه. اللي بيقيّمك بيدوّر على الـ trade-offs، مش على رسمة مثالية.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه تبدأ بالمتطلبات والأرقام قبل ما ترسم؟</span></summary><div class="answer">لأن نفس النظام بيتصمم مختلف تمامًا لـ ١٠٠ مستخدم ولـ ١٠ مليون. من غير أرقام، ممكن تصمم حاجة معقدة مش محتاجها، أو حاجة بسيطة مش هتستحمل.</div></details><details><summary><span class="q">صمّم بسرعة: نظام حضور وغياب لـ ٥٠ مدرسة، والمدرسين بياخدوا الحضور من Flutter. إيه أول ٣ أسئلة تسألها؟</span></summary><div class="answer">هل المدرس محتاج يشتغل offline في الفصل؟ كام مدرس بياخدوا الحضور في نفس الوقت أول الحصة؟ ومين بيشوف التقارير، ومحتاجها لحظية ولا عادي تتأخر شوية؟</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="system/interview"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="system/cap"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ CAP والـ Consistency</span></button><button type="button" class="next" data-go="devops" style="--c: var(--c-devops)"><span class="pager-k">الموضوع اللي بعده</span><span class="pager-t">DevOps و Production</span></button></div></footer></article></div><aside class="toc" aria-label="أقسام الدرس" hidden><p class="toc-title">في الدرس دا</p><ol></ol></aside></div></section><section class="panel" id="panel-devops" data-topic="devops" role="tabpanel" aria-labelledby="tab-devops" hidden style="--c: var(--c-devops)"><div class="topic-head"><h2>DevOps و Production</h2><p>الكود اللي مش في production مالوش قيمة، والكود اللي في production من غير مراقبة انت أصلًا مش عارف إذا كان شغال.</p></div><div class="route-scroll"><div class="route route--lessons" role="tablist" aria-label="دروس DevOps و Production"><button type="button" role="tab" class="stop" id="tab-devops-docker" data-k="devops/docker" aria-controls="lesson-devops-docker" aria-selected="true" tabindex="0"><span class="dot" aria-hidden="true"></span><span class="stop-label">Docker</span></button><button type="button" role="tab" class="stop" id="tab-devops-cicd" data-k="devops/cicd" aria-controls="lesson-devops-cicd" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">CI/CD</span></button><button type="button" role="tab" class="stop" id="tab-devops-migrations" data-k="devops/migrations" aria-controls="lesson-devops-migrations" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">Migrations</span></button><button type="button" role="tab" class="stop" id="tab-devops-cloud" data-k="devops/cloud" aria-controls="lesson-devops-cloud" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Cloud</span></button><button type="button" role="tab" class="stop" id="tab-devops-observability" data-k="devops/observability" aria-controls="lesson-devops-observability" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">المراقبة</span></button></div></div><div class="lesson-layout"><div class="lesson-stack"><article class="lesson" id="lesson-devops-docker" data-k="devops/docker" role="tabpanel" aria-labelledby="tab-devops-docker" tabindex="-1"><h3>Docker للـ production</h3><div class="lesson-body"><p>الـ image اللي بتروح production لازم تبقى صغيرة وآمنة، وبتتبني بنفس الطريقة كل مرة.</p>
+<ul>
+<li><strong>Multi-stage build:</strong> مرحلة بتبني فيها المكتبات بأدوات الـ compile، ومرحلة نهائية خفيفة فيها اللي محتاجه بس.</li>
+<li><strong>ما تشغّلش كـ root:</strong> لو حد اخترق الـ container، ما ياخدش صلاحيات كاملة.</li>
+<li><strong><code>.dockerignore</code>:</strong> عشان <code>.git</code> و<code>.env</code> والـ media ما يدخلوش الـ image.</li>
+<li><strong>Image واحدة وأوامر مختلفة:</strong> نفس الـ image تشغّل gunicorn للـ web، وcelery worker، وcelery beat.</li>
+<li><strong>الإعدادات من environment variables</strong>، مش مكتوبة في الكود.</li>
+</ul>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">Dockerfile</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.12-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>build-essential
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>wheel<span class="w"> </span>--no-cache-dir<span class="w"> </span>--wheel-dir<span class="w"> </span>/wheels<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="k">FROM</span><span class="w"> </span><span class="s">python:3.12-slim</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">RUN</span><span class="w"> </span>useradd<span class="w"> </span>--create-home<span class="w"> </span>appuser
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder<span class="w"> </span>/wheels<span class="w"> </span>/wheels
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>/wheels/*<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/wheels
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">USER</span><span class="w"> </span><span class="s">appuser</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gunicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;config.wsgi:application&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--bind&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0:8000&quot;</span><span class="p">]</span></code></pre></figure>
+<p>لاحظ إن <code>build-essential</code> موجود في مرحلة الـ builder بس، فالـ image النهائية أصغر، وفيها أدوات أقل ممكن تتستغل.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه الـ multi-stage build بيخلي الـ image أصغر وأأمن؟</span></summary><div class="answer">لأن أدوات الـ compile زي <code>build-essential</code> بتفضل في مرحلة الـ builder وما بتدخلش الـ image النهائية. image أصغر يعني تنزيل وdeploy أسرع، وأدوات أقل ممكن حد يستغلها لو اخترق الـ container.</div></details><details><summary><span class="q">ليه تشغّل الـ web والـ worker والـ beat من نفس الـ image؟</span></summary><div class="answer">عشان الكود والمكتبات يبقوا نفس النسخة بالظبط في التلاتة. بتبني مرة واحدة، وكل container بيختلف في الأمر اللي بيشغّله بس.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="devops/docker"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="system/interview"><span class="pager-k">الموضوع اللي فات</span><span class="pager-t">إزاي تجاوب على سؤال system design</span></button><button type="button" class="next" data-go="devops/cicd"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ CI/CD</span></button></div></footer></article><article class="lesson" id="lesson-devops-cicd" data-k="devops/cicd" role="tabpanel" aria-labelledby="tab-devops-cicd" tabindex="-1" hidden><h3>الـ CI/CD</h3><div class="lesson-body"><p>الـ CI بيمنع الكود البايظ يدخل، والـ CD بيخلي الـ deploy حاجة مملة ومتكررة، ودا بالظبط المطلوب.</p>
+<ul>
+<li><strong>CI مع كل PR:</strong> lint (ruff)، وtests، وbuild. الـ merge ممنوع لو فيه حاجة حمرا.</li>
+<li><strong>CD بعد الـ merge:</strong> build للـ image بـ tag هو الـ git SHA، وdeploy على staging، وsmoke tests، وبعدين production.</li>
+<li><strong>الـ Rollback:</strong> بما إن كل image ليها tag، الرجوع معناه deploy للـ tag اللي قبله.</li>
+</ul>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">.github/workflows/ci.yml</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CI</span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pull_request</span><span class="p p-Indicator">]</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">postgres</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:16</span>
+<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;5432:5432&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="w">          </span><span class="no">--health-cmd pg_isready --health-interval 10s</span>
+<span class="w">          </span><span class="no">--health-timeout 5s --health-retries 5</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.12&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff check .</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python manage.py test</span>
+<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres://postgres:postgres@localhost:5432/postgres</span></code></pre></figure></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه الـ image بتاخد tag هو الـ git SHA مش <code>latest</code>؟</span></summary><div class="answer">عشان كل image تبقى مربوطة بـ commit معين. تعرف بالظبط إيه اللي شغال في production، والـ rollback يبقى deploy للـ SHA اللي قبله.</div></details><details><summary><span class="q">ليه الـ CI فيه postgres service بدل SQLite في الـ tests؟</span></summary><div class="answer">عشان الـ tests تشتغل على نفس الداتابيز اللي في production. فيه سلوك مختلف بينهم، زي الـ constraints والـ locking والـ JSON fields، وSQLite ممكن تخبّي bugs.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="devops/cicd"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="devops/docker"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">Docker للـ production</span></button><button type="button" class="next" data-go="devops/migrations"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">Migrations من غير ما production يقع</span></button></div></footer></article><article class="lesson" id="lesson-devops-migrations" data-k="devops/migrations" role="tabpanel" aria-labelledby="tab-devops-migrations" tabindex="-1" hidden><h3>Migrations من غير ما production يقع</h3><div class="lesson-body"><p>أثناء الـ deploy، النسخة القديمة والجديدة من الكود بيشتغلوا في نفس الوقت لدقايق. لو migration مسحت عمود، الكود القديم اللي لسه شغال هيقع.</p>
+<p>الحل هو نمط <strong>expand/contract</strong>:</p>
+<ol>
+<li>ضيف العمود الجديد nullable (expand).</li>
+<li>deploy لكود بيكتب في القديم والجديد.</li>
+<li>انقل البيانات القديمة للعمود الجديد (backfill).</li>
+<li>deploy لكود بيقرا من الجديد بس.</li>
+<li>في deploy بعدها، امسح العمود القديم (contract).</li>
+</ol>
+<p>وخلي بالك من الـ migrations اللي بتقفل جدول كبير وقت طويل، زي إضافة index عادي. في PostgreSQL استخدم <code>AddIndexConcurrently</code> من <code>django.contrib.postgres.operations</code>، والـ migration دي لازم يبقى فيها <code>atomic = False</code>.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه migration بتمسح عمود ممكن توقع production حتى لو الكود الجديد مش بيستخدمه؟</span></summary><div class="answer">لأن أثناء الـ deploy الكود القديم لسه شغال على بعض السيرفرات وبيقرا العمود دا. أول ما الـ migration تمسحه، الطلبات اللي رايحة للكود القديم بتقع.</div></details><details><summary><span class="q">عايز تغيّر اسم عمود من <code>name</code> لـ <code>full_name</code>. اكتب الخطوات.</span></summary><div class="answer">ضيف <code>full_name</code> nullable، وdeploy كود بيكتب في الاتنين، وانقل البيانات القديمة، وdeploy كود بيقرا من <code>full_name</code> بس. وبعد ما تتأكد، امسح <code>name</code> في deploy لوحده.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="devops/migrations"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="devops/cicd"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ CI/CD</span></button><button type="button" class="next" data-go="devops/cloud"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Cloud: افهم المفاهيم، مش الشركة</span></button></div></footer></article><article class="lesson" id="lesson-devops-cloud" data-k="devops/cloud" role="tabpanel" aria-labelledby="tab-devops-cloud" tabindex="-1" hidden><h3>الـ Cloud: افهم المفاهيم، مش الشركة</h3><div class="lesson-body"><p>أسامي الخدمات بتختلف من شركة للتانية، لكن المفاهيم واحدة؛ لو فهمتها هتعرف تشتغل على أي cloud.</p>
+<ul>
+<li><strong>Compute:</strong> VMs، أو containers مُدارة زي Cloud Run وECS.</li>
+<li><strong>Managed database:</strong> الـ backups والـ failover والتحديثات عليهم. أغلى، بس لفريق صغير تقريبًا دايمًا تستاهل.</li>
+<li><strong>Object storage + CDN:</strong> للصور والملفات.</li>
+<li><strong>Networking:</strong> الداتابيز في private network، مش مكشوفة على الإنترنت.</li>
+<li><strong>IAM:</strong> كل خدمة تاخد أقل صلاحية محتاجاها.</li>
+</ul>
+<p>وKubernetes قوي جدًا، بس تمنه في التعقيد كبير، وأغلب المشاريع الصغيرة والمتوسطة مش محتاجاه.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">فريق من ٣ مطورين: تشغّل PostgreSQL بنفسك على VM ولا managed database؟</span></summary><div class="answer">غالبًا managed. فرق الفلوس أقل بكتير من تمن الـ backups والتحديثات والـ failover لو عملتهم بإيدك، وغلطة واحدة فيهم ممكن تضيّع بيانات.</div></details><details><summary><span class="q">ليه الداتابيز تبقى في private network؟</span></summary><div class="answer">عشان محدش من الإنترنت يقدر يوصل لها مباشرة، حتى لو الباسورد اتسرب. السيرفرات اللي جوه نفس الشبكة بس هي اللي تكلمها.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="devops/cloud"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="devops/migrations"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">Migrations من غير ما production يقع</span></button><button type="button" class="next" data-go="devops/observability"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Observability: تعرف المشكلة قبل العميل</span></button></div></footer></article><article class="lesson" id="lesson-devops-observability" data-k="devops/observability" role="tabpanel" aria-labelledby="tab-devops-observability" tabindex="-1" hidden><h3>الـ Observability: تعرف المشكلة قبل العميل</h3><div class="lesson-body"><p>الـ Observability هدفها إنك تعرف المشكلة قبل العميل، وتلاقي سببها بسرعة.</p>
+<ul>
+<li><strong>Logs:</strong> إيه اللي حصل. خليها structured (JSON)، وفيها <strong>request_id</strong> يمشي مع الطلب من الـ web لحد الـ Celery task، فتقدر تتبع طلب واحد وسط ملايين.</li>
+<li><strong>Metrics:</strong> كام ومرة قد إيه. راقب ٤ حاجات: الـ latency، وعدد الطلبات، ونسبة الأخطاء، ومدى امتلاء الموارد (CPU والذاكرة والـ connections).</li>
+<li><strong>Traces:</strong> الطلب قضّى وقته فين بالظبط: في الداتابيز؟ ولا في API خارجي؟</li>
+<li><strong>Error tracking:</strong> Sentry في Django وFlutter، مربوط برقم الـ release.</li>
+</ul>
+<p>واتعلم تقرا <strong>p95 وp99</strong> مش المتوسط. متوسط 200ms ممكن يخبّي إن ٥٪ من المستخدمين بيستنوا ٣ ثواني. وحط alerts على الأعراض اللي المستخدم بيحس بيها (الأخطاء زادت، الـ latency علي)، مش على كل حاجة، وإلا الفريق هيتعود يتجاهلها.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه p95 أهم من المتوسط؟</span></summary><div class="answer">المتوسط بيخبّي الطلبات البطيئة وسط الكتير السريع. الـ p95 بيقولك إن ٥٪ من الطلبات أبطأ من الرقم دا، ودول مستخدمين حقيقيين بيحسوا بالبطء.</div></details><details><summary><span class="q">إيه فايدة الـ request_id في الـ logs؟</span></summary><div class="answer">بيربط كل سطور الـ log الخاصة بطلب واحد، حتى لو اتوزعت على سيرفر الـ web والـ Celery worker. فتقدر تتبع مشكلة مستخدم معين من أولها لآخرها.</div></details><details><summary><span class="q">ليه الـ alerts تبقى على الأعراض مش على كل حاجة؟</span></summary><div class="answer">لأن كتر الـ alerts اللي مالهاش أثر على المستخدم بيعلّم الفريق يتجاهلها، فلما تيجي مشكلة حقيقية محدش ياخد باله. الأعراض زي نسبة الأخطاء والـ latency هي اللي تستاهل تصحّي حد.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="devops/observability"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="devops/cloud"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ Cloud: افهم المفاهيم، مش الشركة</span></button><button type="button" class="next" data-go="quality" style="--c: var(--c-quality)"><span class="pager-k">الموضوع اللي بعده</span><span class="pager-t">جودة الكود</span></button></div></footer></article></div><aside class="toc" aria-label="أقسام الدرس" hidden><p class="toc-title">في الدرس دا</p><ol></ol></aside></div></section><section class="panel" id="panel-quality" data-topic="quality" role="tabpanel" aria-labelledby="tab-quality" hidden style="--c: var(--c-quality)"><div class="topic-head"><h2>جودة الكود</h2><p>الكود بيتقري أضعاف ما بيتكتب، وجودته بتتقاس بحاجة واحدة: قد إيه سهل تغيّره من غير ما حاجة تتكسر.</p></div><div class="route-scroll"><div class="route route--lessons" role="tablist" aria-label="دروس جودة الكود"><button type="button" role="tab" class="stop" id="tab-quality-testing" data-k="quality/testing" aria-controls="lesson-quality-testing" aria-selected="true" tabindex="0"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Testing</span></button><button type="button" role="tab" class="stop" id="tab-quality-solid" data-k="quality/solid" aria-controls="lesson-quality-solid" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">SOLID</span></button><button type="button" role="tab" class="stop" id="tab-quality-patterns" data-k="quality/patterns" aria-controls="lesson-quality-patterns" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Patterns</span></button><button type="button" role="tab" class="stop" id="tab-quality-refactoring" data-k="quality/refactoring" aria-controls="lesson-quality-refactoring" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Refactoring</span></button><button type="button" role="tab" class="stop" id="tab-quality-review" data-k="quality/review" aria-controls="lesson-quality-review" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Code review</span></button></div></div><div class="lesson-layout"><div class="lesson-stack"><article class="lesson" id="lesson-quality-testing" data-k="quality/testing" role="tabpanel" aria-labelledby="tab-quality-testing" tabindex="-1"><h3>استراتيجية الـ Testing</h3><div class="lesson-body"><p>الـ tests شبكة الأمان اللي بتخليك تغيّر الكود وانت مطمّن.</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>النوع</th>
+<th>بيختبر إيه</th>
+<th>السرعة</th>
+<th>في مشروعك</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit</td>
+<td>دالة أو class لوحدها</td>
+<td>سريع جدًا</td>
+<td>قواعد البيزنس، والـ Cubits، والـ repositories</td>
+</tr>
+<tr>
+<td>Integration</td>
+<td>أجزاء مع بعض</td>
+<td>متوسط</td>
+<td>الـ API endpoints مع داتابيز حقيقية</td>
+</tr>
+<tr>
+<td>E2E</td>
+<td>التطبيق كله زي المستخدم</td>
+<td>بطيء وممكن يبقى متقلب</td>
+<td>الـ flows الحرجة: login والدفع</td>
+</tr>
+</tbody>
+</table></div>
+<p>الشكل المشهور هرم: unit كتير، وintegration أقل، وE2E قليل. وفي Django بالذات، اختبار الـ endpoints مع الداتابيز بيدي أعلى قيمة مقابل وقته.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">test_enrollment.py</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_cannot_enroll_when_course_is_full</span><span class="p">(</span><span class="n">api_client</span><span class="p">,</span> <span class="n">student</span><span class="p">,</span> <span class="n">full_course</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/api/courses/</span><span class="si">{</span><span class="n">full_course</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">/enroll/&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">409</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;error&#39;</span><span class="p">][</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SEAT_UNAVAILABLE&#39;</span></code></pre></figure>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">courses_cubit_test.dart</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="n">blocTest</span><span class="o">&lt;</span><span class="n">CoursesCubit</span><span class="p">,</span><span class="w"> </span><span class="n">CoursesState</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">  </span><span class="s1">&#39;emits loading then loaded when courses load&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">build:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">CoursesCubit</span><span class="p">(</span><span class="n">FakeCourseRepository</span><span class="p">()),</span>
+<span class="w">  </span><span class="nl">act:</span><span class="w"> </span><span class="p">(</span><span class="n">cubit</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">cubit</span><span class="p">.</span><span class="n">load</span><span class="p">(),</span>
+<span class="w">  </span><span class="nl">expect:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="k">const</span><span class="w"> </span><span class="n">CoursesLoading</span><span class="p">(),</span><span class="w"> </span><span class="n">isA</span><span class="o">&lt;</span><span class="n">CoursesLoaded</span><span class="o">&gt;</span><span class="p">()],</span>
+<span class="p">);</span></code></pre></figure>
+<p>قواعد مهمة:</p>
+<ul>
+<li>اختبر السلوك مش التفاصيل الداخلية، وإلا أي refactor هيكسر الـ tests.</li>
+<li>اعمل <strong>mock على الحدود بس</strong>: بوابة الدفع، والـ APIs الخارجية، والوقت. لو عملت mock لكل حاجة، الـ tests هتنجح والكود بايظ.</li>
+<li>كل bug بتصلحه، اكتب له test يفشل الأول، وبعدين صلّحه.</li>
+<li>الـ coverage مؤشر، مش هدف.</li>
+</ul></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه كتر الـ mocks ممكن يخلي الـ tests تنجح والكود بايظ؟</span></summary><div class="answer">لأن الـ mock بيرجّع اللي انت قلتله، مش اللي الكود الحقيقي بيعمله. لو الكود الحقيقي اتغير، الـ mock مش هيعرف، والـ test هيفضل أخضر وهو بيختبر افتراضاتك مش السلوك.</div></details><details><summary><span class="q">لقيت bug في حساب الخصم. إيه أول حاجة تعملها قبل ما تصلحه؟</span></summary><div class="answer">تكتب test بيعيد إنتاج الـ bug ويفشل. بعدها تصلّح لحد ما ينجح، فيبقى عندك دليل إنك صلحته، وحماية إنه ما يرجعش.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="quality/testing"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="devops/observability"><span class="pager-k">الموضوع اللي فات</span><span class="pager-t">الـ Observability: تعرف المشكلة قبل العميل</span></button><button type="button" class="next" data-go="quality/solid"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">SOLID بالبلدي</span></button></div></footer></article><article class="lesson" id="lesson-quality-solid" data-k="quality/solid" role="tabpanel" aria-labelledby="tab-quality-solid" tabindex="-1" hidden><h3>SOLID بالبلدي</h3><div class="lesson-body"><p>SOLID خمس قواعد هدفها واحد: لما المتطلبات تتغير، الكود يتغير في مكان واحد بس.</p>
+<ul>
+<li><strong>S، مسؤولية واحدة:</strong> الـ view اللي بيحسب ويبعت إيميل ويعمل PDF عنده ٣ أسباب يتغير. قسّمه لـ services.</li>
+<li><strong>O، ضيف من غير ما تعدّل:</strong> بوابة دفع جديدة تبقى class جديدة، مش <code>elif</code> جديد جوه دالة شغالة.</li>
+<li><strong>L، البديل يشتغل زي الأصل:</strong> لو class ورث من repository وبيرمي <code>NotImplementedError</code> في <code>save</code>، هيكسر أي كود بيستخدمه.</li>
+<li><strong>I، interfaces صغيرة:</strong> ما تجبرش class ينفّذ methods مش محتاجها.</li>
+<li><strong>D، اعتمد على الـ abstraction:</strong> زي <code>CourseRepository</code> في <a href="#flutter/architecture" data-go="flutter/architecture">درس معمارية Flutter</a>، اللي خلانا نختبر بـ fake.</li>
+</ul></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">عندك دالة <code>pay</code> فيها <code>if/elif</code> لكل بوابة دفع. أنهي مبدأ بتكسره، وإزاي تصلحه؟</span></summary><div class="answer">بتكسر Open/Closed: كل بوابة جديدة محتاجة تعديل في دالة شغالة. الحل interface واحد لكل البوابات، وكل بوابة class، والدالة تختار الـ class من غير ما تتعدل.</div></details><details><summary><span class="q">ليه الـ Dependency Inversion بيسهّل الـ testing؟</span></summary><div class="answer">لأن الكود بيعتمد على interface مش على class معين، فتقدر تديله fake في الـ test بدل الـ API الحقيقي أو الداتابيز. الـ test يبقى سريع ومش محتاج نت.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="quality/solid"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="quality/testing"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">استراتيجية الـ Testing</span></button><button type="button" class="next" data-go="quality/patterns"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">Patterns ليها لازمة في شغلك</span></button></div></footer></article><article class="lesson" id="lesson-quality-patterns" data-k="quality/patterns" role="tabpanel" aria-labelledby="tab-quality-patterns" tabindex="-1" hidden><h3>Patterns ليها لازمة في شغلك</h3><div class="lesson-body"><p>الـ design patterns حلول معروفة لمشاكل متكررة؛ المهم تعرف المشكلة قبل ما تختار الحل.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">payments.py</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="ltr" tabindex="0"><code><span class="k">class</span><span class="w"> </span><span class="nc">PaymentGateway</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">charge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="n">Decimal</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PaymentResult</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">StripeGateway</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">charge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span> <span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">PaymobGateway</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">charge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span> <span class="o">...</span>
+
+<span class="n">GATEWAYS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;stripe&#39;</span><span class="p">:</span> <span class="n">StripeGateway</span><span class="p">(),</span> <span class="s1">&#39;paymob&#39;</span><span class="p">:</span> <span class="n">PaymobGateway</span><span class="p">()}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">pay</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">GATEWAYS</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">charge</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">total</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span></code></pre></figure>
+<p>دا <strong>Strategy</strong>: بوابة جديدة = class جديد، و<code>pay()</code> ما بتتلمسش. وكمان:</p>
+<ul>
+<li><strong>Repository:</strong> بيخبّي مصدر البيانات (شفناه في Flutter).</li>
+<li><strong>Adapter:</strong> غلّف أي SDK خارجي بـ interface بتاعك، فلو غيّرته تغيّر مكان واحد.</li>
+<li><strong>Observer:</strong> زي Django signals والـ streams في Dart. خلي بالك: الـ signals بتخبّي تسلسل الكود، فما تحطش فيها business logic مهم.</li>
+</ul>
+<p>الـ pattern بيحل مشكلة موجودة؛ لو مفيش مشكلة، يبقى مجرد تعقيد.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه تغلّف SDK خارجي بـ Adapter بدل ما تستخدمه مباشرة في كل حتة؟</span></summary><div class="answer">عشان كودك يعتمد على interface انت عامله. لو غيّرت المزوّد أو الـ SDK اتغير، بتعدّل الـ Adapter بس، وفي الـ tests بتبدّله بـ fake بسهولة.</div></details><details><summary><span class="q">إمتى الـ Django signals تبقى اختيار وحش؟</span></summary><div class="answer">لما تحط فيها business logic مهم زي خصم فلوس أو إشعار أساسي. الـ signal بيتنفذ من غير ما يبان في الكود اللي بيستدعيه، فاللي يعدّل الـ view مش هيعرف إن فيه حاجة تانية بتحصل.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="quality/patterns"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="quality/solid"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">SOLID بالبلدي</span></button><button type="button" class="next" data-go="quality/refactoring"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Refactoring</span></button></div></footer></article><article class="lesson" id="lesson-quality-refactoring" data-k="quality/refactoring" role="tabpanel" aria-labelledby="tab-quality-refactoring" tabindex="-1" hidden><h3>الـ Refactoring</h3><div class="lesson-body"><p>الـ Refactoring تغيير شكل الكود من غير ما سلوكه يتغير، ولازم الـ tests تكون موجودة الأول كشبكة أمان.</p>
+<ul>
+<li>خطوات صغيرة، وكل commit الـ tests فيه خضرا.</li>
+<li>افصل PR الـ refactoring عن PR تغيير السلوك، عشان المراجع يفهم كل واحد لوحده.</li>
+<li><strong>Code smells</strong> تدوّر عليها: دوال طويلة، ولوجيك متكرر، وviews تخينة، وdicts بتتنقل في كل حتة بدل types واضحة، وif جوه if جوه if.</li>
+<li>النظام القديم الكبير ما تعيدش كتابته مرة واحدة؛ بدّله حتة حتة لحد ما القديم يختفي.</li>
+</ul></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">view فيه ٢٠٠ سطر بيحسب ويبعت إيميل ويعمل PDF. هتعمله refactor إزاي، وبأي ترتيب؟</span></summary><div class="answer">الأول اكتب tests على سلوكه الحالي. بعدها طلّع كل مسؤولية لـ service لوحدها (الحساب، والإيميل، والـ PDF) خطوة خطوة والـ tests خضرا، وانقل الإيميل والـ PDF لـ Celery tasks. في الآخر الـ view يستقبل الطلب وينادي الـ services بس.</div></details><details><summary><span class="q">ليه تفصل PR الـ refactoring عن PR تغيير السلوك؟</span></summary><div class="answer">عشان المراجع يعرف إن الـ refactoring المفروض ما يغيّرش أي سلوك، فيراجعه بعين، والتغيير الحقيقي بعين تانية. لو اتخلطوا، الـ bug بيستخبى وسط مئات السطور اللي اتنقلت.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="quality/refactoring"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="quality/patterns"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">Patterns ليها لازمة في شغلك</span></button><button type="button" class="next" data-go="quality/review"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Code review ومراجعة كود الـ AI</span></button></div></footer></article><article class="lesson" id="lesson-quality-review" data-k="quality/review" role="tabpanel" aria-labelledby="tab-quality-review" tabindex="-1" hidden><h3>الـ Code review ومراجعة كود الـ AI</h3><div class="lesson-body"><p>الـ code review آخر فرصة تمسك bug أو ثغرة قبل ما توصل للمستخدمين، مش بحث عن فواصل ومسافات.</p>
+<p>راجع بالترتيب دا، من الأهم للأقل أهمية:</p>
+<ol>
+<li>هل الكود صح؟ والحالات الطرفية (edge cases) متغطية؟</li>
+<li>الأمان: الصلاحيات والـ injection.</li>
+<li>البيانات: الـ migrations، والـ N+1، والـ transactions.</li>
+<li>التصميم وسهولة القراية.</li>
+<li>الـ tests موجودة؟</li>
+<li>الأسماء والـ style. وخلي أدوات زي ruff و<code>dart format</code> تعمل الجزء دا، بدل ما حد يتخانق عليه.</li>
+</ol>
+<p>اكتب تعليقك بلطف ووضّح «ليه»، وفرّق بين الحاجة اللي لازم تتصلح والملاحظة الصغيرة (ابدأها بـ <code>nit:</code>).</p>
+<p>وكود الـ AI راجعه زي كود junior شاطر: شكله مقنع، بس ممكن يستخدم API مش موجود، أو ينسى edge case، أو يخالف طريقة المشروع. ولو فيه سطر مش فاهمه، ما تعملش merge.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">في الـ code review، بتدوّر على إيه قبل الأسماء والـ style؟</span></summary><div class="answer">على الصحة والـ edge cases، وبعدها الأمان، وبعدها البيانات (الـ migrations والـ N+1 والـ transactions)، وبعدها التصميم والـ tests. الـ style سيبه للأدوات الأوتوماتيك.</div></details><details><summary><span class="q">إيه أكتر حاجة تركز عليها وانت بتراجع كود كتبه الـ AI؟</span></summary><div class="answer">إنه ممكن يبان صح وهو غلط: API مش موجود، أو edge case منسي، أو ثغرة زي queryset مش متفلتر بالمستخدم. وأهم قاعدة: السطر اللي مش فاهمه ما يتعملوش merge.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="quality/review"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="quality/refactoring"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ Refactoring</span></button><button type="button" class="next" data-go="lead" style="--c: var(--c-lead)"><span class="pager-k">الموضوع اللي بعده</span><span class="pager-t">مهارات الـ Lead</span></button></div></footer></article></div><aside class="toc" aria-label="أقسام الدرس" hidden><p class="toc-title">في الدرس دا</p><ol></ol></aside></div></section><section class="panel" id="panel-lead" data-topic="lead" role="tabpanel" aria-labelledby="tab-lead" hidden style="--c: var(--c-lead)"><div class="topic-head"><h2>مهارات الـ Lead</h2><p>الـ Lead بيتقاس بإنتاجية الفريق كله، مش بإنتاجيته هو؛ شغلته الأساسية إنه يقلل الغموض ويشيل العوائق.</p></div><div class="route-scroll"><div class="route route--lessons" role="tablist" aria-label="دروس مهارات الـ Lead"><button type="button" role="tab" class="stop" id="tab-lead-planning" data-k="lead/planning" aria-controls="lesson-lead-planning" aria-selected="true" tabindex="0"><span class="dot" aria-hidden="true"></span><span class="stop-label">التقسيم والتقدير</span></button><button type="button" role="tab" class="stop" id="tab-lead-adr" data-k="lead/adr" aria-controls="lesson-lead-adr" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ ADRs</span></button><button type="button" role="tab" class="stop" id="tab-lead-incidents" data-k="lead/incidents" aria-controls="lesson-lead-incidents" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">الـ Incidents</span></button><button type="button" role="tab" class="stop" id="tab-lead-communication" data-k="lead/communication" aria-controls="lesson-lead-communication" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">التواصل</span></button><button type="button" role="tab" class="stop" id="tab-lead-mentoring" data-k="lead/mentoring" aria-controls="lesson-lead-mentoring" aria-selected="false" tabindex="-1"><span class="dot" aria-hidden="true"></span><span class="stop-label">تعليم الـ juniors</span></button></div></div><div class="lesson-layout"><div class="lesson-stack"><article class="lesson" id="lesson-lead-planning" data-k="lead/planning" role="tabpanel" aria-labelledby="tab-lead-planning" tabindex="-1"><h3>تقسيم الشغل والتقدير</h3><div class="lesson-body"><p>التقسيم الصح بيطلّع حاجة شغالة بدري، والتقدير الأمين بيحميك من وعود مش هتقدر توفيها.</p>
+<h4 id="lead-planning-s1">تقسيم الشغل</h4>
+<p>قسّم الـ feature لمهام، كل واحدة يوم أو اتنين بالكتير. واقطعها <strong>vertical slices</strong>: شريحة رفيعة من الأول للآخر (الداتابيز، والـ API، وشاشة Flutter)، بدل ما تخلص الـ backend كله الأول. كدا بيبقى عندك حاجة شغالة بدري، ومشاكل الربط بين الـ backend والتطبيق بتظهر في الأسبوع الأول مش الأخير.</p>
+<h4 id="lead-planning-s2">التقدير (Estimation)</h4>
+<p>التقدير مدى، مش وعد. أبسط طريقة إنك تقدّر ٣ أرقام: متفائل (O)، ومتوقع (M)، ومتشائم (P):</p>
+<div class="formula" dir="ltr" role="img" aria-label="E = (O + 4M + P) / 6"><span class="f-var">E</span><span class="f-op">=</span><span class="frac"><span class="f-num">O + 4M + P</span><span class="f-den">6</span></span></div>
+
+<p>مثال: O = 2 يوم، وM = 4، وP = 10، يبقى E = 28 ÷ 6، يعني حوالي 4.7 يوم. الفرق الكبير بين O وP معناه إن فيه مجهول كبير. في الحالة دي اعمل <strong>spike</strong>: وقت محدد (يوم مثلًا) تستكشف فيه قبل ما تلتزم.</p>
+<p>وافتكر إن التقدير يشمل الـ tests والمراجعة والـ deploy، مش الكود بس. ولو حاجة هتتأخر، قول بدري؛ الخبر الوحش بدري ممكن يتدار، ومتأخر بيبقى أزمة.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">ليه الـ vertical slice أحسن من إنك تخلص الـ backend كله الأول؟</span></summary><div class="answer">لأنك بتطلّع حاجة شغالة من أولها لآخرها بدري، فتكتشف مشاكل الربط بين الـ API والتطبيق وسوء فهم المتطلبات في الأسبوع الأول. وكمان تقدر تعرض تقدم حقيقي مش نسبة مئوية.</div></details><details><summary><span class="q">قدّرت مهمة: O = 1، وM = 3، وP = 11 يوم. احسب E، وإيه اللي الأرقام دي بتقولهولك؟</span></summary><div class="answer">E = (1 + 12 + 11) ÷ 6 = 4 أيام. والفرق الكبير بين 1 و11 معناه إن فيه مجهول كبير، فالأحسن تعمل spike قبل ما تلتزم بميعاد.</div></details><details><summary><span class="q">مديرك عايز feature في أسبوع وانت شايفها ٣ أسابيع. هتقوله إيه؟</span></summary><div class="answer">اشرح ليه ٣ أسابيع، واعرض اختيارات: نسخة أصغر تطلع في أسبوع وفيها كذا وناقصها كذا، أو الـ feature كاملة في ٣ أسابيع، أو نشيل حاجة تانية من الخطة. خليه يختار وهو فاهم التمن.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="lead/planning"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="quality/review"><span class="pager-k">الموضوع اللي فات</span><span class="pager-t">الـ Code review ومراجعة كود الـ AI</span></button><button type="button" class="next" data-go="lead/adr"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ ADRs: اكتب ليه اخترت</span></button></div></footer></article><article class="lesson" id="lesson-lead-adr" data-k="lead/adr" role="tabpanel" aria-labelledby="tab-lead-adr" tabindex="-1" hidden><h3>الـ ADRs: اكتب ليه اخترت</h3><div class="lesson-body"><p>الـ ADR (Architecture Decision Record) مستند قصير لكل قرار تقني مهم، متخزّن جوه الـ repo. بعد ٦ شهور محدش هيفتكر ليه اخترتوا Riverpod أو cursor pagination.</p>
+<p>الـ ADR بيمنع الفريق يعيد نفس النقاش كل شوية، وبيفهّم أي حد جديد بسرعة.</p>
+<figure class="code"><figcaption class="code-bar"><span class="code-lang">docs/adr/0007-cursor-pagination.md</span><button type="button" class="copy" aria-live="polite">انسخ</button></figcaption><pre dir="rtl" tabindex="0"><code><span class="gh"># ADR-0007: Cursor pagination للـ feed</span>
+
+<span class="gu">## الحالة</span>
+مقبول
+
+<span class="gu">## السياق</span>
+الـ feed بيتحدث باستمرار، والـ offset pagination بيكرر عناصر في الـ infinite scroll.
+
+<span class="gu">## القرار</span>
+هنستخدم CursorPagination مترتبة بـ -created_at.
+
+<span class="gu">## البدائل اللي اترفضت</span>
+<span class="k">-</span><span class="w"> </span>Offset pagination: أبسط، بس بيكرر عناصر وبيبطأ في الصفحات البعيدة.
+
+<span class="gu">## العواقب</span>
+<span class="k">-</span><span class="w"> </span>(+) الـ scroll ثابت وسريع.
+<span class="k">-</span><span class="w"> </span>(−) مفيش «روح لصفحة 10».</code></pre></figure>
+<p>أهم جزء فيه «البدائل» و«العواقب»، لأنهم بيجبروك تفكر في الـ trade-offs.</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">إيه أهم جزء في الـ ADR، وليه؟</span></summary><div class="answer">البدائل اللي اترفضت والعواقب. هما اللي بيشرحوا ليه القرار اتاخد وإيه تمنه، فأي حد جديد يفهم من غير ما يعيد نفس النقاش.</div></details><details><summary><span class="q">إمتى تكتب ADR؟</span></summary><div class="answer">لأي قرار صعب ترجع فيه، أو هيأثر على الفريق فترة طويلة: اختيار الـ state management، أو شكل الـ pagination، أو طريقة الـ auth. مش لكل تفصيلة صغيرة.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="lead/adr"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="lead/planning"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">تقسيم الشغل والتقدير</span></button><button type="button" class="next" data-go="lead/incidents"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الـ Incidents: لما production يقع</span></button></div></footer></article><article class="lesson" id="lesson-lead-incidents" data-k="lead/incidents" role="tabpanel" aria-labelledby="tab-lead-incidents" tabindex="-1" hidden><h3>الـ Incidents: لما production يقع</h3><div class="lesson-body"><p>وقت الأزمة، الأولوية إن الخدمة ترجع؛ فهم السبب ييجي بعدين، وبهدوء.</p>
+<h4 id="lead-incidents-s1">أثناء المشكلة</h4>
+<ol>
+<li><strong>رجّع الخدمة الأول، وافهم السبب بعدين:</strong> rollback، أو اقفل الـ feature بـ feature flag، أو زوّد السيرفرات.</li>
+<li><strong>شخص واحد بيقود</strong> وبيوزع، والباقي بينفذوا. من غير كدا، ٥ أشخاص بيجربوا ٥ حاجات في نفس الوقت ويلخبطوا بعض.</li>
+<li><strong>طمّن الناس بانتظام:</strong> «إحنا شغالين عليها، والتحديث الجاي بعد ٣٠ دقيقة»، حتى لو مفيش جديد.</li>
+<li><strong>سجّل timeline:</strong> إيه اللي حصل إمتى.</li>
+</ol>
+<h4 id="lead-incidents-s2">بعد المشكلة: Postmortem من غير لوم</h4>
+<p>إيه اللي حصل، وأثره على المستخدمين، والسبب الجذري (اسأل «ليه؟» كذا مرة لحد ما توصله)، وإيه اللي نفع، ومهام تتعمل لكل واحدة مسؤول.</p>
+<p>من غير لوم لأن الناس لو اتلاموا هيخبّوا غلطاتهم، والمشكلة هتتكرر. السؤال مش «مين غلط؟»، السؤال «إيه في النظام سمح إن الغلطة دي توصل production؟»</p></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">السيرفر وقع الساعة ٢ بالليل. إيه أول ٣ حاجات تعملها؟</span></summary><div class="answer">ترجّع الخدمة بأسرع طريقة (rollback أو إيقاف الـ feature)، وتحدد مين بيقود ويوزع الشغل، وتطمّن الناس المتأثرين بتحديثات منتظمة. البحث عن السبب الجذري بعد ما الخدمة ترجع.</div></details><details><summary><span class="q">ليه الـ postmortem لازم يكون من غير لوم؟</span></summary><div class="answer">لأن الناس لو اتلاموا هيخبّوا غلطاتهم، والمعلومات الحقيقية مش هتظهر. الهدف تلاقي إيه في النظام سمح للغلطة توصل production وتقفله.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="lead/incidents"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="lead/adr"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ ADRs: اكتب ليه اخترت</span></button><button type="button" class="next" data-go="lead/communication"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">الكلام مع ناس مش تقنيين</span></button></div></footer></article><article class="lesson" id="lesson-lead-communication" data-k="lead/communication" role="tabpanel" aria-labelledby="tab-lead-communication" tabindex="-1" hidden><h3>الكلام مع ناس مش تقنيين</h3><div class="lesson-body"><p>ترجم الكلام التقني لأثر على البيزنس. بدل «محتاجين نعمل refactor للـ auth module»، قول: «أي تعديل في تسجيل الدخول بياخد ٣ أضعاف وقته. أسبوعين تنضيف هيقللوا وقت التعديلات الجاية للنص، ويقللوا المخاطر الأمنية.»</p>
+<ul>
+<li>اعرض اختيارات، لكل واحد وقته وتكلفته ومخاطره، ومعاهم ترشيحك.</li>
+<li>ابدأ بالخلاصة، والتفاصيل لو اتسألت.</li>
+<li>«مش عارف لسه، هرد عليك الخميس» أحسن ألف مرة من رقم بتخمّنه.</li>
+</ul></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">حوّل الجملة دي لكلام بيزنس: «الداتابيز محتاجة indexes».</span></summary><div class="answer">مثلًا: «صفحة التقارير بتاخد ١٠ ثواني والمستخدمين بيشتكوا. يومين شغل هيخلوها أقل من ثانية.» الأثر والتكلفة والنتيجة، من غير مصطلحات.</div></details><details><summary><span class="q">ليه «مش عارف لسه، هرد عليك الخميس» أحسن من رقم بتخمّنه؟</span></summary><div class="answer">لأن الرقم اللي بتقوله بيتحول لوعد، والناس بتبني عليه خطط. التخمين الغلط بيضيّع الثقة، لكن ميعاد واضح للرد بيحافظ عليها.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="lead/communication"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="lead/incidents"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الـ Incidents: لما production يقع</span></button><button type="button" class="next" data-go="lead/mentoring"><span class="pager-k">الدرس اللي بعده</span><span class="pager-t">تعليم الـ juniors</span></button></div></footer></article><article class="lesson" id="lesson-lead-mentoring" data-k="lead/mentoring" role="tabpanel" aria-labelledby="tab-lead-mentoring" tabindex="-1" hidden><h3>تعليم الـ juniors</h3><div class="lesson-body"><p>شغلتك إن الـ junior يبقى قادر يحل المشكلة الجاية لوحده، مش إنك تحلها انت أسرع.</p>
+<ul>
+<li><strong>ما تاخدش منهم الكيبورد.</strong> اسأل أسئلة توجّههم، وسيبهم يوصلوا.</li>
+<li><strong>حدد وقت للزنقة:</strong> اللي واقف في مشكلة أكتر من ساعتين يسأل، ما يفضلش يومين لوحده.</li>
+<li><strong>زوّد الصعوبة بالتدريج:</strong> مهمة أصعب شوية كل مرة، مع دعم.</li>
+<li><strong>الـ code review فرصة تعليم:</strong> اشرح ليه، مش بس «غيّر دا».</li>
+<li><strong>خلي السؤال والغلط آمنين:</strong> الفريق اللي بيخاف يسأل بيعمل غلطات أكبر.</li>
+<li><strong>وفي زمن الـ AI:</strong> علّمهم يفهموا الكود اللي الـ AI بيكتبه، مش بس يعملوله paste.</li>
+</ul></div><section class="quiz" aria-label="اختبر نفسك"><h4 class="quiz-title">اختبر نفسك</h4><p class="quiz-hint">جاوب في دماغك الأول، وبعدين دوس على السؤال عشان تشوف الإجابة.</p><details><summary><span class="q">junior واقف في bug بقاله ساعة. تعمل إيه؟</span></summary><div class="answer">ما تصلحهوش بنفسك. اسأله جرّب إيه ووصل لحد فين، ووجّهه بسؤال يقرّبه من المكان الصح. ولو واقف فعلًا، اديله خطوة واحدة يقف عليها وسيبه يكمل.</div></details><details><summary><span class="q">إزاي تعلّم junior يستخدم الـ AI صح؟</span></summary><div class="answer">خليه يشرحلك الكود اللي الـ AI كتبه سطر سطر قبل الـ merge، ويكتب له tests. الهدف إنه يفهم ويقيّم، مش ينسخ.</div></details></section><footer class="lesson-foot"><label class="done-toggle"><input type="checkbox" data-k="lead/mentoring"> خلّصت الدرس دا</label><div class="pager"><button type="button" class="prev" data-go="lead/communication"><span class="pager-k">الدرس اللي فات</span><span class="pager-t">الكلام مع ناس مش تقنيين</span></button><button type="button" class="next" data-go="home" style="--c: var(--c-home)"><span class="pager-k">آخر درس في الطريق</span><span class="pager-t">رجوع للخريطة</span></button></div></footer></article></div><aside class="toc" aria-label="أقسام الدرس" hidden><p class="toc-title">في الدرس دا</p><ol></ol></aside></div></section>
+</main>
+<script type="application/json" id="guide-data">{"topics": [{"id": "backend", "lessons": [{"key": "backend/db-design", "title": "تصميم قاعدة البيانات"}, {"key": "backend/orm", "title": "أداء الـ ORM"}, {"key": "backend/transactions", "title": "الـ Transactions والـ Concurrency"}, {"key": "backend/jobs-cache", "title": "الـ Background jobs والـ Caching"}, {"key": "backend/api", "title": "تصميم الـ API"}, {"key": "backend/security", "title": "الـ Security"}]}, {"id": "flutter", "lessons": [{"key": "flutter/architecture", "title": "معمارية تطبيق Flutter"}, {"key": "flutter/offline", "title": "الـ Offline-first والـ Sync"}, {"key": "flutter/performance", "title": "أداء Flutter"}, {"key": "flutter/release", "title": "الـ Release والنشر"}]}, {"id": "system", "lessons": [{"key": "system/scaling", "title": "ابدأ بالأرقام، وبعدين الـ Scaling"}, {"key": "system/database", "title": "الداتابيز: عنق الزجاجة"}, {"key": "system/queues-limits", "title": "الطوابير والـ Rate limiting"}, {"key": "system/cap", "title": "الـ CAP والـ Consistency"}, {"key": "system/interview", "title": "إزاي تجاوب على سؤال system design"}]}, {"id": "devops", "lessons": [{"key": "devops/docker", "title": "Docker للـ production"}, {"key": "devops/cicd", "title": "الـ CI/CD"}, {"key": "devops/migrations", "title": "Migrations من غير ما production يقع"}, {"key": "devops/cloud", "title": "الـ Cloud: افهم المفاهيم، مش الشركة"}, {"key": "devops/observability", "title": "الـ Observability: تعرف المشكلة قبل العميل"}]}, {"id": "quality", "lessons": [{"key": "quality/testing", "title": "استراتيجية الـ Testing"}, {"key": "quality/solid", "title": "SOLID بالبلدي"}, {"key": "quality/patterns", "title": "Patterns ليها لازمة في شغلك"}, {"key": "quality/refactoring", "title": "الـ Refactoring"}, {"key": "quality/review", "title": "الـ Code review ومراجعة كود الـ AI"}]}, {"id": "lead", "lessons": [{"key": "lead/planning", "title": "تقسيم الشغل والتقدير"}, {"key": "lead/adr", "title": "الـ ADRs: اكتب ليه اخترت"}, {"key": "lead/incidents", "title": "الـ Incidents: لما production يقع"}, {"key": "lead/communication", "title": "الكلام مع ناس مش تقنيين"}, {"key": "lead/mentoring", "title": "تعليم الـ juniors"}]}]}</script>
+<script>
+(function () {
+  'use strict';
+
+  var data = JSON.parse(document.getElementById('guide-data').textContent);
+  var KEY = 'senior-lead-guide:v1';
+  var fmt = new Intl.NumberFormat('ar-EG');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var behavior = reduced ? 'auto' : 'smooth';
+
+  var lessons = {};
+  var firstLesson = {};
+  data.topics.forEach(function (t) {
+    firstLesson[t.id] = t.lessons[0].key;
+    t.lessons.forEach(function (l) { lessons[l.key] = { title: l.title, topic: t.id }; });
+  });
+
+  var store = { done: [], last: null, lessonOf: {} };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object') {
+        if (Array.isArray(saved.done)) store.done = saved.done;
+        if (typeof saved.last === 'string') store.last = saved.last;
+        if (saved.lessonOf && typeof saved.lessonOf === 'object') store.lessonOf = saved.lessonOf;
+      }
+    }
+  } catch (e) { /* storage unavailable: progress lives only in this tab */ }
+
+  var done = new Set(store.done.filter(function (k) { return lessons[k]; }));
+
+  function persist() {
+    store.done = Array.from(done);
+    try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) { /* ignore */ }
+  }
+
+  var topicTabs = Array.prototype.slice.call(document.querySelectorAll('#topic-route [role="tab"]'));
+  var panels = {};
+  Array.prototype.forEach.call(document.querySelectorAll('.panel'), function (p) { panels[p.dataset.topic] = p; });
+
+  function selectTab(list, active) {
+    list.forEach(function (t) {
+      var on = t === active;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+  }
+
+  function revealInRoute(tab) {
+    var box = tab.closest('.route-scroll');
+    if (!box || box.scrollWidth <= box.clientWidth + 1) return;
+    var b = box.getBoundingClientRect();
+    var r = tab.getBoundingClientRect();
+    box.scrollBy({ left: (r.left + r.width / 2) - (b.left + b.width / 2), behavior: behavior });
+  }
+
+  function writeHash(h) {
+    try { history.replaceState(null, '', '#' + h); } catch (e) { /* ignore */ }
+  }
+
+  function bringIntoView(el) {
+    if (!el) return;
+    var top = el.getBoundingClientRect().top;
+    if (top < 0 || top > window.innerHeight * 0.6) el.scrollIntoView({ block: 'start', behavior: behavior });
+  }
+
+  function buildToc(panel) {
+    var toc = panel.querySelector('.toc');
+    if (!toc) return;
+    var list = toc.querySelector('ol');
+    var article = panel.querySelector('.lesson:not([hidden])');
+    var heads = article ? article.querySelectorAll('.lesson-body h4') : [];
+    list.textContent = '';
+    Array.prototype.forEach.call(heads, function (h) {
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.toc = h.id;
+      b.textContent = h.textContent;
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+    toc.hidden = heads.length < 2;
+  }
+
+  function showLesson(key, opts) {
+    opts = opts || {};
+    var topicId = lessons[key].topic;
+    var panel = panels[topicId];
+    var tabs = Array.prototype.slice.call(panel.querySelectorAll('.route--lessons [role="tab"]'));
+    var tab = null;
+    tabs.forEach(function (t) { if (t.dataset.k === key) tab = t; });
+    Array.prototype.forEach.call(panel.querySelectorAll('.lesson'), function (a) { a.hidden = a.dataset.k !== key; });
+    selectTab(tabs, tab);
+    store.lessonOf[topicId] = key;
+    store.last = key;
+    persist();
+    writeHash(key);
+    buildToc(panel);
+    if (tab) revealInRoute(tab);
+    if (opts.scroll) bringIntoView(panel.querySelector('.topic-head'));
+  }
+
+  function paintResume() {
+    var box = document.getElementById('resume');
+    if (!box) return;
+    var k = store.last;
+    if (k && lessons[k]) {
+      var btn = box.querySelector('button');
+      btn.dataset.go = k;
+      btn.style.setProperty('--c', 'var(--c-' + lessons[k].topic + ')');
+      box.querySelector('.resume-title').textContent = lessons[k].title;
+      box.hidden = false;
+    } else {
+      box.hidden = true;
+    }
+  }
+
+  function showTopic(topicId, key, opts) {
+    opts = opts || {};
+    if (!panels[topicId]) topicId = 'home';
+    Object.keys(panels).forEach(function (id) { panels[id].hidden = id !== topicId; });
+    var tab = null;
+    topicTabs.forEach(function (t) { if (t.dataset.topic === topicId) tab = t; });
+    selectTab(topicTabs, tab);
+    if (tab) revealInRoute(tab);
+    if (topicId === 'home') {
+      writeHash('home');
+      paintResume();
+      if (opts.scroll && window.scrollY > 0) window.scrollTo({ top: 0, behavior: behavior });
+      return;
+    }
+    if (!key || !lessons[key] || lessons[key].topic !== topicId) {
+      var remembered = store.lessonOf[topicId];
+      key = remembered && lessons[remembered] && lessons[remembered].topic === topicId ? remembered : firstLesson[topicId];
+    }
+    showLesson(key, { scroll: opts.scroll });
+  }
+
+  function paint() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-k]'), function (el) {
+      var on = done.has(el.dataset.k);
+      if (el.tagName === 'INPUT') el.checked = on;
+      else el.classList.toggle('is-done', on);
+    });
+    data.topics.forEach(function (t) {
+      var n = t.lessons.filter(function (l) { return done.has(l.key); }).length;
+      var label = fmt.format(n) + ' من ' + fmt.format(t.lessons.length);
+      Array.prototype.forEach.call(document.querySelectorAll('[data-count="' + t.id + '"]'), function (el) {
+        el.textContent = label;
+      });
+      topicTabs.forEach(function (tab) {
+        if (tab.dataset.topic === t.id) tab.style.setProperty('--p', String(n / t.lessons.length));
+      });
+    });
+    document.getElementById('done-count').textContent = fmt.format(done.size);
+  }
+
+  function copyCode(btn) {
+    var pre = btn.closest('.code').querySelector('pre');
+    var text = pre.innerText;
+    function flash(msg) {
+      btn.textContent = msg;
+      clearTimeout(btn._timer);
+      btn._timer = setTimeout(function () { btn.textContent = 'انسخ'; }, 1800);
+    }
+    function selectInstead() {
+      try {
+        var range = document.createRange();
+        range.selectNodeContents(pre);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        var ok = document.execCommand && document.execCommand('copy');
+        flash(ok ? 'اتنسخ' : 'اتحدد، انسخه');
+      } catch (e) {
+        flash('اتحدد، انسخه');
+      }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { flash('اتنسخ'); }, selectInstead);
+    } else {
+      selectInstead();
+    }
+  }
+
+  function route(hash, opts) {
+    var h;
+    try { h = decodeURIComponent((hash || '').replace(/^#/, '')); } catch (e) { return false; }
+    if (h === 'home') { showTopic('home', null, opts); return true; }
+    if (lessons[h]) { showTopic(lessons[h].topic, h, opts); return true; }
+    if (h && panels[h]) { showTopic(h, null, opts); return true; }
+    return false;
+  }
+
+  document.addEventListener('click', function (e) {
+    var go = e.target.closest('[data-go]');
+    if (go) {
+      e.preventDefault();
+      var k = go.dataset.go;
+      if (lessons[k]) showTopic(lessons[k].topic, k, { scroll: true });
+      else showTopic(k, null, { scroll: true });
+      return;
+    }
+    var tab = e.target.closest('[role="tab"]');
+    if (tab) {
+      if (tab.dataset.topic) showTopic(tab.dataset.topic, null, { scroll: true });
+      else if (tab.dataset.k) showLesson(tab.dataset.k, { scroll: false });
+      return;
+    }
+    var copy = e.target.closest('.copy');
+    if (copy) { copyCode(copy); return; }
+    var toc = e.target.closest('[data-toc]');
+    if (toc) {
+      var target = document.getElementById(toc.dataset.toc);
+      if (target) target.scrollIntoView({ block: 'start', behavior: behavior });
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    var tab = e.target.closest && e.target.closest('[role="tab"]');
+    if (!tab) return;
+    var list = Array.prototype.slice.call(tab.closest('[role="tablist"]').querySelectorAll('[role="tab"]'));
+    var i = list.indexOf(tab);
+    var rtl = getComputedStyle(tab).direction === 'rtl';
+    var j = null;
+    if (e.key === 'ArrowLeft') j = rtl ? i + 1 : i - 1;
+    else if (e.key === 'ArrowRight') j = rtl ? i - 1 : i + 1;
+    else if (e.key === 'Home') j = 0;
+    else if (e.key === 'End') j = list.length - 1;
+    if (j === null) return;
+    e.preventDefault();
+    j = (j + list.length) % list.length;
+    list[j].click();
+    list[j].focus();
+  });
+
+  document.addEventListener('change', function (e) {
+    var box = e.target;
+    if (box.tagName !== 'INPUT' || !box.dataset.k) return;
+    if (box.checked) done.add(box.dataset.k);
+    else done.delete(box.dataset.k);
+    persist();
+    paint();
+  });
+
+  window.addEventListener('hashchange', function () { route(location.hash, { scroll: true }); });
+
+  paint();
+  if (!route(location.hash, {})) showTopic('home', null, {});
+})();
+
+</script>
+</body>
+</html>
